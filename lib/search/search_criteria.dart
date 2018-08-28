@@ -16,6 +16,8 @@ class SearchCriteriaState extends State<SearchCriteria> {
   static const _BASE_ENDPOINT =
       'https://bhh9vcma76.execute-api.eu-central-1.amazonaws.com/sandbox/';
 
+  Location _selected;
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -30,7 +32,7 @@ class SearchCriteriaState extends State<SearchCriteria> {
       );
 
   Widget _buildStack(BuildContext context, BoxConstraints constraints) {
-    final ThemeData theme = Theme.of(context);
+    final theme = Theme.of(context);
 
     return Container(
       color: theme.primaryColor,
@@ -60,7 +62,11 @@ class SearchCriteriaState extends State<SearchCriteria> {
                                   child: Text(item.label),
                                 ),
                             onSearch: _getAutocompleteLocations,
-                            onChanged: _pushLocation,
+                            onChanged: (it) {
+                              setState(() {
+                                _selected = it;
+                              });
+                            },
                           ),
                         ),
                       ),
@@ -76,7 +82,7 @@ class SearchCriteriaState extends State<SearchCriteria> {
                           child: RaisedButton(
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
-                              child: const Text(
+                              child: Text(
                                 "Search",
                                 style: TextStyle(
                                   color: Colors.white,
@@ -84,10 +90,13 @@ class SearchCriteriaState extends State<SearchCriteria> {
                                 ),
                               ),
                             ),
-                            color: const Color(0xE6FF7500),
-                            onPressed: () {
-                              print("pressed");
-                            },
+                            color: Color(0xE6FF7500),
+                            disabledColor: Colors.grey,
+                            onPressed: _selected == null
+                                ? null
+                                : () {
+                                    _pushLocation(_selected);
+                                  },
                           ),
                         ),
                       ),
