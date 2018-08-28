@@ -34,7 +34,7 @@ class SearchCriteriaState extends State<SearchCriteria>
         appBar: new AppBar(
           elevation: 0.0,
           title: new Text("Private Investors Portal"),
-          leading: new IconButton(
+          /*leading: new IconButton(
             onPressed: () {
               _animationController.fling(
                 velocity: _isPanelVisible ? -1.0 : 1.0,
@@ -44,7 +44,7 @@ class SearchCriteriaState extends State<SearchCriteria>
               icon: AnimatedIcons.close_menu,
               progress: _animationController.view,
             ),
-          ),
+          ),*/
         ),
         body: new SafeArea(
           child: new LayoutBuilder(
@@ -80,7 +80,7 @@ class SearchCriteriaState extends State<SearchCriteria>
               elevation: 12.0,
               child: new Column(
                 children: <Widget>[
-                  new Container(
+                  /*new Container(
                     alignment: new Alignment(0.0, 0.0),
                     height: _PANEL_HEADER_HEIGHT,
                     child: new Row(
@@ -91,7 +91,7 @@ class SearchCriteriaState extends State<SearchCriteria>
                         ),
                       ],
                     ),
-                  ),
+                  ),*/
                   new Expanded(
                     child: Stack(
                       fit: StackFit.expand,
@@ -186,6 +186,6 @@ class SearchCriteriaState extends State<SearchCriteria>
   @override
   void dispose() {
     super.dispose();
-    _animationController.dispose();
+    //_animationController.dispose();
   }
 }
