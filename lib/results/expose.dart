@@ -3,16 +3,25 @@ class Expose {
   final String title;
   final Address address;
   final Picture picture;
-  final int space;
+  final num space;
+  final int rooms;
 
-  Expose({this.id, this.title, this.address, this.picture, this.space});
+  Expose({
+    this.id,
+    this.title,
+    this.address,
+    this.picture,
+    this.space,
+    this.rooms,
+  });
 
   factory Expose.fromJson(Map<String, dynamic> json) => Expose(
         id: json['@id'],
         title: json['title'],
         address: Address.fromJson(json['address']),
-        //picture: Picture.fromJson(json['titlePicture']),
-        //space: json['livingSpace'],
+        picture: Picture.fromJson(json['titlePicture']),
+        space: json['livingSpace'],
+        rooms: json['numberOfRooms'],
       );
 }
 
@@ -39,10 +48,16 @@ class Picture {
 
   Picture({this.scales});
 
-  factory Picture.fromJson(Map<String, dynamic> json) => Picture(
-      scales: (json['urls']['url'] as List)
-          .map((it) => Scale.fromJson(it))
-          .toList());
+  factory Picture.fromJson(Map<String, dynamic> json) {
+    if (json == null) {
+      return Picture(scales: <Scale>[]);
+    }
+
+    return Picture(
+        scales: (json['urls'][0]['url'] as List)
+            .map((it) => Scale.fromJson(it))
+            .toList());
+  }
 }
 
 class Scale {

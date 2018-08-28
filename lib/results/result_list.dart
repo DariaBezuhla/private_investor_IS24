@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:investors/results/expose.dart';
 import 'package:investors/search/Location.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ResultList extends StatefulWidget {
   final Location _location;
@@ -59,11 +60,42 @@ class ResultListState extends State<ResultList> {
         itemCount: results.length,
         itemBuilder: (context, index) => Column(
               children: <Widget>[
-                ListTile(title: Text(results[index].title)),
+                _buildRow(results[index]),
                 Divider(height: 2.0),
               ],
             ),
       );
+
+  Widget _buildRow(Expose expose) {
+    if (expose.picture.scales.isEmpty) {
+      return ListTile(title: Text(expose.title));
+    }
+
+    final src = expose.picture.scales
+        .firstWhere((it) => it.scale == "SCALE_AND_CROP")
+        .href
+        .replaceAll("%WIDTH%x%HEIGHT%", "120x50");
+
+    return Row(children: <Widget>[
+      Stack(
+        children: <Widget>[
+          Center(child: CupertinoActivityIndicator()),
+          Center(
+            child: FadeInImage.memoryNetwork(
+              placeholder: kTransparentImage,
+              image: src,
+              width: 120.0,
+              height: 50.0,
+            ),
+          )
+        ],
+      ),
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(expose.title),
+      ),
+    ]);
+  }
 
   Future<List<Expose>> _getExposeResults(String geocode) async {
     final response = await get(
