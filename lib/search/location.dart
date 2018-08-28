@@ -18,17 +18,3 @@ class Location {
         geopath: Geopath.fromJson(json['geopath']),
       );
 }
-
-class Envelope {
-  final List<Location> locations;
-
-  Envelope({this.locations});
-
-  factory Envelope.fromJson(List<dynamic> list) => Envelope(
-        locations: list
-            .map(
-              (dynamic it) => Location.fromJson(it['entity']),
-            )
-            .toList(),
-      );
-}

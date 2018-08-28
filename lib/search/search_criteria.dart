@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:investors/results/result_list.dart';
@@ -19,12 +20,11 @@ class SearchCriteriaState extends State<SearchCriteria> {
   Location _selected;
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          elevation: 0.0,
-          title: Text("Private Investors Portal"),
+  Widget build(BuildContext context) => CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(
+          middle: Text("Private Investors Portal"),
         ),
-        body: SafeArea(
+        child: SafeArea(
           child: LayoutBuilder(
             builder: _buildStack,
           ),
@@ -39,11 +39,6 @@ class SearchCriteriaState extends State<SearchCriteria> {
       child: Stack(
         children: <Widget>[
           Material(
-            borderRadius: const BorderRadius.only(
-              topLeft: const Radius.circular(16.0),
-              topRight: const Radius.circular(16.0),
-            ),
-            elevation: 12.0,
             child: Column(
               children: <Widget>[
                 Expanded(
@@ -79,15 +74,12 @@ class SearchCriteriaState extends State<SearchCriteria> {
                             horizontal: 16.0,
                             vertical: 12.0,
                           ),
-                          child: RaisedButton(
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Text(
-                                "Search",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16.0,
-                                ),
+                          child: CupertinoButton(
+                            child: Text(
+                              "Search",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16.0,
                               ),
                             ),
                             color: Color(0xE6FF7500),
@@ -116,7 +108,9 @@ class SearchCriteriaState extends State<SearchCriteria> {
         '$_BASE_ENDPOINT/geo-auto-complete?t=quarterOrTown&i=$search');
 
     if (response.statusCode == 200) {
-      return Envelope.fromJson(json.decode(response.body)).locations;
+      return (json.decode(response.body) as List)
+          .map((it) => Location.fromJson(it['entity']))
+          .toList();
     } else {
       throw Exception('Failed to load locations');
     }
