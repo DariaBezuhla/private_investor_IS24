@@ -38,7 +38,13 @@ class ResultListState extends State<ResultList> {
               switch (snapshot.connectionState) {
                 case ConnectionState.none:
                 case ConnectionState.waiting:
-                  return CupertinoActivityIndicator();
+                  return Stack(
+                    children: <Widget>[
+                      Center(
+                        child: CupertinoActivityIndicator(),
+                      ),
+                    ],
+                  );
                 default:
                   if (snapshot.hasError)
                     return Text("Error: ${snapshot.error}");
@@ -67,34 +73,48 @@ class ResultListState extends State<ResultList> {
       );
 
   Widget _buildRow(Expose expose) {
-    if (expose.picture.scales.isEmpty) {
-      return ListTile(title: Text(expose.title));
+    return Row(children: <Widget>[
+      Container(
+        width: 120.0,
+        height: 50.0,
+        child: Stack(
+          children: <Widget>[
+            Center(child: CupertinoActivityIndicator()),
+            Center(child: _getPicture(expose.picture))
+          ],
+        ),
+      ),
+      Flexible(
+        child: Container(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              expose.title,
+              overflow: TextOverflow.ellipsis,
+            )),
+      ),
+    ]);
+  }
+
+  Widget _getPicture(Picture picture) {
+    if (picture.scales.isEmpty) {
+      return Image.asset(
+        "assets/noimage.jpg",
+        fit: BoxFit.cover,
+        width: 120.0,
+        height: 50.0,
+      );
     }
 
-    final src = expose.picture.scales
+    final scale = picture.scales
         .firstWhere((it) => it.scale == "SCALE_AND_CROP")
         .href
         .replaceAll("%WIDTH%x%HEIGHT%", "120x50");
 
-    return Row(children: <Widget>[
-      Stack(
-        children: <Widget>[
-          Center(child: CupertinoActivityIndicator()),
-          Center(
-            child: FadeInImage.memoryNetwork(
-              placeholder: kTransparentImage,
-              image: src,
-              width: 120.0,
-              height: 50.0,
-            ),
-          )
-        ],
-      ),
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Text(expose.title),
-      ),
-    ]);
+    return FadeInImage.memoryNetwork(
+      placeholder: kTransparentImage,
+      image: scale,
+      fit: BoxFit.cover,
+    );
   }
 
   Future<List<Expose>> _getExposeResults(String geocode) async {
