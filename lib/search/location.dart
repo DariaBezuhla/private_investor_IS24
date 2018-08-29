@@ -1,4 +1,4 @@
-import 'package:investors/search/Geopath.dart';
+import 'package:investors/search/geopath.dart';
 
 class Location {
   final String type;

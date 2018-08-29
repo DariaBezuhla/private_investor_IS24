@@ -1,23 +1,16 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:investors/results/result_list.dart';
-import 'package:investors/search/Location.dart';
-import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
+import 'package:investors/search/location.dart';
+import 'package:investors/search/location_input.dart';
 
 class SearchCriteria extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => SearchCriteriaState();
+  State<StatefulWidget> createState() => _SearchCriteriaState();
 }
 
-class SearchCriteriaState extends State<SearchCriteria> {
-  static const _BASE_ENDPOINT =
-      'https://bhh9vcma76.execute-api.eu-central-1.amazonaws.com/sandbox/';
-
-  Location _selected;
+class _SearchCriteriaState extends State<SearchCriteria> {
+  Location _location;
 
   @override
   Widget build(BuildContext context) => CupertinoPageScaffold(
@@ -25,100 +18,127 @@ class SearchCriteriaState extends State<SearchCriteria> {
           middle: Text("Private Investors Portal"),
         ),
         child: SafeArea(
-          child: LayoutBuilder(
-            builder: _buildStack,
-          ),
-        ),
-      );
-
-  Widget _buildStack(BuildContext context, BoxConstraints constraints) {
-    final theme = Theme.of(context);
-
-    return Container(
-      color: theme.primaryColor,
-      child: Stack(
-        children: <Widget>[
-          Material(
+          child: Material(
             child: Column(
               children: <Widget>[
                 Expanded(
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: <Widget>[
-                      Positioned(
-                        top: 0.0,
-                        left: 0.0,
-                        right: 0.0,
-                        child: Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: SimpleAutocompleteFormField<Location>(
-                            itemBuilder: (context, item) => Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 16.0),
-                                  child: Text(item.label),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: OutlineButton(
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(_location != null
+                                      ? _location.label
+                                      : "Location"),
                                 ),
-                            onSearch: _getAutocompleteLocations,
-                            onChanged: (it) {
-                              setState(() {
-                                _selected = it;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 0.0,
-                        left: 0.0,
-                        right: 0.0,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0,
-                            vertical: 12.0,
-                          ),
-                          child: CupertinoButton(
-                            child: Text(
-                              "Search",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.0,
+                                onPressed: _pushLocation,
                               ),
                             ),
-                            color: Color(0xE6FF7500),
-                            disabledColor: Colors.grey,
-                            onPressed: _selected == null
-                                ? null
-                                : () {
-                                    _pushLocation(_selected);
-                                  },
-                          ),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: _criteriaInfo("Net Yield", () {}),
+                              ),
+                            ),
+                            _criteriaValue("from 2.5%", () {}),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: _criteriaInfo("Price Trend", () {}),
+                              ),
+                            ),
+                            _criteriaValue("from 3.0%", () {}),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: _criteriaInfo("Rent Trend", () {}),
+                              ),
+                            ),
+                            _criteriaValue("from 3.0%", () {}),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 12.0,
+                        ),
+                        child: CupertinoButton(
+                          child: const Text("Search"),
+                          color: const Color(0xE6FF7500),
+                          disabledColor: Colors.grey,
+                          onPressed: _location == null
+                              ? null
+                              : () {
+                                  _pushResults(_location);
+                                },
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-        ],
-      ),
+        ),
+      );
+
+  Widget _criteriaInfo(String data, VoidCallback onPressed) => FlatButton(
+        child: Row(
+          children: <Widget>[
+            Text(data),
+            const SizedBox(width: 8.0),
+            const Icon(CupertinoIcons.info, size: 16.0),
+          ],
+        ),
+        onPressed: onPressed,
+      );
+
+  Widget _criteriaValue(String data, VoidCallback onPressed) => OutlineButton(
+        child: Row(
+          children: <Widget>[
+            Text(data),
+            const SizedBox(width: 8.0),
+            const Icon(CupertinoIcons.right_chevron, size: 16.0),
+          ],
+        ),
+        onPressed: onPressed,
+      );
+
+  void _pushLocation() async {
+    final route = CupertinoPageRoute<Location>(
+      builder: (context) => LocationInput(),
     );
+
+    _location = await Navigator.push(context, route);
   }
 
-  Future<List<Location>> _getAutocompleteLocations(String search) async {
-    final response = await get(
-        '$_BASE_ENDPOINT/geo-auto-complete?t=quarterOrTown&i=$search');
-
-    if (response.statusCode == 200) {
-      return (json.decode(response.body) as List)
-          .map((it) => Location.fromJson(it['entity']))
-          .toList();
-    } else {
-      throw Exception('Failed to load locations');
-    }
-  }
-
-  void _pushLocation(Location location) => Navigator.push(
+  void _pushResults(Location location) => Navigator.push(
         context,
-        MaterialPageRoute(
+        CupertinoPageRoute(
           builder: (context) => ResultList(location),
         ),
       );

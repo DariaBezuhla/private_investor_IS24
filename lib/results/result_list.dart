@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:investors/results/expose.dart';
 import 'package:investors/results/result_item.dart';
-import 'package:investors/search/Location.dart';
+import 'package:investors/search/location.dart';
 
 class ResultList extends StatefulWidget {
   final Location _location;
