@@ -39,7 +39,7 @@ class _LocationInputState extends State<LocationInput> {
 
   Widget _navigationBar() => CupertinoNavigationBar(
         leading: _navigationButton(Text("Cancel"), () {
-          Navigator.of(context).pop(false);
+          Navigator.of(context).pop(null);
         }),
         middle: Text("Location", style: _BOLD),
         trailing: _navigationButton(
