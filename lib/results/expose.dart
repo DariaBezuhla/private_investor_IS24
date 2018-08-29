@@ -3,23 +3,40 @@ class Expose {
   final String title;
   final Address address;
   final Picture picture;
+  final Price price;
   final num space;
-  final int rooms;
+  final num rooms;
 
   Expose({
     this.id,
     this.title,
     this.address,
     this.picture,
+    this.price,
     this.space,
     this.rooms,
   });
+
+  Price get expectedRent => Price(value: pricePerSqm.value * 0.75);
+
+  Price get pricePerSqm => Price(value: price.value ~/ space);
+
+  num get netYield =>
+      getCashFlow(expectedRent.value, space).value * 12 * 100 / price.value;
+
+  static Price getCashFlow(num rent, num space) => Price(
+        value: rent -
+            (rent * 0.03) - // Reserves
+            (rent * 0.03) - // Maintenance
+            (space * 2.7), // Utilities
+      );
 
   factory Expose.fromJson(Map<String, dynamic> json) => Expose(
         id: json['@id'],
         title: json['title'],
         address: Address.fromJson(json['address']),
         picture: Picture.fromJson(json['titlePicture']),
+        price: Price.fromJson(json['price']),
         space: json['livingSpace'],
         rooms: json['numberOfRooms'],
       );
@@ -73,10 +90,10 @@ class Scale {
 }
 
 class Price {
-  final int value;
+  final num value;
   final String currency;
 
-  Price({this.value, this.currency});
+  Price({this.value, this.currency: "EUR"});
 
   factory Price.fromJson(Map<String, dynamic> json) => Price(
         value: json['value'],

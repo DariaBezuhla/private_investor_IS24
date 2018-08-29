@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:investors/results/expose.dart';
+import 'package:investors/results/result_item.dart';
 import 'package:investors/search/Location.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class ResultList extends StatefulWidget {
   final Location _location;
@@ -21,7 +21,6 @@ class ResultListState extends State<ResultList> {
   static const _BASE_ENDPOINT =
       'https://bhh9vcma76.execute-api.eu-central-1.amazonaws.com/sandbox/';
 
-  final List<Expose> results = <Expose>[];
   final Location _location;
 
   ResultListState(this._location);
@@ -66,56 +65,11 @@ class ResultListState extends State<ResultList> {
         itemCount: results.length,
         itemBuilder: (context, index) => Column(
               children: <Widget>[
-                _buildRow(results[index]),
+                ResultItem(results[index]),
                 Divider(height: 2.0),
               ],
             ),
       );
-
-  Widget _buildRow(Expose expose) {
-    return Row(children: <Widget>[
-      Container(
-        width: 120.0,
-        height: 50.0,
-        child: Stack(
-          children: <Widget>[
-            Center(child: CupertinoActivityIndicator()),
-            Center(child: _getPicture(expose.picture))
-          ],
-        ),
-      ),
-      Flexible(
-        child: Container(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              expose.title,
-              overflow: TextOverflow.ellipsis,
-            )),
-      ),
-    ]);
-  }
-
-  Widget _getPicture(Picture picture) {
-    if (picture.scales.isEmpty) {
-      return Image.asset(
-        "assets/noimage.jpg",
-        fit: BoxFit.cover,
-        width: 120.0,
-        height: 50.0,
-      );
-    }
-
-    final scale = picture.scales
-        .firstWhere((it) => it.scale == "SCALE_AND_CROP")
-        .href
-        .replaceAll("%WIDTH%x%HEIGHT%", "120x50");
-
-    return FadeInImage.memoryNetwork(
-      placeholder: kTransparentImage,
-      image: scale,
-      fit: BoxFit.cover,
-    );
-  }
 
   Future<List<Expose>> _getExposeResults(String geocode) async {
     final response = await get(
