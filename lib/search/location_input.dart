@@ -16,7 +16,7 @@ class _LocationInputState extends State<LocationInput> {
       'https://bhh9vcma76.execute-api.eu-central-1.amazonaws.com/sandbox/';
   static const _BOLD = TextStyle(fontWeight: FontWeight.bold);
 
-  var _location;
+  var _input;
 
   @override
   Widget build(BuildContext context) => CupertinoPageScaffold(
@@ -28,9 +28,51 @@ class _LocationInputState extends State<LocationInput> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
-                    focusNode: FocusNode(),
+                    autofocus: true,
+                    decoration: InputDecoration(
+                      hintText: "Location",
+                    ),
+                    keyboardType: TextInputType.text,
+                    onChanged: (it) {
+                      if (it.length >= 2) {
+                        setState(() {
+                          _input = it;
+                        });
+                      }
+                    },
                   ),
-                )
+                ),
+                Expanded(
+                  child: FutureBuilder(
+                    future: _getAutocompleteLocations(_input),
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                        case ConnectionState.waiting:
+                          return Stack(
+                            children: <Widget>[
+                              Center(
+                                child: CupertinoActivityIndicator(),
+                              ),
+                            ],
+                          );
+                        default:
+                          if (snapshot.hasError)
+                            return Text("Error: ${snapshot.error}");
+                          else
+                            return Material(
+                              child: _buildListView(
+                                context,
+                                snapshot.data as List<Location>,
+                                (it) {
+                                  Navigator.of(context).pop(it);
+                                },
+                              ),
+                            );
+                      }
+                    },
+                  ),
+                ),
               ],
             ),
           ),
@@ -42,14 +84,6 @@ class _LocationInputState extends State<LocationInput> {
           Navigator.of(context).pop(null);
         }),
         middle: Text("Location", style: _BOLD),
-        trailing: _navigationButton(
-          Text("Done", style: _BOLD),
-          _location == null
-              ? null
-              : () {
-                  Navigator.of(context).pop(_location);
-                },
-        ),
       );
 
   Widget _navigationButton(Widget child, VoidCallback onPressed) =>
@@ -60,6 +94,10 @@ class _LocationInputState extends State<LocationInput> {
       );
 
   Future<List<Location>> _getAutocompleteLocations(String search) async {
+    if (search == null || search.length < 3) {
+      return <Location>[];
+    }
+
     final response = await get(
         '$_BASE_ENDPOINT/geo-auto-complete?t=quarterOrTown&i=$search');
 
@@ -71,4 +109,25 @@ class _LocationInputState extends State<LocationInput> {
       throw Exception('Failed to load locations');
     }
   }
+
+  Widget _buildListView(
+    BuildContext context,
+    List<Location> results,
+    ValueChanged<Location> onValueChanged,
+  ) =>
+      ListView.builder(
+        itemBuilder: (context, index) {
+          final item = results[index];
+          return FlatButton(
+            onPressed: () {
+              onValueChanged(item);
+            },
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(item.label),
+            ),
+          );
+        },
+        itemCount: results.length,
+      );
 }
