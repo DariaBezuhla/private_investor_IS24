@@ -1,20 +1,32 @@
-import 'package:investors/search/geopath.dart';
-
 class Location {
-  final String type;
   final String id;
-  final String label;
-  final Geopath geopath;
+  final num lat;
+  final num lon;
+  final String type;
+  final String searchType;
+  final String parentName;
+  final String displayName;
 
-  Location({this.type, this.id, this.label, this.geopath});
+  Location({
+    this.id,
+    this.lat,
+    this.lon,
+    this.type,
+    this.searchType,
+    this.parentName,
+    this.displayName,
+  });
 
   @override
-  String toString() => label;
+  String toString() => "$parentName - $displayName";
 
   factory Location.fromJson(Map<String, dynamic> json) => Location(
-        type: json['type'],
         id: json['id'],
-        label: json['label'],
-        geopath: Geopath.fromJson(json['geopath']),
+        lat: json['lat'],
+        lon: json['lon'],
+        type: json['type'],
+        searchType: json['searchType'],
+        parentName: json['parentName'],
+        displayName: json['displayName'],
       );
 }

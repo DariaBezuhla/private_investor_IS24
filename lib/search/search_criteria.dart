@@ -48,7 +48,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                                             color: CupertinoColors.inactiveGray,
                                           ),
                                         )
-                                      : Text(_location.label),
+                                      : Text("$_location"),
                                 ),
                                 borderSide: BorderSide(
                                   color: CupertinoColors.lightBackgroundGray,

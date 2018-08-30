@@ -60,68 +60,29 @@ class ResultItemState extends State<ResultItem> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            Text(
-                              _currency.format(_expose.price.value),
-                              overflow: TextOverflow.ellipsis,
-                              style: _style,
-                            ),
-                            Text("Price"),
-                          ],
+                        _createCriteriaResult(
+                          _currency.format(_expose.price.value),
+                          "Price",
                         ),
                         VerticalDivider(),
-                        Column(
-                          children: <Widget>[
-                            Text(
-                              _currency.format(_expose.expectedRent.value),
-                              overflow: TextOverflow.ellipsis,
-                              style: _style,
-                            ),
-                            Text("Rent"),
-                          ],
+                        /*_createCriteriaResult(
+                          _currency.format(_expose.expectedRent.value),
+                          "Rent",
                         ),
+                        VerticalDivider(),*/
+                        /*_createCriteriaResult(
+                          _percentage.format(_expose.netYield),
+                          "Yield",
+                        ),
+                        VerticalDivider(),*/
+                        /*_createCriteriaResult(
+                          "${_currency.format(_expose.pricePerSqm.value)}/m2",
+                          "Price/m2",
+                        ),
+                        VerticalDivider(),*/
+                        _createCriteriaResult("${_expose.space} m2", "Area"),
                         VerticalDivider(),
-                        Column(
-                          children: <Widget>[
-                            Text(
-                              _percentage.format(_expose.netYield),
-                              overflow: TextOverflow.ellipsis,
-                              style: _style,
-                            ),
-                            Text("Yield")
-                          ],
-                        ),
-                        /*Column(
-                        children: <Widget>[
-                          Text(
-                            "${_currency.format(_expose.pricePerSqm.value)}/m2",
-                            overflow: TextOverflow.ellipsis,
-                            style: _style,
-                          ),
-                          Text("Price/m2")
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Text(
-                            "${_expose.space} m2",
-                            overflow: TextOverflow.ellipsis,
-                            style: _style,
-                          ),
-                          Text("Area")
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Text(
-                            "${_expose.rooms}",
-                            overflow: TextOverflow.ellipsis,
-                            style: _style,
-                          ),
-                          Text("Rooms")
-                        ],
-                      ),*/
+                        _createCriteriaResult("${_expose.rooms}", "Rooms"),
                       ],
                     ),
                   ),
@@ -129,6 +90,13 @@ class ResultItemState extends State<ResultItem> {
               ),
             ),
           ),
+        ],
+      );
+
+  Widget _createCriteriaResult(String value, String label) => Column(
+        children: <Widget>[
+          Text(value, overflow: TextOverflow.ellipsis, style: _style),
+          Text(label)
         ],
       );
 

@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:investors/network/scout_client.dart';
 import 'package:investors/search/location.dart';
 
 class LocationInput extends StatefulWidget {
@@ -12,8 +14,7 @@ class LocationInput extends StatefulWidget {
 }
 
 class _LocationInputState extends State<LocationInput> {
-  static const _BASE_ENDPOINT =
-      'https://bhh9vcma76.execute-api.eu-central-1.amazonaws.com/sandbox/';
+  final _client = ScoutClient();
 
   String _input;
   Timer _timer;
@@ -106,15 +107,21 @@ class _LocationInputState extends State<LocationInput> {
       return <Location>[];
     }
 
-    final response = await get(
-        '$_BASE_ENDPOINT/geo-auto-complete?t=quarterOrTown&i=$search');
+    final response = await _client.token.then((it) => get(
+          "https://api.mobile.immobilienscout24.de/geo/autocomplete?t=quarterOrTown&i=$search",
+          headers: {
+            HttpHeaders.authorizationHeader: "Bearer $it",
+            HttpHeaders.acceptHeader: "application/json",
+          },
+        ));
 
     if (response.statusCode == 200) {
-      return (json.decode(response.body) as List)
-          .map((it) => Location.fromJson(it['entity']))
+      return (json.decode(response.body)['results'] as List)
+          .map((it) => Location.fromJson(it))
           .toList();
     } else {
-      throw Exception('Failed to load locations');
+      print(response.body);
+      throw Exception('Failed to load locations: ${response.statusCode}');
     }
   }
 
@@ -132,7 +139,7 @@ class _LocationInputState extends State<LocationInput> {
             },
             child: Align(
               alignment: Alignment.centerLeft,
-              child: Text(item.label),
+              child: Text("$item"),
             ),
           );
         },

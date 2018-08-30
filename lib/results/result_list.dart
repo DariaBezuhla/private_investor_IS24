@@ -28,7 +28,7 @@ class ResultListState extends State<ResultList> {
   @override
   Widget build(BuildContext context) => CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          middle: Text("Results for ${_location.label}"),
+          middle: Text("Results for $_location"),
         ),
         child: SafeArea(
           child: FutureBuilder(
