@@ -80,7 +80,7 @@ class ResultListState extends State<ResultList> {
       (token) => get(
             "https://$_BASE_ENDPOINT/search?" +
                 "searchType=region&" +
-                "realestatetype=HOUSEBUY&" +
+                "realestatetype=apartmentbuy&" +
                 "geocodes=$geocode&" +
                 "pagesize=10&" +
                 "pagenumber=$_page",
@@ -90,16 +90,8 @@ class ResultListState extends State<ResultList> {
           ),
     );
 
-    print("https://$_BASE_ENDPOINT/search?" +
-        "searchType=region&" +
-        "realestatetype=HOUSEBUY&" +
-        "geocodes=$geocode&" +
-        "pagesize=10&" +
-        "pagenumber=$_page");
-
     if (response.statusCode == 200) {
       final result = json.decode(response.body)['results'] as List;
-      print("count ${result.length}");
       return result.map((it) => Expose.fromJson(it)).toList();
     } else {
       throw Exception('Failed to load expose results for geocode $geocode');

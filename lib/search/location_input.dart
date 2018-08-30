@@ -120,7 +120,6 @@ class _LocationInputState extends State<LocationInput> {
           .map((it) => Location.fromJson(it))
           .toList();
     } else {
-      print(response.body);
       throw Exception('Failed to load locations: ${response.statusCode}');
     }
   }

@@ -17,8 +17,9 @@ class ResultItem extends StatefulWidget {
 class ResultItemState extends State<ResultItem> {
   final _currency = NumberFormat("#,##0.00 €", "de_DE");
   final _percentage = NumberFormat("## %", "de_DE");
+
   final _style = TextStyle(
-    fontSize: 18.0,
+    fontSize: 16.0,
     fontWeight: FontWeight.bold,
   );
 
@@ -30,16 +31,18 @@ class ResultItemState extends State<ResultItem> {
   Widget build(BuildContext context) => Row(
         children: <Widget>[
           Container(
-            width: 120.0,
-            height: 100.0,
+            width: 107.0,
+            height: 80.0,
             child: Stack(
               children: <Widget>[
                 Center(child: CupertinoActivityIndicator()),
                 Center(
                   child: FadeInImage.memoryNetwork(
                     placeholder: kTransparentImage,
-                    image: _expose.picture,
+                    image: _expose.picture.replaceFirst("800x600>", "107x75"),
                     fit: BoxFit.cover,
+                    width: 107.0,
+                    height: 80.0,
                   ),
                 )
               ],
@@ -56,14 +59,14 @@ class ResultItemState extends State<ResultItem> {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: Colors.blue,
-                      fontSize: 20.0,
+                      fontSize: 17.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         _createCriteriaResult(
                           _currency.format(_expose.price),

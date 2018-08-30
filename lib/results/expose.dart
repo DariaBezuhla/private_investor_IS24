@@ -30,7 +30,7 @@ class Expose {
   factory Expose.fromJson(Map<String, dynamic> json) => Expose(
         id: json['id'],
         title: json['address']['line'],
-        picture: json['titlePicture']['preview'],
+        picture: json['titlePicture']['full'],
         price: attribute(0, json),
         space: attribute(1, json),
         rooms: attribute(2, json),
