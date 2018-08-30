@@ -35,7 +35,13 @@ class ResultItemState extends State<ResultItem> {
             child: Stack(
               children: <Widget>[
                 Center(child: CupertinoActivityIndicator()),
-                Center(child: _getPicture(_expose.picture))
+                Center(
+                  child: FadeInImage.memoryNetwork(
+                    placeholder: kTransparentImage,
+                    image: _expose.picture,
+                    fit: BoxFit.cover,
+                  ),
+                )
               ],
             ),
           ),
@@ -45,7 +51,6 @@ class ResultItemState extends State<ResultItem> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _getAddress(_expose.address),
                   Text(
                     _expose.title,
                     overflow: TextOverflow.ellipsis,
@@ -61,12 +66,12 @@ class ResultItemState extends State<ResultItem> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         _createCriteriaResult(
-                          _currency.format(_expose.price.value),
+                          _currency.format(_expose.price),
                           "Price",
                         ),
                         VerticalDivider(),
                         /*_createCriteriaResult(
-                          _currency.format(_expose.expectedRent.value),
+                          _currency.format(_expose.expectedRent),
                           "Rent",
                         ),
                         VerticalDivider(),*/
@@ -76,7 +81,7 @@ class ResultItemState extends State<ResultItem> {
                         ),
                         VerticalDivider(),*/
                         /*_createCriteriaResult(
-                          "${_currency.format(_expose.pricePerSqm.value)}/m2",
+                          "${_currency.format(_expose.pricePerSqm)}/m2",
                           "Price/m2",
                         ),
                         VerticalDivider(),*/
@@ -99,31 +104,4 @@ class ResultItemState extends State<ResultItem> {
           Text(label)
         ],
       );
-
-  Widget _getAddress(Address address) => Text(
-        "${address.postcode} ${address.city}, ${address.city}",
-        style: TextStyle(color: Colors.grey),
-      );
-
-  Widget _getPicture(Picture picture) {
-    if (picture.scales.isEmpty) {
-      return Image.asset(
-        "assets/noimage.jpg",
-        fit: BoxFit.cover,
-        width: 120.0,
-        height: 100.0,
-      );
-    }
-
-    final scale = picture.scales
-        .firstWhere((it) => it.scale == "SCALE_AND_CROP")
-        .href
-        .replaceAll("%WIDTH%x%HEIGHT%", "120x100");
-
-    return FadeInImage.memoryNetwork(
-      placeholder: kTransparentImage,
-      image: scale,
-      fit: BoxFit.cover,
-    );
-  }
 }

@@ -14,7 +14,7 @@ class LocationInput extends StatefulWidget {
 }
 
 class _LocationInputState extends State<LocationInput> {
-  final _client = ScoutClient();
+  ScoutClient get _client => ScoutClient();
 
   String _input;
   Timer _timer;

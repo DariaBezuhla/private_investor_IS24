@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:investors/network/scout_client.dart';
 import 'package:investors/results/expose.dart';
 import 'package:investors/results/result_item.dart';
 import 'package:investors/search/location.dart';
@@ -18,10 +20,12 @@ class ResultList extends StatefulWidget {
 }
 
 class ResultListState extends State<ResultList> {
-  static const _BASE_ENDPOINT =
-      'https://bhh9vcma76.execute-api.eu-central-1.amazonaws.com/sandbox/';
+  static const _BASE_ENDPOINT = 'api.mobile.immobilienscout24.de';
 
   final Location _location;
+
+  ScoutClient get _client => ScoutClient();
+  num _page = 1;
 
   ResultListState(this._location);
 
@@ -72,14 +76,31 @@ class ResultListState extends State<ResultList> {
       );
 
   Future<List<Expose>> _getExposeResults(String geocode) async {
-    final response = await get(
-        '$_BASE_ENDPOINT/search?realestatetype=HOUSEBUY&geocodes=$geocode');
+    final response = await _client.token.then(
+      (token) => get(
+            "https://$_BASE_ENDPOINT/search?" +
+                "searchType=region&" +
+                "realestatetype=HOUSEBUY&" +
+                "geocodes=$geocode&" +
+                "pagesize=10&" +
+                "pagenumber=$_page",
+            headers: {
+              HttpHeaders.authorizationHeader: "Bearer $token",
+            },
+          ),
+    );
+
+    print("https://$_BASE_ENDPOINT/search?" +
+        "searchType=region&" +
+        "realestatetype=HOUSEBUY&" +
+        "geocodes=$geocode&" +
+        "pagesize=10&" +
+        "pagenumber=$_page");
 
     if (response.statusCode == 200) {
-      return (json.decode(response.body)['resultlist.resultlist']
-              ['resultlistEntries'][0]['resultlistEntry'] as List)
-          .map((it) => Expose.fromJson(it['resultlist.realEstate']))
-          .toList();
+      final result = json.decode(response.body)['results'] as List;
+      print("count ${result.length}");
+      return result.map((it) => Expose.fromJson(it)).toList();
     } else {
       throw Exception('Failed to load expose results for geocode $geocode');
     }
