@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:investors/results/expose.dart';
+import 'package:investors/results/result_details.dart';
+import 'package:investors/results/summary.dart';
 import 'package:investors/results/vertical_divider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class ResultItem extends StatefulWidget {
-  final Expose _expose;
+  final Summary _expose;
 
   ResultItem(this._expose);
 
@@ -15,15 +16,18 @@ class ResultItem extends StatefulWidget {
 }
 
 class ResultItemState extends State<ResultItem> {
+  static const _PICTURE_WIDTH = 120.0;
+  static const _PICTURE_HEIGHT = 90.0;
+
   final _currency = NumberFormat("#,##0.00 €", "de_DE");
   final _percentage = NumberFormat("## %", "de_DE");
 
   final _style = TextStyle(
-    fontSize: 16.0,
+    fontSize: 14.0,
     fontWeight: FontWeight.bold,
   );
 
-  final Expose _expose;
+  final Summary _expose;
 
   ResultItemState(this._expose);
 
@@ -31,18 +35,21 @@ class ResultItemState extends State<ResultItem> {
   Widget build(BuildContext context) => Row(
         children: <Widget>[
           Container(
-            width: 107.0,
-            height: 80.0,
+            width: _PICTURE_WIDTH,
+            height: _PICTURE_HEIGHT,
             child: Stack(
               children: <Widget>[
                 Center(child: CupertinoActivityIndicator()),
                 Center(
                   child: FadeInImage.memoryNetwork(
                     placeholder: kTransparentImage,
-                    image: _expose.picture.replaceFirst("800x600>", "107x75"),
+                    image: _expose.picture.replaceFirst(
+                      "800x600>",
+                      "${_PICTURE_WIDTH}x${_PICTURE_HEIGHT}",
+                    ),
                     fit: BoxFit.cover,
-                    width: 107.0,
-                    height: 80.0,
+                    width: _PICTURE_WIDTH,
+                    height: _PICTURE_HEIGHT,
                   ),
                 )
               ],
@@ -91,6 +98,17 @@ class ResultItemState extends State<ResultItem> {
                         _createCriteriaResult("${_expose.space} m2", "Area"),
                         VerticalDivider(),
                         _createCriteriaResult("${_expose.rooms}", "Rooms"),
+                        CupertinoButton(
+                          child: Icon(CupertinoIcons.right_chevron),
+                          padding: EdgeInsets.all(0.0),
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              CupertinoPageRoute(
+                                builder: (context) => ResultDetails(_expose.id),
+                              ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),

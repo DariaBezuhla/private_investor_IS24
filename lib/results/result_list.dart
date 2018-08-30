@@ -6,8 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:investors/network/scout_client.dart';
-import 'package:investors/results/expose.dart';
 import 'package:investors/results/result_item.dart';
+import 'package:investors/results/summary.dart';
 import 'package:investors/search/location.dart';
 
 class ResultList extends StatefulWidget {
@@ -55,7 +55,7 @@ class ResultListState extends State<ResultList> {
                     return Material(
                       child: _buildListView(
                         context,
-                        snapshot.data as List<Expose>,
+                        snapshot.data as List<Summary>,
                       ),
                     );
               }
@@ -64,7 +64,7 @@ class ResultListState extends State<ResultList> {
         ),
       );
 
-  Widget _buildListView(BuildContext context, List<Expose> results) =>
+  Widget _buildListView(BuildContext context, List<Summary> results) =>
       ListView.builder(
         itemCount: results.length,
         itemBuilder: (context, index) => Column(
@@ -75,7 +75,7 @@ class ResultListState extends State<ResultList> {
             ),
       );
 
-  Future<List<Expose>> _getExposeResults(String geocode) async {
+  Future<List<Summary>> _getExposeResults(String geocode) async {
     final response = await _client.token.then(
       (token) => get(
             "https://$_BASE_ENDPOINT/search?" +
@@ -92,9 +92,10 @@ class ResultListState extends State<ResultList> {
 
     if (response.statusCode == 200) {
       final result = json.decode(response.body)['results'] as List;
-      return result.map((it) => Expose.fromJson(it)).toList();
+      return result.map((it) => Summary.fromJson(it)).toList();
     } else {
-      throw Exception('Failed to load expose results for geocode $geocode');
+      return Future.error(
+          Exception('Failed to load expose results for geocode $geocode'));
     }
   }
 }
