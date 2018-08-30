@@ -10,7 +10,7 @@ class SearchCriteria extends StatefulWidget {
 }
 
 class _SearchCriteriaState extends State<SearchCriteria> {
-  static const _kPickerSheetHeight = 216.0;
+  static const _kPickerSheetHeight = 200.0;
   static const _kPickerItemHeight = 32.0;
 
   Location _location;
@@ -65,17 +65,13 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                             Expanded(
                               child: Align(
                                 alignment: Alignment.centerLeft,
-                                child: _criteriaInfo("Net Yield", () {
-                                  showCupertinoDialog(
-                                    context: context,
-                                    builder: (context) => CupertinoAlertDialog(
-                                          content: Text("Net Yield"),
-                                        ),
-                                  );
-                                }),
+                                child: _createCriteriaInfo(
+                                  "Net Yield",
+                                  "Social proof market success venture partner network. Agile development hypotheses strategy. Founders paradigm shift sales early adopters mass market disruptive angel investor buzz crowdsource MVP. Iteration gamification churn rate rockstar agile development user experience innovator lean startup first mover advantage research & development infrastructure social proof.",
+                                ),
                               ),
                             ),
-                            _criteriaValue(
+                            _createCriteriaValue(
                               context,
                               "from $_yield%",
                               _yield,
@@ -93,17 +89,13 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                             Expanded(
                               child: Align(
                                 alignment: Alignment.centerLeft,
-                                child: _criteriaInfo("Price Trend", () {
-                                  showCupertinoDialog(
-                                    context: context,
-                                    builder: (context) => CupertinoAlertDialog(
-                                          content: Text("Price Trend"),
-                                        ),
-                                  );
-                                }),
+                                child: _createCriteriaInfo(
+                                  "Price Trend",
+                                  "Infrastructure hypotheses user experience angel investor ramen launch party strategy client value proposition pitch stock customer advisor success. Accelerator vesting period user experience burn rate. Alpha success supply chain vesting period marketing funding non-disclosure agreement innovator low hanging fruit. Series A financing mass market lean startup A/B testing.",
+                                ),
                               ),
                             ),
-                            _criteriaValue(
+                            _createCriteriaValue(
                               context,
                               "from $_price%",
                               _price,
@@ -121,17 +113,13 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                             Expanded(
                               child: Align(
                                 alignment: Alignment.centerLeft,
-                                child: _criteriaInfo("Rent Trend", () {
-                                  showCupertinoDialog(
-                                    context: context,
-                                    builder: (context) => CupertinoAlertDialog(
-                                          content: Text("Rent Trend"),
-                                        ),
-                                  );
-                                }),
+                                child: _createCriteriaInfo(
+                                  "Rent Trend",
+                                  "Prototype pitch niche market client infographic gamification incubator entrepreneur series A financing beta business plan vesting period. Disruptive investor creative startup learning curve paradigm shift release gamification holy grail value proposition business-to-consumer user experience infographic ramen. Launch party network effects ramen learning curve analytics value proposition infographic interaction design facebook mass market metrics advisor twitter agile development. Agile development handshake android infographic creative lean startup scrum project business model canvas focus value proposition business-to-consumer gen-z release.",
+                                ),
                               ),
                             ),
-                            _criteriaValue(
+                            _createCriteriaValue(
                               context,
                               "from $_rent%",
                               _rent,
@@ -156,7 +144,10 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                           vertical: 12.0,
                         ),
                         child: CupertinoButton(
-                          child: const Text("Search"),
+                          child: const Text(
+                            "Search",
+                            style: const TextStyle(fontSize: 15.0),
+                          ),
                           color: const Color(0xE6FF7500),
                           disabledColor: CupertinoColors.inactiveGray,
                           onPressed: _location == null
@@ -175,7 +166,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
         ),
       );
 
-  Widget _criteriaInfo(String data, VoidCallback onPressed) => FlatButton(
+  Widget _createCriteriaInfo(String data, String content) => FlatButton(
         child: Row(
           children: <Widget>[
             Text(data),
@@ -183,10 +174,30 @@ class _SearchCriteriaState extends State<SearchCriteria> {
             const Icon(CupertinoIcons.info, size: 22.0),
           ],
         ),
-        onPressed: onPressed,
+        onPressed: () {
+          showCupertinoDialog(
+            context: context,
+            builder: (context) => _createAlertDialog(data, content),
+          );
+        },
       );
 
-  Widget _criteriaValue(
+  Widget _createAlertDialog(String data, String content) =>
+      CupertinoAlertDialog(
+        title: Text(data),
+        content: Text(content),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            child: const Text("OK"),
+            isDefaultAction: true,
+            onPressed: () {
+              Navigator.of(context, rootNavigator: true).pop();
+            },
+          ),
+        ],
+      );
+
+  Widget _createCriteriaValue(
     BuildContext context,
     String data,
     num selected,
@@ -211,27 +222,36 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     color: CupertinoColors.black,
                     fontSize: 22.0,
                   ),
-                  child: SafeArea(
-                    child: CupertinoPicker(
-                      scrollController: FixedExtentScrollController(
-                        initialItem: (selected * 2).toInt(),
-                      ),
-                      itemExtent: _kPickerItemHeight,
-                      backgroundColor: CupertinoColors.white,
-                      onSelectedItemChanged: (index) {
-                        onSelectedValueChanged(index / 2);
-                      },
-                      children: List<Widget>.generate(10, (index) {
-                        return Center(child: Text("${index / 2} %"));
-                      }),
-                    ),
-                  ),
+                  child: _createPicker(selected, onSelectedValueChanged),
                 ),
               ),
         );
       },
     );
   }
+
+  Widget _createPicker(
+    num selected,
+    ValueChanged<num> onSelectedValueChanged,
+  ) =>
+      GestureDetector(
+        onTap: () {
+          Navigator.of(context).pop();
+        },
+        child: CupertinoPicker(
+          scrollController: FixedExtentScrollController(
+            initialItem: (selected * 2).toInt(),
+          ),
+          itemExtent: _kPickerItemHeight,
+          backgroundColor: CupertinoColors.white,
+          onSelectedItemChanged: (index) {
+            onSelectedValueChanged(index / 2);
+          },
+          children: List<Widget>.generate(10, (index) {
+            return Center(child: Text("${index / 2} %"));
+          }),
+        ),
+      );
 
   void _pushLocation() async {
     final route = CupertinoPageRoute<Location>(

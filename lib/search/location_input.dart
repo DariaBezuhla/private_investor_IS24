@@ -14,7 +14,6 @@ class LocationInput extends StatefulWidget {
 class _LocationInputState extends State<LocationInput> {
   static const _BASE_ENDPOINT =
       'https://bhh9vcma76.execute-api.eu-central-1.amazonaws.com/sandbox/';
-  static const _BOLD = TextStyle(fontWeight: FontWeight.bold);
 
   String _input;
   Timer _timer;
@@ -86,10 +85,13 @@ class _LocationInputState extends State<LocationInput> {
       );
 
   Widget _navigationBar() => CupertinoNavigationBar(
-        leading: _navigationButton(Text("Cancel"), () {
-          Navigator.of(context).pop(null);
-        }),
-        middle: Text("Location", style: _BOLD),
+        leading: _navigationButton(
+          Text("Cancel", style: TextStyle(fontSize: 16.0)),
+          () {
+            Navigator.of(context).pop(null);
+          },
+        ),
+        middle: Text("Location", style: TextStyle(fontWeight: FontWeight.bold)),
       );
 
   Widget _navigationButton(Widget child, VoidCallback onPressed) =>
@@ -142,6 +144,4 @@ class _LocationInputState extends State<LocationInput> {
     super.dispose();
     _timer.cancel();
   }
-
-
 }
