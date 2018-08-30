@@ -16,7 +16,8 @@ class _LocationInputState extends State<LocationInput> {
       'https://bhh9vcma76.execute-api.eu-central-1.amazonaws.com/sandbox/';
   static const _BOLD = TextStyle(fontWeight: FontWeight.bold);
 
-  var _input;
+  String _input;
+  Timer _timer;
 
   @override
   Widget build(BuildContext context) => CupertinoPageScaffold(
@@ -35,9 +36,14 @@ class _LocationInputState extends State<LocationInput> {
                     keyboardType: TextInputType.text,
                     onChanged: (it) {
                       if (it.length >= 2) {
-                        setState(() {
-                          _input = it;
-                        });
+                        _timer = Timer(
+                          const Duration(milliseconds: 500),
+                          () {
+                            setState(() {
+                              _input = it;
+                            });
+                          },
+                        );
                       }
                     },
                   ),
@@ -130,4 +136,12 @@ class _LocationInputState extends State<LocationInput> {
         },
         itemCount: results.length,
       );
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer.cancel();
+  }
+
+
 }

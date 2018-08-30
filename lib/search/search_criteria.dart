@@ -10,12 +10,13 @@ class SearchCriteria extends StatefulWidget {
 }
 
 class _SearchCriteriaState extends State<SearchCriteria> {
-  static const __kPickerItemHeight = 32.0;
+  static const _kPickerSheetHeight = 216.0;
+  static const _kPickerItemHeight = 32.0;
 
   Location _location;
-  num _yield;
-  num _price;
-  num _rent;
+  num _yield = 2.5;
+  num _price = 3.0;
+  num _rent = 3.0;
 
   @override
   Widget build(BuildContext context) => CupertinoPageScaffold(
@@ -40,15 +41,25 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                               child: OutlineButton(
                                 child: Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text(_location != null
-                                      ? _location.label
-                                      : "Location"),
+                                  child: _location == null
+                                      ? Text(
+                                          "Location",
+                                          style: TextStyle(
+                                            color: CupertinoColors.inactiveGray,
+                                          ),
+                                        )
+                                      : Text(_location.label),
+                                ),
+                                borderSide: BorderSide(
+                                  color: CupertinoColors.lightBackgroundGray,
+                                  width: 1.0,
                                 ),
                                 onPressed: _pushLocation,
                               ),
                             ),
                           ],
                         ),
+                        SizedBox(height: 4.0),
                         Row(
                           children: <Widget>[
                             Expanded(
@@ -64,13 +75,19 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                                 }),
                               ),
                             ),
-                            _criteriaValue(context, "from 2.5%", (it) {
-                              setState(() {
-                                _yield = it;
-                              });
-                            }),
+                            _criteriaValue(
+                              context,
+                              "from $_yield%",
+                              _yield,
+                              (it) {
+                                setState(() {
+                                  _yield = it;
+                                });
+                              },
+                            ),
                           ],
                         ),
+                        Divider(),
                         Row(
                           children: <Widget>[
                             Expanded(
@@ -86,13 +103,19 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                                 }),
                               ),
                             ),
-                            _criteriaValue(context, "from 3.0%", (it) {
-                              setState(() {
-                                _price = it;
-                              });
-                            }),
+                            _criteriaValue(
+                              context,
+                              "from $_price%",
+                              _price,
+                              (it) {
+                                setState(() {
+                                  _price = it;
+                                });
+                              },
+                            ),
                           ],
                         ),
+                        Divider(),
                         Row(
                           children: <Widget>[
                             Expanded(
@@ -108,11 +131,16 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                                 }),
                               ),
                             ),
-                            _criteriaValue(context, "from 3.0%", (it) {
-                              setState(() {
-                                _rent = it;
-                              });
-                            }),
+                            _criteriaValue(
+                              context,
+                              "from $_rent%",
+                              _rent,
+                              (it) {
+                                setState(() {
+                                  _rent = it;
+                                });
+                              },
+                            ),
                           ],
                         )
                       ],
@@ -152,7 +180,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
           children: <Widget>[
             Text(data),
             const SizedBox(width: 8.0),
-            const Icon(CupertinoIcons.info, size: 16.0),
+            const Icon(CupertinoIcons.info, size: 22.0),
           ],
         ),
         onPressed: onPressed,
@@ -161,34 +189,44 @@ class _SearchCriteriaState extends State<SearchCriteria> {
   Widget _criteriaValue(
     BuildContext context,
     String data,
+    num selected,
     ValueChanged<num> onSelectedValueChanged,
   ) {
-    return OutlineButton(
+    return FlatButton(
       child: Row(
         children: <Widget>[
           Text(data),
           const SizedBox(width: 8.0),
-          const Icon(CupertinoIcons.right_chevron, size: 16.0),
+          const Icon(CupertinoIcons.right_chevron, size: 22.0),
         ],
       ),
       onPressed: () {
         showCupertinoModalPopup<void>(
           context: context,
-          builder: (context) => CupertinoPicker(
-                backgroundColor: CupertinoColors.white,
-                children: List<Widget>.generate(
-                  11,
-                  (index) => new Center(
-                        child: Text(
-                          "${index / 2} %",
-                        ),
+          builder: (context) => Container(
+                height: _kPickerSheetHeight,
+                color: CupertinoColors.white,
+                child: DefaultTextStyle(
+                  style: const TextStyle(
+                    color: CupertinoColors.black,
+                    fontSize: 22.0,
+                  ),
+                  child: SafeArea(
+                    child: CupertinoPicker(
+                      scrollController: FixedExtentScrollController(
+                        initialItem: (selected * 2).toInt(),
                       ),
+                      itemExtent: _kPickerItemHeight,
+                      backgroundColor: CupertinoColors.white,
+                      onSelectedItemChanged: (index) {
+                        onSelectedValueChanged(index / 2);
+                      },
+                      children: List<Widget>.generate(10, (index) {
+                        return Center(child: Text("${index / 2} %"));
+                      }),
+                    ),
+                  ),
                 ),
-                itemExtent: __kPickerItemHeight,
-                scrollController: FixedExtentScrollController(initialItem: 0),
-                onSelectedItemChanged: (index) {
-                  onSelectedValueChanged(index / 2);
-                },
               ),
         );
       },
