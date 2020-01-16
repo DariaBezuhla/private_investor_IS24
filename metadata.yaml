@@ -1,0 +1,13 @@
+type: library
+owners:
+  - ashley.davies@scout24.com
+product: mobile
+id: private-investors-client
+vertical: is24
+confidentiality: public
+integrity: false
+availability: false
+exposure:
+  - non-applicable
+lifecycle: preview
+license: Apache 2.0
