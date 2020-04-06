@@ -15,12 +15,13 @@ jobs:
     - uses: subosito/flutter-action@v1
       with:
         flutter-version: '1.9.1+hotfix.6'
+    - run: flutter test
+    - run: flutter build apk
     - name: notification
       if: cancelled() == false
       uses: xinthink/action-telegram@v1.1
       with:
         botToken: ${{ secrets.telegram_token }}
         chatId: ${{ secrets.telegram_chat_id }}
-        jobStatus: ${{ job.status }}    
-    - run: flutter test
-    - run: flutter build apk
+        jobStatus: ${{ job.status }}   
+        skipSuccess: false 
