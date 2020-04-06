@@ -1,11 +1,10 @@
-name: Greet Everyone
+name: Build app
 # This workflow is triggered on pushes to the repository.
 on: [push]
 
 jobs:
   build:
-    # Job name is Greeting
-    name: Greeting
+    name: Building
     # This job runs on Linux
     runs-on: ubuntu-latest
     steps:
@@ -16,11 +15,12 @@ jobs:
     - uses: subosito/flutter-action@v1
       with:
         flutter-version: '1.9.1+hotfix.6'
-    - uses: yanzay/notify-telegram@v0.1.0
-      if: always()
+    - name: notification
+      if: cancelled() == false
+      uses: xinthink/action-telegram@v1.1
       with:
-        chat: ${{ secrets.telegram_chat_id }} # user id or channel name secret
-        token: ${{ secrets.telegram_token }} # token secret
-        status: ${{ job.status }} # do not modify this line    - run: flutter pub get
+        botToken: ${{ secrets.telegram_token }}
+        chatId: ${{ secrets.telegram_chat_id }}
+        jobStatus: ${{ job.status }}    
     - run: flutter test
     - run: flutter build apk
