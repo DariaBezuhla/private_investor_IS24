@@ -1,16 +1,13 @@
-# privateinvestorsmobile
+# Private Investors Flutter App
 
-A new Flutter project.
+This is the mobile client for private investors portal.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+For setting up the project you need to
+- [Install Flutter](https://flutter.dev/docs/get-started/install)
+- clone this repo into IntelliJ (or Visual Studio Code)
+- install Flutter and Dart Plugins for IntelliJ
+- run `flutter packages get` (or use flutter plugin)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+For further help see the [flutter docs](https://flutter.dev/docs).
