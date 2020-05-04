@@ -14,7 +14,7 @@ For further help see the [flutter docs](https://flutter.dev/docs).
 
 ## Responsibilities
 
-Page Transitions/ Animations - Nataliia 
-Design compliance/ XD - Leonie
-Storybook - Egor
-API/ Service Layer - Minh, Cong
+- Page Transitions/ Animations - Nataliia 
+- Design compliance/ XD - Leonie
+- Storybook - Egor
+- API/ Service Layer - Minh, Cong
