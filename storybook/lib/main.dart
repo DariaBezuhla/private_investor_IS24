@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:magic_8_ball/results.dart';
+import 'package:storybook/results.dart';
 
 import './buttons.dart';
 import './constant.dart';

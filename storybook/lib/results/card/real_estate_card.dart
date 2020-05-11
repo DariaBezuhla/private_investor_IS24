@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:magic_8_ball/results/card/real_estate_detail_context.dart';
-import 'package:magic_8_ball/results/card/real_estate_object.dart';
-import 'package:magic_8_ball/results/card/view_states.dart';
-import 'package:magic_8_ball/icons/system_icons_i_s_icons.dart';
+import 'package:storybook/results/card/real_estate_detail_context.dart';
+import 'package:storybook/results/card/real_estate_object.dart';
+import 'package:storybook/results/card/view_states.dart';
+import 'package:storybook/icons/system_icons_i_s_icons.dart';
 
 import '../../constant.dart';
 

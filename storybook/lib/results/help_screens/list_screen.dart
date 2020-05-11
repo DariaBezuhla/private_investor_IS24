@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:magic_8_ball/results/card/real_estate_object.dart';
-import 'package:magic_8_ball/results/list/list_with_cards.dart';
+import 'package:storybook/results/card/real_estate_object.dart';
+import 'package:storybook/results/list/list_with_cards.dart';
 
 
 import '../../constant.dart';

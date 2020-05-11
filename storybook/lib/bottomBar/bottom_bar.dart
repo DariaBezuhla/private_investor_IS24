@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:magic_8_ball/icons/system_icons_i_s_icons.dart';
+import 'package:storybook/icons/system_icons_i_s_icons.dart';
 
 import '../constant.dart';
 

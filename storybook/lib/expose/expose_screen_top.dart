@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:magic_8_ball/icons/system_icons_i_s_icons.dart';
-import 'package:magic_8_ball/kostenrechner.dart';
+import 'package:storybook/icons/system_icons_i_s_icons.dart';
+import 'package:storybook/kostenrechner.dart';
 
 import './../constant.dart';
 

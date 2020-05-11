@@ -4,11 +4,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:magic_8_ball/results/card/real_estate_object.dart';
-import 'package:magic_8_ball/results/help_screens/app_bar_screen.dart';
-import 'package:magic_8_ball/results/help_screens/card_screen.dart';
-import 'package:magic_8_ball/results/help_screens/page_screen.dart';
-import 'package:magic_8_ball/results/help_screens/list_screen.dart';
+import 'package:storybook/results/card/real_estate_object.dart';
+import 'package:storybook/results/help_screens/app_bar_screen.dart';
+import 'package:storybook/results/help_screens/card_screen.dart';
+import 'package:storybook/results/help_screens/page_screen.dart';
+import 'package:storybook/results/help_screens/list_screen.dart';
 
 
 import 'constant.dart';

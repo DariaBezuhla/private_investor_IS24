@@ -1,7 +1,7 @@
 
-import 'package:magic_8_ball/results/SliverAppBar/sliver_app_bar.dart';
-import 'package:magic_8_ball/results/card/real_estate_object.dart';
-import 'package:magic_8_ball/results/card/real_estate_card.dart';
+import 'package:storybook/results/SliverAppBar/sliver_app_bar.dart';
+import 'package:storybook/results/card/real_estate_object.dart';
+import 'package:storybook/results/card/real_estate_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

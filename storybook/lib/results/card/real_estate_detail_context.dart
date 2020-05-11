@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:magic_8_ball/results/card/view_states.dart';
+import 'package:storybook/results/card/view_states.dart';
 
 
 
