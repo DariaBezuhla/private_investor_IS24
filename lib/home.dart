@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:privateinvestorsmobile/icons/aditional_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
+import 'constant.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -331,11 +332,12 @@ class _HomePage extends State<Home> {
                                       (_filtersAreVisible == false) ?
                                       Icon(
                                         SystemIconsIS.is24_system_48px_add,
+                                        color:kCharcoal,
                                         size: MediaQuery.of(context).size.height * 0.039,
                                       ) :
                                       Icon(
                                         AditionalIconsIS.additional_icons_48px_forbidden,
-                                        color: Color(0x0FF333333),
+                                        color: kCharcoal,
                                         size: MediaQuery.of(context).size.height * 0.039,
                                       ),
                                       onPressed: showFilters,
@@ -366,8 +368,8 @@ class _HomePage extends State<Home> {
                                   height: MediaQuery.of(context).size.width * 0.025
                               ),
 
-                              //weitere filter, part that drops down
-                              //filters are visible
+                             //weitere filter, part that drops down
+                             //immobilie and investitionen filters are visible
                               Visibility(
                                 visible: _filtersAreVisible, //false
                                 child: Stack(
@@ -795,6 +797,24 @@ class _HomePage extends State<Home> {
                                                     ),
                                                     SizedBox(
                                                         height: MediaQuery.of(context).size.height * 0.012),
+                                                   new SizedBox(
+                                                     height: MediaQuery
+                                                         .of(context)
+                                                         .size
+                                                         .height * 0.001,
+                                                     child: new Center(
+                                                       child: new Container(
+                                                         margin: new EdgeInsetsDirectional
+                                                             .only(start: 1.0,
+                                                             end: 1.0),
+                                                         height: MediaQuery
+                                                             .of(context)
+                                                             .size
+                                                             .height * 0.001,
+                                                         color: Colors.grey,
+                                                       ),
+                                                     ),
+                                                   ),
                                                   ],
                                                 ),
 
@@ -810,50 +830,54 @@ class _HomePage extends State<Home> {
                                   ],
                                 ),
                               ),
-
-
-                              SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.015,
-                              ),
-                              new SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.001,
-                                child: new Center(
-                                  child: new Container(
-                                    margin: new EdgeInsetsDirectional.only(start: 1.0, end: 1.0),
-                                    height: MediaQuery.of(context).size.height * 0.001,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: MediaQuery.of(context).size.width * 0.05,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.025),
-                                child: ButtonTheme(
-                                  minWidth: double.infinity,
-                                  child: FlatButton(
-                                    color: Color(0x0FF00FFD0),
-                                    textColor: Color(0xFF333333),
-                                    disabledColor: Colors.grey,
-                                    disabledTextColor: Colors.black,
-                                    //padding: EdgeInsets.all(8.0),
-                                    splashColor: Colors.blueAccent,
-                                    onPressed: () {
-                                      /*...*/
-                                    },
-                                    child: Text(
-                                      "SUCHEN",
-                                      style: TextStyle(
-                                        fontSize: MediaQuery.of(context).size.width * 0.04,
-                                        fontFamily: 'MakeItSans',
-                                        fontWeight: FontWeight.bold,
-                                        letterSpacing: MediaQuery.of(context).size.width * 0.006,
-                                      ),
+                              Visibility(
+                                visible: !_filtersAreVisible,
+                                child: new SizedBox(
+                                  height: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height * 0.001,
+                                  child: new Center(
+                                    child: new Container(
+                                      margin: new EdgeInsetsDirectional.only(
+                                          start: 1.0, end: 1.0),
+                                      height: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height * 0.001,
+                                      color: Colors.grey,
                                     ),
                                   ),
                                 ),
-                              )
+                              ),
+
+                              SizedBox(
+                                height: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.015,
+                              ),
+                              Container(
+                                //padding: const EdgeInsets.only(left: 24, bottom: 24),
+                                padding: EdgeInsets.only(bottom: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.025),
+                                child: ButtonTheme(
+                                  minWidth: double.infinity,
+                                  child: FlatButton(
+                                    color: kTeal,
+                                    textColor: kCharcoal,
+                                    padding: EdgeInsets.all(10.0),
+                                    onPressed: () {
+                                      /*...*/
+                                    },
+                                    child: Text("Suchen",
+                                        style: styleButton),
+                                  ),
+                                ),
+                              ),
+
                             ],
                           ),
                           //height: MediaQuery.of(context).size.height/2,
@@ -943,34 +967,32 @@ class _HomePage extends State<Home> {
                                   )
                               ),
                               SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.03,
+                                height: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.03,
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.024),
+                              Container(
+                                //padding: const EdgeInsets.only(left: 24, bottom: 24),
+                                padding: EdgeInsets.only(bottom: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.025),
                                 child: ButtonTheme(
                                   minWidth: double.infinity,
                                   child: FlatButton(
-                                    color: Color(0x0FF00FFD0),
-                                    textColor: Color(0xFF333333),
-                                    disabledColor: Colors.grey,
-                                    disabledTextColor: Colors.black,
-                                    //padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.008),
-                                    splashColor: Colors.blueAccent,
+                                    color: kTeal,
+                                    textColor: kCharcoal,
+                                    padding: EdgeInsets.all(10.0),
                                     onPressed: () {
                                       /*...*/
                                     },
-                                    child: Text(
-                                      "ZUM FINANZIERUNGSRECHNER",
-                                      style: TextStyle(
-                                        fontSize: MediaQuery.of(context).size.width * 0.03,
-                                        fontFamily: 'MakeItSans',
-                                        fontWeight: FontWeight.bold,
-                                        letterSpacing: MediaQuery.of(context).size.width * 0.006,
-                                      ),
-                                    ),
+                                    child: Text("Zum Finanzierungsrechner",
+                                        style: styleButton),
                                   ),
                                 ),
-                              )
+                              ),
+
                             ],
                           ),
                         ),

@@ -91,7 +91,7 @@ const styleText = TextStyle(
 );
 const styleButton = TextStyle(
   fontFamily: 'MakeItSans',
-  fontWeight: FontWeight.normal,
+  fontWeight: FontWeight.bold,
   color: kCharcoal,
   fontSize: 16.0,
 );
