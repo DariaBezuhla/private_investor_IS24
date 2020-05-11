@@ -24,7 +24,6 @@ const dHeaderFooter = Color(0xff373737);
 const bottomHeight = 56.0;
 const appBarHeight = 56.0;
 
-
 //Light Text Style
 //const header2 = TextStyle(fontSize: 20, color: kCharcoal);
 const helpers = TextStyle(fontSize: 15, color: kGrey);
@@ -94,7 +93,7 @@ const styleButton = TextStyle(
   fontFamily: 'MakeItSans',
   fontWeight: FontWeight.normal,
   color: kCharcoal,
-  fontSize: 14.0,
+  fontSize: 16.0,
 );
 const styleLabel = TextStyle(
   fontFamily: 'MakeItSans',
@@ -166,7 +165,12 @@ const dStyleDescriptionText = TextStyle(
   fontSize: 10.0,
 );
 
-
 //Logo
-var dLogo = Image.asset('assets/logo/inverse.png', height: 24,);
-var logo = Image.asset('assets/logo/logo.png', height: 24,);
+var dLogo = Image.asset(
+  'assets/logo/inverse.png',
+  height: 24,
+);
+var logo = Image.asset(
+  'assets/logo/logo.png',
+  height: 24,
+);
