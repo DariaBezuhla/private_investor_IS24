@@ -72,3 +72,4 @@ app/src/main/kotlin/com/example/privateinvestorsmobile/
 ios/Runner.xcworkspace/xcshareddata/
 pubspec.lock
 /pubspec.lock
+/ios/Flutter/flutter_export_environment.sh

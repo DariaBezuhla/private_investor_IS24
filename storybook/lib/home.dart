@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:magic_8_ball/icons/system_icons_i_s_icons.dart';
-import 'package:magic_8_ball/icons/aditional_icons_i_s_icons.dart';
+import 'package:storybook/icons/system_icons_i_s_icons.dart';
+import 'package:storybook/icons/aditional_icons_i_s_icons.dart';
 
 class Home extends StatefulWidget {
  @override
