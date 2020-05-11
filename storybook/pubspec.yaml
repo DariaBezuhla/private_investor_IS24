@@ -12,6 +12,7 @@ dependencies:
 
   cupertino_icons: ^0.1.2
   flutter_svg: ^0.17.4
+  auto_size_text: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -35,4 +36,12 @@ flutter:
         - asset: assets/fonts/MakeItSans-Bold.otf
     - family: SystemIconsIS
       fonts:
-        - asset: assets/fonts/SystemIconsIS.ttf
+        - asset: assets/icons/SystemIconsIS.ttf
+
+    - family: ProductIconsIS
+      fonts:
+        - asset: assets/icons/ProductIconsIS.ttf
+
+    - family: AditionalIconsIS
+      fonts:
+        - asset: assets/icons/AditionalIconsIS.ttf
