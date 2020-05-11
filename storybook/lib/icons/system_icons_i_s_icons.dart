@@ -79,10 +79,10 @@ class SystemIconsIS {
   static const IconData is24_system_48px_rating_state_1 = IconData(0xe837, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData is24_system_48px_rating_state_2 = IconData(0xe838, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData is24_system_48px_rating_state_3 = IconData(0xe839, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData is24_system_48px_rearrange = IconData(0xe83a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData is24_system_48px_remove = IconData(0xe83b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData is24_system_48px_save_search_option = IconData(0xe83c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData is24_system_48px_rearrange_option = IconData(0xe83d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData is24_system_48px_rearrange_option = IconData(0xe83a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData is24_system_48px_rearrange = IconData(0xe83b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData is24_system_48px_remove = IconData(0xe83c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData is24_system_48px_save_search_option = IconData(0xe83d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData is24_system_48px_save_search = IconData(0xe83e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData is24_system_48px_search = IconData(0xe83f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData is24_system_48px_settings = IconData(0xe840, fontFamily: _kFontFam, fontPackage: _kFontPkg);
