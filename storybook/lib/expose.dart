@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:magic_8_ball/expose/expose_screen_bottom.dart';
-import 'package:magic_8_ball/expose/expose_screen_top.dart';
-import 'package:magic_8_ball/sliders.dart';
+import 'package:storybook/expose/expose_screen_bottom.dart';
+import 'package:storybook/expose/expose_screen_top.dart';
+import 'package:storybook/sliders.dart';
 
 import 'constant.dart';
 import 'expose/expose_screen.dart';
