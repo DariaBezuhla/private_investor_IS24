@@ -1,4 +1,4 @@
-package com.example.storybook
+package com.example.storybook_is24
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
