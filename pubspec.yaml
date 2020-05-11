@@ -31,27 +31,33 @@ flutter:
   uses-material-design: true
 
   assets:
-    - images/immoscout_logo.png
-    - images/ftor_gerade_gradient.jpg
-    - images/heart@3x.png
-    - images/search@3x.png
-    - images/settings@3x.png
+    - assets/logo/
+    - assets/fonts/
+    - assets/icons/
+    - assets/highlights/
+    - assets/images/
+    - assets/objects/
+    - assets/images/immoscout_logo.png
+    - assets/images/ftor_gerade_gradient.jpg
+    - assets/images/heart@3x.png
+    - assets/images/search@3x.png
+    - assets/images/settings@3x.png
 
 
   fonts:
     - family: MakeItSans
       fonts:
-        - asset: fonts/MakeItSans-Bold.otf
-        - asset: fonts/MakeItSans-Regular.otf
+        - asset: assets/fonts/MakeItSans-Bold.otf
+        - asset: assets/fonts/MakeItSans-Regular.otf
 
     - family: ProductIconsIS
       fonts:
-        - asset: icons/ProductIconsIS.ttf
+        - asset: assets/icons/ProductIconsIS.ttf
 
     - family:  SystemIconsIS
       fonts:
-        - asset: icons/SystemIconsIS.ttf
+        - asset: assets/icons/SystemIconsIS.ttf
 
     - family: AditionalIconsIS
       fonts:
-        - asset: icons/AditionalIconsIS.ttf
+        - asset: assets/icons/AditionalIconsIS.ttf

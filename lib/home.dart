@@ -2,6 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:privateinvestorsmobile/icons/aditional_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
+import 'package:privateinvestorsmobile/results.dart';
+import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
+import 'bottomBar/bottom_bar.dart';
+import 'transition/page_route_generator.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -38,12 +42,13 @@ class _HomePage extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        brightness: Brightness.light,
         backgroundColor: Colors.white,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset(
-              'images/immoscout_logo.png',
+              'assets/images/immoscout_logo.png',
               fit: BoxFit.cover,
               height: MediaQuery.of(context).size.height * 0.04,
             ),
@@ -55,7 +60,7 @@ class _HomePage extends State<Home> {
         child: Stack(
           children: <Widget>[
             Container(
-              child: Image(image: AssetImage('images/ftor_gerade_gradient.jpg')),
+              child: Image(image: AssetImage('assets/images/ftor_gerade_gradient.jpg')),
             ),
             Container(
               margin: new EdgeInsets.only(top: 130.0),
@@ -839,8 +844,12 @@ class _HomePage extends State<Home> {
                                     disabledTextColor: Colors.black,
                                     //padding: EdgeInsets.all(8.0),
                                     splashColor: Colors.blueAccent,
-                                    onPressed: () {
-                                      /*...*/
+                                    onPressed: () { //Go to Results Screen
+                                      Navigator.of(context).push(
+                                        PageRouteGenerator(builder: (context) {
+                                          return ResultScreen(resultsList: results,);
+                                        }),
+                                      );
                                     },
                                     child: Text(
                                       "SUCHEN",
@@ -983,7 +992,9 @@ class _HomePage extends State<Home> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar:  SafeArea(
+        child: BottomBar(),),
+      /*BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
         onTap: (int _currentIndex) {
@@ -998,7 +1009,7 @@ class _HomePage extends State<Home> {
               size: MediaQuery.of(context).size.width * 0.09,
               color: Colors.black,
             ),
-            activeIcon: new Image.asset("images/search@3x.png"),
+            activeIcon: new Image.asset("assets/images/search@3x.png"),
           ),
           BottomNavigationBarItem(
             title: Text(''),
@@ -1007,7 +1018,7 @@ class _HomePage extends State<Home> {
               size: MediaQuery.of(context).size.width * 0.09,
               color: Colors.black,
             ),
-            activeIcon: new Image.asset("images/heart@3x.png"),
+            activeIcon: new Image.asset("assets/images/heart@3x.png"),
           ),
           BottomNavigationBarItem(
             title: Text(''),
@@ -1016,18 +1027,22 @@ class _HomePage extends State<Home> {
               size: MediaQuery.of(context).size.width * 0.09,
               color: Colors.black,
             ),
-            activeIcon: new Image.asset("images/settings@3x.png"),
+            activeIcon: new Image.asset("assets/images/settings@3x.png"),
           ),
         ],
       ),
+
+     */
     );
   }
 
-  void onTabTapped(int index) {
+  /* void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
   }
+
+  */
 
   void showFilters() {
     setState(() {
