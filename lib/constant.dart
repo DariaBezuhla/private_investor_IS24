@@ -93,7 +93,7 @@ const styleButton = TextStyle(
   fontFamily: 'MakeItSans',
   fontWeight: FontWeight.bold,
   color: kCharcoal,
-  fontSize: 14.0,
+  fontSize: 16.0,
 );
 const styleLabel = TextStyle(
   fontFamily: 'MakeItSans',
@@ -150,7 +150,7 @@ const dStyleButton = TextStyle(
   fontFamily: 'MakeItSans',
   fontWeight: FontWeight.bold,
   color: dTextColorLight,
-  fontSize: 14.0,
+  fontSize: 16.0,
 );
 const dStyleLabel = TextStyle(
   fontFamily: 'MakeItSans',
