@@ -35,15 +35,15 @@ class _SlidersState extends State<Sliders> {
         body: SafeArea(
           child: Column(
             children: <Widget>[
-              Container(
-                width: 400,
-                height: 200,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  width: 400,
+                  height: 200,
                   child: Card(
                     shape: BeveledRectangleBorder(),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(14.0),
                       child: Column(
                         children: <Widget>[
                           Expanded(
@@ -87,7 +87,6 @@ class _SlidersState extends State<Sliders> {
                                 max: 300,
                                 onChanged: (double newPrice) {
                                   setState(() {
-                                    print('$price');
                                     price = newPrice;
                                   });
                                 },
@@ -140,11 +139,11 @@ class _SlidersState extends State<Sliders> {
                   ),
                 ),
               ),
-              Container(
-                width: 400,
-                height: 100,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  width: 400,
+                  height: 100,
                   child: Card(
                     shape: BeveledRectangleBorder(),
                     child: Padding(
@@ -198,15 +197,15 @@ class _SlidersState extends State<Sliders> {
                   ),
                 ),
               ),
-              Container(
-                width: 400,
-                height: 100,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  width: 400,
+                  height: 100,
                   child: Card(
                     shape: BeveledRectangleBorder(),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(14.0),
                       child: Column(
                         children: <Widget>[
                           Expanded(
