@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:privateinvestorsmobile/results/card/real_estate_detail_context.dart';
-import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
-import 'package:privateinvestorsmobile/results/card/view_states.dart';
-import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
+import '../../results/card/real_estate_detail_context.dart';
+import '../../results/card/real_estate_object.dart';
+import '../../results/card/view_states.dart';
+import '../../icons/system_icons_i_s_icons.dart';
 
 import '../../constant.dart';
 
@@ -43,11 +43,11 @@ class _RealEstateCardState extends State<RealEstateCard> {
     var elevation = (widget.theme == 'Dark') ? 0.0 : 2.0;
     var iconsColor = (widget.theme == 'Dark') ? dTextColorLight : null;
 
-    var pressedFavoriteIcon =  Icon(
-            Icons.favorite,
-            size: 24,
-            color: kError,
-          );
+    var pressedFavoriteIcon = Icon(
+      Icons.favorite,
+      size: 24,
+      color: kError,
+    );
     var favoriteIcon = (!isPressed)
         ? Icon(
             SystemIconsIS.is24_system_48px_heart_favorite,

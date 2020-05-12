@@ -20,12 +20,12 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^0.1.2
+  flutter_svg: ^0.17.4
   auto_size_text: ^2.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 
 flutter:
   uses-material-design: true
@@ -43,7 +43,6 @@ flutter:
     - assets/images/search@3x.png
     - assets/images/settings@3x.png
 
-
   fonts:
     - family: MakeItSans
       fonts:
@@ -54,7 +53,7 @@ flutter:
       fonts:
         - asset: assets/icons/ProductIconsIS.ttf
 
-    - family:  SystemIconsIS
+    - family: SystemIconsIS
       fonts:
         - asset: assets/icons/SystemIconsIS.ttf
 

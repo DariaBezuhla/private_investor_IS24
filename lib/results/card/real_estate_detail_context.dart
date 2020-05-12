@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:privateinvestorsmobile/results/card/view_states.dart';
-
-
+import '../../results/card/view_states.dart';
 
 class DetailsStyleContents extends StatelessWidget {
   final String text;
@@ -20,9 +18,9 @@ class DetailsStyleContents extends StatelessWidget {
   }) : super(key: key);
 
   Widget _buildDetailsText() => Text(
-    text,
-    style: textStyle,
-  );
+        text,
+        style: textStyle,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +28,10 @@ class DetailsStyleContents extends StatelessWidget {
       color: Colors.transparent,
       child: isOverflow
           ? OverflowBox(
-        maxWidth: double.infinity,
-        maxHeight: double.infinity,
-        child: _buildDetailsText(),
-      )
+              maxWidth: double.infinity,
+              maxHeight: double.infinity,
+              child: _buildDetailsText(),
+            )
           : _buildDetailsText(),
     );
   }
@@ -48,7 +46,6 @@ class DetailsStyle extends StatefulWidget {
   final FontStyle fontStyle;
   final TextStyle textStyle;
 
-
   const DetailsStyle({
     Key key,
     @required this.title,
@@ -57,7 +54,7 @@ class DetailsStyle extends StatefulWidget {
     this.largeFontSize = 25.0, //House Price on destination screen
     this.isOverflow = false,
     this.fontStyle = FontStyle.normal,
-    @ required this.textStyle,
+    @required this.textStyle,
   }) : super(key: key);
 
   @override
@@ -77,10 +74,10 @@ class _DetailsStyleState extends State<DetailsStyle>
       vsync: this,
       duration: Duration(milliseconds: 250),
     )..addListener(() {
-      setState(() {
-        fontSize = _fontSizeTween.value;
+        setState(() {
+          fontSize = _fontSizeTween.value;
+        });
       });
-    });
 
     switch (widget.viewState) {
       case ViewState.enlarge:

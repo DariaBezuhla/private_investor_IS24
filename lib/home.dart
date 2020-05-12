@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:privateinvestorsmobile/icons/aditional_icons_i_s_icons.dart';
-import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
-import 'package:privateinvestorsmobile/results.dart';
-import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
-import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
+import 'icons/aditional_icons_i_s_icons.dart';
+import 'icons/system_icons_i_s_icons.dart';
+import 'results.dart';
+import 'results/card/real_estate_object.dart';
+import 'transition/page_route_generator.dart';
 import 'bottomBar/bottom_bar.dart';
 import 'constant.dart';
 
