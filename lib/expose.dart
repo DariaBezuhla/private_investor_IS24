@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'icons/system_icons_i_s_icons.dart';
-
+import 'results/card/real_estate_object.dart';
 import './constant.dart';
 import './kostenrechner.dart';
 
 class ExposeScreen extends StatelessWidget {
+  final RealEstateObject house;
+
+  const ExposeScreen({Key key, this.house}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

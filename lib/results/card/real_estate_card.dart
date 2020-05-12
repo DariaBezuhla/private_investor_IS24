@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../transition/page_route_generator.dart';
+import '../../expose.dart';
 import '../../results/card/real_estate_detail_context.dart';
 import '../../results/card/real_estate_object.dart';
 import '../../results/card/view_states.dart';
@@ -197,13 +199,22 @@ class _RealEstateCardState extends State<RealEstateCard> {
                     },
                     child: Hero(
                       tag: '${widget.house.id}-img',
-                      child: Container(
-                        width: widthOfImage,
-                        height: hightOfImage,
-                        decoration: new BoxDecoration(
-                          image: new DecorationImage(
-                            image: AssetImage(widget.house.pictureUrl),
-                            fit: BoxFit.cover,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            PageRouteGenerator(builder: (context) {
+                              return ExposeScreen(house: widget.house);
+                            }),
+                          );
+                        },
+                        child: Container(
+                          width: widthOfImage,
+                          height: hightOfImage,
+                          decoration: new BoxDecoration(
+                            image: new DecorationImage(
+                              image: AssetImage(widget.house.pictureUrl),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
