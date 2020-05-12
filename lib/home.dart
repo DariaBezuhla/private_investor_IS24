@@ -2,6 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:privateinvestorsmobile/icons/aditional_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
+import 'package:privateinvestorsmobile/results.dart';
+import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
+import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
+import 'bottomBar/bottom_bar.dart';
 import 'constant.dart';
 
 class Home extends StatefulWidget {
@@ -44,7 +48,7 @@ class _HomePage extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset(
-              'images/immoscout_logo.png',
+              'assets/images/immoscout_logo.png',
               fit: BoxFit.cover,
               height: MediaQuery.of(context).size.height * 0.04,
             ),
@@ -56,7 +60,7 @@ class _HomePage extends State<Home> {
         child: Stack(
           children: <Widget>[
             Container(
-              child: Image(image: AssetImage('images/ftor_gerade_gradient.jpg')),
+              child: Image(image: AssetImage('assets/images/ftor_gerade_gradient.jpg')),
             ),
             Container(
               margin: new EdgeInsets.only(top: 130.0),
@@ -870,7 +874,11 @@ class _HomePage extends State<Home> {
                                     textColor: kCharcoal,
                                     padding: EdgeInsets.all(10.0),
                                     onPressed: () {
-                                      /*...*/
+                                      Navigator.of(context).push(
+                                        PageRouteGenerator(builder: (context) {
+                                          return ResultScreen(resultsList: results,);
+                                        }),
+                                      );
                                     },
                                     child: Text("Suchen",
                                         style: styleButton),
@@ -1005,7 +1013,9 @@ class _HomePage extends State<Home> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: SafeArea(
+        child: BottomBar(),),
+      /*BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
         onTap: (int _currentIndex) {
@@ -1042,14 +1052,18 @@ class _HomePage extends State<Home> {
           ),
         ],
       ),
+
+       */
     );
   }
-
+/*
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
   }
+
+ */
 
   void showFilters() {
     setState(() {

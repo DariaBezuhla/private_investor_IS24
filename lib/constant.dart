@@ -11,6 +11,7 @@ const kCard = Colors.white;
 const kBackground = Color(0xffe5e5e5);
 const kBackgroundLight = Color(0xfffafafa);
 const kHeaderFooter = Colors.white;
+const kFooter = Color(0xfff0f0f0);
 
 //dark colors
 const dCardsColor = Color(0xff3e3e3e);
