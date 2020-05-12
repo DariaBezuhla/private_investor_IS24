@@ -21,11 +21,12 @@ class AditionalIconsIS {
   static const _kFontFam = 'AditionalIconsIS';
   static const _kFontPkg = null;
 
-  static const IconData additional_icons_48px_apartment_house = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData additional_icons_48px_apartment_house = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData additional_icons_48px_advertising = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData additional_icons_48px_armchair = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData additional_icons_48px_ballpoint_pen = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData additional_icons_48px_book = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData additional_icons_48px_booklet = IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData additional_icons_48px_booklet = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData additional_icons_48px_book = IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData additional_icons_48px_bulls_eye = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData additional_icons_48px_calendar_checkmark = IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData additional_icons_48px_calendar_cross = IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
@@ -36,8 +37,8 @@ class AditionalIconsIS {
   static const IconData additional_icons_48px_commode = IconData(0xe80d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData additional_icons_48px_construction_helmet = IconData(0xe80e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData additional_icons_48px_contrast = IconData(0xe80f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData additional_icons_48px_distance = IconData(0xe810, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData additional_icons_48px_cup = IconData(0xe811, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData additional_icons_48px_cup = IconData(0xe810, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData additional_icons_48px_distance = IconData(0xe811, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData additional_icons_48px_document_empty = IconData(0xe812, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData additional_icons_48px_downsize = IconData(0xe813, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData additional_icons_48px_enlarge = IconData(0xe814, fontFamily: _kFontFam, fontPackage: _kFontPkg);
@@ -58,8 +59,8 @@ class AditionalIconsIS {
   static const IconData additional_icons_48px_new_apartment_building_option = IconData(0xe823, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData additional_icons_48px_notebook = IconData(0xe824, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData additional_icons_48px_paperclip = IconData(0xe825, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData additional_icons_48px_paperplane = IconData(0xe826, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData additional_icons_48px_percent = IconData(0xe827, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData additional_icons_48px_percent = IconData(0xe826, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData additional_icons_48px_paperplane = IconData(0xe827, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData additional_icons_48px_picture = IconData(0xe828, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData additional_icons_48px_plus = IconData(0xe829, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData additional_icons_48px_price_check = IconData(0xe82a, fontFamily: _kFontFam, fontPackage: _kFontPkg);

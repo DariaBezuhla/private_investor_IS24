@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:storybook/icons/system_icons_i_s_icons.dart';
 import 'package:storybook/icons/aditional_icons_i_s_icons.dart';
+import 'constant.dart';
 
 class Home extends StatefulWidget {
  @override
@@ -60,18 +61,6 @@ class _HomePage extends State<Home> {
            Container(
              margin: new EdgeInsets.only(top: 130.0),
              height: MediaQuery.of(context).size.height * 0.18,
-             decoration: BoxDecoration(
-                 /*gradient: LinearGradient(
-                   colors: <Color>[
-                     Colors.white12,
-                     Colors.white,
-                   ],
-                   stops: [0.1, 0.5],
-                   begin: Alignment.topCenter,
-                   end: Alignment.bottomCenter,
-                   tileMode: TileMode.repeated,
-                 )*/
-             ),
            ),
            ListView(
              padding: new EdgeInsets.fromLTRB(
@@ -341,11 +330,12 @@ class _HomePage extends State<Home> {
                                      (_filtersAreVisible == false) ?
                                        Icon(
                                        SystemIconsIS.is24_system_48px_add,
+                                       color:kCharcoal,
                                        size: MediaQuery.of(context).size.height * 0.039,
                                        ) :
                                        Icon(
                                          AditionalIconsIS.additional_icons_48px_forbidden,
-                                         color: Color(0x0FF333333),
+                                         color: kCharcoal,
                                          size: MediaQuery.of(context).size.height * 0.039,
                                        ),
                                    onPressed: showFilters,
@@ -356,7 +346,7 @@ class _HomePage extends State<Home> {
                                        fontFamily: 'MakeItSans',
                                        fontWeight: FontWeight.bold,
                                        fontSize: MediaQuery.of(context).size.height * 0.023,
-                                       color: Color(0x0FF333333),
+                                       color: kCharcoal,
                                      ),
                                    ),
                                    (_filtersAreVisible == false) ?
@@ -366,7 +356,7 @@ class _HomePage extends State<Home> {
                                      ) :
                                        Icon (SystemIconsIS
                                        .is24_system_48px_chevron_up,
-                                       color: Color(0x0FF333333),
+                                       color: kCharcoal,
                                        size: MediaQuery.of(context).size.height * 0.030,
                                        ),
                                  ],
@@ -377,7 +367,7 @@ class _HomePage extends State<Home> {
                              ),
 
                              //weitere filter, part that drops down
-                             //filters are visible
+                             //immobilie and investitionen filters are visible
                              Visibility(
                                visible: _filtersAreVisible, //false
                                child: Stack(
@@ -399,7 +389,7 @@ class _HomePage extends State<Home> {
                                                        fontFamily: 'MakeItSans',
                                                        fontWeight: FontWeight.bold,
                                                        fontSize: MediaQuery.of(context).size.height * 0.023,
-                                                       color: Color(0x0FF333333),
+                                                       color: kCharcoal,
                                                      ),
                                                    ),
                                                    RawMaterialButton(
@@ -413,7 +403,7 @@ class _HomePage extends State<Home> {
                                                      ) :
                                                      Icon (SystemIconsIS
                                                          .is24_system_48px_chevron_up,
-                                                       color: Color(0x0FF333333),
+                                                       color: kCharcoal,
                                                        size: MediaQuery.of(context).size.height * 0.030,
                                                      ),
                                                      onPressed: showInvestFilters,
@@ -804,7 +794,28 @@ class _HomePage extends State<Home> {
                                                      ),
                                                    ),
                                                    SizedBox(
-                                                       height: MediaQuery.of(context).size.height * 0.012),
+                                                       height: MediaQuery
+                                                           .of(context)
+                                                           .size
+                                                           .height * 0.012),
+                                                   new SizedBox(
+                                                     height: MediaQuery
+                                                         .of(context)
+                                                         .size
+                                                         .height * 0.001,
+                                                     child: new Center(
+                                                       child: new Container(
+                                                         margin: new EdgeInsetsDirectional
+                                                             .only(start: 1.0,
+                                                             end: 1.0),
+                                                         height: MediaQuery
+                                                             .of(context)
+                                                             .size
+                                                             .height * 0.001,
+                                                         color: Colors.grey,
+                                                       ),
+                                                     ),
+                                                   ),
                                                  ],
                                                ),
 
@@ -821,49 +832,49 @@ class _HomePage extends State<Home> {
                                ),
                              ),
 
-
                              SizedBox(
-                               height: MediaQuery.of(context).size.height * 0.015,
+                               height: 10.0,
                              ),
-                             new SizedBox(
-                               height: MediaQuery.of(context).size.height * 0.001,
-                               child: new Center(
-                                 child: new Container(
-                                   margin: new EdgeInsetsDirectional.only(start: 1.0, end: 1.0),
-                                   height: MediaQuery.of(context).size.height * 0.001,
-                                   color: Colors.grey,
-                                 ),
-                               ),
-                             ),
-                             SizedBox(
-                               height: MediaQuery.of(context).size.width * 0.05,
-                             ),
-                             Padding(
-                               padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.025),
-                               child: ButtonTheme(
-                                 minWidth: double.infinity,
-                                 child: FlatButton(
-                                   color: Color(0x0FF00FFD0),
-                                   textColor: Color(0xFF333333),
-                                   disabledColor: Colors.grey,
-                                   disabledTextColor: Colors.black,
-                                   //padding: EdgeInsets.all(8.0),
-                                   splashColor: Colors.blueAccent,
-                                   onPressed: () {
-                                     /*...*/
-                                   },
-                                   child: Text(
-                                     "SUCHEN",
-                                     style: TextStyle(
-                                       fontSize: MediaQuery.of(context).size.width * 0.04,
-                                       fontFamily: 'MakeItSans',
-                                       fontWeight: FontWeight.bold,
-                                       letterSpacing: MediaQuery.of(context).size.width * 0.006,
-                                     ),
+                             Visibility(
+                               visible: !_filtersAreVisible,
+                               child: new SizedBox(
+                                 height: MediaQuery
+                                     .of(context)
+                                     .size
+                                     .height * 0.001,
+                                 child: new Center(
+                                   child: new Container(
+                                     margin: new EdgeInsetsDirectional.only(
+                                         start: 1.0, end: 1.0),
+                                     height: MediaQuery
+                                         .of(context)
+                                         .size
+                                         .height * 0.001,
+                                     color: Colors.grey,
                                    ),
                                  ),
                                ),
-                             )
+                             ),
+
+                             SizedBox(
+                               height: MediaQuery.of(context).size.width * 0.05),
+                             Container(
+                               //padding: const EdgeInsets.only(left: 24, bottom: 24),
+                                padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.025),
+                                     child: ButtonTheme(
+                                       minWidth: double.infinity,
+                                        child: FlatButton(
+                                        color: kTeal,
+                                        textColor: kCharcoal,
+                                        padding: EdgeInsets.all(10.0),
+                                        onPressed: () {
+                                          /*...*/
+                                           },
+                                         child: Text("Suchen",
+                                         style: styleButton),
+                                   ),
+                               ),
+                             ),
                            ],
                          ),
                          //height: MediaQuery.of(context).size.height/2,
@@ -955,32 +966,23 @@ class _HomePage extends State<Home> {
                              SizedBox(
                                height: MediaQuery.of(context).size.height * 0.03,
                              ),
-                             Padding(
-                               padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.024),
-                               child: ButtonTheme(
-                                 minWidth: double.infinity,
-                                 child: FlatButton(
-                                   color: Color(0x0FF00FFD0),
-                                   textColor: Color(0xFF333333),
-                                   disabledColor: Colors.grey,
-                                   disabledTextColor: Colors.black,
-                                   //padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.008),
-                                   splashColor: Colors.blueAccent,
-                                   onPressed: () {
-                                     /*...*/
-                                   },
-                                   child: Text(
-                                     "ZUM FINANZIERUNGSRECHNER",
-                                     style: TextStyle(
-                                       fontSize: MediaQuery.of(context).size.width * 0.03,
-                                       fontFamily: 'MakeItSans',
-                                       fontWeight: FontWeight.bold,
-                                       letterSpacing: MediaQuery.of(context).size.width * 0.006,
-                                     ),
+                              Container(
+                                 //padding: const EdgeInsets.only(left: 24, bottom: 24),
+                                padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.025),
+                                     child: ButtonTheme(
+                                       minWidth: double.infinity,
+                                        child: FlatButton(
+                                        color: kTeal,
+                                        textColor: kCharcoal,
+                                        padding: EdgeInsets.all(10.0),
+                                        onPressed: () {
+                                          /*...*/
+                                           },
+                                         child: Text("Zum Finanzierungsrechner",
+                                         style: styleButton),
                                    ),
-                                 ),
                                ),
-                             )
+                             ),
                            ],
                          ),
                        ),
@@ -1006,7 +1008,7 @@ class _HomePage extends State<Home> {
            title: Text(''),
            icon: Icon(SystemIconsIS.is24_system_48px_search,
              size: MediaQuery.of(context).size.width * 0.09,
-             color: Colors.black,
+             color: kCharcoal,
            ),
            activeIcon: new Image.asset("assets/images/search@3x.png"),
          ),
@@ -1015,7 +1017,7 @@ class _HomePage extends State<Home> {
            icon: Icon(
              SystemIconsIS.is24_system_48px_heart_favorite,
              size: MediaQuery.of(context).size.width * 0.09,
-             color: Colors.black,
+             color: kCharcoal,
            ),
            activeIcon: new Image.asset("assets/images/heart@3x.png"),
          ),
@@ -1024,7 +1026,7 @@ class _HomePage extends State<Home> {
            icon: Icon(
              SystemIconsIS.is24_system_48px_settings,
              size: MediaQuery.of(context).size.width * 0.09,
-             color: Colors.black,
+             color: kCharcoal,
            ),
            activeIcon: new Image.asset("assets/images/settings@3x.png"),
          ),
