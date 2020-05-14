@@ -8,7 +8,7 @@ import 'package:privateinvestorsmobile/results/card/view_states.dart';
 import '../constant.dart';
 import '../kostenrechner.dart';
 
-class ExposeContent extends StatelessWidget {
+class ExposeContent extends StatefulWidget {
   final RealEstateObject house;
 
   const ExposeContent({
@@ -17,14 +17,48 @@ class ExposeContent extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  Widget build(BuildContext context) {}
+
+  @override
+  _ExposeContentState createState() => _ExposeContentState();
+}
+
+class _ExposeContentState extends State<ExposeContent> {
+  @override
   Widget build(BuildContext context) {
+    bool isPressed = saved.contains(widget.house);
+    var pressedFavoriteIcon = Icon(
+      Icons.favorite,
+      size: 24,
+      color: kError,
+    );
+    var favoriteIcon = (!isPressed)
+        ? Icon(
+            SystemIconsIS.is24_system_48px_heart_favorite,
+            color: kCharcoal,
+            size: 24.0,
+          )
+        : pressedFavoriteIcon;
+
+    void _saveInWishList() {
+      setState(() //<--whenever icon is pressed, force redraw the widget
+          {
+        if (saved.contains(widget.house))
+          saved.remove(widget.house);
+        else
+          saved.add(widget.house);
+      });
+    }
+
+    ;
+
     return ListView(
       children: <Widget>[
         //Image -> later Image Slider
         Hero(
-          tag: '${house.id}-img',
+          tag: '${widget.house.id}-img',
           child: Image.asset(
-            house.pictureUrl,
+            widget.house.pictureUrl,
             fit: BoxFit.cover,
             width: MediaQuery.of(context).size.width,
             height: 300.0,
@@ -52,19 +86,31 @@ class ExposeContent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Hero(
-                    tag: '${house.id}-title',
+                    tag: '${widget.house.id}-title',
                     child: DetailsStyle(
-                      title: house.title,
+                      title: widget.house.title,
                       viewState: ViewState.enlarged,
                       largeFontSize: 18.0,
                       textStyle: header4,
                     ),
                   ),
                   SizedBox(height: 10),
-                  Text(
-                    house.address,
-                    style: styleText,
-                    textAlign: TextAlign.left,
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        widget.house.address,
+                        style: styleText,
+                        textAlign: TextAlign.left,
+                      ),
+                      Spacer(),
+                      Container(
+                          height: 24.0,
+                          child: GestureDetector(
+                              onTap: () {
+                                _saveInWishList();
+                              },
+                              child: favoriteIcon)),
+                    ],
                   )
                 ],
               ),
@@ -86,7 +132,8 @@ class ExposeContent extends StatelessWidget {
                       children: <Widget>[
                         Column(
                           children: <Widget>[
-                            _buildInfoItemForPriceWithTransition("Kaufpreis", house.price),
+                            _buildInfoItemForPriceWithTransition(
+                                "Kaufpreis", widget.house.price),
                             SizedBox(height: 24),
                             _buildInfoItem1("Aktuelle Miete", "--- €")
                           ],
@@ -101,7 +148,8 @@ class ExposeContent extends StatelessWidget {
                       children: <Widget>[
                         Column(
                           children: <Widget>[
-                            _buildInfoItemForPriceProMWithTransition("Preis pro m²", house.pricePerSqm),
+                            _buildInfoItemForPriceProMWithTransition(
+                                "Preis pro m²", widget.house.pricePerSqm),
                             SizedBox(height: 24),
                             _buildInfoItem1("Hausgeld", "--- €")
                           ],
@@ -161,14 +209,14 @@ class ExposeContent extends StatelessWidget {
                     padding: EdgeInsets.all(24),
                     child: Row(
                       children: <Widget>[
-                        _buildInfoItem2(
-                            "Mietpreis-\nentwicklung", "${house.priceTrend}", true),
+                        _buildInfoItem2("Mietpreis-\nentwicklung",
+                            "${widget.house.priceTrend}", true),
                         VerticalDivider(
                           thickness: 1,
                           color: kBackground,
                         ),
-                        _buildInfoItem2(
-                            "Kaufpreis-\nentwicklung", "${house.rentTrend}", false)
+                        _buildInfoItem2("Kaufpreis-\nentwicklung",
+                            "${widget.house.rentTrend}", false)
                       ],
                     ),
                   ),
@@ -185,8 +233,8 @@ class ExposeContent extends StatelessWidget {
               direction: Axis.horizontal,
               alignment: WrapAlignment.spaceEvenly,
               children: _buildInfoItem3([
-                "${house.livingSpace}",
-                "${house.rooms} Zimmer",
+                "${widget.house.livingSpace}",
+                "${widget.house.rooms} Zimmer",
                 "Aufzug",
               ])),
         ),
@@ -216,7 +264,7 @@ class ExposeContent extends StatelessWidget {
         //maps
         Container(
           padding: EdgeInsets.symmetric(horizontal: 24),
-          child: Image.asset(
+          child: new Image.asset(
             "assets/images/maps.png",
           ),
         ),
@@ -269,7 +317,7 @@ class ExposeContent extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Hero(
-            tag: '${house.id}-price',
+            tag: '${widget.house.id}-price',
             child: DetailsStyle(
               title: value,
               viewState: ViewState.enlarged,
@@ -286,13 +334,14 @@ class ExposeContent extends StatelessWidget {
     );
   }
 
-  Container _buildInfoItemForPriceProMWithTransition(String title, String value) {
+  Container _buildInfoItemForPriceProMWithTransition(
+      String title, String value) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Column(
         children: <Widget>[
           Hero(
-            tag: '${house.id}-pricePerSqm',
+            tag: '${widget.house.id}-pricePerSqm',
             child: DetailsStyle(
               title: value,
               viewState: ViewState.enlarged,
@@ -308,7 +357,6 @@ class ExposeContent extends StatelessWidget {
       ),
     );
   }
-
 
   Container _buildInfoItem1(String title, String value) {
     return Container(
@@ -364,13 +412,13 @@ class ExposeContent extends StatelessWidget {
     return list
         .map(
           (e) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: Text(
-          e,
-          style: TextStyle(color: Colors.grey[600]),
-        ),
-      ),
-    )
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            child: Text(
+              e,
+              style: TextStyle(color: Colors.grey[600]),
+            ),
+          ),
+        )
         .toList();
   }
 
@@ -418,5 +466,3 @@ class ExposeContent extends StatelessWidget {
     );
   }
 }
-
-
