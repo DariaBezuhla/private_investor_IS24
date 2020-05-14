@@ -29,6 +29,7 @@ class RealEstateCard extends StatefulWidget {
 }
 
 class _RealEstateCardState extends State<RealEstateCard> {
+
   @override
   Widget build(BuildContext context) {
     bool isPressed = saved.contains(widget.house);
@@ -111,7 +112,7 @@ class _RealEstateCardState extends State<RealEstateCard> {
                       ? ViewState.enlarge
                       : ViewState.shrink,
                   smallFontSize: 18.0,
-                  largeFontSize: 24.0,
+                  largeFontSize: 18.0,
                   textStyle: styleHeader4,
                 );
               },
@@ -119,7 +120,7 @@ class _RealEstateCardState extends State<RealEstateCard> {
                 title: widget.house.price,
                 viewState: ViewState.shrunk,
                 smallFontSize: 18.0,
-                largeFontSize: 24.0,
+                largeFontSize: 18.0,
                 textStyle: styleHeader4,
               ),
             ),
@@ -199,14 +200,14 @@ class _RealEstateCardState extends State<RealEstateCard> {
                     },
                     child: Hero(
                       tag: '${widget.house.id}-img',
-                      child: GestureDetector(
+                      /*child: GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(
                             PageRouteGenerator(builder: (context) {
                               return ExposeScreen(house: widget.house);
                             }),
                           );
-                        },
+                        }, */
                         child: Container(
                           width: widthOfImage,
                           height: hightOfImage,
@@ -218,7 +219,9 @@ class _RealEstateCardState extends State<RealEstateCard> {
                           ),
                         ),
                       ),
-                    ),
+                  /*  ),
+
+                   */
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,

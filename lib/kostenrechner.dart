@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 
 import './constant.dart';
+import 'icons/product_icons_i_s_icons.dart';
 
 final String assetName = 'assets/icons/calculator.svg';
 
@@ -68,8 +69,16 @@ class _KostenrechnerState extends State<KostenrechnerButton> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      SvgPicture.asset(assetName,
+                      Icon(
+                        ProductIconsIS.is24_product_48px_calculator,
+                        color: kGrey,
+                        size: 24.0,
+                      ),
+                      //is24_product_48px_calculator
+                      /*SvgPicture.asset(assetName,
                           semanticsLabel: 'Calculator', color: kGrey),
+
+                       */
                       Text(
                         '''Welche Kosten könnten mich als
 Investor erwarten ?''',
