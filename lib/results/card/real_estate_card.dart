@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:privateinvestorsmobile/results/card/real_estate_detail_context.dart';
-import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
-import 'package:privateinvestorsmobile/results/card/view_states.dart';
-import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
+import '../../transition/page_route_generator.dart';
+import '../../expose.dart';
+import '../../results/card/real_estate_detail_context.dart';
+import '../../results/card/real_estate_object.dart';
+import '../../results/card/view_states.dart';
+import '../../icons/system_icons_i_s_icons.dart';
 
 import '../../constant.dart';
 
@@ -27,6 +29,7 @@ class RealEstateCard extends StatefulWidget {
 }
 
 class _RealEstateCardState extends State<RealEstateCard> {
+
   @override
   Widget build(BuildContext context) {
     bool isPressed = saved.contains(widget.house);
@@ -43,11 +46,11 @@ class _RealEstateCardState extends State<RealEstateCard> {
     var elevation = (widget.theme == 'Dark') ? 0.0 : 2.0;
     var iconsColor = (widget.theme == 'Dark') ? dTextColorLight : null;
 
-    var pressedFavoriteIcon =  Icon(
-            Icons.favorite,
-            size: 24,
-            color: kError,
-          );
+    var pressedFavoriteIcon = Icon(
+      Icons.favorite,
+      size: 24,
+      color: kError,
+    );
     var favoriteIcon = (!isPressed)
         ? Icon(
             SystemIconsIS.is24_system_48px_heart_favorite,
@@ -109,7 +112,7 @@ class _RealEstateCardState extends State<RealEstateCard> {
                       ? ViewState.enlarge
                       : ViewState.shrink,
                   smallFontSize: 18.0,
-                  largeFontSize: 24.0,
+                  largeFontSize: 18.0,
                   textStyle: styleHeader4,
                 );
               },
@@ -117,7 +120,7 @@ class _RealEstateCardState extends State<RealEstateCard> {
                 title: widget.house.price,
                 viewState: ViewState.shrunk,
                 smallFontSize: 18.0,
-                largeFontSize: 24.0,
+                largeFontSize: 18.0,
                 textStyle: styleHeader4,
               ),
             ),
@@ -197,17 +200,28 @@ class _RealEstateCardState extends State<RealEstateCard> {
                     },
                     child: Hero(
                       tag: '${widget.house.id}-img',
-                      child: Container(
-                        width: widthOfImage,
-                        height: hightOfImage,
-                        decoration: new BoxDecoration(
-                          image: new DecorationImage(
-                            image: AssetImage(widget.house.pictureUrl),
-                            fit: BoxFit.cover,
+                      /*child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            PageRouteGenerator(builder: (context) {
+                              return ExposeScreen(house: widget.house);
+                            }),
+                          );
+                        }, */
+                        child: Container(
+                          width: widthOfImage,
+                          height: hightOfImage,
+                          decoration: new BoxDecoration(
+                            image: new DecorationImage(
+                              image: AssetImage(widget.house.pictureUrl),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                  /*  ),
+
+                   */
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
