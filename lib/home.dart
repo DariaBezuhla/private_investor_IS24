@@ -16,7 +16,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomePage extends State<Home> {
-  int _currentIndex = 0;
+  //int _currentIndex = 0;
   bool isPressed = false;
   bool _filtersAreVisible = false;
   bool _investFilters = false;
