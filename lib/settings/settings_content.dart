@@ -20,6 +20,18 @@ class SettingsContent extends StatefulWidget {
 }
 
 class _SettingsContentState extends State<SettingsContent> {
+  var nk;
+  var gesamt;
+  double mn = 0.0;
+  double hausgeld = 0.0;
+  double ruecklagen = 0.0;
+  double hwkosten = 0.0;
+
+  String mieteinahmen(price) {
+    mn = (price.toInt() * 19 / 100);
+    return mn.toInt().toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     var colorIcon = (widget.theme == 'Dark') ? dIconColor : kCharcoal;
@@ -85,36 +97,81 @@ class _SettingsContentState extends State<SettingsContent> {
               ),
               Container(
                 padding: const EdgeInsets.only(
-                    left: 24, top: 14, right: 24, bottom: 10),
+                    left: 24, top: 14, right: 10, bottom: 10),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Budget bis",
-                      style: styleLabel,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Maximal",
+                          style: styleText,
+                        ),
+                        Spacer(),
+                        Text(mn.toInt().toString() + ' €', style: styleText),
+                      ],
                     ),
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.012),
-                    new Theme(
-                      data: new ThemeData(
-                        primaryColor: kLightGrey,
+
+                    //SLIDER 1
+                    SliderTheme(
+                      data: SliderThemeData(
+                        trackHeight: MediaQuery.of(context).size.height * 0.008,
+                        activeTrackColor: kTeal,
+                        inactiveTrackColor: kGrey,
+                        thumbColor: Colors.white,
+                        //to do: add Custom Thumbshape with shadow
+                        trackShape: CustomTrackShape(),
+                        overlayColor: kCharcoal.withOpacity(.2),
                       ),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.red, width: 2.0),
-                            ),
-                            labelText: '100.000€',
-                            labelStyle: TextStyle(
-                                color: kLightGrey,
-                                fontSize: MediaQuery.of(context).size.height *
-                                    0.014)),
+                      child: Slider(
+                        value: mn,
+                        min: 0,
+                        max: 250000,
+                        onChanged: (double newPrice) {
+                          setState(() {
+                            mn = newPrice;
+                          });
+                        },
+                        label: '$mn',
                       ),
                     ),
                   ],
                 ),
               ),
+
+              // Container(
+              //   padding: const EdgeInsets.only(
+              //       left: 24, top: 14, right: 24, bottom: 10),
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Text(
+              //         "Budget bis",
+              //         style: styleLabel,
+              //       ),
+              //       SizedBox(
+              //           height: MediaQuery.of(context).size.height * 0.012),
+              //       new Theme(
+              //         data: new ThemeData(
+              //           primaryColor: kGrey,
+              //         ),
+              //         child: TextFormField(
+              //           decoration: InputDecoration(
+              //               border: OutlineInputBorder(
+              //                 borderSide:
+              //                     BorderSide(color: Colors.red, width: 2.0),
+              //               ),
+              //               labelText: '100.000€',
+              //               labelStyle: TextStyle(
+              //                   color: kGrey,
+              //                   fontSize: MediaQuery.of(context).size.height *
+              //                       0.014)),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+
               Container(
                   padding:
                       const EdgeInsets.only(left: 24, right: 24, bottom: 10),
@@ -171,6 +228,7 @@ class _SettingsContentState extends State<SettingsContent> {
                       padding: const EdgeInsets.only(right: 24),
                       child: FlutterSwitch(
                         activeColor: kTeal,
+                        inactiveColor: kGrey,
                         toggleSize: MediaQuery.of(context).size.height * 0.02,
                         height: MediaQuery.of(context).size.height * 0.03,
                         width: MediaQuery.of(context).size.width * 0.14,
@@ -240,6 +298,7 @@ class _SettingsContentState extends State<SettingsContent> {
                       padding: const EdgeInsets.only(right: 24),
                       child: FlutterSwitch(
                         activeColor: kTeal,
+                        inactiveColor: kGrey,
                         toggleSize: MediaQuery.of(context).size.height * 0.02,
                         height: MediaQuery.of(context).size.height * 0.03,
                         width: MediaQuery.of(context).size.width * 0.14,
@@ -263,5 +322,23 @@ class _SettingsContentState extends State<SettingsContent> {
         )
       ],
     );
+  }
+}
+
+// https://github.com/flutter/flutter/issues/37057 @clocksmith
+class CustomTrackShape extends RoundedRectSliderTrackShape {
+  Rect getPreferredRect({
+    @required RenderBox parentBox,
+    Offset offset = Offset.zero,
+    @required SliderThemeData sliderTheme,
+    bool isEnabled = false,
+    bool isDiscrete = false,
+  }) {
+    final double trackHeight = sliderTheme.trackHeight;
+    final double trackLeft = offset.dx;
+    final double trackTop =
+        offset.dy + (parentBox.size.height - trackHeight) / 2;
+    final double trackWidth = parentBox.size.width * 0.99;
+    return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
   }
 }
