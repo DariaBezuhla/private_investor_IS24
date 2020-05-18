@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
-import 'results/appBar/sliver_app_bar_small.dart';
 import 'transition/slederDirection.dart';
-import 'expose/expose_content.dart';
 import 'icons/system_icons_i_s_icons.dart';
 import 'results/card/real_estate_object.dart';
 import './constant.dart';
-import './kostenrechner.dart';
 
 class SettingsScreen extends StatefulWidget {
+  final List<RealEstateObject> housesList;
+  final int selectedIndex;
+
+  const SettingsScreen({
+    Key key,
+    this.housesList,
+    this.selectedIndex,
+  }) : super(key: key);
+
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
@@ -146,8 +152,8 @@ class _SettingsScreenState extends State<SettingsScreen>
         backgroundColor: Colors.white,
       ),
       backgroundColor: kBackgroundLight,
-      body: ExposeContent(
-        house: widget.housesList[currentIndex],
+      body: Center(
+        child: Text('Work in progress'),
       ),
     );
   }
