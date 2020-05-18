@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'bottomBar/bottom_bar.dart';
-import 'transition/slederDirection.dart';
 import 'icons/system_icons_i_s_icons.dart';
-import 'results/card/real_estate_object.dart';
+import 'settings/settings_content.dart';
 import './constant.dart';
 
 class SettingsScreen extends StatefulWidget {
+  final String theme;
   final int selectedIndex;
 
   const SettingsScreen({
     Key key,
+    this.theme,
     this.selectedIndex,
   }) : super(key: key);
 
@@ -37,8 +38,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         backgroundColor: Colors.white,
       ),
       backgroundColor: kBackgroundLight,
-      body: Center(
-        child: Text('Settings in progress'),
+      body: SettingsContent(
+        theme: widget.theme,
       ),
       bottomNavigationBar: SafeArea(child: BottomBar(selectedIndex: 2)),
     );
