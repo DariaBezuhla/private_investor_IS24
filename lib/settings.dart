@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'bottomBar/bottom_bar.dart';
 import 'transition/slederDirection.dart';
 import 'icons/system_icons_i_s_icons.dart';
 import 'results/card/real_estate_object.dart';
@@ -154,6 +155,9 @@ class _SettingsScreenState extends State<SettingsScreen>
       backgroundColor: kBackgroundLight,
       body: Center(
         child: Text('Work in progress'),
+      ),
+      bottomNavigationBar: SafeArea(
+        child: BottomBar(),
       ),
     );
   }

@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
+import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
 import '../constant.dart';
+import '../home.dart';
+import '../settings.dart';
 
 class BottomBar extends StatefulWidget {
   final theme;
@@ -14,10 +17,15 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   int _currentIndex = 0;
-
+  final _pageOptions = [
+    Home(),
+    SettingsScreen(),
+    SettingsScreen(),
+  ];
   @override
   Widget build(BuildContext context) {
-    var colorBottom = (widget.theme == 'Dark') ? dHeaderFooter : kBackgroundLight;
+    var colorBottom =
+        (widget.theme == 'Dark') ? dHeaderFooter : kBackgroundLight;
     var colorIcon = (widget.theme == 'Dark') ? dIconColor : kCharcoal;
 
     return Container(
@@ -33,34 +41,45 @@ class _BottomBarState extends State<BottomBar> {
           setState(() {
             this._currentIndex = _currentIndex;
           });
+          Navigator.of(context).push(
+            PageRouteGenerator(builder: (context) {
+              return _pageOptions[_currentIndex];
+            }),
+          );
         },
         items: [
           BottomNavigationBarItem(
-            title:  Padding(padding: EdgeInsets.all(0)),//Container(height: 0.0),
+            title:
+                Padding(padding: EdgeInsets.all(0)), //Container(height: 0.0),
             icon: Icon(
               SystemIconsIS.is24_system_48px_search,
-              size: 24,//MediaQuery.of(context).size.width * 0.09,
+              size: 24, //MediaQuery.of(context).size.width * 0.09,
               color: colorIcon,
             ),
-            activeIcon: new Image.asset("assets/images/search@3x_2.png", height: 26),
+            activeIcon:
+                new Image.asset("assets/images/search@3x_2.png", height: 26),
           ),
           BottomNavigationBarItem(
-            title:  Padding(padding: EdgeInsets.all(0)),//Container(height: 0.0),
+            title:
+                Padding(padding: EdgeInsets.all(0)), //Container(height: 0.0),
             icon: Icon(
               SystemIconsIS.is24_system_48px_heart_favorite,
-              size: 24,//MediaQuery.of(context).size.width * 0.09,
-              color:colorIcon,
-            ),
-            activeIcon: new Image.asset("assets/images/heart@3x_2.png",height: 26),
-          ),
-          BottomNavigationBarItem(
-            title:  Padding(padding: EdgeInsets.all(0)),//Container(height: 0.0),
-            icon: Icon(
-              SystemIconsIS.is24_system_48px_settings,
-              size: 24,//MediaQuery.of(context).size.width * 0.09,
+              size: 24, //MediaQuery.of(context).size.width * 0.09,
               color: colorIcon,
             ),
-            activeIcon: new Image.asset("assets/images/settings@3x_2.png", height: 26),
+            activeIcon:
+                new Image.asset("assets/images/heart@3x_2.png", height: 26),
+          ),
+          BottomNavigationBarItem(
+            title:
+                Padding(padding: EdgeInsets.all(0)), //Container(height: 0.0),
+            icon: Icon(
+              SystemIconsIS.is24_system_48px_settings,
+              size: 24, //MediaQuery.of(context).size.width * 0.09,
+              color: colorIcon,
+            ),
+            activeIcon:
+                new Image.asset("assets/images/settings@3x_2.png", height: 26),
           ),
         ],
       ),
