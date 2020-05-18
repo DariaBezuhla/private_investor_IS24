@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:storybook/icons/system_icons_i_s_icons.dart';
+import '../icons/system_icons_i_s_icons.dart';
 
 import '../constant.dart';
 import '../kostenrechner.dart';
@@ -7,100 +7,6 @@ import '../kostenrechner.dart';
 class ExposeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<Widget> _buildInfoItem3(List<String> list) {
-      return list
-          .map(
-            (e) => Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Text(
-                e,
-                style: TextStyle(color: Colors.grey[600]),
-              ),
-            ),
-          )
-          .toList();
-    }
-
-    Widget descriptionSection = Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildDescriptionItem('Objektbeschreibung',
-              'Bei dem Objekt handelt es sich um einen vollständig sanierten und gepflegten Altbau in zentral innerstädtischer Lage. Die großzügige, in Kürze bezugsfrei werdende Wo … '),
-          _buildDescriptionItem('Ausstattung',
-              'Bei dem Objekt handelt es sich um einen vollständig sanierten und gepflegten Altbau in zentral innerstädtischer Lage. Die großzügige, in Kürze bezugsfrei werdende Wo … '),
-          _buildDescriptionItem('Ort',
-              'Zur Beachtung: Die Bilder zeigen eine andere Wohnung in diesem Objekt und Hausteil mit der nahezu identischen Ausstattungsqualität und nahezu identischen räumlichen Aufteilung bzw. Wohnfläche.'),
-        ],
-      ),
-    );
-
-    Widget maps = Container(
-      padding: EdgeInsets.symmetric(horizontal: 24),
-      child: Image.asset(
-        "assets/images/maps.png",
-      ),
-    );
-
-    Widget maps2 = Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.only(left: 24),
-            width: MediaQuery.of(context).size.width - 48,
-            height: 75.0,
-            decoration: new BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              image: new DecorationImage(
-                image: AssetImage('assets/images/maps.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-
-    Widget contact = Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(24),
-                    child: Text(
-                      'Weitere Fragen zur Immobilie?',
-                      style: header4,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.only(left: 24, bottom: 24),
-            child: ButtonTheme(
-              child: FlatButton(
-                color: kTeal,
-                textColor: kCharcoal,
-                padding: EdgeInsets.all(10.0),
-                onPressed: () {
-                  /*...*/
-                },
-                child: Text("Anbieter kontaktieren", style: styleButton),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-
     return Scaffold(
       backgroundColor: kBackgroundLight,
       body: Container(
@@ -115,7 +21,7 @@ class ExposeScreen extends StatelessWidget {
             FractionallySizedBox(
               widthFactor: 0.95,
               child: Container(
-                transform: Matrix4.translationValues(0, -25.0, 0),
+                transform: Matrix4.translationValues(0, -24.0, 0),
                 decoration: BoxDecoration(
                   boxShadow: shadowMd,
                   borderRadius: BorderRadius.all(
@@ -123,7 +29,7 @@ class ExposeScreen extends StatelessWidget {
                   ),
                 ),
                 child: Container(
-                  padding: EdgeInsets.all(15),
+                  padding: EdgeInsets.all(14),
                   //color: Colors.white,
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -135,6 +41,7 @@ class ExposeScreen extends StatelessWidget {
                         "1-Zi-Etagenwohnung im Herzen von Schöneberg mit Balkon",
                         style: header4,
                       ),
+                      SizedBox(height: 10),
                       Text(
                         "13587 Berlin, Spandau (Spandau)",
                         style: styleText,
@@ -147,71 +54,107 @@ class ExposeScreen extends StatelessWidget {
             ),
 
             //4 most important numbers
-            Container(
-              margin: EdgeInsets.only(bottom: 30),
-              child: Wrap(
-                direction: Axis.horizontal,
-                alignment: WrapAlignment.center,
-                children: <Widget>[
-                  Column(
+            FractionallySizedBox(
+              widthFactor: 0.8,
+              child: Container(
+                  margin: EdgeInsets.only(bottom: 24),
+                  child: Row(
                     children: <Widget>[
-                      _buildInfoItem1("Kaufpreis", "745,900 €"),
-                      _buildInfoItem1("Aktuelle Miete", "1500 €")
+                      Expanded(
+                        child: Wrap(
+                          direction: Axis.horizontal,
+                          alignment: WrapAlignment.center,
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                _buildInfoItem1("Kaufpreis", "745,900 €"),
+                                SizedBox(height: 24),
+                                _buildInfoItem1("Aktuelle Miete", "1500 €")
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Wrap(
+                          direction: Axis.horizontal,
+                          alignment: WrapAlignment.center,
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                _buildInfoItem1("Preis pro m²", "5,187 €/m²"),
+                                SizedBox(height: 24),
+                                _buildInfoItem1("Hausgeld", "400 €")
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
-                  ),
-                  Column(
-                    children: <Widget>[
-                      _buildInfoItem1("Preis pro m²", "5,187 €/m²"),
-                      _buildInfoItem1("Hausgeld", "400 €")
-                    ],
-                  ),
-                ],
-              ),
+                  )),
             ),
 
             //rest of numbers
             Container(
-              decoration: BoxDecoration(
-                  boxShadow: shadowMd,
-                  borderRadius: BorderRadius.all(Radius.circular(2))),
               child: Container(
-                padding: EdgeInsets.all(15),
-                //color: Colors.white,
-                decoration: new BoxDecoration(
+                decoration: BoxDecoration(
                     color: Colors.white,
+                    boxShadow: shadowMd,
                     borderRadius: BorderRadius.all(Radius.circular(2))),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
+                      padding: EdgeInsets.all(24),
                       decoration: BoxDecoration(
                           border:
                               Border(bottom: BorderSide(color: kBackground))),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          _buildInfoItem1("Nettorendite", "2.7 %"),
-                          _buildInfoItem1("Gesch. Kaltmiete", "730 €"),
-                          _buildInfoItem1("X-fache Miete", "29")
+                          Expanded(
+                            child: Wrap(
+                              alignment: WrapAlignment.center,
+                              children: <Widget>[
+                                _buildInfoItem1("Nettorendite", "2.7 %"),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Wrap(
+                              alignment: WrapAlignment.center,
+                              children: <Widget>[
+                                _buildInfoItem1("Gesch. Kaltmiete", "730 €"),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Wrap(
+                              alignment: WrapAlignment.center,
+                              children: <Widget>[
+                                _buildInfoItem1("X-fache Miete", "29")
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border(
-                              right: BorderSide(color: kBackground),
+                    IntrinsicHeight(
+                      child: Container(
+                        padding: EdgeInsets.all(24),
+                        child: Row(
+                          children: <Widget>[
+                            _buildInfoItem2(
+                                "Mietpreis-\nentwicklung", "10.3 %", true),
+                            VerticalDivider(
+                              thickness: 1,
+                              color: kBackground,
                             ),
-                          ),
-                          child: _buildInfoItem2(
-                              "Mietpreis-\nentwicklung", "10.3 %", true),
+                            _buildInfoItem2(
+                                "Kaufpreis-\nentwicklung", "2.4 %", false)
+                          ],
                         ),
-                        _buildInfoItem2(
-                            "Kaufpreis-\nentwicklung", "2.4 %", false)
-                      ],
-                    )
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -219,7 +162,7 @@ class ExposeScreen extends StatelessWidget {
 
             //props
             Container(
-              padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+              padding: EdgeInsets.symmetric(vertical: 48, horizontal: 24),
               child: Wrap(
                   direction: Axis.horizontal,
                   alignment: WrapAlignment.spaceEvenly,
@@ -231,8 +174,74 @@ class ExposeScreen extends StatelessWidget {
             ),
 
             //calculator button
-            KostenrechnerButton(theme: "light"),
-            descriptionSection, maps, contact
+            FractionallySizedBox(
+              widthFactor: 0.95,
+              child: KostenrechnerButton(theme: "light"),
+            ),
+
+            //object description
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildDescriptionItem('Objektbeschreibung',
+                      'Bei dem Objekt handelt es sich um einen vollständig sanierten und gepflegten Altbau in zentral innerstädtischer Lage. Die großzügige, in Kürze bezugsfrei werdende Wo … '),
+                  _buildDescriptionItem('Ausstattung',
+                      'Bei dem Objekt handelt es sich um einen vollständig sanierten und gepflegten Altbau in zentral innerstädtischer Lage. Die großzügige, in Kürze bezugsfrei werdende Wo … '),
+                  _buildDescriptionItem('Ort',
+                      'Zur Beachtung: Die Bilder zeigen eine andere Wohnung in diesem Objekt und Hausteil mit der nahezu identischen Ausstattungsqualität und nahezu identischen räumlichen Aufteilung bzw. Wohnfläche.'),
+                ],
+              ),
+            ),
+
+            //maps
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Image.asset(
+                "assets/images/maps.png",
+              ),
+            ),
+
+            //contact
+            Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.all(24),
+                            child: Text(
+                              'Weitere Fragen zur Immobilie?',
+                              style: header4,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(left: 24, bottom: 24),
+                    child: ButtonTheme(
+                      child: FlatButton(
+                        color: kTeal,
+                        textColor: kCharcoal,
+                        padding: EdgeInsets.all(10.0),
+                        onPressed: () {
+                          /*...*/
+                        },
+                        child:
+                            Text("Anbieter kontaktieren", style: styleButton),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
@@ -241,7 +250,7 @@ class ExposeScreen extends StatelessWidget {
 
   Container _buildInfoItem1(String title, String value) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 10),
       child: Column(
         children: <Widget>[
           Text(
@@ -257,47 +266,50 @@ class ExposeScreen extends StatelessWidget {
     );
   }
 
-  Container _buildInfoItem2(String title, String value, bool isPositive) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  Expanded _buildInfoItem2(String title, String value, bool isPositive) {
+    return Expanded(
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Positioned.fill(
-            child: Container(
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.only(right: 5),
-              decoration: new BoxDecoration(
-                  color: isPositive ? Colors.green[100] : Colors.red[100],
-                  shape: BoxShape.circle),
-              child: Icon(
-                isPositive
-                    ? SystemIconsIS.is24_system_48px_arrow_up
-                    : SystemIconsIS.is24_system_48px_arrow_down,
-                color: isPositive ? Colors.green[700] : Colors.red[700],
-                size: 20,
-              ),
+          Container(
+            padding: const EdgeInsets.only(right: 10),
+            child: Icon(
+              isPositive
+                  ? SystemIconsIS.is24_system_48px_arrow_up
+                  : SystemIconsIS.is24_system_48px_arrow_down,
+              color: isPositive ? Colors.green[700] : Colors.red[700],
+              size: 20,
             ),
           ),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
                 value,
                 style: header4,
               ),
-              Wrap(
-                children: <Widget>[
-                  Text(
-                    title,
-                    style: styleDescriptionText,
-                  )
-                ],
+              Text(
+                title,
+                style: styleDescriptionText,
               )
             ],
           ),
         ],
       ),
     );
+  }
+
+  List<Widget> _buildInfoItem3(List<String> list) {
+    return list
+        .map(
+          (e) => Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            child: Text(
+              e,
+              style: TextStyle(color: Colors.grey[600]),
+            ),
+          ),
+        )
+        .toList();
   }
 
   Column _buildDescriptionItem(String title, String description) {

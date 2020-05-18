@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:privateinvestorsmobile/expose.dart';
 import 'package:privateinvestorsmobile/results/appBar/sliver_app_bar.dart';
+import 'package:privateinvestorsmobile/results/card/real_estate_card.dart';
 import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
 import 'package:privateinvestorsmobile/results/list/list_with_cards.dart';
 import 'package:privateinvestorsmobile/bottomBar/bottom_bar.dart';
+import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
 import 'constant.dart';
 
 class ResultScreen extends StatefulWidget {
@@ -16,58 +19,7 @@ class ResultScreen extends StatefulWidget {
   _ResultScreenState createState() => _ResultScreenState();
 }
 
-class _ResultScreenState extends State<ResultScreen>
-    with TickerProviderStateMixin {
-  AnimationController _animationController;
-  bool returnFromDetailPage = false;
-  ValueNotifier<bool> stateNotifier;
-
-  @override
-  void initState() {
-    super.initState();
-    _initAnimationController();
-  }
-
-  void _initAnimationController() {
-    _animationController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 250),
-    )..addListener(() {
-      setState(() {});
-    });
-
-    stateNotifier = ValueNotifier(returnFromDetailPage)
-      ..addListener(() {
-        if (stateNotifier.value) {
-          _animationController.reverse(from: 1.0);
-          stateNotifier.value = false;
-        }
-      });
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    stateNotifier.dispose();
-    super.dispose();
-  }
-
-  // for transition later important
-
-/*  void onSelected(RealEstateObject house) async {
-    _animationController.forward(from: 0.0);
-    stateNotifier.value = await Navigator.of(context).push(
-      PageRouteGenerator(
-        //fullscreenDialog: true,
-          builder: (context) {
-            return DetailsScreen(
-              housesList: results,
-              selectedIndex: results.indexOf(house),
-            );
-          }),
-    );
-  }
- */
+class _ResultScreenState extends State<ResultScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +44,6 @@ class _ResultScreenState extends State<ResultScreen>
             ],
           ),
         ),
-
       ),
       bottomNavigationBar: SafeArea(
           child: BottomBar(theme: widget.theme,)),
