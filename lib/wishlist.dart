@@ -5,19 +5,19 @@ import 'icons/system_icons_i_s_icons.dart';
 import 'results/card/real_estate_object.dart';
 import './constant.dart';
 
-class SettingsScreen extends StatefulWidget {
+class WishlistScreen extends StatefulWidget {
   final int selectedIndex;
 
-  const SettingsScreen({
+  const WishlistScreen({
     Key key,
     this.selectedIndex,
   }) : super(key: key);
 
   @override
-  _SettingsScreenState createState() => _SettingsScreenState();
+  _WishlistScreenState createState() => _WishlistScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _WishlistScreenState extends State<WishlistScreen> {
   @override
   Widget build(BuildContext context) {
     var iconArrowLeft = IconButton(
@@ -38,9 +38,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       backgroundColor: kBackgroundLight,
       body: Center(
-        child: Text('Settings in progress'),
+        child: Text('Wishlist in progress'),
       ),
-      bottomNavigationBar: SafeArea(child: BottomBar(selectedIndex: 2)),
+      bottomNavigationBar: SafeArea(child: BottomBar(selectedIndex: 1)),
     );
   }
 }

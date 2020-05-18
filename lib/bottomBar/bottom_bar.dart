@@ -4,24 +4,37 @@ import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
 import '../constant.dart';
 import '../home.dart';
+import '../wishlist.dart';
 import '../settings.dart';
 
 class BottomBar extends StatefulWidget {
   final theme;
-
-  BottomBar({Key key, this.theme}) : super(key: key);
+  final selectedIndex;
+  BottomBar({Key key, this.theme, this.selectedIndex}) : super(key: key);
 
   @override
   _BottomBarState createState() => _BottomBarState();
 }
 
 class _BottomBarState extends State<BottomBar> {
-  int _currentIndex = 0;
+  int _selectedIndex = 0;
   final _pageOptions = [
     Home(),
-    SettingsScreen(),
+    WishlistScreen(),
     SettingsScreen(),
   ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    Navigator.of(context).push(
+      PageRouteGenerator(builder: (context) {
+        return _pageOptions[_selectedIndex];
+      }),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var colorBottom =
@@ -36,17 +49,18 @@ class _BottomBarState extends State<BottomBar> {
         type: BottomNavigationBarType.fixed,
         elevation: 0,
         backgroundColor: colorBottom,
-        currentIndex: _currentIndex,
-        onTap: (int _currentIndex) {
-          setState(() {
-            this._currentIndex = _currentIndex;
-          });
-          Navigator.of(context).push(
-            PageRouteGenerator(builder: (context) {
-              return _pageOptions[_currentIndex];
-            }),
-          );
-        },
+        currentIndex: widget.selectedIndex,
+        onTap: _onItemTapped,
+        // onTap: (int _currentIndex) {
+        //   setState(() {
+        //     this._currentIndex = _currentIndex;
+        //   });
+        //   Navigator.of(context).push(
+        //     PageRouteGenerator(builder: (context) {
+        //       return _pageOptions[_currentIndex];
+        //     }),
+        //   );
+        // },
         items: [
           BottomNavigationBarItem(
             title:
@@ -84,11 +98,5 @@ class _BottomBarState extends State<BottomBar> {
         ],
       ),
     );
-  }
-
-  void onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
   }
 }

@@ -13,18 +13,22 @@ class ResultScreen extends StatefulWidget {
   final String theme;
   final List<RealEstateObject> resultsList;
 
-
-  const ResultScreen({Key key, this.theme, this.resultsList, }) : super(key: key);
+  const ResultScreen({
+    Key key,
+    this.theme,
+    this.resultsList,
+  }) : super(key: key);
   @override
   _ResultScreenState createState() => _ResultScreenState();
 }
 
 class _ResultScreenState extends State<ResultScreen> {
-
   @override
   Widget build(BuildContext context) {
-    var colorForBackground = (widget.theme == 'Dark') ? dHeaderFooter : kHeaderFooter;
-    var listBackground = (widget.theme == 'Dark') ? dBackgroundColor : kBackgroundLight;
+    var colorForBackground =
+        (widget.theme == 'Dark') ? dHeaderFooter : kHeaderFooter;
+    var listBackground =
+        (widget.theme == 'Dark') ? dBackgroundColor : kBackgroundLight;
 
     return Scaffold(
       backgroundColor: colorForBackground,
@@ -35,7 +39,9 @@ class _ResultScreenState extends State<ResultScreen> {
             slivers: <Widget>[
               AppBarSliver(
                 theme: widget.theme,
-                resultsLength: (widget.resultsList == null) ? 0 : widget.resultsList.length,
+                resultsLength: (widget.resultsList == null)
+                    ? 0
+                    : widget.resultsList.length,
               ),
               ListWithCardsSliver(
                 resultsList: widget.resultsList,
@@ -45,9 +51,8 @@ class _ResultScreenState extends State<ResultScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: SafeArea(
-          child: BottomBar(theme: widget.theme,)),
+      bottomNavigationBar:
+          SafeArea(child: BottomBar(theme: widget.theme, selectedIndex: 0)),
     );
   }
 }
-

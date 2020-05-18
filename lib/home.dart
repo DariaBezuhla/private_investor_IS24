@@ -1013,8 +1013,11 @@ class _HomePage extends State<Home> {
           ],
         ),
       ),
-      bottomNavigationBar: SafeArea(
-        child: BottomBar(),),
+      // bottomNavigationBar: SafeArea(
+      //   child: BottomBar(),),
+      bottomNavigationBar:
+          SafeArea(child: BottomBar(selectedIndex: 0)),
+    
       /*BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
