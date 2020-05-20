@@ -315,29 +315,207 @@ class _SettingsContentState extends State<SettingsContent> {
                 ),
               ),
               Container(
-                  padding:
-                      const EdgeInsets.only(left: 24, right: 24, bottom: 10),
-                  child: Divider(color: kLightGrey)),
+                padding: const EdgeInsets.only(left: 24, right: 24, top: 24),
+                child: Divider(color: kLightGrey),
+              ),
             ],
           ),
         ),
 
-        //Settings
-
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+
+          // Settings
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Text(
+                      "Einstellungen",
+                      style: header3,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Benachrichtigungen",
+                          style: styleText,
+                        ),
+                        Icon(
+                          SystemIconsIS.is24_system_48px_chevron_right,
+                          size: 16, //MediaQuery.of(context).size.width * 0.09,
+                          color: colorIcon,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Sprachauswahl", style: styleText),
+                        Icon(
+                          SystemIconsIS.is24_system_48px_chevron_right,
+                          size: 16, //MediaQuery.of(context).size.width * 0.09,
+                          color: colorIcon,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Feedback zur App", style: styleText),
+                        Icon(
+                          SystemIconsIS.is24_system_48px_chevron_right,
+                          size: 16, //MediaQuery.of(context).size.width * 0.09,
+                          color: colorIcon,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              // Leon: Hot Crunchy Burger Menü
               Container(
-                child: Text(
-                  "Einstellungenn",
-                  style: header3,
-                ),
-              )
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: Divider(color: kLightGrey),
+              ),
+
+              //plus membership
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Text(
+                      "Plus Mitgliedschaft",
+                      style: header3,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(bottom: 12),
+                    child: Text(
+                      "Du möchtest immer als Erstes von neuen Objekten erfahren und exklusive Beratung? Das und vieles mehr erreichst du durch eine Plus-Mitgliedschaft, die du jetzt einen Monat lang kostenlos testen kannst. ",
+                      style: styleText,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: FlatButton(
+                      color: kTeal,
+                      textColor: kCharcoal,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 12.0, horizontal: 36),
+                      onPressed: () {
+                        /*...*/
+                      },
+                      child: Text("Plus freischalten", style: styleButton),
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: Divider(color: kLightGrey),
+              ),
+
+              //Privacy
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Text(
+                      "Privacy",
+                      style: header3,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Impressum", style: styleText),
+                        Icon(
+                          SystemIconsIS.is24_system_48px_chevron_right,
+                          size: 16, //MediaQuery.of(context).size.width * 0.09,
+                          color: colorIcon,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Infos zum Tracking", style: styleText),
+                        Icon(
+                          SystemIconsIS.is24_system_48px_chevron_right,
+                          size: 16, //MediaQuery.of(context).size.width * 0.09,
+                          color: colorIcon,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Datenschutz", style: styleText),
+                        Icon(
+                          SystemIconsIS.is24_system_48px_chevron_right,
+                          size: 16, //MediaQuery.of(context).size.width * 0.09,
+                          color: colorIcon,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Geschäftsbedingungen", style: styleText),
+                        Icon(
+                          SystemIconsIS.is24_system_48px_chevron_right,
+                          size: 16, //MediaQuery.of(context).size.width * 0.09,
+                          color: colorIcon,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Lizenzhinweise Dritter", style: styleText),
+                        Icon(
+                          SystemIconsIS.is24_system_48px_chevron_right,
+                          size: 16, //MediaQuery.of(context).size.width * 0.09,
+                          color: colorIcon,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
-        )
+        ),
       ],
     );
   }
