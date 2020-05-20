@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:privateinvestorsmobile/icons/product_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
-import 'package:flutter_switch/flutter_switch.dart';
+
 import '../constant.dart';
 
 class SettingsContent extends StatefulWidget {
@@ -317,6 +318,23 @@ class _SettingsContentState extends State<SettingsContent> {
                   padding:
                       const EdgeInsets.only(left: 24, right: 24, bottom: 10),
                   child: Divider(color: kLightGrey)),
+            ],
+          ),
+        ),
+
+        //Settings
+
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                child: Text(
+                  "Einstellungenn",
+                  style: header3,
+                ),
+              )
             ],
           ),
         )
