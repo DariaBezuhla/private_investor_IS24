@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
+import './constant.dart';
 import 'bottomBar/bottom_bar.dart';
 import 'icons/system_icons_i_s_icons.dart';
 import 'settings/settings_content.dart';
-import './constant.dart';
 
 class SettingsScreen extends StatefulWidget {
   final String theme;
@@ -37,7 +38,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         title: logo,
         backgroundColor: Colors.white,
       ),
-      backgroundColor: kBackgroundLight,
+      //backgroundColor: kBackgroundLight,
       body: SettingsContent(
         theme: widget.theme,
       ),

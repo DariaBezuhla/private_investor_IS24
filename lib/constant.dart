@@ -25,6 +25,35 @@ const dHeaderFooter = Color(0xff373737);
 const bottomHeight = 56.0;
 const appBarHeight = 56.0;
 
+//Theme
+ThemeData light = ThemeData(
+  fontFamily: 'MakeItSans',
+  scaffoldBackgroundColor: Colors.white,
+  primaryIconTheme: IconThemeData(size: 32, color: kCharcoal), //big icons dark
+  iconTheme: IconThemeData(size: 16, color: kCharcoal), //normal icons
+  dividerColor: kLightGrey,
+  buttonColor: kTeal,
+  textTheme: TextTheme(
+    headline3: header3,
+    headline4: header4,
+    bodyText2: styleText, // default light style für Text()
+  ),
+);
+
+ThemeData dark = ThemeData(
+  fontFamily: 'MakeItSans',
+  scaffoldBackgroundColor: dBackgroundColor,
+  primaryIconTheme: IconThemeData(size: 32, color: dIconColor),
+  iconTheme: IconThemeData(size: 16, color: dIconColor),
+  dividerColor: dCardsColor,
+  buttonColor: kTeal,
+  textTheme: TextTheme(
+    headline3: dHeader3,
+    headline4: dHeader4,
+    bodyText2: dStyleText, // default dark style für Text()
+  ),
+);
+
 //Light Text Style
 //const header2 = TextStyle(fontSize: 20, color: kCharcoal);
 const helpers = TextStyle(fontSize: 15, color: kGrey);
@@ -54,6 +83,13 @@ const shadowMd = <BoxShadow>[
   )
 ];
 
+const test = TextStyle(
+  fontFamily: 'MakeItSans',
+  fontWeight: FontWeight.bold,
+  color: kError,
+  fontSize: 34.0,
+);
+
 const header1 = TextStyle(
   fontFamily: 'MakeItSans',
   fontWeight: FontWeight.bold,
@@ -69,7 +105,7 @@ const header2 = TextStyle(
 const header3 = TextStyle(
   fontFamily: 'MakeItSans',
   fontWeight: FontWeight.bold,
-  color: kCharcoal,
+  color: Colors.black,
   fontSize: 24.0,
 );
 const header4 = TextStyle(
@@ -126,7 +162,7 @@ const dHeader2 = TextStyle(
 const dHeader3 = TextStyle(
   fontFamily: 'MakeItSans',
   fontWeight: FontWeight.bold,
-  color: dTextColorLight,
+  color: Colors.white,
   fontSize: 24.0,
 );
 const dHeader4 = TextStyle(
@@ -143,9 +179,9 @@ const dStyleBigText = TextStyle(
 );
 const dStyleText = TextStyle(
   fontFamily: 'MakeItSans',
+  fontSize: 16.0,
   fontWeight: FontWeight.normal,
   color: dTextColorLight,
-  fontSize: 16.0,
 );
 const dStyleButton = TextStyle(
   fontFamily: 'MakeItSans',

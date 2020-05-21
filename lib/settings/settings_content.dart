@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:privateinvestorsmobile/icons/product_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
+import 'package:privateinvestorsmobile/theme.dart';
+import 'package:provider/provider.dart';
 
 import '../constant.dart';
 
@@ -35,7 +37,10 @@ class _SettingsContentState extends State<SettingsContent> {
 
   @override
   Widget build(BuildContext context) {
-    var colorIcon = (widget.theme == 'Dark') ? dIconColor : kCharcoal;
+    final themeProvider = Provider.of<ThemeChanger>(context);
+    ThemeData theme = themeProvider.getTheme();
+
+    //var colorIcon = (widget.theme == 'Dark') ? dIconColor : kCharcoal;
     bool isSwitched = false;
 
     return ListView(
@@ -46,20 +51,20 @@ class _SettingsContentState extends State<SettingsContent> {
           children: [
             /*2*/
             Container(
-              padding: const EdgeInsets.only(left: 24, top: 36, bottom: 14),
+              padding: const EdgeInsets.only(left: 24, top: 36, bottom: 12),
               child: Text(
                 'Dein Investment Profil',
-                style: header3,
+                style: theme.textTheme.headline3,
               ),
             ),
             Container(
               padding: const EdgeInsets.only(
                 left: 24,
-                bottom: 14,
+                right: 24,
+                bottom: 12,
               ),
               child: Text(
                 'Für optimiertere Suchergebnisse kannst du hier dein Investment Profil konfigurieren. Damit hilfst du uns, alle Ergebnisse genau auf deine Bedürfnisse abzustimmen.',
-                style: styleText,
               ),
             ),
           ],
@@ -75,12 +80,13 @@ class _SettingsContentState extends State<SettingsContent> {
                 child: Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.only(
-                          left: 24, top: 14, right: 10, bottom: 10),
-                      child: Icon(
-                        ProductIconsIS.is24_product_48px_book_with_euro_sign,
-                        size: 30, //MediaQuery.of(context).size.width * 0.09,
-                        color: colorIcon,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 24),
+                      child: IconTheme(
+                        data: theme.primaryIconTheme,
+                        child: Icon(
+                          ProductIconsIS.is24_product_48px_book_with_euro_sign,
+                        ),
                       ),
                     ),
                     Expanded(
@@ -89,7 +95,7 @@ class _SettingsContentState extends State<SettingsContent> {
                             left: 10, top: 14, right: 24, bottom: 10),
                         child: Text(
                           'Eigenkapital',
-                          style: header4,
+                          style: theme.textTheme.headline4,
                         ),
                       ),
                     ),
@@ -106,10 +112,9 @@ class _SettingsContentState extends State<SettingsContent> {
                       children: [
                         Text(
                           "Maximal",
-                          style: styleText,
                         ),
                         Spacer(),
-                        Text(mn.toInt().toString() + ' €', style: styleText),
+                        Text(mn.toInt().toString() + ' €'),
                       ],
                     ),
 
@@ -174,9 +179,9 @@ class _SettingsContentState extends State<SettingsContent> {
               // ),
 
               Container(
-                  padding:
-                      const EdgeInsets.only(left: 24, right: 24, bottom: 10),
-                  child: Divider(color: kLightGrey)),
+                padding: const EdgeInsets.only(left: 24, right: 24, bottom: 10),
+                child: Divider(color: theme.dividerColor),
+              ),
             ],
           ),
         ),
@@ -193,10 +198,11 @@ class _SettingsContentState extends State<SettingsContent> {
                     Container(
                       padding: const EdgeInsets.only(
                           left: 24, top: 14, right: 10, bottom: 10),
-                      child: Icon(
-                        ProductIconsIS.is24_product_48px_location,
-                        size: 30, //MediaQuery.of(context).size.width * 0.09,
-                        color: colorIcon,
+                      child: IconTheme(
+                        data: theme.primaryIconTheme,
+                        child: Icon(
+                          ProductIconsIS.is24_product_48px_location,
+                        ),
                       ),
                     ),
                     Expanded(
@@ -205,7 +211,7 @@ class _SettingsContentState extends State<SettingsContent> {
                             left: 10, top: 14, right: 24, bottom: 10),
                         child: Text(
                           'Ortung',
-                          style: header4,
+                          style: theme.textTheme.headline4,
                         ),
                       ),
                     ),
@@ -221,7 +227,6 @@ class _SettingsContentState extends State<SettingsContent> {
                             left: 24, top: 14, bottom: 10),
                         child: Text(
                           'Geo-Location verwenden',
-                          style: styleText,
                         ),
                       ),
                     ),
@@ -245,9 +250,9 @@ class _SettingsContentState extends State<SettingsContent> {
                 ),
               ),
               Container(
-                  padding:
-                      const EdgeInsets.only(left: 24, right: 24, bottom: 10),
-                  child: Divider(color: kLightGrey)),
+                padding: const EdgeInsets.only(left: 24, right: 24, bottom: 10),
+                child: Divider(color: theme.dividerColor),
+              ),
             ],
           ),
         ),
@@ -263,10 +268,11 @@ class _SettingsContentState extends State<SettingsContent> {
                     Container(
                       padding: const EdgeInsets.only(
                           left: 24, top: 14, right: 10, bottom: 10),
-                      child: Icon(
-                        SystemIconsIS.is24_system_48px_rating_state_2,
-                        size: 30, //MediaQuery.of(context).size.width * 0.09,
-                        color: colorIcon,
+                      child: IconTheme(
+                        data: theme.primaryIconTheme,
+                        child: Icon(
+                          SystemIconsIS.is24_system_48px_rating_state_2,
+                        ),
                       ),
                     ),
                     Expanded(
@@ -275,7 +281,7 @@ class _SettingsContentState extends State<SettingsContent> {
                             left: 10, top: 14, right: 24, bottom: 10),
                         child: Text(
                           'Design',
-                          style: header4,
+                          style: theme.textTheme.headline4,
                         ),
                       ),
                     ),
@@ -291,7 +297,6 @@ class _SettingsContentState extends State<SettingsContent> {
                             left: 24, top: 14, bottom: 10),
                         child: Text(
                           'Dark-Theme',
-                          style: styleText,
                         ),
                       ),
                     ),
@@ -303,10 +308,12 @@ class _SettingsContentState extends State<SettingsContent> {
                         toggleSize: MediaQuery.of(context).size.height * 0.02,
                         height: MediaQuery.of(context).size.height * 0.03,
                         width: MediaQuery.of(context).size.width * 0.14,
-                        value: isSwitched,
+                        value: isSwitched =
+                            themeProvider.getTheme() == dark ? true : false,
                         onToggle: (value) {
                           setState(() {
                             isSwitched = !isSwitched;
+                            themeProvider.setTheme(isSwitched ? dark : light);
                           });
                         },
                       ),
@@ -316,7 +323,7 @@ class _SettingsContentState extends State<SettingsContent> {
               ),
               Container(
                 padding: const EdgeInsets.only(left: 24, right: 24, top: 24),
-                child: Divider(color: kLightGrey),
+                child: Divider(color: theme.dividerColor),
               ),
             ],
           ),
@@ -336,7 +343,7 @@ class _SettingsContentState extends State<SettingsContent> {
                     padding: EdgeInsets.symmetric(vertical: 12),
                     child: Text(
                       "Einstellungen",
-                      style: header3,
+                      style: theme.textTheme.headline3,
                     ),
                   ),
                   Container(
@@ -346,26 +353,12 @@ class _SettingsContentState extends State<SettingsContent> {
                       children: [
                         Text(
                           "Benachrichtigungen",
-                          style: styleText,
                         ),
-                        Icon(
-                          SystemIconsIS.is24_system_48px_chevron_right,
-                          size: 16, //MediaQuery.of(context).size.width * 0.09,
-                          color: colorIcon,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Sprachauswahl", style: styleText),
-                        Icon(
-                          SystemIconsIS.is24_system_48px_chevron_right,
-                          size: 16, //MediaQuery.of(context).size.width * 0.09,
-                          color: colorIcon,
+                        IconTheme(
+                          data: theme.iconTheme,
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_chevron_right,
+                          ),
                         ),
                       ],
                     ),
@@ -375,11 +368,27 @@ class _SettingsContentState extends State<SettingsContent> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Feedback zur App", style: styleText),
-                        Icon(
-                          SystemIconsIS.is24_system_48px_chevron_right,
-                          size: 16, //MediaQuery.of(context).size.width * 0.09,
-                          color: colorIcon,
+                        Text("Sprachauswahl"),
+                        IconTheme(
+                          data: theme.iconTheme,
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_chevron_right,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Feedback zur App"),
+                        IconTheme(
+                          data: theme.iconTheme,
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_chevron_right,
+                          ),
                         ),
                       ],
                     ),
@@ -389,7 +398,7 @@ class _SettingsContentState extends State<SettingsContent> {
               // Leon: Hot Crunchy Burger Menü
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Divider(color: kLightGrey),
+                child: Divider(color: theme.dividerColor),
               ),
 
               //plus membership
@@ -400,34 +409,34 @@ class _SettingsContentState extends State<SettingsContent> {
                     padding: EdgeInsets.symmetric(vertical: 12),
                     child: Text(
                       "Plus Mitgliedschaft",
-                      style: header3,
+                      style: theme.textTheme.headline3,
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.only(bottom: 12),
                     child: Text(
                       "Du möchtest immer als Erstes von neuen Objekten erfahren und exklusive Beratung? Das und vieles mehr erreichst du durch eine Plus-Mitgliedschaft, die du jetzt einen Monat lang kostenlos testen kannst. ",
-                      style: styleText,
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    child: FlatButton(
-                      color: kTeal,
-                      textColor: kCharcoal,
-                      padding:
-                          EdgeInsets.symmetric(vertical: 12.0, horizontal: 36),
-                      onPressed: () {
-                        /*...*/
-                      },
-                      child: Text("Plus freischalten", style: styleButton),
-                    ),
-                  ),
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                      child: ButtonTheme(
+                        child: FlatButton(
+                          color: theme.buttonColor,
+                          textColor: kCharcoal,
+                          padding: EdgeInsets.symmetric(
+                              vertical: 12.0, horizontal: 36),
+                          onPressed: () {
+                            /*...*/
+                          },
+                          child: Text("Plus freischalten", style: styleButton),
+                        ),
+                      )),
                 ],
               ),
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Divider(color: kLightGrey),
+                child: Divider(color: theme.dividerColor),
               ),
 
               //Privacy
@@ -438,7 +447,7 @@ class _SettingsContentState extends State<SettingsContent> {
                     padding: EdgeInsets.symmetric(vertical: 12),
                     child: Text(
                       "Privacy",
-                      style: header3,
+                      style: theme.textTheme.headline3,
                     ),
                   ),
                   Container(
@@ -446,11 +455,12 @@ class _SettingsContentState extends State<SettingsContent> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Impressum", style: styleText),
-                        Icon(
-                          SystemIconsIS.is24_system_48px_chevron_right,
-                          size: 16, //MediaQuery.of(context).size.width * 0.09,
-                          color: colorIcon,
+                        Text("Impressum"),
+                        IconTheme(
+                          data: theme.iconTheme,
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_chevron_right,
+                          ),
                         ),
                       ],
                     ),
@@ -460,11 +470,12 @@ class _SettingsContentState extends State<SettingsContent> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Infos zum Tracking", style: styleText),
-                        Icon(
-                          SystemIconsIS.is24_system_48px_chevron_right,
-                          size: 16, //MediaQuery.of(context).size.width * 0.09,
-                          color: colorIcon,
+                        Text("Infos zum Tracking"),
+                        IconTheme(
+                          data: theme.iconTheme,
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_chevron_right,
+                          ),
                         ),
                       ],
                     ),
@@ -474,11 +485,12 @@ class _SettingsContentState extends State<SettingsContent> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Datenschutz", style: styleText),
-                        Icon(
-                          SystemIconsIS.is24_system_48px_chevron_right,
-                          size: 16, //MediaQuery.of(context).size.width * 0.09,
-                          color: colorIcon,
+                        Text("Datenschutz"),
+                        IconTheme(
+                          data: theme.iconTheme,
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_chevron_right,
+                          ),
                         ),
                       ],
                     ),
@@ -488,11 +500,12 @@ class _SettingsContentState extends State<SettingsContent> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Geschäftsbedingungen", style: styleText),
-                        Icon(
-                          SystemIconsIS.is24_system_48px_chevron_right,
-                          size: 16, //MediaQuery.of(context).size.width * 0.09,
-                          color: colorIcon,
+                        Text("Geschäftsbedingungen"),
+                        IconTheme(
+                          data: theme.iconTheme,
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_chevron_right,
+                          ),
                         ),
                       ],
                     ),
@@ -502,11 +515,12 @@ class _SettingsContentState extends State<SettingsContent> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Lizenzhinweise Dritter", style: styleText),
-                        Icon(
-                          SystemIconsIS.is24_system_48px_chevron_right,
-                          size: 16, //MediaQuery.of(context).size.width * 0.09,
-                          color: colorIcon,
+                        Text("Lizenzhinweise Dritter"),
+                        IconTheme(
+                          data: theme.iconTheme,
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_chevron_right,
+                          ),
                         ),
                       ],
                     ),

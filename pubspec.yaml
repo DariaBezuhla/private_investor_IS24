@@ -23,6 +23,7 @@ dependencies:
   flutter_svg: ^0.17.4
   auto_size_text: ^2.1.0
   flutter_switch: ^0.0.2
+  provider:
 
 dev_dependencies:
   flutter_test:
