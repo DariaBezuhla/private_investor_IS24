@@ -395,7 +395,7 @@ class _SettingsContentState extends State<SettingsContent> {
                   ),
                 ],
               ),
-              // Leon: Hot Crunchy Burger Menü
+
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 child: Divider(color: theme.dividerColor),
