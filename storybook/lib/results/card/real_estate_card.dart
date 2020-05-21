@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:storybook/results/card/ranking_button.dart';
 import 'package:storybook/results/card/real_estate_detail_context.dart';
 import 'package:storybook/results/card/real_estate_object.dart';
 import 'package:storybook/results/card/view_states.dart';
@@ -29,7 +30,6 @@ class RealEstateCard extends StatefulWidget {
 class _RealEstateCardState extends State<RealEstateCard> {
   @override
   Widget build(BuildContext context) {
-    bool isPressed = saved.contains(widget.house);
     var width = MediaQuery.of(context).size.width;
     var widthOfTrendsContainer = (3 * width - 170) / 11;
     var widthOfImage = width - 40 - widthOfTrendsContainer;
@@ -41,25 +41,33 @@ class _RealEstateCardState extends State<RealEstateCard> {
     var styleDescription =
         (widget.theme == 'Dark') ? dStyleDescriptionText : styleDescriptionText;
     var elevation = (widget.theme == 'Dark') ? 0.0 : 2.0;
-    var iconsColor = (widget.theme == 'Dark') ? dTextColorLight : null;
+    var iconsColor = (widget.theme == 'Dark') ? dTextColorLight : kCharcoal;
 
-    var pressedFavoriteIcon = (widget.theme == 'Dark')
-        ? Icon(
-            Icons.favorite,
-            size: 24,
-            color: kTeal,
-          )
-        : new Image.asset(
-            "assets/icons/favorite.png",
-            width: 20,
-          );
+    bool isPressed = saved.contains(widget.house);
+    var pressedFavoriteIcon = Icon(
+      Icons.favorite,
+      size: 24,
+      color: kError,
+    );
     var favoriteIcon = (!isPressed)
         ? Icon(
-            SystemIconsIS.is24_system_48px_heart_favorite,
-            color: iconsColor,
-            size: 24.0,
-          )
-        : pressedFavoriteIcon; //Icon(Icons.favorite, size: 24, color: kTeal,);
+      SystemIconsIS.is24_system_48px_heart_favorite,
+      color: iconsColor,
+      size: 24.0,
+    )
+        : pressedFavoriteIcon;
+
+    void _saveInWishList() {
+      setState(() //<--whenever icon is pressed, force redraw the widget
+      {
+        if (saved.contains(widget.house))
+          saved.remove(widget.house);
+        else
+          saved.add(widget.house);
+      });
+    }
+
+    ;
 
     arrowUp() => SizedBox(
           height: 15.0,
@@ -79,17 +87,6 @@ class _RealEstateCardState extends State<RealEstateCard> {
           ),
         );
 
-    void _saveInWishList() {
-      setState(() //<--whenever icon is pressed, force redraw the widget
-          {
-        if (saved.contains(widget.house))
-          saved.remove(widget.house);
-        else
-          saved.add(widget.house);
-      });
-    }
-
-    ;
 
     List elementsInRow3 = [
       Padding(
@@ -282,36 +279,46 @@ class _RealEstateCardState extends State<RealEstateCard> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Hero(
-                  tag: '${widget.house.id}-title',
-                  flightShuttleBuilder: (
-                    BuildContext flightContext,
-                    Animation<double> animation,
-                    HeroFlightDirection flightDirection,
-                    BuildContext fromHeroContext,
-                    BuildContext toHeroContext,
-                  ) {
-                    return DetailsStyle(
-                      title: widget.house.title,
-                      isOverflow: true,
-                      viewState: flightDirection == HeroFlightDirection.push
-                          ? ViewState.enlarge
-                          : ViewState.shrink,
-                      textStyle: styleHeader4,
-                      smallFontSize: 18.0,
-                      largeFontSize: 18.0,
-                    );
-                  },
-                  child: DetailsStyle(
-                    title: widget.house.title,
-                    viewState: ViewState.shrunk,
-                    smallFontSize: 18.0,
-                    largeFontSize: 18.0,
-                    textStyle: styleHeader4,
+              Row(
+                children: <Widget>[
+                  Container(
+                    width: widthOfImage,
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Hero(
+                      tag: '${widget.house.id}-title',
+                      flightShuttleBuilder: (
+                        BuildContext flightContext,
+                        Animation<double> animation,
+                        HeroFlightDirection flightDirection,
+                        BuildContext fromHeroContext,
+                        BuildContext toHeroContext,
+                      ) {
+                        return DetailsStyle(
+                          title: widget.house.title,
+                          isOverflow: true,
+                          viewState: flightDirection == HeroFlightDirection.push
+                              ? ViewState.enlarge
+                              : ViewState.shrink,
+                          textStyle: styleHeader4,
+                          smallFontSize: 18.0,
+                          largeFontSize: 18.0,
+                        );
+                      },
+                      child: DetailsStyle(
+                        title: widget.house.title,
+                        viewState: ViewState.shrunk,
+                        smallFontSize: 18.0,
+                        largeFontSize: 18.0,
+                        textStyle: styleHeader4,
+                      ),
+                    ),
                   ),
-                ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: RatingButton(rating: widget.house.rating),
+                  ),
+                ],
               ),
               Row(
                 //3

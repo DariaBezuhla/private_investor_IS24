@@ -16,7 +16,6 @@ class AppBarSliverSmall extends StatelessWidget {
     var backgroundColor = (theme == 'Dark') ? dHeaderFooter : kCard;
     var iconColor = (theme == 'Dark') ? dIconColor : kCharcoal;
     var logoApp = (theme == 'Dark') ? dLogo : logo;
-    var filterBarHeight = 80.0;
     final double statusBarHeight = 56.0;
     var iconArrowLeft = IconButton(
         icon: Icon(
@@ -40,17 +39,14 @@ class AppBarSliverSmall extends StatelessWidget {
     return SliverAppBar(
       leading: iconArrowLeft,
       title: logoApp,
+      actions: <Widget>[
+        iconSort,
+      ],
       pinned: false,
       floating: true,
-      expandedHeight: filterBarHeight,
+      expandedHeight: statusBarHeight,
       backgroundColor: backgroundColor,
       elevation: 2,
-      flexibleSpace: FlexibleSpaceBar(
-        background: AppBarFilters(
-          resultsLength: resultsLength,
-          theme: theme,
-        ),
-      ),
     );
   }
 }

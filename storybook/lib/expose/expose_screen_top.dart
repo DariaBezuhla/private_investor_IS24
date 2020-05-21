@@ -17,7 +17,6 @@ class ExposeScreenTop extends StatelessWidget {
             Image.asset(
               "assets/objects/1.png",
             ),
-
             //intro info
             FractionallySizedBox(
               widthFactor: 0.95,

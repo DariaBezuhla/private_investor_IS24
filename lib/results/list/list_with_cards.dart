@@ -19,16 +19,18 @@ class ListWithCardsSliver extends StatefulWidget {
   _ListWithCardsSliverState createState() => _ListWithCardsSliverState();
 }
 
-
 class _ListWithCardsSliverState extends State<ListWithCardsSliver>
     with TickerProviderStateMixin {
-
+  //For animation
   AnimationController _animationController;
   bool returnFromDetailPage = false;
   ValueNotifier<bool> stateNotifier;
+
+  //Icons
   final String arrowLeftIcon =
       'assets/icons/is24_system/is24_system_48px_arrow_left.svg';
-  final String sortIcon = 'assets/icons/Aditional_icons_48px_SVG/additional_icons_48px_sort.svg';
+  final String sortIcon =
+      'assets/icons/Aditional_icons_48px_SVG/additional_icons_48px_sort.svg';
 
   @override
   void initState() {
@@ -41,8 +43,8 @@ class _ListWithCardsSliverState extends State<ListWithCardsSliver>
       vsync: this,
       duration: Duration(milliseconds: 250),
     )..addListener(() {
-      setState(() {});
-    });
+        setState(() {});
+      });
 
     stateNotifier = ValueNotifier(returnFromDetailPage)
       ..addListener(() {
@@ -60,20 +62,20 @@ class _ListWithCardsSliverState extends State<ListWithCardsSliver>
     super.dispose();
   }
 
-
   void onSelected(RealEstateObject house) async {
     _animationController.forward(from: 0.0);
     stateNotifier.value = await Navigator.of(context).push(
       PageRouteGenerator(
-        //fullscreenDialog: true,
+          //fullscreenDialog: true,
           builder: (context) {
-            return ExposeScreen(
-              housesList: widget.resultsList,
-              selectedIndex: widget.resultsList.indexOf(house),
-            );
-          }),
+        return ExposeScreen(
+          housesList: widget.resultsList,
+          selectedIndex: widget.resultsList.indexOf(house),
+        );
+      }),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     //colors for 'Dark' or 'Light' Theme
