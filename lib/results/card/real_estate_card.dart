@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../transition/page_route_generator.dart';
-import '../../expose.dart';
 import '../../results/card/real_estate_detail_context.dart';
 import '../../results/card/real_estate_object.dart';
 import '../../results/card/view_states.dart';
@@ -42,7 +40,7 @@ class _RealEstateCardState extends State<RealEstateCard> {
     var cardColor = (widget.theme == 'Dark') ? dCardsColor : kCard;
     var styleHeader4 = (widget.theme == 'Dark') ? dHeader4 : header4;
     var styleDescription =
-        (widget.theme == 'Dark') ? dStyleDescriptionText : styleDescriptionText;
+    (widget.theme == 'Dark') ? dStyleDescriptionText : styleDescriptionText;
     var elevation = (widget.theme == 'Dark') ? 0.0 : 2.0;
     var iconsColor = (widget.theme == 'Dark') ? dTextColorLight : null;
 
@@ -53,33 +51,33 @@ class _RealEstateCardState extends State<RealEstateCard> {
     );
     var favoriteIcon = (!isPressed)
         ? Icon(
-            SystemIconsIS.is24_system_48px_heart_favorite,
-            color: iconsColor,
-            size: 24.0,
-          )
+      SystemIconsIS.is24_system_48px_heart_favorite,
+      color: iconsColor,
+      size: 24.0,
+    )
         : pressedFavoriteIcon; //Icon(Icons.favorite, size: 24, color: kTeal,);
 
     arrowUp() => SizedBox(
-          height: 15.0,
-          width: 15.0,
-          child: Image.asset(
-            'assets/icons/arrow_up.png',
-            color: kTeal,
-          ),
-        );
+      height: 15.0,
+      width: 15.0,
+      child: Image.asset(
+        'assets/icons/arrow_up.png',
+        color: kTeal,
+      ),
+    );
 
     arrowDown() => SizedBox(
-          height: 15.0,
-          width: 15.0,
-          child: Image.asset(
-            'assets/icons/arrow_down.png',
-            color: kError,
-          ),
-        );
+      height: 15.0,
+      width: 15.0,
+      child: Image.asset(
+        'assets/icons/arrow_down.png',
+        color: kError,
+      ),
+    );
 
     void _saveInWishList() {
       setState(() //<--whenever icon is pressed, force redraw the widget
-          {
+      {
         if (saved.contains(widget.house))
           saved.remove(widget.house);
         else
@@ -99,12 +97,12 @@ class _RealEstateCardState extends State<RealEstateCard> {
             Hero(
               tag: '${widget.house.id}-price',
               flightShuttleBuilder: (
-                BuildContext flightContext,
-                Animation<double> animation,
-                HeroFlightDirection flightDirection,
-                BuildContext fromHeroContext,
-                BuildContext toHeroContext,
-              ) {
+                  BuildContext flightContext,
+                  Animation<double> animation,
+                  HeroFlightDirection flightDirection,
+                  BuildContext fromHeroContext,
+                  BuildContext toHeroContext,
+                  ) {
                 return DetailsStyle(
                   title: widget.house.price,
                   isOverflow: true,
@@ -140,12 +138,12 @@ class _RealEstateCardState extends State<RealEstateCard> {
             Hero(
               tag: '${widget.house.id}-pricePerSqm',
               flightShuttleBuilder: (
-                BuildContext flightContext,
-                Animation<double> animation,
-                HeroFlightDirection flightDirection,
-                BuildContext fromHeroContext,
-                BuildContext toHeroContext,
-              ) {
+                  BuildContext flightContext,
+                  Animation<double> animation,
+                  HeroFlightDirection flightDirection,
+                  BuildContext fromHeroContext,
+                  BuildContext toHeroContext,
+                  ) {
                 return DetailsStyle(
                   title: widget.house.pricePerSqm,
                   isOverflow: true,
@@ -208,19 +206,18 @@ class _RealEstateCardState extends State<RealEstateCard> {
                             }),
                           );
                         }, */
-                        child: Container(
-                          width: widthOfImage,
-                          height: hightOfImage,
-                          decoration: new BoxDecoration(
-                            image: new DecorationImage(
-                              image: AssetImage(widget.house.pictureUrl),
-                              fit: BoxFit.cover,
-                            ),
+                      child: Container(
+                        width: widthOfImage,
+                        height: hightOfImage,
+                        decoration: new BoxDecoration(
+                          image: new DecorationImage(
+                            image: (widget.house.pictureUrl != null) ? NetworkImage(widget.house.pictureUrl) : NetworkImage('https://dummyimage.com/640x360/fff/aaa'),
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                  /*  ),
-
+                    ),
+                    /*  ),
                    */
                   ),
                   Column(
@@ -296,12 +293,12 @@ class _RealEstateCardState extends State<RealEstateCard> {
                 child: Hero(
                   tag: '${widget.house.id}-title',
                   flightShuttleBuilder: (
-                    BuildContext flightContext,
-                    Animation<double> animation,
-                    HeroFlightDirection flightDirection,
-                    BuildContext fromHeroContext,
-                    BuildContext toHeroContext,
-                  ) {
+                      BuildContext flightContext,
+                      Animation<double> animation,
+                      HeroFlightDirection flightDirection,
+                      BuildContext fromHeroContext,
+                      BuildContext toHeroContext,
+                      ) {
                     return DetailsStyle(
                       title: widget.house.title,
                       isOverflow: true,
@@ -330,12 +327,12 @@ class _RealEstateCardState extends State<RealEstateCard> {
                   widget.house.price.toString().length >= 23
                       ? elementsInRow3[0]
                       : Wrap(
-                          children: <Widget>[
-                            elementsInRow3[0],
-                            elementsInRow3[1]
-                          ],
-                          spacing: 15.0,
-                        ),
+                    children: <Widget>[
+                      elementsInRow3[0],
+                      elementsInRow3[1]
+                    ],
+                    spacing: 15.0,
+                  ),
                   Spacer(),
                   IconButton(
                       iconSize: 65,

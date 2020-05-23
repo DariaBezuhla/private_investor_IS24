@@ -53,6 +53,15 @@ const shadowMd = <BoxShadow>[
   )
 ];
 
+//BoxDecoration
+BoxDecoration SmallBorderRadius() {
+  return BoxDecoration(
+    borderRadius: BorderRadius.all(
+        Radius.circular(2.0),
+    ),
+  );
+}
+
 const header1 = TextStyle(
   fontFamily: 'MakeItSans',
   fontWeight: FontWeight.normal,
@@ -174,3 +183,5 @@ var logo = Image.asset(
   'assets/logo/logo.png',
   height: 24,
 );
+
+

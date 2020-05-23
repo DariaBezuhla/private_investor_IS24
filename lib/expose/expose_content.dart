@@ -57,11 +57,17 @@ class _ExposeContentState extends State<ExposeContent> {
         //Image -> later Image Slider
         Hero(
           tag: '${widget.house.id}-img',
-          child: Image.asset(
-            widget.house.pictureUrl,
-            fit: BoxFit.cover,
+          child: Container(
             width: MediaQuery.of(context).size.width,
             height: 300.0,
+            decoration: new BoxDecoration(
+              image: new DecorationImage(
+                image: (widget.house.pictureUrl != null)
+                    ? NetworkImage(widget.house.pictureUrl)
+                    : NetworkImage('https://dummyimage.com/640x360/fff/aaa'),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
         ),
 
@@ -97,10 +103,13 @@ class _ExposeContentState extends State<ExposeContent> {
                   SizedBox(height: 10),
                   Row(
                     children: <Widget>[
-                      Text(
-                        widget.house.address,
-                        style: styleText,
-                        textAlign: TextAlign.left,
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.75,
+                        child: Text(
+                          widget.house.address,
+                          style: styleText,
+                          textAlign: TextAlign.left,
+                        ),
                       ),
                       Spacer(),
                       Container(

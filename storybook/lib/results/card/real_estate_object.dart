@@ -1,5 +1,7 @@
 import 'dart:core';
 
+import 'package:storybook/results/card/rating.dart';
+
 class RealEstateObject {
   final String id;
   final String title;
@@ -12,7 +14,7 @@ class RealEstateObject {
   final double rentTrend;
   final String pictureUrl;
   final address;
-  final rating;
+  final Rating rating;
 
   RealEstateObject( {
     this.id,
@@ -43,7 +45,7 @@ final List<RealEstateObject> results = [
     rentTrend: -2.40,
     pictureUrl: "assets/objects/1.png",
     address: "13587 Berlin, Spandau (Spandau)",
-    rating: "TOP",
+    rating: Rating.TOP,
 
   ),
   RealEstateObject(
@@ -58,7 +60,7 @@ final List<RealEstateObject> results = [
     rentTrend: 6.07,
     pictureUrl: "assets/objects/2.png",
     address: "13587 Berlin, Spandau (Spandau)",
-    rating: "TOP",
+    rating: Rating.GOOD,
   ),
   RealEstateObject(
     id: "4",
@@ -72,7 +74,7 @@ final List<RealEstateObject> results = [
     rentTrend: 6.07,
     pictureUrl: "assets/objects/3.png",
     address: "13587 Berlin, Spandau (Spandau)",
-    rating: "TOP",
+    rating: Rating.FAIR,
   ),
   RealEstateObject(
     id: "5",
@@ -86,7 +88,7 @@ final List<RealEstateObject> results = [
     rentTrend: -0.15,
     pictureUrl: "assets/objects/4.png",
     address: "13587 Berlin, Spandau (Spandau)",
-    rating: "TOP",
+    rating: Rating.POOR,
   ),
   RealEstateObject(
     id: "6",
@@ -100,8 +102,22 @@ final List<RealEstateObject> results = [
     rentTrend: 6.07,
     pictureUrl: "assets/objects/5.png",
     address: "13587 Berlin, Spandau (Spandau)",
-    rating: "TOP",
-  )
+    rating: Rating.BAD,
+  ),
+  RealEstateObject(
+    id: "5",
+    rooms: 1,
+    data: 1,
+    title : "1-Zi-Etagenwohnung im Herzen von Schöneberg mit Balkon",
+    livingSpace: "350 m²",
+    price: "950.000 €",
+    pricePerSqm: "2.714 €/m²",
+    priceTrend: -1.07,
+    rentTrend: -0.15,
+    pictureUrl: "assets/objects/4.png",
+    address: "13587 Berlin, Spandau (Spandau)",
+    rating: Rating.NONE,
+  ),
 ];
 
 
@@ -118,7 +134,7 @@ final List<RealEstateObject> saved = [
     rentTrend: -0.15,
     pictureUrl: "assets/objects/4.png",
     address: "13587 Berlin, Spandau (Spandau)",
-    rating: "TOP",
+    rating: Rating.BAD,
   ),
   RealEstateObject(
     id: "6",
@@ -132,6 +148,6 @@ final List<RealEstateObject> saved = [
     rentTrend: 6.07,
     pictureUrl: "assets/objects/5.png",
     address: "13587 Berlin, Spandau (Spandau)",
-    rating: "TOP",
+    rating: Rating.FAIR,
   )
 ];

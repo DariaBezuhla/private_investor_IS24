@@ -5,7 +5,7 @@ import 'filters_app_bar.dart';
 
 
 class AppBarSliver extends StatelessWidget {
-  final bool _filterOpen = true;
+ //final bool _filterOpen = true;
   final String theme;
   final int resultsLength;
 
@@ -45,14 +45,10 @@ class AppBarSliver extends StatelessWidget {
         iconSort,
       ],
       pinned: false,
-      //centerTitle: true,
-      //snap: false,
       floating: true,
-      //primary: true,
       expandedHeight: filterBarHeight+statusBarHeight,
       //126.0,//_filterOpen ? 200 : 50.0,
       backgroundColor: backgroundColor,
-      //forceElevated: true,
       elevation: 2,
       flexibleSpace: FlexibleSpaceBar(
         background: AppBarFilters(
