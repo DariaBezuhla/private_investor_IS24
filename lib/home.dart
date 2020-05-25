@@ -1019,56 +1019,8 @@ class _HomePage extends State<Home> {
       //   child: BottomBar(),),
       bottomNavigationBar:
           SafeArea(child: BottomBar(selectedIndex: 0)),
-    
-      /*BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex,
-        onTap: (int _currentIndex) {
-          setState(() {
-            this._currentIndex = _currentIndex;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            title: Text(''),
-            icon: Icon(SystemIconsIS.is24_system_48px_search,
-              size: MediaQuery.of(context).size.width * 0.09,
-              color: Colors.black,
-            ),
-            activeIcon: new Image.asset("images/search@3x.png"),
-          ),
-          BottomNavigationBarItem(
-            title: Text(''),
-            icon: Icon(
-              SystemIconsIS.is24_system_48px_heart_favorite,
-              size: MediaQuery.of(context).size.width * 0.09,
-              color: Colors.black,
-            ),
-            activeIcon: new Image.asset("images/heart@3x.png"),
-          ),
-          BottomNavigationBarItem(
-            title: Text(''),
-            icon: Icon(
-              SystemIconsIS.is24_system_48px_settings,
-              size: MediaQuery.of(context).size.width * 0.09,
-              color: Colors.black,
-            ),
-            activeIcon: new Image.asset("images/settings@3x.png"),
-          ),
-        ],
-      ),
-
-       */
     );
   }
-/*
-  void onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
- */
 
   void showFilters() {
     setState(() {

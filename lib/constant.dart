@@ -20,6 +20,7 @@ const dTextColorLight = Color(0xffE5E5E5);
 const dTextColorDark = Color(0xffadadad);
 const dBackgroundColor = Color(0xff333333);
 const dHeaderFooter = Color(0xff373737);
+const dSliderColor = Color(0xff5c5c5c);
 
 //Sizes
 const bottomHeight = 56.0;
@@ -126,6 +127,12 @@ const styleText = TextStyle(
   color: kCharcoal,
   fontSize: 16.0,
 );
+const styleText2 = TextStyle(
+  fontFamily: 'MakeItSans',
+  fontWeight: FontWeight.bold,
+  color: kCharcoal,
+  fontSize: 16.0,
+);
 const styleButton = TextStyle(
   fontFamily: 'MakeItSans',
   fontWeight: FontWeight.bold,
@@ -137,6 +144,12 @@ const styleLabel = TextStyle(
   fontWeight: FontWeight.normal,
   color: kCharcoal,
   fontSize: 12.0,
+);
+const stylePrice = TextStyle(
+  fontFamily: 'MakeItSans',
+  fontWeight: FontWeight.normal,
+  color: Colors.black,
+  fontSize: 15.0,
 );
 const styleDescriptionText = TextStyle(
   fontFamily: 'MakeItSans',
@@ -200,6 +213,12 @@ const dStyleDescriptionText = TextStyle(
   fontWeight: FontWeight.normal,
   color: dTextColorDark,
   fontSize: 10.0,
+);
+const styleTextField = TextStyle(
+  fontFamily: 'MakeItSans',
+  fontWeight: FontWeight.normal,
+  color: dTextColorDark,
+  fontSize: 17.0,
 );
 
 //Logo

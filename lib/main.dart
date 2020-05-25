@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'calculator.dart';
 import 'package:privateinvestorsmobile/constant.dart';
 import 'package:privateinvestorsmobile/theme.dart';
 import 'package:provider/provider.dart';
 
 import 'home.dart';
+import 'sliders.dart';
 
 void main() => runApp(PrivateInvestors());
 
