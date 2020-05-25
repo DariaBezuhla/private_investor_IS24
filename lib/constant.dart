@@ -5,6 +5,7 @@ const kTeal = Color(0xFF00FFD0);
 const kCharcoal = Color(0xFF333333);
 const kGrey = Color(0xFFCDCDCD);
 const kLightGrey = Color(0xFFADADAD);
+const kLightGrey2 = Color(0x0FF858585);
 const kShadow = Colors.grey;
 const kError = Color(0xffE84853);
 const kCard = Colors.white;
@@ -20,6 +21,7 @@ const dTextColorLight = Color(0xffE5E5E5);
 const dTextColorDark = Color(0xffadadad);
 const dBackgroundColor = Color(0xff333333);
 const dHeaderFooter = Color(0xff373737);
+const greyContainerContent = Color(0x0FF5c5c5c);
 const dSliderColor = Color(0xff5c5c5c);
 
 //Sizes
@@ -139,6 +141,15 @@ const styleButton = TextStyle(
   color: kCharcoal,
   fontSize: 16.0,
 );
+
+
+const disabledButton = TextStyle(
+  fontFamily: 'MakeItSans',
+  fontWeight: FontWeight.bold,
+  color: kLightGrey2,
+  fontSize: 16.0,
+);
+
 const styleLabel = TextStyle(
   fontFamily: 'MakeItSans',
   fontWeight: FontWeight.normal,
@@ -184,6 +195,27 @@ const dHeader4 = TextStyle(
   color: dTextColorLight,
   fontSize: 18.0,
 );
+const dHeader5 = TextStyle(
+  fontFamily: 'MakeItSans',
+  fontWeight: FontWeight.bold,
+  color: kCharcoal,
+  fontSize: 22,
+);
+const dHeader6 = TextStyle(
+  fontFamily: 'MakeItSans',
+  fontWeight: FontWeight.normal,
+  fontSize: 14.0,
+  color: kCharcoal,
+  letterSpacing: 0.6,
+);
+const dHeader7 = TextStyle(
+  backgroundColor: kTeal,
+  fontFamily: 'MakeItSans',
+  fontWeight: FontWeight.normal,
+  fontSize: 14.0,
+  color: kCharcoal,
+  letterSpacing: 0.2,
+);
 const dStyleBigText = TextStyle(
   fontFamily: 'MakeItSans',
   fontWeight: FontWeight.normal,
@@ -220,6 +252,46 @@ const styleTextField = TextStyle(
   color: dTextColorDark,
   fontSize: 17.0,
 );
+
+const styleContainerDescription = TextStyle(
+backgroundColor: Colors.transparent,
+fontFamily: 'MakeItSans',
+fontWeight: FontWeight.bold,
+fontSize: 30.0,
+height: 0.5,
+color: Colors.black,
+);
+
+const styleContainerDescription2 = TextStyle(
+  backgroundColor: Colors.transparent,
+  fontFamily: 'MakeItSans',
+  fontWeight: FontWeight.normal,
+  fontSize: 17.0,
+  height: 1.0,
+  color: greyContainerContent,
+);
+
+const styleContainerContent = TextStyle(
+  backgroundColor: Colors.transparent,
+  fontFamily: 'MakeItSans',
+  fontWeight: FontWeight.normal,
+  fontSize: 14.0,
+  height: 1.0,
+  color: Colors.black,
+);
+
+const textFieldHeader =  TextStyle(
+backgroundColor: Colors.transparent,
+fontFamily: 'MakeItSans',
+fontWeight: FontWeight.normal,
+fontSize: 14.0,
+height: 0.7,
+color: kLightGrey2,
+);
+
+const textFieldContent = TextStyle(
+    color: kLightGrey,
+    fontSize: 12.0);
 
 //Logo
 var dLogo = Image.asset(

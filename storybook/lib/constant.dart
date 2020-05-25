@@ -86,6 +86,7 @@ const header4 = TextStyle(
   color: kCharcoal,
   fontSize: 18.0,
 );
+
 const styleBigText = TextStyle(
   fontFamily: 'MakeItSans',
   fontWeight: FontWeight.normal,
