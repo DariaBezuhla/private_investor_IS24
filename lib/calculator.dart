@@ -74,9 +74,9 @@ class Calculator extends StatefulWidget{
         ),
       ),
 
-//      bottomNavigationBar: SafeArea(
-//        child: BottomBar(),
-//      ),
+      bottomNavigationBar: SafeArea(
+        child: BottomBar(selectedIndex: 0, theme: light,),
+      ),
     );
   }
 

@@ -6,7 +6,7 @@ import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
 import 'package:privateinvestorsmobile/results/card/view_states.dart';
 
 import '../constant.dart';
-import '../kostenrechner.dart';
+import '../kostenrechner_widget.dart';
 
 class ExposeContent extends StatefulWidget {
   final RealEstateObject house;

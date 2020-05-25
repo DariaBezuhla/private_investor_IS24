@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:privateinvestorsmobile/results/appBar/sliver_app_bar_small.dart';
 import 'package:privateinvestorsmobile/transition/slederDirection.dart';
+import 'bottomBar/bottom_bar.dart';
 import 'expose/expose_content.dart';
 import 'icons/system_icons_i_s_icons.dart';
 import 'results/card/real_estate_object.dart';
 import './constant.dart';
-import './kostenrechner.dart';
+import './kostenrechner_widget.dart';
 
 class ExposeScreen extends StatefulWidget {
   final List<RealEstateObject> housesList;
@@ -164,6 +165,9 @@ class _ExposeScreenState extends State<ExposeScreen>
       body:
       ExposeContent(
         house: widget.housesList[currentIndex],
+      ),
+        bottomNavigationBar: SafeArea(
+        child: BottomBar(selectedIndex: 0, theme: light,),
       ),
     );
   }

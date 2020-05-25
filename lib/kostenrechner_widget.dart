@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:privateinvestorsmobile/calculator.dart';
+import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
 import './constant.dart';
 import 'icons/product_icons_i_s_icons.dart';
 
@@ -99,7 +99,13 @@ Investor erwarten ?''',
                       Text('Zum Kostenrechner', style: styleButton),
                     ],
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      PageRouteGenerator(builder: (context) {
+                        return Calculator();
+                      }),
+                    );
+                  },
                 ),
               ),
             ],
