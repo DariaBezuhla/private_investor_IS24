@@ -15,8 +15,8 @@ jobs:
     - uses: subosito/flutter-action@v1.2.0
       with:
         channel: 'stable' # or: 'dev' or 'beta'
+    - run: flutter upgrade
     - run: flutter pub get
-    - run: flutter test
     - run: flutter build apk
     - name: notification
       if: cancelled() == false
