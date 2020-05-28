@@ -30,31 +30,54 @@ const appBarHeight = 56.0;
 
 //Theme
 ThemeData light = ThemeData(
+  appBarTheme: AppBarTheme(
+    color: kBackgroundLight,
+  ),
+  dialogBackgroundColor: Colors.white,
+  bottomAppBarColor: Colors.white,
+  primaryColor: kTeal,
   fontFamily: 'MakeItSans',
+  cardColor: kCard,
   scaffoldBackgroundColor: Colors.white,
-  primaryIconTheme: IconThemeData(size: 32, color: kCharcoal), //big icons dark
-  iconTheme: IconThemeData(size: 16, color: kCharcoal), //normal icons
+  primaryIconTheme: IconThemeData(size: 24, color: kCharcoal),
+  iconTheme: IconThemeData(size: 16, color: kCharcoal), //big icons dark
+  accentIconTheme: IconThemeData(size: 32, color: kCharcoal), //normal icons
   dividerColor: kLightGrey,
   buttonColor: kTeal,
   textTheme: TextTheme(
-    headline3: header3,
-    headline4: header4,
-    bodyText2: styleText, // default light style für Text()
-  ),
+      headline1: header1,
+      headline2: header2,
+      headline3: header3,
+      headline4: header4,
+      bodyText2: styleText, // default light style für Text()
+      subtitle1: styleBigText,
+      subtitle2: styleDescriptionText),
 );
 
 ThemeData dark = ThemeData(
+  appBarTheme: AppBarTheme(
+    color: dHeaderFooter,
+  ),
+  dialogBackgroundColor: kCharcoal,
+  bottomAppBarTheme: BottomAppBarTheme(color: dHeaderFooter),
+  bottomAppBarColor: dHeaderFooter,
+  primaryColor: kTeal,
   fontFamily: 'MakeItSans',
+  cardColor: dCardsColor,
   scaffoldBackgroundColor: dBackgroundColor,
-  primaryIconTheme: IconThemeData(size: 32, color: dIconColor),
+  primaryIconTheme: IconThemeData(size: 24, color: dIconColor),
   iconTheme: IconThemeData(size: 16, color: dIconColor),
+  accentIconTheme: IconThemeData(size: 32, color: dIconColor),
   dividerColor: dCardsColor,
   buttonColor: kTeal,
   textTheme: TextTheme(
-    headline3: dHeader3,
-    headline4: dHeader4,
-    bodyText2: dStyleText, // default dark style für Text()
-  ),
+      headline1: dHeader1,
+      headline2: dHeader2,
+      headline3: dHeader3,
+      headline4: dHeader4,
+      bodyText2: dStyleText, // default dark style für Text()
+      subtitle1: dStyleBigText,
+      subtitle2: dStyleDescriptionText),
 );
 
 //Light Text Style
@@ -153,7 +176,6 @@ const styleButton = TextStyle(
   color: kCharcoal,
   fontSize: 16.0,
 );
-
 
 const disabledButton = TextStyle(
   fontFamily: 'MakeItSans',
@@ -266,12 +288,12 @@ const styleTextField = TextStyle(
 );
 
 const styleContainerDescription = TextStyle(
-backgroundColor: Colors.transparent,
-fontFamily: 'MakeItSans',
-fontWeight: FontWeight.bold,
-fontSize: 30.0,
-height: 0.5,
-color: Colors.black,
+  backgroundColor: Colors.transparent,
+  fontFamily: 'MakeItSans',
+  fontWeight: FontWeight.bold,
+  fontSize: 30.0,
+  height: 0.5,
+  color: Colors.black,
 );
 
 const styleContainerDescription2 = TextStyle(
@@ -292,18 +314,16 @@ const styleContainerContent = TextStyle(
   color: Colors.black,
 );
 
-const textFieldHeader =  TextStyle(
-backgroundColor: Colors.transparent,
-fontFamily: 'MakeItSans',
-fontWeight: FontWeight.normal,
-fontSize: 14.0,
-height: 0.7,
-color: kLightGrey2,
+const textFieldHeader = TextStyle(
+  backgroundColor: Colors.transparent,
+  fontFamily: 'MakeItSans',
+  fontWeight: FontWeight.normal,
+  fontSize: 14.0,
+  height: 0.7,
+  color: kLightGrey2,
 );
 
-const textFieldContent = TextStyle(
-    color: kLightGrey,
-    fontSize: 12.0);
+const textFieldContent = TextStyle(color: kLightGrey, fontSize: 12.0);
 
 //Logo
 var dLogo = Image.asset(
