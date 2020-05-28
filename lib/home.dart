@@ -36,6 +36,7 @@ class Home extends StatefulWidget {
         color: Colors.white,
         child: Stack(
           children: <Widget>[
+
             Container(
               child: Image(image: AssetImage('assets/images/ftor_gerade_gradient.jpg')),
             ),
@@ -45,22 +46,28 @@ class Home extends StatefulWidget {
               decoration: BoxDecoration(
               ),
             ),
-            ListView(
-              padding: new EdgeInsets.fromLTRB(
-                MediaQuery.of(context).size.width * 0.04,
-                0.0,
-                MediaQuery.of(context).size.width * 0.04,
-                0.0,
-              ),
+            Column(
               children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    StarteSuche(),
+                Expanded(
+                  child: ListView(
+                    padding: new EdgeInsets.fromLTRB(
+                      MediaQuery.of(context).size.width * 0.04,
+                      0.0,
+                      MediaQuery.of(context).size.width * 0.04,
+                      0.0,
+                    ),
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          StarteSuche(),
 
-                    SizedBox(height: MediaQuery.of(context).size.width * 0.07),
+                          SizedBox(height: MediaQuery.of(context).size.width * 0.07),
 
-                    Eigenheim(),
-                  ],
+                          Eigenheim(),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

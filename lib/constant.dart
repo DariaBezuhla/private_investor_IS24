@@ -111,11 +111,23 @@ const header3 = TextStyle(
   color: Colors.black,
   fontSize: 24.0,
 );
+const headerCharcoal = TextStyle(
+  fontFamily: 'MakeItSans',
+  fontWeight: FontWeight.bold,
+  color: kCharcoal,
+  fontSize: 24.0,
+);
 const header4 = TextStyle(
   fontFamily: 'MakeItSans',
   fontWeight: FontWeight.bold,
   color: kCharcoal,
   fontSize: 18.0,
+);
+const header5 = TextStyle(
+  fontFamily: 'MakeItSans',
+  fontWeight: FontWeight.bold,
+  color: kCharcoal,
+  fontSize: 13.0,
 );
 const styleBigText = TextStyle(
   fontFamily: 'MakeItSans',

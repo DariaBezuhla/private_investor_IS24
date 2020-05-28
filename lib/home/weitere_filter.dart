@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:privateinvestorsmobile/constant.dart';
 import 'package:privateinvestorsmobile/home/horizontal_line.dart';
@@ -31,7 +32,6 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
 
           //WEITERE FILTER ROW
           //plus and minus icon
-
           RawMaterialButton(
             onPressed: showAdditionalFilters,
             constraints: BoxConstraints(),
@@ -41,21 +41,25 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   (_additionalFilters == false)
-                      ? Icon(
+                      ? Flexible(
+                        child: Icon(
                     SystemIconsIS.is24_system_48px_add,
                     size: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.040,
-                  )
-                      : Icon(
+                          .of(context)
+                          .size
+                          .height * 0.040,
+                  ),
+                      )
+                      : Flexible(
+                        child: Icon(
                     AditionalIconsIS.additional_icons_48px_forbidden,
                     color: Color(0x0FF333333),
                     size: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.040,
+                          .of(context)
+                          .size
+                          .height * 0.040,
                   ),
+                      ),
 
 
                   SizedBox(width: MediaQuery
@@ -65,12 +69,16 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
 
                   //TEXT WEITERE FILTER
                   (_additionalFilters == false)
-                      ? Text(
+                      ? AutoSizeText(
                     "Weitere Filter",
+                    minFontSize: header5.fontSize, //header5 < header4
+                    maxFontSize: header4.fontSize,
                     style: header4,
                   )
-                      : Text(
+                      : AutoSizeText(
                     "Weniger Filter",
+                    minFontSize: header5.fontSize,
+                    maxFontSize: header4.fontSize,
                     style: header4,
                   ),
 
@@ -82,19 +90,23 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
 
                   //DOWN/UP ICON
                   (_additionalFilters == false)
-                      ? Icon(
+                      ? Flexible(
+                        child: Icon(
                     SystemIconsIS.is24_system_48px_chevron_down,
                     size: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.040,
-                  ) : Icon(
+                          .of(context)
+                          .size
+                          .height * 0.040,
+                  ),
+                      ) : Flexible(
+                        child: Icon(
                     SystemIconsIS.is24_system_48px_chevron_up,
                     color: Color(0x0FF333333),
                     size: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.040,),
+                          .of(context)
+                          .size
+                          .height * 0.040,),
+                      ),
 
                 ]),
           ),

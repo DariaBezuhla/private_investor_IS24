@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:privateinvestorsmobile/constant.dart';
 import 'package:privateinvestorsmobile/home/home_textfield.dart';
-import 'package:privateinvestorsmobile/home/horizontal_line.dart';
+import 'package:privateinvestorsmobile/home/textfield_normal.dart';
 import 'package:privateinvestorsmobile/home/weitere_filter.dart';
 import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
 import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
@@ -34,19 +34,36 @@ class StarteSuche extends StatefulWidget{
 
           //HEADLINE
           //1. First line
-          Align(
-            alignment: Alignment.topCenter,
-            child: Text('Kapitalanlagen in Deutschland', style: dHeader5),
+          AutoSizeText(
+              'Kapitalanlagen in Deutschland', //header5 < header4
+              maxLines: 1,
+              minFontSize: MediaQuery.of(context).size.width * 0.0,
+              style: headerCharcoal
           ),
+
           SizedBox(height: MediaQuery.of(context).size.width * 0.02),
 
           //2. Second line
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('Der ', style: dHeader6),
-              Text('Marktführer:', style: dHeader7),
-              Text(' Die Nr.1 rund um', style: dHeader6),
+              AutoSizeText(
+                  'Der ',
+                  minFontSize: header5.fontSize,
+                  maxFontSize: header4.fontSize,
+                  style: dHeader6),
+              AutoSizeText(
+                  'Marktführer:',
+                  minFontSize: header5.fontSize,
+                  maxFontSize: header4.fontSize,
+                  style: dHeader7
+              ),
+              AutoSizeText(
+                  ' Die Nr.1 rund um',
+                  minFontSize: header5.fontSize,
+                  maxFontSize: header4.fontSize,
+                  style: dHeader6
+              ),
             ],
           ),
           //SizedBox(height: 3),
@@ -103,7 +120,7 @@ class StarteSuche extends StatefulWidget{
                             primaryColor: kTeal,
                             primaryColorDark: kTeal,
                           ),
-                          child: new HomeTextField(
+                          child:  new HomeTextField(
                               "Region", (String str){print(str);},"Wo: Bezirk, Stadt oder Bundesland", (String st){print(st);}
                               ),
                         ),
@@ -118,7 +135,10 @@ class StarteSuche extends StatefulWidget{
                             primaryColor: kTeal,
                             primaryColorDark: kTeal,
                           ),
-                          child: new HomeTextField(
+                          /*child: new HomeTextField(
+                              "Realestate", (String str){print(str);},"Wohnung", (String st){print(st);}
+                          ),*/
+                          child: new NormalTextField(
                               "Realestate", (String str){print(str);},"Wohnung", (String st){print(st);}
                           ),
                         ),
@@ -133,7 +153,7 @@ class StarteSuche extends StatefulWidget{
                             primaryColor: kTeal,
                             primaryColorDark: kTeal,
                           ),
-                          child: new HomeTextField(
+                          child: new NormalTextField(
                               "Budget bis", (String str){print(str);},"100.000€", (String st){print(st);}
                           ),
                         ),
@@ -177,5 +197,10 @@ class StarteSuche extends StatefulWidget{
       ),
     );
   }
+
+
+
  }
+
+
 

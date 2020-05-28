@@ -13,8 +13,7 @@ class Eigenheim extends StatefulWidget{
  class _EigenheimPage extends State<Eigenheim> {
 
    final String textContainerTitle =
-       "Ein Eigenheim als\n\n"
-       "Anlageobjekt";
+       "Ein Eigenheim als Anlageobjekt";
 
    final String textContainerSubTitle =
        "Die Investition in Immobilien hat mehr als nur einen steuerlichen Vorteil.";
@@ -47,10 +46,12 @@ class Eigenheim extends StatefulWidget{
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+
                   Text(
                     textContainerTitle,
                     style: styleContainerDescription,
                   ),
+
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.025,
                   ),
