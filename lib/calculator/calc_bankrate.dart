@@ -16,6 +16,7 @@ class _CalcBankRateState extends State<CalcBankRate> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: kCard,
       child: Container(
         margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.005),
         child: Column(

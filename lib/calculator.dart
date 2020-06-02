@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:privateinvestorsmobile/appBar/app_bar_with_ArrowLeft.dart';
 import 'package:privateinvestorsmobile/calculator/calc_cashflow.dart';
 import 'package:privateinvestorsmobile/calculator/calc_finanzierung.dart';
 import 'package:privateinvestorsmobile/calculator/calc_kaufpreis.dart';
@@ -19,23 +20,9 @@ class Calculator extends StatefulWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset(
-              'assets/images/immoscout_logo.png',
-              fit: BoxFit.cover,
-              height: MediaQuery.of(context).size.height * 0.04,
-            ),
-          ],
-        ),
-      ),
-
-
+      appBar: AppBarWithArrow(),
       body: Container(
-        color: kBackground,
+        color: kBackgroundLight,
         child: Stack(
           children: <Widget>[
             ListView(
@@ -74,9 +61,7 @@ class Calculator extends StatefulWidget{
         ),
       ),
 
-      bottomNavigationBar: SafeArea(
-        child: BottomBar(selectedIndex: 0, theme: light,),
-      ),
+      bottomNavigationBar: BottomBar(selectedIndex: 0, theme: light,),
     );
   }
 

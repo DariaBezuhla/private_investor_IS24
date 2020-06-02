@@ -5,7 +5,6 @@ import '../../expose.dart';
 import '../../results/card/real_estate_card.dart';
 import '../../results/card/real_estate_object.dart';
 
-import '../../constant.dart';
 
 class ListViewForResults extends StatefulWidget {
   final String theme; // for 'Dark' or 'Light' Theme
@@ -21,6 +20,8 @@ class ListViewForResults extends StatefulWidget {
 
 class _ListViewForResultsState extends State<ListViewForResults>
     with TickerProviderStateMixin {
+
+
   //For ListView
   List<RealEstateObject> _estates = List<RealEstateObject>();
   SearchService _searchService = SearchService();
@@ -32,10 +33,6 @@ class _ListViewForResultsState extends State<ListViewForResults>
   bool returnFromDetailPage = false;
   ValueNotifier<bool> stateNotifier;
 
-  //Icons
-  final String arrowLeftIcon =
-      'assets/icons/is24_system/is24_system_48px_arrow_left.svg';
-  final String sortIcon = 'assets/icons/Aditional_icons_48px_SVG/additional_icons_48px_sort.svg';
 
   @override
   void initState() {
@@ -89,6 +86,7 @@ class _ListViewForResultsState extends State<ListViewForResults>
         //fullscreenDialog: true,
           builder: (context) {
             return ExposeScreen(
+              comeFromPage: 0, //0->from ResultsList, 1->from WishList
               housesList: _estates,
               selectedIndex: _estates.indexOf(house),
             );
@@ -97,13 +95,9 @@ class _ListViewForResultsState extends State<ListViewForResults>
   }
   @override
   Widget build(BuildContext context) {
-    //colors for 'Dark' or 'Light' Theme
-    var backgroundColor =
-    (this.widget.theme == 'Dark') ? dBackgroundColor : kBackgroundLight;
 
     return  ListView.builder(
       controller: _scrollController,
-      //shrinkWrap: true,
       itemCount: _estates.length,
       itemBuilder: (BuildContext context, int index) {
         return Container(

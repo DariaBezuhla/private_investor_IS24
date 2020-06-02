@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:privateinvestorsmobile/results/card/real_estate_detail_context.dart';
-import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
-import 'package:privateinvestorsmobile/results/card/view_states.dart';
-import 'package:privateinvestorsmobile/calculator.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/constant.dart';
 
@@ -31,8 +27,10 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: kCard,
       elevation: elevation,
       child: Container(
+
         width: MediaQuery.of(context).size.width * 1.5,
         margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
         child: Column(

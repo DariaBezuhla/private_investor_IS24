@@ -13,6 +13,7 @@ class _CalcCashflowState extends State<CalcCashflow> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: kCard,
       elevation: elevation,
       child: Container(
         width: MediaQuery.of(context).size.width * 1.5,

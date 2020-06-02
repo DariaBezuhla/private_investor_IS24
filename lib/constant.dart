@@ -13,6 +13,7 @@ const kBackground = Color(0xffe5e5e5);
 const kBackgroundLight = Color(0xfffafafa);
 const kHeaderFooter = Colors.white;
 const kFooter = Color(0xfff0f0f0);
+const kIcon = kCharcoal;
 
 //dark colors
 const dCardsColor = Color(0xff3e3e3e);
@@ -31,14 +32,15 @@ const appBarHeight = 56.0;
 //Theme
 ThemeData light = ThemeData(
   appBarTheme: AppBarTheme(
-    color: kBackgroundLight,
+    color: kHeaderFooter,
   ),
   dialogBackgroundColor: Colors.white,
-  bottomAppBarColor: Colors.white,
+  bottomAppBarColor: kHeaderFooter,
   primaryColor: kTeal,
   fontFamily: 'MakeItSans',
   cardColor: kCard,
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: kHeaderFooter, //Important for SafeArea for AppBar -> scaffoldBackgroundColor = kHeaderFooter
+  backgroundColor: kBackgroundLight,
   primaryIconTheme: IconThemeData(size: 24, color: kCharcoal),
   iconTheme: IconThemeData(size: 16, color: kCharcoal), //big icons dark
   accentIconTheme: IconThemeData(size: 32, color: kCharcoal), //normal icons
@@ -64,7 +66,8 @@ ThemeData dark = ThemeData(
   primaryColor: kTeal,
   fontFamily: 'MakeItSans',
   cardColor: dCardsColor,
-  scaffoldBackgroundColor: dBackgroundColor,
+  scaffoldBackgroundColor: dHeaderFooter, //Important for SafeArea for AppBar -> scaffoldBackgroundColor = dHeaderFooter
+  backgroundColor: dBackgroundColor,
   primaryIconTheme: IconThemeData(size: 24, color: dIconColor),
   iconTheme: IconThemeData(size: 16, color: dIconColor),
   accentIconTheme: IconThemeData(size: 32, color: dIconColor),
@@ -86,7 +89,7 @@ const helpers = TextStyle(fontSize: 15, color: kGrey);
 
 //Shadow for Material
 const dElevation = 0.0;
-const elevation = 3.0;
+const elevation = 2.0;
 //Box shadows
 const shadowMd = <BoxShadow>[
   BoxShadow(
@@ -334,3 +337,11 @@ var logo = Image.asset(
   'assets/logo/logo.png',
   height: 24,
 );
+
+//RatingButton colors
+const kTOP = Color(0xff155239);
+const kGOOD = Color(0xff259D58);
+const kFAIR = Color(0xff74D99F);
+const kPOOR = Color(0xffF4CA64);
+const kBAD = Color(0xffDA3030);
+const kNONE = Color(0xffDCDCDC);

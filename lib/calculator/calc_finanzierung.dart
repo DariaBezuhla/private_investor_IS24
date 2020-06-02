@@ -25,6 +25,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: kCard,
         elevation: elevation,
         child: Container(
           width: MediaQuery

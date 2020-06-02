@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:privateinvestorsmobile/constant.dart';
+import 'appBar/app_bar_main.dart';
 import 'bottomBar/bottom_bar.dart';
 import 'home/eigenheim.dart';
 import 'home/starte_suche.dart';
@@ -15,25 +17,9 @@ class Home extends StatefulWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-
-        brightness: Brightness.light,
-        backgroundColor: Colors.white,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset(
-              'assets/images/immoscout_logo.png',
-              fit: BoxFit.cover,
-              height: MediaQuery.of(context).size.height * 0.04,
-            ),
-          ],
-        ),
-      ),
-
-
+      appBar: new AppBarMain(),
       body: Container(
-        color: Colors.white,
+        color: kBackgroundLight,
         child: Stack(
           children: <Widget>[
 
@@ -75,8 +61,7 @@ class Home extends StatefulWidget {
         ),
       ),
 
-      bottomNavigationBar: SafeArea(
-        child: BottomBar(selectedIndex: 0),),
+      bottomNavigationBar: BottomBar(selectedIndex: 0, theme: light,),
     );
   }
 

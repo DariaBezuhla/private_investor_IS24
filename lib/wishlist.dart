@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:privateinvestorsmobile/results.dart';
+import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
+import 'package:privateinvestorsmobile/wishlist/wishlist_list.dart';
+import 'appBar/app_bar_sliver_small.dart';
 import 'bottomBar/bottom_bar.dart';
-import 'transition/slederDirection.dart';
 import 'icons/system_icons_i_s_icons.dart';
-import 'results/card/real_estate_object.dart';
 import './constant.dart';
 
 class WishlistScreen extends StatefulWidget {
@@ -27,20 +29,50 @@ class _WishlistScreenState extends State<WishlistScreen> {
           color: kCharcoal,
         ),
         onPressed: () {
-          Navigator.of(context).pop(true);
+          Navigator.of(context).push(
+            PageRouteGenerator(builder: (context) {
+              //We don't need pop, becouse pop go to expose
+              return ResultScreen();
+            }),
+          );
         });
 
+
+    var iconSort = IconButton(
+      icon: Icon(
+        SystemIconsIS.is24_system_48px_rearrange,
+        size: 24,
+        color: kIcon,
+      ),
+      onPressed: null,
+    );
+
+    var appBar = SliverAppBar(
+      leading: iconArrowLeft,
+      title: logo,
+      actions: <Widget>[
+        iconSort,
+      ],
+      pinned: false,
+      floating: true,
+      expandedHeight: 56.0,
+      backgroundColor: kHeaderFooter,
+      elevation: 2,
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        leading: iconArrowLeft,
-        title: logo,
-        backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Container(
+          color: kBackgroundLight,
+          child: CustomScrollView(
+            slivers: <Widget>[
+              AppBarSliverSmall(),
+              Wishlist(),
+            ],
+          ),
+        ),
       ),
-      backgroundColor: kBackgroundLight,
-      body: Center(
-        child: Text('Wishlist in progress'),
-      ),
-      bottomNavigationBar: SafeArea(child: BottomBar(selectedIndex: 1)),
+      bottomNavigationBar: BottomBar(selectedIndex: 1, theme: light,),
     );
   }
 }

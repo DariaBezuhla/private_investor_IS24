@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:privateinvestorsmobile/results/appBar/sliver_app_bar_small.dart';
-import 'package:privateinvestorsmobile/transition/slederDirection.dart';
+import 'package:privateinvestorsmobile/appBar/app_bar_for_expose.dart';
+import 'package:privateinvestorsmobile/transition/sleder_direction.dart';
+import 'appBar/app_bar_with_ArrowLeft.dart';
 import 'bottomBar/bottom_bar.dart';
 import 'expose/expose_content.dart';
-import 'icons/system_icons_i_s_icons.dart';
 import 'results/card/real_estate_object.dart';
 import './constant.dart';
-import './kostenrechner_widget.dart';
 
 class ExposeScreen extends StatefulWidget {
   final List<RealEstateObject> housesList;
   final int selectedIndex;
+  final int comeFromPage;
 
   const ExposeScreen({
     Key key,
     this.housesList,
     this.selectedIndex,
+    this.comeFromPage = 0,
   }) : super(key: key);
 
   @override
@@ -145,30 +146,17 @@ class _ExposeScreenState extends State<ExposeScreen>
 
   @override
   Widget build(BuildContext context) {
-    var iconArrowLeft = IconButton(
-        icon: Icon(
-          SystemIconsIS.is24_system_48px_chevron_left,
-          size: 24,
-          color: kCharcoal,
-        ),
-        onPressed: () {
-          Navigator.of(context).pop(true);
-        });
 
     return Scaffold(
-      appBar: AppBar(
-        leading: iconArrowLeft,
-        title: logo,
-        backgroundColor: Colors.white,
-      ),
-      backgroundColor: kBackgroundLight,
+      appBar: AppBarForExpose(fromPage: widget.comeFromPage, houseId: widget.housesList[currentIndex].id),//AppBarWithArrow(),
       body:
-      ExposeContent(
-        house: widget.housesList[currentIndex],
+      Container(
+        color: kBackgroundLight,
+        child: ExposeContent(
+          house: widget.housesList[currentIndex],
+        ),
       ),
-        bottomNavigationBar: SafeArea(
-        child: BottomBar(selectedIndex: 0, theme: light,),
-      ),
+      bottomNavigationBar: BottomBar(selectedIndex: 0, theme: light,),
     );
   }
 

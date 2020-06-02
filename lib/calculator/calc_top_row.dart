@@ -36,7 +36,7 @@ class _CalcTopRowState extends State<CalcTopRow> {
             Column(
               children: <Widget>[
                 Container(
-                  color: kBackgroundLight,
+                  color: kCard,
                   width: MediaQuery.of(context).size.width * 0.28,
                   height: MediaQuery.of(context).size.height * 0.035,
                   child: Align(
@@ -47,7 +47,7 @@ class _CalcTopRowState extends State<CalcTopRow> {
                   ),
                 ),
                 Container(
-                  color: kBackgroundLight,
+                  color: kCard,
                   width: MediaQuery.of(context).size.width * 0.28,
                   height: MediaQuery.of(context).size.height * 0.035,
                   child: Align(
@@ -71,7 +71,7 @@ class _CalcTopRowState extends State<CalcTopRow> {
             Column(
               children: <Widget>[
                 Container(
-                  color: kBackgroundLight,
+                  color: kCard,
                   width: MediaQuery.of(context).size.width * 0.28,
                   height: MediaQuery.of(context).size.height * 0.035,
                   child: Align(
@@ -82,7 +82,7 @@ class _CalcTopRowState extends State<CalcTopRow> {
                   ),
                 ),
                 Container(
-                  color: kBackgroundLight,
+                  color: kCard,
                   width: MediaQuery.of(context).size.width * 0.28,
                   height: MediaQuery.of(context).size.height * 0.035,
                   child: Align(
@@ -106,7 +106,7 @@ class _CalcTopRowState extends State<CalcTopRow> {
             Column(
               children: <Widget>[
                 Container(
-                  color: kBackgroundLight,
+                  color:  kCard,
                   width: MediaQuery.of(context).size.width * 0.28,
                   height: MediaQuery.of(context).size.height * 0.035,
                   child: Align(
@@ -117,7 +117,7 @@ class _CalcTopRowState extends State<CalcTopRow> {
                   ),
                 ),
                 Container(
-                  color: kBackgroundLight,
+                  color: kCard,
                   width: MediaQuery.of(context).size.width * 0.28,
                   height: MediaQuery.of(context).size.height * 0.035,
                   child: Align(

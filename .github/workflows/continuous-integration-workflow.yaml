@@ -1,6 +1,9 @@
 name: Build app
 # This workflow is triggered on pushes to the repository.
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:

@@ -4,9 +4,9 @@ import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/results/card/real_estate_detail_context.dart';
 import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
 import 'package:privateinvestorsmobile/results/card/view_states.dart';
-
+import 'package:privateinvestorsmobile/wishlist/favorites.dart';
 import '../constant.dart';
-import '../kostenrechner_widget.dart';
+import 'kostenrechner_widget.dart';
 
 class ExposeContent extends StatefulWidget {
   final RealEstateObject house;
@@ -26,7 +26,7 @@ class ExposeContent extends StatefulWidget {
 class _ExposeContentState extends State<ExposeContent> {
   @override
   Widget build(BuildContext context) {
-    bool isPressed = saved.contains(widget.house);
+    bool isPressed =  Favorites.savedFavorites.contains(widget.house.id);
     var pressedFavoriteIcon = Icon(
       Icons.favorite,
       size: 24,
@@ -34,23 +34,24 @@ class _ExposeContentState extends State<ExposeContent> {
     );
     var favoriteIcon = (!isPressed)
         ? Icon(
-            SystemIconsIS.is24_system_48px_heart_favorite,
-            color: kCharcoal,
-            size: 24.0,
-          )
-        : pressedFavoriteIcon;
+      SystemIconsIS.is24_system_48px_heart_favorite,
+      color: kIcon,
+      size: 24.0,
+    ) : pressedFavoriteIcon; //Icon(Icons.favorite, size: 24, color: kTeal,);
+
 
     void _saveInWishList() {
       setState(() //<--whenever icon is pressed, force redraw the widget
-          {
-        if (saved.contains(widget.house))
-          saved.remove(widget.house);
+      {
+        if (isPressed) //favorites.contains(widget.house.id)
+          Favorites.savedFavorites.remove(widget.house.id);
         else
-          saved.add(widget.house);
+          Favorites.savedFavorites.add(widget.house.id);
+        Favorites.saveList();
+        Favorites.loadList();
       });
-    }
 
-    ;
+    };
 
     return ListView(
       children: <Widget>[
@@ -219,13 +220,13 @@ class _ExposeContentState extends State<ExposeContent> {
                     child: Row(
                       children: <Widget>[
                         _buildInfoItem2("Mietpreis-\nentwicklung",
-                            "${widget.house.priceTrend}", true),
+                            "${widget.house.priceTrend}", !widget.house.priceTrend.toString().contains("-")),
                         VerticalDivider(
                           thickness: 1,
                           color: kBackground,
                         ),
                         _buildInfoItem2("Kaufpreis-\nentwicklung",
-                            "${widget.house.rentTrend}", false)
+                            "${widget.house.rentTrend}", !widget.house.rentTrend.toString().contains("-"))
                       ],
                     ),
                   ),

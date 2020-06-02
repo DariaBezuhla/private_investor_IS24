@@ -1,14 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:privateinvestorsmobile/expose.dart';
-import 'package:privateinvestorsmobile/results/appBar/sliver_app_bar.dart';
-import 'package:privateinvestorsmobile/results/appBar/sliver_app_bar_small.dart';
-import 'package:privateinvestorsmobile/results/card/real_estate_card.dart';
+import 'package:privateinvestorsmobile/appBar/app_bar_sliver_big.dart';
 import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
 import 'package:privateinvestorsmobile/results/list/list_view_for_results.dart';
-import 'package:privateinvestorsmobile/results/list/list_with_cards.dart';
 import 'package:privateinvestorsmobile/bottomBar/bottom_bar.dart';
-import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
 import 'constant.dart';
 import 'network/search_service.dart';
 
@@ -60,34 +55,29 @@ class _ResultScreenState extends State<ResultScreen> {
 // Infinite scroll
   @override
   Widget build(BuildContext context) {
-    var colorForBackground =
-    (widget.theme == 'Dark') ? dHeaderFooter : kHeaderFooter;
-    var listBackground =
+    var colorBackground =
     (widget.theme == 'Dark') ? dBackgroundColor : kBackgroundLight;
-    var resultLenght =
-    (widget.resultsList == null) ? 0 : widget.resultsList.length;
+
 
     return Scaffold(
-      backgroundColor: colorForBackground,
       body: SafeArea(
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              AppBarSliver(
-                theme: widget.theme,
-                resultsLength:
-                (_estates.length == null) ? 0 : _estates.length,
-              ),
-            ];
-          },
-          body: ListViewForResults(),
+        child: Container(
+          color: colorBackground,
+            child: NestedScrollView(
+              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                return <Widget>[
+                  AppBarSliverBig(
+                    theme: widget.theme,
+                    resultsLength:
+                    (_estates.length == null) ? 0 : _estates.length,
+                  ),
+                ];
+              },
+              body: ListViewForResults(),
+            ),
         ),
       ),
-      bottomNavigationBar: SafeArea(
-          child: BottomBar(
-            theme: widget.theme,
-              selectedIndex: 0
-          )),
+        bottomNavigationBar: BottomBar(selectedIndex: 0, theme: widget.theme,),
     );
   }
 

@@ -30,7 +30,7 @@ class Eigenheim extends StatefulWidget{
         children: <Widget>[
           Material(
             color: Colors.white,
-            elevation: 2.0,
+            elevation: elevation,
             shadowColor: Colors.grey,
             borderRadius: BorderRadius.circular(4.0),
 

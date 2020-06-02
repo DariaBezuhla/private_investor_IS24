@@ -10,6 +10,7 @@ import '../settings.dart';
 class BottomBar extends StatefulWidget {
   final theme;
   final selectedIndex;
+
   BottomBar({Key key, this.theme, this.selectedIndex}) : super(key: key);
 
   @override
@@ -37,66 +38,66 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    var colorBottom =
-        (widget.theme == 'Dark') ? dHeaderFooter : kBackgroundLight;
-    var colorIcon = (widget.theme == 'Dark') ? dIconColor : kCharcoal;
+    var colorBottom = (widget.theme == 'Dark') ? dHeaderFooter : kHeaderFooter;
+    var colorIcon = (widget.theme == 'Dark') ? dIconColor : kIcon;
+    var hightOfSafeAreaBottom = MediaQuery.of(context).padding.bottom;
 
-    return Container(
-      height: bottomHeight,
-      child: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        elevation: 0,
-        backgroundColor: colorBottom,
-        currentIndex: widget.selectedIndex,
-        onTap: _onItemTapped,
-        // onTap: (int _currentIndex) {
-        //   setState(() {
-        //     this._currentIndex = _currentIndex;
-        //   });
-        //   Navigator.of(context).push(
-        //     PageRouteGenerator(builder: (context) {
-        //       return _pageOptions[_currentIndex];
-        //     }),
-        //   );
-        // },
-        items: [
-          BottomNavigationBarItem(
-            title:
-                Padding(padding: EdgeInsets.all(0)), //Container(height: 0.0),
-            icon: Icon(
-              SystemIconsIS.is24_system_48px_search,
-              size: 24, //MediaQuery.of(context).size.width * 0.09,
-              color: colorIcon,
-            ),
-            activeIcon:
-                new Image.asset("assets/images/search@3x_2.png", height: 26),
+    return Material(
+      elevation: 16.0,
+     /* child: Padding(
+        //Padding instead SafeArea -> we need this for top shadow
+        padding: EdgeInsets.only(bottom: hightOfPadding), //27 is inner BottomNavigationBar bottom Padding
+       */
+      child:
+
+    Container(
+          //height: bottomHeight,
+          child: BottomNavigationBar(
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            type: BottomNavigationBarType.fixed,
+            elevation: 0.0,
+            backgroundColor: colorBottom,
+            currentIndex: widget.selectedIndex,
+            onTap: _onItemTapped,
+            items: [
+              BottomNavigationBarItem(
+                title:
+                    Padding(padding: EdgeInsets.all(0)), //Container(height: 0.0),
+                icon: Icon(
+                  SystemIconsIS.is24_system_48px_search,
+                  size: 24, //MediaQuery.of(context).size.width * 0.09,
+                  color: colorIcon,
+                ),
+                activeIcon:
+                    new Image.asset("assets/images/search@3x_2.png", height: 26),
+              ),
+              BottomNavigationBarItem(
+                title: Container(height: 0.0),//Padding(padding: EdgeInsets.all(0)),
+                //Container(height: 0.0),
+                icon: Icon(
+                  SystemIconsIS.is24_system_48px_heart_favorite,
+                  size: 24, //MediaQuery.of(context).size.width * 0.09,
+                  color: colorIcon,
+                ),
+                activeIcon:
+                    new Image.asset("assets/images/heart@3x_2.png", height: 26),
+              ),
+              BottomNavigationBarItem(
+                title: Container(height: 0.0),
+                    //Padding(padding: EdgeInsets.all(0)), //
+                icon: Icon(
+                  SystemIconsIS.is24_system_48px_settings,
+                  size: 24, //MediaQuery.of(context).size.width * 0.09,
+                  color: colorIcon,
+                ),
+                activeIcon: new Image.asset("assets/images/settings@3x_2.png",
+                    height: 26),
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            title:
-                Padding(padding: EdgeInsets.all(0)), //Container(height: 0.0),
-            icon: Icon(
-              SystemIconsIS.is24_system_48px_heart_favorite,
-              size: 24, //MediaQuery.of(context).size.width * 0.09,
-              color: colorIcon,
-            ),
-            activeIcon:
-                new Image.asset("assets/images/heart@3x_2.png", height: 26),
-          ),
-          BottomNavigationBarItem(
-            title:
-                Padding(padding: EdgeInsets.all(0)), //Container(height: 0.0),
-            icon: Icon(
-              SystemIconsIS.is24_system_48px_settings,
-              size: 24, //MediaQuery.of(context).size.width * 0.09,
-              color: colorIcon,
-            ),
-            activeIcon:
-                new Image.asset("assets/images/settings@3x_2.png", height: 26),
-          ),
-        ],
-      ),
+        ),
+      //),
     );
   }
 }

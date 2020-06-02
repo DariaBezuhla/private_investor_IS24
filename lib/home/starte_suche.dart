@@ -4,7 +4,6 @@ import 'package:privateinvestorsmobile/constant.dart';
 import 'package:privateinvestorsmobile/home/home_textfield.dart';
 import 'package:privateinvestorsmobile/home/textfield_normal.dart';
 import 'package:privateinvestorsmobile/home/weitere_filter.dart';
-import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
 import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
 import '../results.dart';
 
@@ -83,7 +82,7 @@ class StarteSuche extends StatefulWidget{
               children: <Widget>[
                 Material(
                   color: Colors.white,
-                  elevation: 2.0,
+                  elevation: elevation,
                   shadowColor: Colors.grey,
                   borderRadius: BorderRadius.circular(4.0),
                   child: Container(
@@ -174,7 +173,7 @@ class StarteSuche extends StatefulWidget{
                             onPressed: () {
                               Navigator.of(context).push(
                                 PageRouteGenerator(builder: (context) {
-                                  return ResultScreen(resultsList: results,);
+                                  return ResultScreen();
                                 }),
                               );
                             },

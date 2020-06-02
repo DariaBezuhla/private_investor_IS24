@@ -1,12 +1,7 @@
 //import 'dart:html';
 import 'package:flutter/material.dart';
-import 'package:privateinvestorsmobile/results/card/real_estate_detail_context.dart';
-import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
-import 'package:privateinvestorsmobile/results/card/view_states.dart';
-import 'package:privateinvestorsmobile/calculator.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/constant.dart';
-import 'package:privateinvestorsmobile/calculator/calc_textfield.dart';
 
 class CalcMieteinahmen extends StatefulWidget {
   @override
@@ -35,6 +30,7 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: kCard,
       elevation: elevation,
       child: Container(
         width: MediaQuery.of(context).size.width * 1.5,
