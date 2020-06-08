@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:privateinvestorsmobile/results/card/rating.dart';
-
 import '../../constant.dart';
-
 
 class RatingButton extends StatelessWidget {
   final Rating rating;

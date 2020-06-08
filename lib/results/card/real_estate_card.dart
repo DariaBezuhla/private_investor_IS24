@@ -5,6 +5,7 @@ import '../../results/card/real_estate_detail_context.dart';
 import '../../results/card/real_estate_object.dart';
 import '../../results/card/view_states.dart';
 import '../../icons/system_icons_i_s_icons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../constant.dart';
 
 //Must be Stateful for saving in Favorite List (Wish List)
@@ -43,7 +44,7 @@ class _RealEstateCardState extends State<RealEstateCard> {
     var styleHeader4 = (widget.theme == 'Dark') ? dHeader4 : header4;
     var styleDescription =
     (widget.theme == 'Dark') ? dStyleDescriptionText : styleDescriptionText;
-    var elevationSize = (widget.theme == 'Dark') ? dElevation : elevation;
+    var elevation = (widget.theme == 'Dark') ? 0.0 : 2.0;
     var iconsColor = (widget.theme == 'Dark') ? dTextColorLight : null;
 
     var pressedFavoriteIcon = Icon(
@@ -184,7 +185,7 @@ class _RealEstateCardState extends State<RealEstateCard> {
       padding: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
       child: Material(
         color: cardColor,
-        elevation: elevationSize,
+        elevation: elevation,
         shadowColor: kShadow,
         borderRadius: BorderRadius.circular(3.0),
         child: Padding(

@@ -1,11 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/results/card/real_estate_detail_context.dart';
 import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
 import 'package:privateinvestorsmobile/results/card/view_states.dart';
 import 'package:privateinvestorsmobile/wishlist/favorites.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import '../constant.dart';
+import '../network/search_service.dart';
+import 'exposeObject.dart';
 import 'kostenrechner_widget.dart';
 
 class ExposeContent extends StatefulWidget {
@@ -24,9 +29,25 @@ class ExposeContent extends StatefulWidget {
 }
 
 class _ExposeContentState extends State<ExposeContent> {
+  ExposeObject _exposeObject;
+  SearchService _searchService = new SearchService();
+  var currencyFormatter = new NumberFormat.currency(
+      locale: "de_DE", symbol: "€", decimalDigits: 0, name: "EUR");
+  var numberFormatter = new NumberFormat("###.##", "de_DE");
+  @override
+  void initState() {
+    super.initState();
+
+    _searchService.fetchEstate(id: widget.house.id).then((value) {
+      setState(() {
+        _exposeObject = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    bool isPressed =  Favorites.savedFavorites.contains(widget.house.id);
+    bool isPressed = Favorites.savedFavorites.contains(widget.house.id);
     var pressedFavoriteIcon = Icon(
       Icons.favorite,
       size: 24,
@@ -34,15 +55,15 @@ class _ExposeContentState extends State<ExposeContent> {
     );
     var favoriteIcon = (!isPressed)
         ? Icon(
-      SystemIconsIS.is24_system_48px_heart_favorite,
-      color: kIcon,
-      size: 24.0,
-    ) : pressedFavoriteIcon; //Icon(Icons.favorite, size: 24, color: kTeal,);
-
+            SystemIconsIS.is24_system_48px_heart_favorite,
+            color: kIcon,
+            size: 24.0,
+          )
+        : pressedFavoriteIcon; //Icon(Icons.favorite, size: 24, color: kTeal,);
 
     void _saveInWishList() {
       setState(() //<--whenever icon is pressed, force redraw the widget
-      {
+          {
         if (isPressed) //favorites.contains(widget.house.id)
           Favorites.savedFavorites.remove(widget.house.id);
         else
@@ -50,8 +71,7 @@ class _ExposeContentState extends State<ExposeContent> {
         Favorites.saveList();
         Favorites.loadList();
       });
-
-    };
+    }
 
     return ListView(
       children: <Widget>[
@@ -63,9 +83,7 @@ class _ExposeContentState extends State<ExposeContent> {
             height: 300.0,
             decoration: new BoxDecoration(
               image: new DecorationImage(
-                image: (widget.house.pictureUrl != null)
-                    ? NetworkImage(widget.house.pictureUrl)
-                    : NetworkImage('https://dummyimage.com/640x360/fff/aaa'),
+                image: NetworkImage(widget.house.pictureUrl),
                 fit: BoxFit.cover,
               ),
             ),
@@ -95,7 +113,7 @@ class _ExposeContentState extends State<ExposeContent> {
                   Hero(
                     tag: '${widget.house.id}-title',
                     child: DetailsStyle(
-                      title: widget.house.title,
+                      title: _exposeObject?.title ?? "",
                       viewState: ViewState.enlarged,
                       largeFontSize: 18.0,
                       textStyle: header4,
@@ -107,7 +125,7 @@ class _ExposeContentState extends State<ExposeContent> {
                       Container(
                         width: MediaQuery.of(context).size.width * 0.75,
                         child: Text(
-                          widget.house.address,
+                          _exposeObject?.address?.getQuarter() ?? "",
                           style: styleText,
                           textAlign: TextAlign.left,
                         ),
@@ -143,9 +161,10 @@ class _ExposeContentState extends State<ExposeContent> {
                         Column(
                           children: <Widget>[
                             _buildInfoItemForPriceWithTransition(
-                                "Kaufpreis", widget.house.price),
+                                "Kaufpreis", _exposeObject?.price?.value),
                             SizedBox(height: 24),
-                            _buildInfoItem1("Aktuelle Miete", "--- €")
+                            _buildCurrencyItem(
+                                "Aktuelle Miete", _exposeObject?.rent?.value)
                           ],
                         ),
                       ],
@@ -159,9 +178,11 @@ class _ExposeContentState extends State<ExposeContent> {
                         Column(
                           children: <Widget>[
                             _buildInfoItemForPriceProMWithTransition(
-                                "Preis pro m²", widget.house.pricePerSqm),
+                                "Preis pro m²",
+                                _exposeObject?.pricePerSqm?.value),
                             SizedBox(height: 24),
-                            _buildInfoItem1("Hausgeld", "--- €")
+                            _buildCurrencyItem(
+                                "Hausgeld", _exposeObject?.rentSubsidy?.value)
                           ],
                         ),
                       ],
@@ -191,7 +212,8 @@ class _ExposeContentState extends State<ExposeContent> {
                         child: Wrap(
                           alignment: WrapAlignment.center,
                           children: <Widget>[
-                            _buildInfoItem1("Nettorendite", "--- %"),
+                            _buildNumberItem("Nettorendite",
+                                _exposeObject?.netYield?.value, "%"),
                           ],
                         ),
                       ),
@@ -199,7 +221,8 @@ class _ExposeContentState extends State<ExposeContent> {
                         child: Wrap(
                           alignment: WrapAlignment.center,
                           children: <Widget>[
-                            _buildInfoItem1("Gesch. Kaltmiete", "--- €"),
+                            _buildCurrencyItem("Gesch. Kaltmiete",
+                                _exposeObject?.rentAbsolute?.value),
                           ],
                         ),
                       ),
@@ -207,7 +230,8 @@ class _ExposeContentState extends State<ExposeContent> {
                         child: Wrap(
                           alignment: WrapAlignment.center,
                           children: <Widget>[
-                            _buildInfoItem1("X-fache Miete", "--")
+                            _buildNumberItem("X-fache Miete",
+                                _exposeObject?.factor?.value, null)
                           ],
                         ),
                       ),
@@ -219,14 +243,18 @@ class _ExposeContentState extends State<ExposeContent> {
                     padding: EdgeInsets.all(24),
                     child: Row(
                       children: <Widget>[
-                        _buildInfoItem2("Mietpreis-\nentwicklung",
-                            "${widget.house.priceTrend}", !widget.house.priceTrend.toString().contains("-")),
+                        _buildInfoItem2(
+                          "Mietpreis-\nentwicklung",
+                          _exposeObject?.rentTrend?.value,
+                        ),
                         VerticalDivider(
                           thickness: 1,
                           color: kBackground,
                         ),
-                        _buildInfoItem2("Kaufpreis-\nentwicklung",
-                            "${widget.house.rentTrend}", !widget.house.rentTrend.toString().contains("-"))
+                        _buildInfoItem2(
+                          "Kaufpreis-\nentwicklung",
+                          _exposeObject?.priceTrend?.value,
+                        ),
                       ],
                     ),
                   ),
@@ -243,9 +271,14 @@ class _ExposeContentState extends State<ExposeContent> {
               direction: Axis.horizontal,
               alignment: WrapAlignment.spaceEvenly,
               children: _buildInfoItem3([
-                "${widget.house.livingSpace}",
-                "${widget.house.rooms} Zimmer",
-                "Aufzug",
+                _exposeObject != null
+                    ? "${numberFormatter.format(_exposeObject?.livingSpace?.value)}m²"
+                    : "",
+                "${_exposeObject?.rooms?.value.toString()} Zimmer",
+                "${_exposeObject?.lift == true ? "Aufzug" : ""}",
+                "${_exposeObject?.balcony == true ? "Balkon" : ""}",
+                "${_exposeObject?.cellar == true ? "Keller" : ""}",
+                "${_exposeObject?.garden == true ? "Garten" : ""}",
               ])),
         ),
 
@@ -262,11 +295,9 @@ class _ExposeContentState extends State<ExposeContent> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildDescriptionItem('Objektbeschreibung',
-                  'Bei dem Objekt handelt es sich um einen vollständig sanierten und gepflegten Altbau in zentral innerstädtischer Lage. Die großzügige, in Kürze bezugsfrei werdende Wo … '),
-              _buildDescriptionItem('Ausstattung',
-                  'Bei dem Objekt handelt es sich um einen vollständig sanierten und gepflegten Altbau in zentral innerstädtischer Lage. Die großzügige, in Kürze bezugsfrei werdende Wo … '),
-              _buildDescriptionItem('Ort',
-                  'Zur Beachtung: Die Bilder zeigen eine andere Wohnung in diesem Objekt und Hausteil mit der nahezu identischen Ausstattungsqualität und nahezu identischen räumlichen Aufteilung bzw. Wohnfläche.'),
+                  _exposeObject?.description ?? "Keine Angaben"),
+              _buildDescriptionItem(
+                  'Ort', _exposeObject?.location ?? "Keine Angaben"),
             ],
           ),
         ),
@@ -307,8 +338,16 @@ class _ExposeContentState extends State<ExposeContent> {
                     color: kTeal,
                     textColor: kCharcoal,
                     padding: EdgeInsets.all(10.0),
-                    onPressed: () {
-                      /*...*/
+                    onPressed: () async {
+                      if (await canLaunch('immobilienscout24://')) {
+                        await launch(
+                            'https://www.immobilienscout24.de/expose/${widget.house.id}?referrer=HP_INSPIRATION_ONE#/',
+                            forceSafariVC: false);
+                      } else {
+                        await launch(
+                            'https://www.immobilienscout24.de/expose/${widget.house.id}?referrer=HP_INSPIRATION_ONE#/',
+                            forceSafariVC: true);
+                      }
                     },
                     child: Text("Anbieter kontaktieren", style: styleButton),
                   ),
@@ -321,7 +360,7 @@ class _ExposeContentState extends State<ExposeContent> {
     );
   }
 
-  Container _buildInfoItemForPriceWithTransition(String title, String value) {
+  Container _buildInfoItemForPriceWithTransition(String title, num value) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -329,7 +368,9 @@ class _ExposeContentState extends State<ExposeContent> {
           Hero(
             tag: '${widget.house.id}-price',
             child: DetailsStyle(
-              title: value,
+              title: value != null
+                  ? currencyFormatter.format(value)
+                  : "--- ${currencyFormatter.currencySymbol}",
               viewState: ViewState.enlarged,
               largeFontSize: 18.0,
               textStyle: header4,
@@ -344,8 +385,7 @@ class _ExposeContentState extends State<ExposeContent> {
     );
   }
 
-  Container _buildInfoItemForPriceProMWithTransition(
-      String title, String value) {
+  Container _buildInfoItemForPriceProMWithTransition(String title, num value) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -353,7 +393,9 @@ class _ExposeContentState extends State<ExposeContent> {
           Hero(
             tag: '${widget.house.id}-pricePerSqm',
             child: DetailsStyle(
-              title: value,
+              title: value != null
+                  ? currencyFormatter.format(value)
+                  : "--- ${currencyFormatter.currencySymbol}",
               viewState: ViewState.enlarged,
               largeFontSize: 18.0,
               textStyle: header4,
@@ -368,13 +410,15 @@ class _ExposeContentState extends State<ExposeContent> {
     );
   }
 
-  Container _buildInfoItem1(String title, String value) {
+  Container _buildCurrencyItem(String title, num value) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Column(
         children: <Widget>[
           Text(
-            value,
+            value != null
+                ? currencyFormatter.format(value)
+                : '--- ${currencyFormatter.currencySymbol}',
             style: header4,
           ),
           Text(
@@ -386,7 +430,29 @@ class _ExposeContentState extends State<ExposeContent> {
     );
   }
 
-  Expanded _buildInfoItem2(String title, String value, bool isPositive) {
+  Container _buildNumberItem(String title, num value, String unit) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        children: <Widget>[
+          Text(
+            value != null
+                ? "${numberFormatter.format(value)}${unit != null ? ' $unit' : ''}"
+                : "---${unit != null ? ' $unit' : ''}",
+            style: header4,
+          ),
+          Text(
+            title,
+            style: styleDescriptionText,
+          )
+        ],
+      ),
+    );
+  }
+
+  Expanded _buildInfoItem2(String title, num value) {
+    bool isPositive = !value.toString().contains("-");
+
     return Expanded(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -404,7 +470,7 @@ class _ExposeContentState extends State<ExposeContent> {
           Column(
             children: <Widget>[
               Text(
-                value,
+                value != null ? "${numberFormatter.format(value)} %" : "--- %",
                 style: header4,
               ),
               Text(
@@ -420,6 +486,7 @@ class _ExposeContentState extends State<ExposeContent> {
 
   List<Widget> _buildInfoItem3(List<String> list) {
     return list
+        .where((e) => e != "")
         .map(
           (e) => Container(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -465,7 +532,9 @@ class _ExposeContentState extends State<ExposeContent> {
             right: 24,
           ),
           child: Text(
-            description,
+            description.toString().contains("null")
+                ? "Keine Angaben"
+                : "${description}",
             style: styleText,
           ),
         ),
