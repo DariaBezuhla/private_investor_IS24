@@ -4,12 +4,14 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:privateinvestorsmobile/icons/product_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/theme.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import '../constant.dart';
 
 class SettingsContent extends StatefulWidget {
   final String theme;
+
   const SettingsContent({
     Key key,
     this.theme,
@@ -43,497 +45,509 @@ class _SettingsContentState extends State<SettingsContent> {
     //var colorIcon = (widget.theme == 'Dark') ? dIconColor : kCharcoal;
     bool isSwitched = false;
 
-    return Container(
-      color: theme.backgroundColor,
-      child: ListView(
-        children: <Widget>[
-          //intro
-          Column(
+    return ListView(
+      children: <Widget>[
+        //intro
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /*2*/
+            Container(
+              padding: EdgeInsets.symmetric(
+                  horizontal: ScreenUtil().setWidth(24),
+                  vertical: ScreenUtil().setHeight(24)),
+              child: Text(
+                'Dein Investment Profil',
+                style: CustomStyle.header3(context),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: ScreenUtil().setWidth(24),
+              ),
+              child: Text(
+                  'Für optimiertere Suchergebnisse kannst du hier dein Investment Profil konfigurieren. Damit hilfst du uns, alle Ergebnisse genau auf deine Bedürfnisse abzustimmen.',
+                  style: CustomStyle.styleText(context)),
+            ),
+          ],
+        ),
+
+        //eigenkapital
+        Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                child: Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setHeight(24),
+                          horizontal: ScreenUtil().setWidth(24)),
+                      child: IconTheme(
+                        data: theme.primaryIconTheme,
+                        child: Icon(
+                          ProductIconsIS.is24_product_48px_book_with_euro_sign,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        child: Text(
+                          'Eigenkapital',
+                          style: CustomStyle.header4(context),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding:
+                    EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(24)),
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Maximal",
+                          style: CustomStyle.styleText(context),
+                        ),
+                        Spacer(),
+                        Text(
+                          mn.toInt().toString() + ' €',
+                          style: CustomStyle.styleText(context),
+                        ),
+                      ],
+                    ),
+
+                    //SLIDER 1
+                    SliderTheme(
+                      data: SliderThemeData(
+                        trackHeight: ScreenUtil().setHeight(5),
+                        activeTrackColor: kTeal,
+                        inactiveTrackColor: kGrey,
+                        thumbColor: Colors.white,
+                        //to do: add Custom Thumbshape with shadow
+                        trackShape: CustomTrackShape(),
+                        overlayColor: kCharcoal.withOpacity(.2),
+                      ),
+                      child: Slider(
+                        value: mn,
+                        min: 0,
+                        max: 250000,
+                        onChanged: (double newPrice) {
+                          setState(() {
+                            mn = newPrice;
+                          });
+                        },
+                        label: '$mn',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(
+                    vertical: ScreenUtil().setHeight(10),
+                    horizontal: ScreenUtil().setWidth(24)),
+                child: Divider(color: theme.dividerColor),
+              ),
+            ],
+          ),
+        ),
+
+        //location
+        Container(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               /*2*/
               Container(
-                padding: const EdgeInsets.only(left: 24, top: 36, bottom: 12),
-                child: Text(
-                  'Dein Investment Profil',
-                  style: theme.textTheme.headline3,
+                child: Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setHeight(24),
+                          horizontal: ScreenUtil().setWidth(24)),
+                      child: IconTheme(
+                        data: theme.primaryIconTheme,
+                        child: Icon(
+                          ProductIconsIS.is24_product_48px_location,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        child: Text(
+                          'Ortung',
+                          style: CustomStyle.header4(context),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(
-                  left: 24,
-                  right: 24,
-                  bottom: 12,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ScreenUtil().setWidth(24)),
+                        child: Text(
+                          'Geo-Location verwenden',
+                          style: CustomStyle.styleText(context),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: ScreenUtil().setWidth(24)),
+                      child: FlutterSwitch(
+                        activeColor: kTeal,
+                        inactiveColor: kGrey,
+                        toggleSize: ScreenUtil().setHeight(17),
+                        height: ScreenUtil().setHeight(20),
+                        width: ScreenUtil().setWidth(50),
+                        value: isSwitched,
+                        onToggle: (value) {
+                          setState(() {
+                            isSwitched = !isSwitched;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-                child: Text(
-                  'Für optimiertere Suchergebnisse kannst du hier dein Investment Profil konfigurieren. Damit hilfst du uns, alle Ergebnisse genau auf deine Bedürfnisse abzustimmen.',
-                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(
+                    vertical: ScreenUtil().setHeight(10),
+                    horizontal: ScreenUtil().setWidth(24)),
+                child: Divider(color: theme.dividerColor),
               ),
             ],
           ),
+        ),
 
-          //eigenkapital
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                /*2*/
-                Container(
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 24),
-                        child: IconTheme(
-                          data: theme.primaryIconTheme,
+        //appearance
+        Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                child: Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setHeight(24),
+                          horizontal: ScreenUtil().setWidth(24)),
+                      child: IconTheme(
+                        data: theme.primaryIconTheme,
+                        child: Icon(
+                          SystemIconsIS.is24_system_48px_rating_state_2,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        child: Text(
+                          'Design',
+                          style: CustomStyle.header4(context),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ScreenUtil().setWidth(24)),
+                        child: Text(
+                          'Dark-Theme',
+                          style: CustomStyle.styleText(context),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: ScreenUtil().setWidth(24)),
+                      child: FlutterSwitch(
+                        activeColor: kTeal,
+                        inactiveColor: kGrey,
+                        toggleSize: ScreenUtil().setHeight(17),
+                        height: ScreenUtil().setHeight(20),
+                        width: ScreenUtil().setWidth(50),
+                        value: isSwitched =
+                            themeProvider.getTheme() == dark ? true : false,
+                        onToggle: (value) {
+                          setState(() {
+                            isSwitched = !isSwitched;
+                            themeProvider.setTheme(isSwitched ? dark : light);
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(
+                    vertical: ScreenUtil().setHeight(10),
+                    horizontal: ScreenUtil().setWidth(24)),
+                child: Divider(color: theme.dividerColor),
+              ),
+            ],
+          ),
+        ),
+
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(24)),
+          // Settings
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenUtil().setHeight(10)),
+                    child: Text(
+                      "Einstellungen",
+                      style: CustomStyle.header3(context),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenUtil().setHeight(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Benachrichtigungen",
+                          style: CustomStyle.styleText(context),
+                        ),
+                        IconTheme(
+                          data: theme.iconTheme,
                           child: Icon(
-                            ProductIconsIS.is24_product_48px_book_with_euro_sign,
+                            SystemIconsIS.is24_system_48px_chevron_right,
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.only(
-                              left: 10, top: 14, right: 24, bottom: 10),
-                          child: Text(
-                            'Eigenkapital',
-                            style: theme.textTheme.headline4,
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(
-                      left: 24, top: 14, right: 10, bottom: 10),
-                  child: Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Maximal",
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenUtil().setHeight(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Sprachauswahl",
+                          style: CustomStyle.styleText(context),
+                        ),
+                        IconTheme(
+                          data: theme.iconTheme,
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_chevron_right,
                           ),
-                          Spacer(),
-                          Text(mn.toInt().toString() + ' €'),
-                        ],
-                      ),
-
-                      //SLIDER 1
-                      SliderTheme(
-                        data: SliderThemeData(
-                          trackHeight: MediaQuery.of(context).size.height * 0.008,
-                          activeTrackColor: kTeal,
-                          inactiveTrackColor: kGrey,
-                          thumbColor: Colors.white,
-                          //to do: add Custom Thumbshape with shadow
-                          trackShape: CustomTrackShape(),
-                          overlayColor: kCharcoal.withOpacity(.2),
                         ),
-                        child: Slider(
-                          value: mn,
-                          min: 0,
-                          max: 250000,
-                          onChanged: (double newPrice) {
-                            setState(() {
-                              mn = newPrice;
-                            });
-                          },
-                          label: '$mn',
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenUtil().setHeight(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Feedback zur App",
+                          style: CustomStyle.styleText(context),
+                        ),
+                        IconTheme(
+                          data: theme.iconTheme,
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_chevron_right,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
 
-                // Container(
-                //   padding: const EdgeInsets.only(
-                //       left: 24, top: 14, right: 24, bottom: 10),
-                //   child: Column(
-                //     crossAxisAlignment: CrossAxisAlignment.start,
-                //     children: [
-                //       Text(
-                //         "Budget bis",
-                //         style: styleLabel,
-                //       ),
-                //       SizedBox(
-                //           height: MediaQuery.of(context).size.height * 0.012),
-                //       new Theme(
-                //         data: new ThemeData(
-                //           primaryColor: kGrey,
-                //         ),
-                //         child: TextFormField(
-                //           decoration: InputDecoration(
-                //               border: OutlineInputBorder(
-                //                 borderSide:
-                //                     BorderSide(color: Colors.red, width: 2.0),
-                //               ),
-                //               labelText: '100.000€',
-                //               labelStyle: TextStyle(
-                //                   color: kGrey,
-                //                   fontSize: MediaQuery.of(context).size.height *
-                //                       0.014)),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
+              Container(
+                // padding: EdgeInsets.symmetric(
+                //   vertical: ScreenUtil().setHeight(12),
                 // ),
+                child: Divider(color: theme.dividerColor),
+              ),
 
-                Container(
-                  padding: const EdgeInsets.only(left: 24, right: 24, bottom: 10),
-                  child: Divider(color: theme.dividerColor),
-                ),
-              ],
-            ),
-          ),
-
-          //location
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                /*2*/
-                Container(
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.only(
-                            left: 24, top: 14, right: 10, bottom: 10),
-                        child: IconTheme(
-                          data: theme.primaryIconTheme,
-                          child: Icon(
-                            ProductIconsIS.is24_product_48px_location,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.only(
-                              left: 10, top: 14, right: 24, bottom: 10),
-                          child: Text(
-                            'Ortung',
-                            style: theme.textTheme.headline4,
-                          ),
-                        ),
-                      ),
-                    ],
+              //plus membership
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenUtil().setHeight(24)),
+                    child: Text(
+                      "Plus Mitgliedschaft",
+                      style: CustomStyle.header3(context),
+                    ),
                   ),
-                ),
-                Container(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.only(
-                              left: 24, top: 14, bottom: 10),
-                          child: Text(
-                            'Geo-Location verwenden',
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(right: 24),
-                        child: FlutterSwitch(
-                          activeColor: kTeal,
-                          inactiveColor: kGrey,
-                          toggleSize: MediaQuery.of(context).size.height * 0.02,
-                          height: MediaQuery.of(context).size.height * 0.03,
-                          width: MediaQuery.of(context).size.width * 0.14,
-                          value: isSwitched,
-                          onToggle: (value) {
-                            setState(() {
-                              isSwitched = !isSwitched;
-                            });
+                  Container(
+                    child: Text(
+                      "Du möchtest immer als Erstes von neuen Objekten erfahren und exklusive Beratung? Das und vieles mehr erreichst du durch eine Plus-Mitgliedschaft, die du jetzt einen Monat lang kostenlos testen kannst. ",
+                      style: CustomStyle.styleText(context),
+                    ),
+                  ),
+                  Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setHeight(24)),
+                      child: ButtonTheme(
+                        child: FlatButton(
+                          color: theme.buttonColor,
+                          textColor: kCharcoal,
+                          padding: EdgeInsets.symmetric(
+                              vertical: ScreenUtil().setHeight(10),
+                              horizontal: ScreenUtil().setWidth(20)),
+                          onPressed: () {
+                            /*...*/
                           },
+                          child: Text(
+                            "Plus freischalten",
+                            style: CustomStyle.styleButton(context),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(left: 24, right: 24, bottom: 10),
-                  child: Divider(color: theme.dividerColor),
-                ),
-              ],
-            ),
-          ),
+                      )),
+                ],
+              ),
+              Container(
+                padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(12)),
+                child: Divider(color: theme.dividerColor),
+              ),
 
-          //appearance
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.only(
-                            left: 24, top: 14, right: 10, bottom: 10),
-                        child: IconTheme(
-                          data: theme.primaryIconTheme,
+              //Privacy
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenUtil().setHeight(12)),
+                    child: Text(
+                      "Privacy",
+                      style: CustomStyle.header3(context),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenUtil().setHeight(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Impressum",
+                          style: CustomStyle.styleText(context),
+                        ),
+                        IconTheme(
+                          data: theme.iconTheme,
                           child: Icon(
-                            SystemIconsIS.is24_system_48px_rating_state_2,
+                            SystemIconsIS.is24_system_48px_chevron_right,
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.only(
-                              left: 10, top: 14, right: 24, bottom: 10),
-                          child: Text(
-                            'Design',
-                            style: theme.textTheme.headline4,
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.only(
-                              left: 24, top: 14, bottom: 10),
-                          child: Text(
-                            'Dark-Theme',
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenUtil().setHeight(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Infos zum Tracking",
+                          style: CustomStyle.styleText(context),
+                        ),
+                        IconTheme(
+                          data: theme.iconTheme,
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_chevron_right,
                           ),
                         ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(right: 24),
-                        child: FlutterSwitch(
-                          activeColor: kTeal,
-                          inactiveColor: kGrey,
-                          toggleSize: MediaQuery.of(context).size.height * 0.02,
-                          height: MediaQuery.of(context).size.height * 0.03,
-                          width: MediaQuery.of(context).size.width * 0.14,
-                          value: isSwitched =
-                              themeProvider.getTheme() == dark ? true : false,
-                          onToggle: (value) {
-                            setState(() {
-                              isSwitched = !isSwitched;
-                              themeProvider.setTheme(isSwitched ? dark : light);
-                            });
-                          },
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(left: 24, right: 24, top: 24),
-                  child: Divider(color: theme.dividerColor),
-                ),
-              ],
-            ),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenUtil().setHeight(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Datenschutz",
+                          style: CustomStyle.styleText(context),
+                        ),
+                        IconTheme(
+                          data: theme.iconTheme,
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_chevron_right,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenUtil().setHeight(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Geschäftsbedingungen",
+                          style: CustomStyle.styleText(context),
+                        ),
+                        IconTheme(
+                          data: theme.iconTheme,
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_chevron_right,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenUtil().setHeight(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Lizenzhinweise Dritter",
+                          style: CustomStyle.styleText(context),
+                        ),
+                        IconTheme(
+                          data: theme.iconTheme,
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_chevron_right,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-
-            // Settings
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                      child: Text(
-                        "Einstellungen",
-                        style: theme.textTheme.headline3,
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Benachrichtigungen",
-                          ),
-                          IconTheme(
-                            data: theme.iconTheme,
-                            child: Icon(
-                              SystemIconsIS.is24_system_48px_chevron_right,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Sprachauswahl"),
-                          IconTheme(
-                            data: theme.iconTheme,
-                            child: Icon(
-                              SystemIconsIS.is24_system_48px_chevron_right,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Feedback zur App"),
-                          IconTheme(
-                            data: theme.iconTheme,
-                            child: Icon(
-                              SystemIconsIS.is24_system_48px_chevron_right,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: Divider(color: theme.dividerColor),
-                ),
-
-                //plus membership
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                      child: Text(
-                        "Plus Mitgliedschaft",
-                        style: theme.textTheme.headline3,
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(bottom: 12),
-                      child: Text(
-                        "Du möchtest immer als Erstes von neuen Objekten erfahren und exklusive Beratung? Das und vieles mehr erreichst du durch eine Plus-Mitgliedschaft, die du jetzt einen Monat lang kostenlos testen kannst. ",
-                      ),
-                    ),
-                    Container(
-                        padding: EdgeInsets.symmetric(vertical: 12),
-                        child: ButtonTheme(
-                          child: FlatButton(
-                            color: theme.buttonColor,
-                            textColor: kCharcoal,
-                            padding: EdgeInsets.symmetric(
-                                vertical: 12.0, horizontal: 36),
-                            onPressed: () {
-                              /*...*/
-                            },
-                            child: Text("Plus freischalten", style: styleButton),
-                          ),
-                        )),
-                  ],
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: Divider(color: theme.dividerColor),
-                ),
-
-                //Privacy
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                      child: Text(
-                        "Privacy",
-                        style: theme.textTheme.headline3,
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Impressum"),
-                          IconTheme(
-                            data: theme.iconTheme,
-                            child: Icon(
-                              SystemIconsIS.is24_system_48px_chevron_right,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Infos zum Tracking"),
-                          IconTheme(
-                            data: theme.iconTheme,
-                            child: Icon(
-                              SystemIconsIS.is24_system_48px_chevron_right,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Datenschutz"),
-                          IconTheme(
-                            data: theme.iconTheme,
-                            child: Icon(
-                              SystemIconsIS.is24_system_48px_chevron_right,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Geschäftsbedingungen"),
-                          IconTheme(
-                            data: theme.iconTheme,
-                            child: Icon(
-                              SystemIconsIS.is24_system_48px_chevron_right,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Lizenzhinweise Dritter"),
-                          IconTheme(
-                            data: theme.iconTheme,
-                            child: Icon(
-                              SystemIconsIS.is24_system_48px_chevron_right,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

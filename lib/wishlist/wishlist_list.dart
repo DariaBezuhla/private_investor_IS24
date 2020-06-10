@@ -6,7 +6,7 @@ import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
 import 'package:privateinvestorsmobile/wishlist/favorites.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../expose.dart';
-import 'no_saved_items.dart';
+import 'no_saveed_items.dart';
 
 class Wishlist extends StatefulWidget {
   final String theme;
@@ -38,14 +38,14 @@ class _WishlistState extends State<Wishlist> with TickerProviderStateMixin {
     //Load list from shared_preference
     List<String> loaded = Favorites.getList();
 
-      for (String id in loaded) {
-        _searchService.fetchFavorite(id: id).then((value) {
-          setState(() {
+    for (String id in loaded) {
+      _searchService.fetchFavorite(id: id).then((value) {
+        setState(() {
           _favorites.add(value);
 
         });
-        });
-      }
+      });
+    }
     super.initState();
   }
 
@@ -54,8 +54,8 @@ class _WishlistState extends State<Wishlist> with TickerProviderStateMixin {
       vsync: this,
       duration: Duration(milliseconds: 250),
     )..addListener(() {
-        setState(() {});
-      });
+      setState(() {});
+    });
 
     stateNotifier = ValueNotifier(returnFromDetailPage)
       ..addListener(() {
@@ -77,14 +77,14 @@ class _WishlistState extends State<Wishlist> with TickerProviderStateMixin {
     _animationController.forward(from: 0.0);
     stateNotifier.value = await Navigator.of(context).push(
       PageRouteGenerator(
-          //fullscreenDialog: true,
+        //fullscreenDialog: true,
           builder: (context) {
-        return ExposeScreen(
-          comeFromPage: 1,
-          housesList: _favorites,
-          selectedIndex: _favorites.indexOf(house),
-        );
-      }),
+            return ExposeScreen(
+              comeFromPage: 1,
+              housesList: _favorites,
+              selectedIndex: _favorites.indexOf(house),
+            );
+          }),
     );
   }
 
@@ -95,12 +95,12 @@ class _WishlistState extends State<Wishlist> with TickerProviderStateMixin {
         _favorites.isEmpty
             ? <Widget>[NoSavedItems()]
             : _favorites.map((house) {
-                return RealEstateCard(
-                  house: house,
-                  theme: widget.theme,
-                  onSelected: onSelected,
-                );
-              }).toList(),
+          return RealEstateCard(
+            house: house,
+            theme: widget.theme,
+            onSelected: onSelected,
+          );
+        }).toList(),
       ),
     );
   }

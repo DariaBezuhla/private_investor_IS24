@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
 import 'package:privateinvestorsmobile/wishlist/favorites.dart';
-import 'package:privateinvestorsmobile/wishlist/wishlist_list.dart';
 import '../constant.dart';
 import '../wishlist.dart';
 
 //AppBar for Expose
 class AppBarForExpose extends StatelessWidget implements PreferredSizeWidget {
   int fromPage =
-      0; //shows, from what page ( WishlistScreen()-1 or ResultScreen()-0) we come to Expose()
+  0; //shows, from what page ( WishlistScreen()-1 or ResultScreen()-0) we come to Expose()
   // 0 -> return to  WishlistScreen(),
   // 1 -> return to  ResultScreen(),
   String houseId;
@@ -21,7 +21,7 @@ class AppBarForExpose extends StatelessWidget implements PreferredSizeWidget {
   }) : super(key: key);
 
   @override
-  Size get preferredSize => new Size.fromHeight(56.0);
+  Size get preferredSize => new Size.fromHeight(56.0); //<-- NOT ScreenUtil().setWidth(24), It must be const 56.0
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class AppBarForExpose extends StatelessWidget implements PreferredSizeWidget {
     var iconArrowLeft = IconButton(
         icon: Icon(
           SystemIconsIS.is24_system_48px_chevron_left,
-          size: 24,
+          size: ScreenUtil().setWidth (24),
           color: kIcon,
         ),
         onPressed: fromPage == 1 ? toWishlist : back);
@@ -57,11 +57,11 @@ class AppBarForExpose extends StatelessWidget implements PreferredSizeWidget {
       leading: iconArrowLeft,
       title: Center(child: logo),
       backgroundColor: kHeaderFooter,
-      elevation: 2,
+      elevation: elevation,
       actions: <Widget>[
         new Container(
           width: 56,
-          height: 56,
+          //height: 56,
         ),
       ],
     );

@@ -6,8 +6,18 @@ import 'package:privateinvestorsmobile/constant.dart';
 import 'package:privateinvestorsmobile/theme.dart';
 import 'package:privateinvestorsmobile/wishlist/favorites.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-void main() => runApp(PrivateInvestors());
+void main() {
+  runApp(EasyLocalization(child: PrivateInvestors(),
+  path : "assets/translations",
+saveLocale:true ,
+supportedLocales: [
+  Locale('de'),
+  Locale('en')
+],
+));
+}
 
 class PrivateInvestors extends StatelessWidget {
   @override
@@ -36,6 +46,9 @@ class Material extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: themeProvider.getTheme(),
       title: 'ImmoScout Private Investors',
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales:context.supportedLocales,
+      locale: context.locale,
       home: Home(),
     );
   }

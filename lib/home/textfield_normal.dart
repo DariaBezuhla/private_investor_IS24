@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/constant.dart';
 import 'package:privateinvestorsmobile/home/location.dart';
+import '../constant.dart';
 import 'auto_complete_location.dart';
 
 class NormalTextField extends StatefulWidget {
@@ -10,8 +12,8 @@ class NormalTextField extends StatefulWidget {
   ValueChanged<String> customHead;
   ValueChanged<String> customWert;
 
-  NormalTextField(
-      this.topNormalValue, this.customHead, this.normalFieldValue, this.customWert);
+  NormalTextField(this.topNormalValue, this.customHead, this.normalFieldValue,
+      this.customWert);
 
   @override
   _NormalTextFieldState createState() => _NormalTextFieldState();
@@ -28,43 +30,29 @@ class _NormalTextFieldState extends State<NormalTextField> {
             alignment: Alignment.centerLeft,
             child: Text(
               widget.topNormalValue,
-              style: TextStyle(
-                backgroundColor: Colors.transparent,
-                fontFamily: 'MakeItSans',
-                fontWeight: FontWeight.normal,
-                fontSize: MediaQuery.of(context).size.height * 0.017,
-                height: MediaQuery.of(context).size.height * 0.0007,
-                color: Color(0x0FF858585),
-              ),
+              style: CustomStyle.textFieldHeader(context),
             ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.012,
-          ),
+          SizedBox(height: ScreenUtil().setHeight(8)),
           Theme(
             data: new ThemeData(
-              primaryColor: Color(0x0FF00FFd0),
-              primaryColorDark: Color(0x0F00ffd0),
+              primaryColor: kTeal,
+              primaryColorDark: kTeal,
             ),
             child: new TextFormField(
                 decoration: new InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x0FFd6d6d6),
-                      ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: kDivider,
                     ),
-                    labelText: widget.normalFieldValue,
-                    labelStyle: TextStyle(
-                        color: Color(0x0FFADADAD),
-                        fontSize: MediaQuery.of(context).size.height * 0.014)
+                  ),
+                  labelText: widget.normalFieldValue,
+                  labelStyle: CustomStyle.textFieldInsideHeader(context),
                 ),
-                onChanged: widget.customWert
-            ),
+                onChanged: widget.customWert),
           ),
         ],
       ),
     );
   }
 }
-
-

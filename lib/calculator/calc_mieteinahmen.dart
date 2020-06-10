@@ -1,7 +1,13 @@
 //import 'dart:html';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
+import 'package:privateinvestorsmobile/results/card/real_estate_detail_context.dart';
+import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
+import 'package:privateinvestorsmobile/results/card/view_states.dart';
+import 'package:privateinvestorsmobile/calculator.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/constant.dart';
+import 'package:privateinvestorsmobile/calculator/calc_textfield.dart';
 
 class CalcMieteinahmen extends StatefulWidget {
   @override
@@ -29,12 +35,13 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Material(
       color: kCard,
       elevation: elevation,
       child: Container(
-        width: MediaQuery.of(context).size.width * 1.5,
-        margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+        width: ScreenUtil().setWidth(470),
+        margin: EdgeInsets.all(ScreenUtil().setHeight(16)),
         child: Column(
           children: <Widget>[
 
@@ -46,10 +53,10 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                   style: styleText,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.004),
+                  padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setHeight(4)),
                   child: Icon(
                     SystemIconsIS.is24_system_48px_info,
-                    size: MediaQuery.of(context).size.height * 0.02,
+                    size: ScreenUtil().setWidth(15),
                   ),
                 ),
                 Spacer(),
@@ -61,7 +68,7 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
             //SLIDER 1
             SliderTheme(
               data: SliderThemeData(
-                trackHeight: MediaQuery.of(context).size.height * 0.01,
+                trackHeight: ScreenUtil().setHeight(5),
                 activeTrackColor: dSliderColor,
                 inactiveTrackColor: kGrey,
                 thumbColor: kTeal,
@@ -81,7 +88,6 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
               ),
             ),
 
-
             //THREE TEXT FIELDS
             // 1 - "Nicht umlagefähiges Hausgeld + Icon"
             Row(
@@ -91,60 +97,60 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                   style: styleText,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.004),
+                  padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setHeight(5)),
                   child: Icon(
                     SystemIconsIS.is24_system_48px_info,
-                    size: MediaQuery.of(context).size.height * 0.02,
+                    size: ScreenUtil().setWidth(15),
                   ),
                 ),
                 Spacer(),
               ],
             ),
-            SizedBox(
-                height: MediaQuery.of(context).size.height * 0.012),
+            SizedBox(height: ScreenUtil().setHeight(10)),
 
             //1. TEXT FIELD
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Container(
-                  color: Colors.transparent,
-                  width: MediaQuery.of(context).size.width * 0.65,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  child: Theme(
-                      data: new ThemeData(
-                        primaryColor: kTeal,
-                        primaryColorDark: kTeal,
-                      ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x0FFd6d6d6),
+                Flexible(
+                  child: Container(
+                    color: Colors.transparent,
+                    width: ScreenUtil().setWidth(300),
+                    height: ScreenUtil().setHeight(45),
+                    child: Theme(
+                        data: new ThemeData(
+                          primaryColor: kTeal,
+                          primaryColorDark: kTeal,
+                        ),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: kDivider,
+                              ),
                             ),
-                          ),
-                          labelStyle: TextStyle(
-                              color: Color(0x0FFADADAD),
-                              fontSize: MediaQuery.of(context).size.height * 0.014)
+                        ),
                       ),
                     ),
                   ),
                 ),
-                Container(
-                  color: Colors.transparent,
-                  width: MediaQuery.of(context).size.width * 0.17,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(hausgeld.toInt().toString() + " €",
-                      style: styleText,
+                Flexible(
+                  child: Container(
+                    color: Colors.transparent,
+                    //width: ScreenUtil().setWidth(170),
+                    height: ScreenUtil().setHeight(45),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(hausgeld.toInt().toString() + " €",
+                        style: styleText,
+                      ),
                     ),
                   ),
                 ),
             ],
           ),
 
-            SizedBox(
-                height: MediaQuery.of(context).size.height * 0.012),
+            SizedBox(height: ScreenUtil().setHeight(10)),
 
             //2. TEXT FIELD
             Row(
@@ -154,59 +160,59 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                   style: styleText,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.004),
+                  padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setHeight(5)),
                   child: Icon(
                     SystemIconsIS.is24_system_48px_info,
-                    size: MediaQuery.of(context).size.height * 0.02,
+                    size: ScreenUtil().setWidth(15),
                   ),
                 ),
                 Spacer(),
               ],
             ),
-            SizedBox(
-                height: MediaQuery.of(context).size.height * 0.012),
+            SizedBox(height: ScreenUtil().setHeight(10)),
 
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Container(
-                  color: Colors.transparent,
-                  width: MediaQuery.of(context).size.width * 0.65,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  child: Theme(
-                    data: new ThemeData(
-                      primaryColor: kTeal,
-                      primaryColorDark: kTeal,
-                    ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
+                Flexible(
+                  child: Container(
+                    color: Colors.transparent,
+                    width: ScreenUtil().setWidth(300),
+                    height: ScreenUtil().setHeight(45),
+                    child: Theme(
+                      data: new ThemeData(
+                        primaryColor: kTeal,
+                        primaryColorDark: kTeal,
+                      ),
+                      child: TextFormField(
+                        decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x0FFd6d6d6),
+                              color: kDivider,
                             ),
                           ),
-                          labelStyle: TextStyle(
-                              color: Color(0x0FFADADAD),
-                              fontSize: MediaQuery.of(context).size.height * 0.014)
+                        ),
                       ),
                     ),
                   ),
                 ),
-                Container(
-                  color: Colors.transparent,
-                  width: MediaQuery.of(context).size.width * 0.17,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(ruecklagen.toInt().toString() + " €",
-                      style: styleText,
+                Flexible(
+                  child: Container(
+                    color: Colors.transparent,
+                    //width: ScreenUtil().setWidth(170),
+                    height: ScreenUtil().setHeight(45),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(ruecklagen.toInt().toString() + " €",
+                        style: styleText,
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
 
-            SizedBox(
-                height: MediaQuery.of(context).size.height * 0.012),
+            SizedBox(height: ScreenUtil().setHeight(10)),
 
             //3. TEXT FIELD
             Row(
@@ -216,83 +222,80 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                   style: styleText,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.004),
+                  padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setHeight(5)),
                   child: Icon(
                     SystemIconsIS.is24_system_48px_info,
-                    size: MediaQuery.of(context).size.height * 0.02,
+                    size: ScreenUtil().setWidth(15),
                   ),
                 ),
                 Spacer(),
               ],
             ),
-            SizedBox(
-                height: MediaQuery.of(context).size.height * 0.012),
+            SizedBox(height: ScreenUtil().setHeight(10)),
 
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Container(
-                  color: Colors.transparent,
-                  width: MediaQuery.of(context).size.width * 0.65,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  child: Theme(
-                    data: new ThemeData(
-                      primaryColor: kTeal,
-                      primaryColorDark: kTeal,
-                    ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
+                Flexible(
+                  child: Container(
+                    color: Colors.transparent,
+                    width: ScreenUtil().setWidth(300),
+                    height: ScreenUtil().setHeight(45),
+                    child: Theme(
+                      data: new ThemeData(
+                        primaryColor: kTeal,
+                        primaryColorDark: kTeal,
+                      ),
+                      child: TextFormField(
+                        decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x0FFd6d6d6),
+                              color: kDivider,
                             ),
                           ),
-                          labelStyle: TextStyle(
-                              color: Color(0x0FFADADAD),
-                              fontSize: MediaQuery.of(context).size.height * 0.014)
+                        ),
                       ),
                     ),
                   ),
                 ),
-                Container(
-                  color: Colors.transparent,
-                  width: MediaQuery.of(context).size.width * 0.17,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(hwkosten.toInt().toString() + " €",
-                      style: styleText,
+                Flexible(
+                  child: Container(
+                    color: Colors.transparent,
+                    //width: ScreenUtil().setWidth(170),
+                    height: ScreenUtil().setHeight(45),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(hwkosten.toInt().toString() + " €",
+                        style: styleText,
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
 
-            SizedBox(
-                height: MediaQuery.of(context).size.height * 0.025),
+            SizedBox(height: ScreenUtil().setHeight(20)),
 
             //CalcTextField(),
             //CalcTextField(),
 
             //HORIZONTAL LINE
-            Padding(
-              padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.0),
-              child: Container(
-                  child: new SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.001,
-                    child: new Center(
-                      child: new Container(
-                        margin: new EdgeInsetsDirectional.only(start: 1.0, end: 1.0),
-                        height: MediaQuery.of(context).size.height * 0.001,
-                        color: Colors.grey,
-                      ),
+            Container(
+                child: new SizedBox(
+                  height: ScreenUtil().setHeight(1),
+                  child: new Center(
+                    child: new Container(
+                      margin: new EdgeInsetsDirectional.only(start: 1.0, end: 1.0),
+                      height: ScreenUtil().setHeight(0.5),
+                      color: Colors.grey,
                     ),
-                  )
-              ),
+                  ),
+                )
             ),
 
-            //KAUFGESAMTPREIS ROW
+            //BETRIEBSKOSTEN ROW
             Padding(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
+              padding: EdgeInsets.only(top: ScreenUtil().setHeight(7)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import '../constant.dart';
 
 //AppBar without iconArrowLeft for Home()
@@ -14,7 +15,7 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
       title: Center(child: logo),
       leading: new Container(),
       backgroundColor: kHeaderFooter,
-      elevation: 2,
+      elevation: elevation,
       actions: <Widget>[
         new Container(
           width: 56,
@@ -25,5 +26,5 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => new Size.fromHeight(56.0);
+  Size get preferredSize => new Size.fromHeight(56);
 }

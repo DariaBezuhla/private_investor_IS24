@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/constant.dart';
 
@@ -20,6 +21,7 @@ class _CalcTextFieldState extends State<CalcTextField> {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: <Widget>[
         // 1 - "Nicht umlagefähiges Hausgeld + Icon"
@@ -30,48 +32,54 @@ class _CalcTextFieldState extends State<CalcTextField> {
               style: styleText,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.004),
+              padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setHeight(4)),
               child: Icon(
                 SystemIconsIS.is24_system_48px_info,
-                size: MediaQuery.of(context).size.height * 0.02,
+                size: ScreenUtil().setHeight(15),
               ),
             ),
             Spacer(),
           ],
         ),
-        SizedBox(
-            height: MediaQuery.of(context).size.height * 0.012),
+
+        SizedBox(height: ScreenUtil().setHeight(16)),
 
         //1. TEXT FIELD
         Row(
           children: <Widget>[
-            Container(
-              color: Colors.transparent,
-              width: MediaQuery.of(context).size.width * 0.65,
-              height: MediaQuery.of(context).size.height * 0.07,
-              child: Theme(
-                data: new ThemeData(
-                  primaryColor: kTeal,
-                  primaryColorDark: kTeal,
-                ),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x0FFd6d6d6),
+            Flexible(
+              child: Container(
+                color: Colors.transparent,
+                width: ScreenUtil().setWidth(300),
+                height: ScreenUtil().setHeight(45),
+                child: Theme(
+                  data: new ThemeData(
+                    primaryColor: kTeal,
+                    primaryColorDark: kTeal,
+                  ),
+                  child: TextFormField(
+                    style: TextStyle(
+                        color: kLightGrey,
+                        fontSize: dStyleLabel.fontSize),
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: kDivider,
+                          ),
                         ),
-                      ),
-                      labelStyle: TextStyle(
-                          color: Color(0x0FFADADAD),
-                          fontSize: MediaQuery.of(context).size.height * 0.014)
+                        /*labelStyle: TextStyle(
+                            color: kLightGrey,
+                            fontSize: styleContainerDescription2.fontSize)*/
+                    ),
                   ),
                 ),
               ),
             ),
           ],
         ),
-        SizedBox(
-            height: MediaQuery.of(context).size.height * 0.013),
+
+        SizedBox(height: ScreenUtil().setHeight(16)),
+
       ],
     );
   }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:privateinvestorsmobile/constant.dart';
 import 'appBar/app_bar_main.dart';
 import 'bottomBar/bottom_bar.dart';
 import 'home/eigenheim.dart';
 import 'home/starte_suche.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import './constant.dart';
+import 'icons/system_icons_i_s_icons.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,56 +15,44 @@ class Home extends StatefulWidget {
   }
 }
 
- class _HomePage extends State<Home> {
+class _HomePage extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    //Flutter plugin for adapting screen and font size.
+    //Set the fit size (fill in the screen size of the device in the design)
+    //If the design is based on the size of the iPhone6 ​​(iPhone6 ​​750*1334)
+    ScreenUtil.init(context, width: 375, height: 667);
+
     return Scaffold(
-      appBar: new AppBarMain(),
+      appBar: AppBarMain(),
       body: Container(
         color: kBackgroundLight,
         child: Stack(
           children: <Widget>[
-
             Container(
-              child: Image(image: AssetImage('assets/images/ftor_gerade_gradient.jpg')),
+              child: Image(image: AssetImage('assets/images/ftor.png')),
             ),
-            Container(
-              margin: new EdgeInsets.only(top: 130.0),
-              height: MediaQuery.of(context).size.height * 0.18,
-              decoration: BoxDecoration(
+            ListView(
+              padding: new EdgeInsets.symmetric(
+                horizontal: ScreenUtil().setWidth(10),
               ),
-            ),
-            Column(
               children: <Widget>[
-                Expanded(
-                  child: ListView(
-                    padding: new EdgeInsets.fromLTRB(
-                      MediaQuery.of(context).size.width * 0.04,
-                      0.0,
-                      MediaQuery.of(context).size.width * 0.04,
-                      0.0,
-                    ),
-                    children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          StarteSuche(),
-
-                          SizedBox(height: MediaQuery.of(context).size.width * 0.07),
-
-                          Eigenheim(),
-                        ],
-                      ),
-                    ],
-                  ),
+                Column(
+                  children: <Widget>[
+                    StarteSuche(),
+                    SizedBox(height: ScreenUtil().setHeight(24)),
+                    Eigenheim(),
+                  ],
                 ),
               ],
             ),
           ],
         ),
       ),
-
-      bottomNavigationBar: BottomBar(selectedIndex: 0, theme: light,),
+      bottomNavigationBar: BottomBar(
+        selectedIndex: 0,
+        theme: light,
+      ),
     );
   }
-
-  }
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/results/card/real_estate_detail_context.dart';
 import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
 import 'package:privateinvestorsmobile/results/card/view_states.dart';
@@ -15,21 +16,22 @@ class _CalcTopRowState extends State<CalcTopRow> {
 
   @override
   Widget build(BuildContext context) {
+
     return Material(
       elevation: elevation,
       child: Container(
-        width: MediaQuery.of(context).size.width * 1.5,
-        height: MediaQuery.of(context).size.height * 0.07,
+        width: ScreenUtil().setWidth(470),
+        height: ScreenUtil().setHeight(47),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
 
             // 1
             Container(
               color: kTeal,
-              height: MediaQuery.of(context).size.height * 0.07,
-              width: MediaQuery.of(context).size.width * 0.02,
+              height: ScreenUtil().setHeight(47),
+              width: ScreenUtil().setWidth(10),
             ),
 
             // 2
@@ -37,8 +39,8 @@ class _CalcTopRowState extends State<CalcTopRow> {
               children: <Widget>[
                 Container(
                   color: kCard,
-                  width: MediaQuery.of(context).size.width * 0.28,
-                  height: MediaQuery.of(context).size.height * 0.035,
+                  width: ScreenUtil().setWidth(100),
+                  height: ScreenUtil().setHeight(23),
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Text("516 €",
@@ -48,8 +50,8 @@ class _CalcTopRowState extends State<CalcTopRow> {
                 ),
                 Container(
                   color: kCard,
-                  width: MediaQuery.of(context).size.width * 0.28,
-                  height: MediaQuery.of(context).size.height * 0.035,
+                  width: ScreenUtil().setWidth(100),
+                  height: ScreenUtil().setHeight(23),
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: Text("Cashflow vor Steuern",
@@ -63,8 +65,8 @@ class _CalcTopRowState extends State<CalcTopRow> {
             // 3
             Container(
               color: kTeal,
-              height: MediaQuery.of(context).size.height * 0.07,
-              width: MediaQuery.of(context).size.width * 0.02,
+              height: ScreenUtil().setHeight(47),
+              width: ScreenUtil().setWidth(10),
             ),
 
             // 4
@@ -72,8 +74,8 @@ class _CalcTopRowState extends State<CalcTopRow> {
               children: <Widget>[
                 Container(
                   color: kCard,
-                  width: MediaQuery.of(context).size.width * 0.28,
-                  height: MediaQuery.of(context).size.height * 0.035,
+                  width: ScreenUtil().setWidth(100),
+                  height: ScreenUtil().setHeight(23),
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Text("0.95%",
@@ -83,8 +85,8 @@ class _CalcTopRowState extends State<CalcTopRow> {
                 ),
                 Container(
                   color: kCard,
-                  width: MediaQuery.of(context).size.width * 0.28,
-                  height: MediaQuery.of(context).size.height * 0.035,
+                  width: ScreenUtil().setWidth(100),
+                  height: ScreenUtil().setHeight(23),
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: Text("Geb. Sollzins",
@@ -98,17 +100,17 @@ class _CalcTopRowState extends State<CalcTopRow> {
             // 5
             Container(
               color: kTeal,
-              height: MediaQuery.of(context).size.height * 0.07,
-              width: MediaQuery.of(context).size.width * 0.02,
+              height: ScreenUtil().setHeight(47),
+              width: ScreenUtil().setWidth(10),
             ),
 
             // 6
             Column(
               children: <Widget>[
                 Container(
-                  color:  kCard,
-                  width: MediaQuery.of(context).size.width * 0.28,
-                  height: MediaQuery.of(context).size.height * 0.035,
+                  color: kCard,
+                  width: ScreenUtil().setWidth(100),
+                  height: ScreenUtil().setHeight(23),
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Text("9,1%",
@@ -118,8 +120,8 @@ class _CalcTopRowState extends State<CalcTopRow> {
                 ),
                 Container(
                   color: kCard,
-                  width: MediaQuery.of(context).size.width * 0.28,
-                  height: MediaQuery.of(context).size.height * 0.035,
+                  width: ScreenUtil().setWidth(100),
+                  height: ScreenUtil().setHeight(23),
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: Text("Eigenkapitalrendite",
@@ -133,8 +135,8 @@ class _CalcTopRowState extends State<CalcTopRow> {
             // 7
             Container(
               color: kTeal,
-              height: MediaQuery.of(context).size.height * 0.07,
-              width: MediaQuery.of(context).size.width * 0.02,
+              height: ScreenUtil().setHeight(47),
+              width: ScreenUtil().setWidth(10),
             ),
           ],
         ),

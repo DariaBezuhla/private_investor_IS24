@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/results/card/real_estate_detail_context.dart';
@@ -7,7 +8,6 @@ import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
 import 'package:privateinvestorsmobile/results/card/view_states.dart';
 import 'package:privateinvestorsmobile/wishlist/favorites.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../constant.dart';
 import '../network/search_service.dart';
 import 'exposeObject.dart';
@@ -50,14 +50,14 @@ class _ExposeContentState extends State<ExposeContent> {
     bool isPressed = Favorites.savedFavorites.contains(widget.house.id);
     var pressedFavoriteIcon = Icon(
       Icons.favorite,
-      size: 24,
+      size: ScreenUtil().setWidth(24),
       color: kError,
     );
     var favoriteIcon = (!isPressed)
         ? Icon(
             SystemIconsIS.is24_system_48px_heart_favorite,
             color: kIcon,
-            size: 24.0,
+            size: ScreenUtil().setWidth(24),
           )
         : pressedFavoriteIcon; //Icon(Icons.favorite, size: 24, color: kTeal,);
 
@@ -80,10 +80,13 @@ class _ExposeContentState extends State<ExposeContent> {
           tag: '${widget.house.id}-img',
           child: Container(
             width: MediaQuery.of(context).size.width,
-            height: 300.0,
+            height: ScreenUtil().setHeight(300),
             decoration: new BoxDecoration(
               image: new DecorationImage(
-                image: NetworkImage(widget.house.pictureUrl),
+                image:
+                (widget.house.pictureUrl != null)
+                    ? NetworkImage(widget.house.pictureUrl)
+                    : NetworkImage('https://dummyimage.com/640x360/fff/aaa'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -102,7 +105,7 @@ class _ExposeContentState extends State<ExposeContent> {
               ),
             ),
             child: Container(
-              padding: EdgeInsets.all(14),
+              padding: EdgeInsets.all(ScreenUtil().setHeight(14),),
               //color: Colors.white,
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -115,11 +118,11 @@ class _ExposeContentState extends State<ExposeContent> {
                     child: DetailsStyle(
                       title: _exposeObject?.title ?? "",
                       viewState: ViewState.enlarged,
-                      largeFontSize: 18.0,
+                      largeFontSize: ScreenUtil().setHeight(18),
                       textStyle: header4,
                     ),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: ScreenUtil().setHeight(10)),
                   Row(
                     children: <Widget>[
                       Container(
@@ -132,7 +135,7 @@ class _ExposeContentState extends State<ExposeContent> {
                       ),
                       Spacer(),
                       Container(
-                          height: 24.0,
+                          height:  ScreenUtil().setHeight(24),
                           child: GestureDetector(
                               onTap: () {
                                 _saveInWishList();
@@ -150,7 +153,7 @@ class _ExposeContentState extends State<ExposeContent> {
         FractionallySizedBox(
           widthFactor: 0.8,
           child: Container(
-              margin: EdgeInsets.only(bottom: 24),
+              margin: EdgeInsets.only(bottom:  ScreenUtil().setHeight(24)),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -162,7 +165,7 @@ class _ExposeContentState extends State<ExposeContent> {
                           children: <Widget>[
                             _buildInfoItemForPriceWithTransition(
                                 "Kaufpreis", _exposeObject?.price?.value),
-                            SizedBox(height: 24),
+                            SizedBox(height: ScreenUtil().setHeight(24)),
                             _buildCurrencyItem(
                                 "Aktuelle Miete", _exposeObject?.rent?.value)
                           ],
@@ -180,7 +183,7 @@ class _ExposeContentState extends State<ExposeContent> {
                             _buildInfoItemForPriceProMWithTransition(
                                 "Preis pro m²",
                                 _exposeObject?.pricePerSqm?.value),
-                            SizedBox(height: 24),
+                            SizedBox(height: ScreenUtil().setHeight(24)),
                             _buildCurrencyItem(
                                 "Hausgeld", _exposeObject?.rentSubsidy?.value)
                           ],
@@ -203,7 +206,7 @@ class _ExposeContentState extends State<ExposeContent> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(24),
+                  padding: EdgeInsets.all(ScreenUtil().setHeight(24)),
                   decoration: BoxDecoration(
                       border: Border(bottom: BorderSide(color: kBackground))),
                   child: Row(
@@ -240,7 +243,9 @@ class _ExposeContentState extends State<ExposeContent> {
                 ),
                 IntrinsicHeight(
                   child: Container(
-                    padding: EdgeInsets.all(24),
+                    padding: EdgeInsets.all(
+                      ScreenUtil().setHeight(24),
+                    ),
                     child: Row(
                       children: <Widget>[
                         _buildInfoItem2(
@@ -266,7 +271,7 @@ class _ExposeContentState extends State<ExposeContent> {
 
         //props
         Container(
-          padding: EdgeInsets.symmetric(vertical: 48, horizontal: 24),
+          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(48), horizontal: ScreenUtil().setWidth(24)),
           child: Wrap(
               direction: Axis.horizontal,
               alignment: WrapAlignment.spaceEvenly,
@@ -290,7 +295,7 @@ class _ExposeContentState extends State<ExposeContent> {
 
         //object description
         Container(
-          padding: EdgeInsets.symmetric(vertical: 24),
+          padding:  EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(24)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -304,7 +309,7 @@ class _ExposeContentState extends State<ExposeContent> {
 
         //maps
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(24)),
           child: new Image.asset(
             "assets/images/maps.png",
           ),
@@ -321,7 +326,7 @@ class _ExposeContentState extends State<ExposeContent> {
                   children: [
                     Expanded(
                       child: Container(
-                        padding: const EdgeInsets.all(24),
+                        padding: EdgeInsets.all(ScreenUtil().setHeight(24)),
                         child: Text(
                           'Weitere Fragen zur Immobilie?',
                           style: header4,
@@ -332,12 +337,14 @@ class _ExposeContentState extends State<ExposeContent> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(left: 24, bottom: 24),
+                padding: EdgeInsets.all(ScreenUtil().setHeight(24)),
                 child: ButtonTheme(
                   child: FlatButton(
                     color: kTeal,
                     textColor: kCharcoal,
-                    padding: EdgeInsets.all(10.0),
+                    padding:EdgeInsets.all(
+                      ScreenUtil().setHeight(10),
+                    ),
                     onPressed: () async {
                       if (await canLaunch('immobilienscout24://')) {
                         await launch(
@@ -362,7 +369,7 @@ class _ExposeContentState extends State<ExposeContent> {
 
   Container _buildInfoItemForPriceWithTransition(String title, num value) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding:  EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
       child: Column(
         children: <Widget>[
           Hero(
@@ -372,7 +379,7 @@ class _ExposeContentState extends State<ExposeContent> {
                   ? currencyFormatter.format(value)
                   : "--- ${currencyFormatter.currencySymbol}",
               viewState: ViewState.enlarged,
-              largeFontSize: 18.0,
+              largeFontSize: ScreenUtil().setHeight(18),
               textStyle: header4,
             ),
           ),
@@ -387,7 +394,7 @@ class _ExposeContentState extends State<ExposeContent> {
 
   Container _buildInfoItemForPriceProMWithTransition(String title, num value) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
       child: Column(
         children: <Widget>[
           Hero(
@@ -397,7 +404,7 @@ class _ExposeContentState extends State<ExposeContent> {
                   ? currencyFormatter.format(value)
                   : "--- ${currencyFormatter.currencySymbol}",
               viewState: ViewState.enlarged,
-              largeFontSize: 18.0,
+              largeFontSize: ScreenUtil().setHeight(18),
               textStyle: header4,
             ),
           ),
@@ -412,7 +419,7 @@ class _ExposeContentState extends State<ExposeContent> {
 
   Container _buildCurrencyItem(String title, num value) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
       child: Column(
         children: <Widget>[
           Text(
@@ -432,7 +439,7 @@ class _ExposeContentState extends State<ExposeContent> {
 
   Container _buildNumberItem(String title, num value, String unit) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
       child: Column(
         children: <Widget>[
           Text(
@@ -458,13 +465,13 @@ class _ExposeContentState extends State<ExposeContent> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.only(right: 10),
+            padding: EdgeInsets.only(right: ScreenUtil().setWidth(10)),
             child: Icon(
               isPositive
                   ? SystemIconsIS.is24_system_48px_arrow_up
                   : SystemIconsIS.is24_system_48px_arrow_down,
               color: isPositive ? Colors.green[700] : Colors.red[700],
-              size: 20,
+              size: ScreenUtil().setWidth(20),
             ),
           ),
           Column(
@@ -489,7 +496,9 @@ class _ExposeContentState extends State<ExposeContent> {
         .where((e) => e != "")
         .map(
           (e) => Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            padding: EdgeInsets.symmetric(
+              vertical: ScreenUtil().setHeight(5),
+              horizontal: ScreenUtil().setWidth(10),),
             child: Text(
               e,
               style: TextStyle(color: Colors.grey[600]),
@@ -509,13 +518,16 @@ class _ExposeContentState extends State<ExposeContent> {
             children: [
               Container(
                 color: kTeal,
-                width: 5.0,
-                height: 28.0,
+                width:  ScreenUtil().setWidth(5),
+                height: ScreenUtil().setHeight(28.0),
               ),
               Expanded(
                 child: Container(
-                  padding: const EdgeInsets.only(
-                      left: 19, top: 14, right: 24, bottom: 10),
+                  padding: EdgeInsets.only(
+                      left: ScreenUtil().setWidth(19),
+                      top: ScreenUtil().setHeight(14.0),
+                      right: ScreenUtil().setWidth(24),
+                      bottom: ScreenUtil().setHeight(10.0)),
                   child: Text(
                     title,
                     style: header4,
@@ -526,10 +538,10 @@ class _ExposeContentState extends State<ExposeContent> {
           ),
         ),
         Container(
-          padding: const EdgeInsets.only(
-            left: 24,
-            bottom: 14,
-            right: 24,
+          padding: EdgeInsets.only(
+            left: ScreenUtil().setWidth(24),
+            right: ScreenUtil().setWidth(24),
+            bottom: ScreenUtil().setHeight(14.0),
           ),
           child: Text(
             description.toString().contains("null")
@@ -539,7 +551,11 @@ class _ExposeContentState extends State<ExposeContent> {
           ),
         ),
         Container(
-            padding: const EdgeInsets.only(left: 24, right: 24, bottom: 10),
+            padding:EdgeInsets.only(
+              left: ScreenUtil().setWidth(24),
+              right: ScreenUtil().setWidth(24),
+              bottom: ScreenUtil().setHeight(10.0),
+            ),
             child: Divider(color: kLightGrey)),
       ],
     );

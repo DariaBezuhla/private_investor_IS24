@@ -12,7 +12,7 @@ import 'package:privateinvestorsmobile/home/location.dart';
  * The list of location is necessary for the autocomplete textfield.
  */
 class AutoCompleteLocationService {
-  AutoCompleteLocationService(){}
+  AutoCompleteLocationService() {}
 
   /**
    * fetchAutocompleteLocation()
@@ -25,16 +25,19 @@ class AutoCompleteLocationService {
    * @returns List<Location>
    * @Exception Exception
    */
-  Future<List<Location>> fetchAutocompleteLocation ({String location = 'berlin'}) async {
+  Future<List<Location>> fetchAutocompleteLocation(
+      {String location = 'berlin'}) async {
     final response = await http.get(
-        'https://pib-prod.is24-baufi.eu-west-1.infinity.s24cloud.net/pib/endpoint/geo-auto-complete?t=country%2Cregion%2Ccity%2Cdistrict%2Cpostcode%2CquarterOrTown%2CpostcodeWithQuarter&i=$location'
-    );
+        'https://pib-prod.is24-baufi.eu-west-1.infinity.s24cloud.net/pib/endpoint/geo-auto-complete?t=country%2Cregion%2Ccity%2Cdistrict%2Cpostcode%2CquarterOrTown%2CpostcodeWithQuarter&i=$location');
 
     List<Location> locations = [];
     if (response.statusCode == 200) {
-      var cities = json.decode(utf8.decode(response.bodyBytes))['city']; // possibly list
-      var postcodes = json.decode(utf8.decode(response.bodyBytes))['postcode']; // List
-      var quarterOrTowns = json.decode(utf8.decode(response.bodyBytes))['quarterOrTown']; // definietely list
+      var cities =
+          json.decode(utf8.decode(response.bodyBytes))['city']; // possibly list
+      var postcodes =
+          json.decode(utf8.decode(response.bodyBytes))['postcode']; // List
+      var quarterOrTowns = json.decode(
+          utf8.decode(response.bodyBytes))['quarterOrTown']; // definetely list
       var countries = json.decode(utf8.decode(response.bodyBytes))['country'];
 
       if (cities != null) {

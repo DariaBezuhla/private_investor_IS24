@@ -4,12 +4,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
 import 'package:storybook/results/card/real_estate_object.dart';
 import 'package:storybook/results/help_screens/app_bar_screen.dart';
 import 'package:storybook/results/help_screens/card_screen.dart';
 import 'package:storybook/results/help_screens/page_screen.dart';
 import 'package:storybook/results/help_screens/list_screen.dart';
-import 'package:storybook/results/wish_list/saved_items.dart';
 
 
 import 'constant.dart';
@@ -99,12 +99,6 @@ class Results extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       shelf('Page dark', 'thickline', ResultScreen(theme: 'Dark',resultsList: results,), context),
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.end,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      shelf('Saved Items', 'circle', SavedItems(), context),
                     ],
                     mainAxisAlignment: MainAxisAlignment.end,
                   ),

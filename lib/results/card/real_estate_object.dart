@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:core';
 
 import 'subtypes/address.dart';
@@ -9,24 +10,23 @@ import 'subtypes/rent_trend.dart';
 import 'subtypes/room.dart';
 
 class RealEstateObject {
-  final String id;
-  final String title;
-  final data;
-  final rooms;
-  final livingSpace;
-  final price;
-  final pricePerSqm;
-  final priceTrend;
-  final rentTrend;
-  final String pictureUrl;
-  final address;
-  final rating;
+  String id;
+  String title;
+  LivingSpace livingSpace;
+  String pictureUrl;
+  Address address;
+  String rating;
+  Room rooms;
+  Price price;
+  PricePerSqm pricePerSqm;
+  PriceTrend priceTrend;
+  RentTrend rentTrend;
+
 
   RealEstateObject( {
     this.id,
     this.title,
     this.rooms,
-    this.data,
     this.livingSpace,
     this.price,
     this.pricePerSqm,
@@ -40,20 +40,17 @@ class RealEstateObject {
   factory RealEstateObject.fromJson(Map<String, dynamic> json) {
     return RealEstateObject(
         id: json['id'],
-        title: json['title'],
-        rooms: Room.fromJson(json['rooms']).getValue(),
-        livingSpace: '' + LivingSpace.fromJson(json['livingSpace']).getValue().toString() + 'm²',
-        price: '' + Price.fromJson(json['price']).getValue().toString() + '€',
-        pricePerSqm: '' + PricePerSqm.fromJson(json['pricePerSqm']).getValue().toString() + '€/m²',
-        priceTrend: PriceTrend.fromJson(json['priceTrend']).getValue(),
-        rentTrend: RentTrend.fromJson(json['rentTrend']).getValue(),
+        title: utf8.decode(json['title'].toString().codeUnits),
+        livingSpace: LivingSpace.fromJson(json['livingSpace']),
+        rooms: Room.fromJson(json['rooms']),
+        price: Price.fromJson(json['price']),
+        pricePerSqm: PricePerSqm.fromJson(json['pricePerSqm']),
+        priceTrend: PriceTrend.fromJson(json['priceTrend']),
+        rentTrend: RentTrend.fromJson(json['rentTrend']),
+        address: Address.fromJson(json['address']),
         pictureUrl: json['pictureUrl'],
-        address: Address.fromJson(json['address']).toString()
+        rating: json['rating'],
     );
   }
 }
 
-
-
-
-List<String> favorites = []; //IDs

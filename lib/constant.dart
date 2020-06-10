@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // Colors
 const kTeal = Color(0xFF00FFD0);
 const kCharcoal = Color(0xFF333333);
 const kGrey = Color(0xFFCDCDCD);
+const kDivider = Color(0xFFD6D6D6);
 const kLightGrey = Color(0xFFADADAD);
 const kLightGrey2 = Color(0x0FF858585);
+const kLight = Color(0x0FF7F7F7F);
 const kShadow = Colors.grey;
 const kError = Color(0xffE84853);
 const kCard = Colors.white;
 const kBackground = Color(0xffe5e5e5);
 const kBackgroundLight = Color(0xfffafafa);
-const kHeaderFooter = Colors.white;
+const kHeaderFooter = Colors.white; //
 const kFooter = Color(0xfff0f0f0);
 const kIcon = kCharcoal;
 
@@ -39,7 +43,8 @@ ThemeData light = ThemeData(
   primaryColor: kTeal,
   fontFamily: 'MakeItSans',
   cardColor: kCard,
-  scaffoldBackgroundColor: kHeaderFooter, //Important for SafeArea for AppBar -> scaffoldBackgroundColor = kHeaderFooter
+  scaffoldBackgroundColor:
+      kHeaderFooter, //Important for SafeArea for AppBar -> scaffoldBackgroundColor = kHeaderFooter
   backgroundColor: kBackgroundLight,
   primaryIconTheme: IconThemeData(size: 24, color: kCharcoal),
   iconTheme: IconThemeData(size: 16, color: kCharcoal), //big icons dark
@@ -66,7 +71,8 @@ ThemeData dark = ThemeData(
   primaryColor: kTeal,
   fontFamily: 'MakeItSans',
   cardColor: dCardsColor,
-  scaffoldBackgroundColor: dHeaderFooter, //Important for SafeArea for AppBar -> scaffoldBackgroundColor = dHeaderFooter
+  scaffoldBackgroundColor:
+      dHeaderFooter, //Important for SafeArea for AppBar -> scaffoldBackgroundColor = dHeaderFooter
   backgroundColor: dBackgroundColor,
   primaryIconTheme: IconThemeData(size: 24, color: dIconColor),
   iconTheme: IconThemeData(size: 16, color: dIconColor),
@@ -158,7 +164,7 @@ const header5 = TextStyle(
 const styleBigText = TextStyle(
   fontFamily: 'MakeItSans',
   fontWeight: FontWeight.normal,
-  color: kCharcoal,
+  color: kLightGrey2,
   fontSize: 20.0,
 );
 const styleText = TextStyle(
@@ -167,12 +173,26 @@ const styleText = TextStyle(
   color: kCharcoal,
   fontSize: 16.0,
 );
-const styleText2 = TextStyle(
+const styleTextHighlight = TextStyle(
+  backgroundColor: kTeal,
   fontFamily: 'MakeItSans',
-  fontWeight: FontWeight.bold,
+  fontWeight: FontWeight.normal,
+  fontSize: 16.0,
   color: kCharcoal,
+);
+const inputLabel = TextStyle(
+  fontFamily: 'MakeItSans',
+  fontWeight: FontWeight.normal,
+  color: kLightGrey,
   fontSize: 16.0,
 );
+const inputPlaceholder = TextStyle(
+  fontFamily: 'MakeItSans',
+  fontWeight: FontWeight.normal,
+  color: kLightGrey,
+  fontSize: 12.0,
+);
+
 const styleButton = TextStyle(
   fontFamily: 'MakeItSans',
   fontWeight: FontWeight.bold,
@@ -187,18 +207,6 @@ const disabledButton = TextStyle(
   fontSize: 16.0,
 );
 
-const styleLabel = TextStyle(
-  fontFamily: 'MakeItSans',
-  fontWeight: FontWeight.normal,
-  color: kCharcoal,
-  fontSize: 12.0,
-);
-const stylePrice = TextStyle(
-  fontFamily: 'MakeItSans',
-  fontWeight: FontWeight.normal,
-  color: Colors.black,
-  fontSize: 15.0,
-);
 const styleDescriptionText = TextStyle(
   fontFamily: 'MakeItSans',
   fontWeight: FontWeight.normal,
@@ -345,3 +353,393 @@ const kFAIR = Color(0xff74D99F);
 const kPOOR = Color(0xffF4CA64);
 const kBAD = Color(0xffDA3030);
 const kNONE = Color(0xffDCDCDC);
+
+class CustomStyle {
+
+  //Light Text Styles
+  static TextStyle header1(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.bold,
+      color: kCharcoal,
+      fontSize: ScreenUtil().setSp(34),
+    );
+  }
+
+  static TextStyle header2(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.bold,
+      color: kCharcoal,
+      fontSize: ScreenUtil().setSp(28),
+    );
+  }
+
+  static TextStyle header3(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.bold,
+      color: Colors.black,
+      fontSize: ScreenUtil().setSp(24),
+    );
+  }
+
+  static TextStyle headerDarkGrey(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.bold,
+      color: kCharcoal,
+      fontSize: ScreenUtil().setSp(24),
+    );
+  }
+
+  static TextStyle header4(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.bold,
+      color: kCharcoal,
+      fontSize: ScreenUtil().setSp(18),
+    );
+  }
+
+  static TextStyle styleBigText(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.normal,
+      color: kLightGrey2,
+      fontSize: ScreenUtil().setSp(20),
+    );
+  }
+
+  static TextStyle styleText(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.normal,
+      color: kCharcoal,
+      fontSize: ScreenUtil().setSp(16),
+    );
+  }
+
+  static TextStyle descriptionText(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.normal,
+      color: kLight,
+      fontSize: ScreenUtil().setSp(10),
+    );
+  }
+
+  static TextStyle rankingText(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      color: Colors.white,
+      fontWeight: FontWeight.normal,
+      fontSize: ScreenUtil().setSp(10),
+    );
+  }
+
+  static TextStyle styleTextHighlight(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      backgroundColor: kTeal,
+      color: kCharcoal,
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.normal,
+      fontSize: ScreenUtil().setSp(16),
+    );
+  }
+
+  static TextStyle inputLabel(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.normal,
+      color: kLightGrey,
+      fontSize: ScreenUtil().setSp(16),
+    );
+  }
+
+  static TextStyle inputPlaceholder(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.normal,
+      color: kLightGrey,
+      fontSize: ScreenUtil().setSp(12),
+    );
+  }
+
+  static TextStyle styleButton(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.bold,
+      color: kCharcoal,
+      fontSize: ScreenUtil().setSp(16),
+    );
+  }
+
+  static TextStyle disabledButton(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.bold,
+      color: kLightGrey2,
+      fontSize: ScreenUtil().setSp(16),
+    );
+  }
+
+  static TextStyle textFieldHeader(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      backgroundColor: Colors.transparent,
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.normal,
+      fontSize: ScreenUtil().setSp(14),
+      color: kLightGrey2,
+    );
+  }
+
+  static TextStyle textFieldInsideHeader(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      backgroundColor: Colors.transparent,
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.normal,
+      fontSize: ScreenUtil().setSp(12),
+      color: kLightGrey2,
+    );
+  }
+
+  //Dark Text Styles
+
+  static TextStyle dHeader1(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.bold,
+      color: dTextColorLight,
+      fontSize: ScreenUtil().setSp(34),
+    );
+  }
+
+  static TextStyle dHeader2(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.bold,
+      color: dTextColorLight,
+      fontSize: ScreenUtil().setSp(28),
+    );
+  }
+
+  static TextStyle dHeader3(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
+      fontSize: ScreenUtil().setSp(24),
+    );
+  }
+
+  //dont use in Theme
+  static TextStyle dheaderLightGrey(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.bold,
+      color:  dTextColorLight,
+      fontSize: ScreenUtil().setSp(24),
+    );
+  }
+
+  static TextStyle dHeader4(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.bold,
+      color:  dTextColorLight,
+      fontSize: ScreenUtil().setSp(18),
+    );
+  }
+
+  static TextStyle dStyleBigText(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.normal,
+      color: dTextColorLight,
+      fontSize: ScreenUtil().setSp(20),
+    );
+  }
+
+  static TextStyle dStyleText(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.normal,
+      color: dTextColorLight,
+      fontSize: ScreenUtil().setSp(16),
+    );
+  }
+
+  static TextStyle dDescriptionText(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.normal,
+      color: dTextColorDark,
+      fontSize: ScreenUtil().setSp(10),
+    );
+  }
+
+  static TextStyle dRankingText(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      color: Colors.white,
+      fontWeight: FontWeight.normal,
+      fontSize: ScreenUtil().setSp(10),
+    );
+  }
+
+  static TextStyle dStyleTextHighlight(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      backgroundColor: kTeal,
+      color: dTextColorLight,
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.normal,
+      fontSize: ScreenUtil().setSp(16),
+    );
+  }
+
+  static TextStyle dInputLabel(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.normal,
+      color: dTextColorLight,
+      fontSize: ScreenUtil().setSp(16),
+    );
+  }
+
+  static TextStyle dInputPlaceholder(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.normal,
+      color: dTextColorLight,
+      fontSize: ScreenUtil().setSp(12),
+    );
+  }
+
+  static TextStyle dStyleButton(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.bold,
+      color: dTextColorLight,
+      fontSize: ScreenUtil().setSp(16),
+    );
+  }
+
+  static TextStyle dDisabledButton(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.bold,
+      color: dTextColorLight,
+      fontSize: ScreenUtil().setSp(16),
+    );
+  }
+
+  static TextStyle dTextFieldHeader(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      backgroundColor: Colors.transparent,
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.normal,
+      fontSize: ScreenUtil().setSp(14),
+      color: dTextColorLight,
+    );
+  }
+
+  static TextStyle dTextFieldInsideHeader(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      backgroundColor: Colors.transparent,
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.normal,
+      fontSize: ScreenUtil().setSp(12),
+      color: dTextColorLight,
+    );
+  }
+
+  static ThemeData light(BuildContext context) {
+    return ThemeData(
+      appBarTheme: AppBarTheme(
+        color: kHeaderFooter,
+      ),
+      dialogBackgroundColor: Colors.white,
+      bottomAppBarColor: kHeaderFooter,
+      primaryColor: kTeal,
+      fontFamily: 'MakeItSans',
+      cardColor: kCard,
+      scaffoldBackgroundColor:
+          kHeaderFooter, //Important for SafeArea for AppBar -> scaffoldBackgroundColor = kHeaderFooter
+      backgroundColor: kBackgroundLight,
+      primaryIconTheme: IconThemeData(size: 24, color: kCharcoal),
+      iconTheme: IconThemeData(size: 16, color: kCharcoal), //big icons dark
+      accentIconTheme: IconThemeData(size: 32, color: kCharcoal), //normal icons
+      dividerColor: kLightGrey,
+      buttonColor: kTeal,
+      textTheme: TextTheme(
+          headline1: header1(context),
+          headline2: header2(context),
+          headline3: header3(context),
+          headline4: header4(context),
+          bodyText2: styleText(context), // default light style für Text()
+          subtitle1: styleBigText(context),
+          subtitle2: descriptionText(context)),
+    );
+  }
+
+  static ThemeData dark(BuildContext context) {
+    return ThemeData(
+      appBarTheme: AppBarTheme(
+        color: dHeaderFooter,
+      ),
+      dialogBackgroundColor: kCharcoal,
+      bottomAppBarTheme: BottomAppBarTheme(color: dHeaderFooter),
+      bottomAppBarColor: dHeaderFooter,
+      primaryColor: kTeal,
+      fontFamily: 'MakeItSans',
+      cardColor: dCardsColor,
+      scaffoldBackgroundColor:
+          dHeaderFooter, //Important for SafeArea for AppBar -> scaffoldBackgroundColor = dHeaderFooter
+      backgroundColor: dBackgroundColor,
+      primaryIconTheme: IconThemeData(size: 24, color: dIconColor),
+      iconTheme: IconThemeData(size: 16, color: dIconColor),
+      accentIconTheme: IconThemeData(size: 32, color: dIconColor),
+      dividerColor: dCardsColor,
+      buttonColor: kTeal,
+      textTheme: TextTheme(
+          headline1: dHeader1(context),
+          headline2: dHeader2(context),
+          headline3: dHeader3(context),
+          headline4: dHeader4(context),
+          bodyText2: dStyleText(context), // default light style für Text()
+          subtitle1: dStyleBigText(context),
+          subtitle2: dDescriptionText(context)),
+    );
+  }
+}

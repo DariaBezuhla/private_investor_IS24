@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import '../constant.dart';
 
@@ -15,10 +16,12 @@ double eigenkap = 0.0;
 class _CalcBankRateState extends State<CalcBankRate> {
   @override
   Widget build(BuildContext context) {
+
     return Material(
       color: kCard,
       child: Container(
-        margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.005),
+        margin: EdgeInsets.all(
+             ScreenUtil().setHeight(4),),
         child: Column(
             children: <Widget>[
 
@@ -33,65 +36,64 @@ class _CalcBankRateState extends State<CalcBankRate> {
                     padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.004),
                     child: Icon(
                       SystemIconsIS.is24_system_48px_info,
-                      size: MediaQuery.of(context).size.height * 0.02,
+                      size: ScreenUtil().setWidth(15),
                     ),
                   ),
                 ],
               ),
 
-
-            SizedBox(
-                height: MediaQuery.of(context).size.height * 0.012),
-
+              SizedBox(height: ScreenUtil().setHeight(8)),
 
               //SOLLZINS INPUT FIELD
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Container(
-                    color: Colors.transparent,
-                    width: MediaQuery.of(context).size.width * 0.50,
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    child: Theme(
-                      data: new ThemeData(
-                        primaryColor: kTeal,
-                        primaryColorDark: kTeal,
-                      ),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            hintText: 'z.B. 1.00%',
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x0FFd6d6d6),
+                  Flexible(
+                    child: Container(
+                      color: Colors.transparent,
+                      width: ScreenUtil().setWidth(300),
+                      height: ScreenUtil().setHeight(45),
+                      child: Theme(
+                        data: new ThemeData(
+                          primaryColor: kTeal,
+                          primaryColorDark: kTeal,
+                        ),
+                        child: TextFormField(
+                          style: TextStyle(
+                              color: kLightGrey,
+                              fontSize: dStyleLabel.fontSize),
+                          decoration: InputDecoration(
+                              hintText: 'z.B. 1.00%',
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: kDivider,
+                                ),
                               ),
-                            ),
-                            labelStyle: TextStyle(
-                                color: Color(0x0FFADADAD),
-                                fontSize: MediaQuery.of(context).size.height * 0.014)
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  Container(
-                    color: Colors.transparent,
-                    width: MediaQuery.of(context).size.width * 0.33,
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(eigenkap.toInt().toString() + " €",
-                        style: styleText,
+                  Flexible(
+                    child: Container(
+                      color: Colors.transparent,
+                      //width: MediaQuery.of(context).size.width * 0.33,
+                      height: ScreenUtil().setHeight(45),                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(eigenkap.toInt().toString() + " €",
+                          style: styleText,
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
 
-              SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.012),
+              SizedBox(height: ScreenUtil().setHeight(8)),
 
-
-         //TILGUNSRATE ROW
+              //TILGUNSRATE ROW
               Row(
-               crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text("Tilgunsrate",
                     style: styleText,
@@ -100,102 +102,81 @@ class _CalcBankRateState extends State<CalcBankRate> {
                     padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.004),
                     child: Icon(
                       SystemIconsIS.is24_system_48px_info,
-                      size: MediaQuery.of(context).size.height * 0.02,
+                      size: ScreenUtil().setWidth(15),
                     ),
                   ),
                 ],
               ),
 
+              SizedBox(height: ScreenUtil().setHeight(8)),
 
-           SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.012),
-
-
-              //TILGUNSRATE ROW INPUT FIELD
+              //TILGUNSRATE INPUT FIELD
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Container(
-                    color: Colors.transparent,
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.50,
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.07,
-                    child: Theme(
-                      data: new ThemeData(
-                        primaryColor: kTeal,
-                        primaryColorDark: kTeal,
-                      ),
-                      child: TextFormField(
-                        decoration: InputDecoration(
+                  Flexible(
+                    child: Container(
+                      color: Colors.transparent,
+                      width: ScreenUtil().setWidth(300),
+                      height: ScreenUtil().setHeight(45),
+                      child: Theme(
+                        data: new ThemeData(
+                          primaryColor: kTeal,
+                          primaryColorDark: kTeal,
+                        ),
+                        child: TextFormField(
+                          style: TextStyle(
+                              color: kLightGrey,
+                              fontSize: dStyleLabel.fontSize),
+                          decoration: InputDecoration(
                             hintText: 'z.B. 2.00%',
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x0FFd6d6d6),
+                                color: kDivider,
                               ),
                             ),
-                            labelStyle: TextStyle(
-                                color: Color(0x0FFADADAD),
-                                fontSize: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height * 0.014)
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  Container(
-                    color: Colors.transparent,
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.33,
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.07,
-                    child: Align(
+                  Flexible(
+                    child: Container(
+                      color: Colors.transparent,
+                      //width: MediaQuery.of(context).size.width * 0.33,
+                      height: ScreenUtil().setHeight(45),
+                      child: Align(
                       alignment: Alignment.centerRight,
                       child: Text(eigenkap.toInt().toString() + " €",
                         style: styleText,
                       ),
                     ),
+                    ),
                   ),
                 ],
               ),
-
 
               SizedBox(
                   height: MediaQuery.of(context).size.height * 0.025),
 
               //HORIZONTAL LINE
-              Padding(
-                padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.0),
-                child: Container(
-                    child: new SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.001,
-                      child: new Center(
-                        child: new Container(
-                          margin: new EdgeInsetsDirectional.only(
-                              start: 1.0, end: 1.0),
-                          height: MediaQuery.of(context).size.height * 0.001,
-                          color: Colors.grey,
-                        ),
+              Container(
+                  child: new SizedBox(
+                    height: ScreenUtil().setHeight(1),
+                    child: new Center(
+                      child: new Container(
+                        margin: new EdgeInsetsDirectional.only(start: 1.0, end: 1.0),
+                        height: ScreenUtil().setHeight(0.5),
+                        color: Colors.grey,
                       ),
-                    )
-                ),
+                    ),
+                  )
               ),
 
 
          //RATE AN DIE BANK ROW
               Padding(
-                padding: EdgeInsets.only(top: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.01),
+                padding: EdgeInsets.only(top: ScreenUtil().setHeight(7)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -210,8 +191,6 @@ class _CalcBankRateState extends State<CalcBankRate> {
                   ],
                 ),
               ),
-
-
             ]
         ),
       ),

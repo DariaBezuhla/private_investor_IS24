@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/calculator.dart';
 import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
 import '../constant.dart';
@@ -55,8 +56,8 @@ class _KostenrechnerState extends State<KostenrechnerButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150,
-      height: 150,
+      width: ScreenUtil().setWidth(150),
+      height: ScreenUtil().setHeight(150),
       child: Card(
           color: kTeal,
           child: Column(
@@ -72,18 +73,17 @@ class _KostenrechnerState extends State<KostenrechnerButton> {
                       Icon(
                         ProductIconsIS.is24_product_48px_calculator,
                         color: kGrey,
-                        size: 24.0,
+                        size: ScreenUtil().setWidth(24),
                       ),
                       //is24_product_48px_calculator
                       /*SvgPicture.asset(assetName,
                           semanticsLabel: 'Calculator', color: kGrey),
-
                        */
                       Text(
                         '''Welche Kosten könnten mich als
 Investor erwarten ?''',
                         style: TextStyle(
-                            fontSize: 16.0,
+                            fontSize: ScreenUtil().setHeight(16),
                             color: widget.theme == "light" ? kCharcoal : kGrey),
                       )
                     ],
@@ -127,8 +127,8 @@ class _OfflineButtonState extends State<OfflineButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350,
-      height: 150,
+      width: ScreenUtil().setWidth(350),
+      height: ScreenUtil().setWidth(150),
       child: Card(
         color: widget.theme == "light" ? Colors.white : kCharcoal,
         child: Column(
@@ -138,12 +138,14 @@ class _OfflineButtonState extends State<OfflineButton> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Icon(Icons.cloud_off, size: 50, color: kGrey),
+                  Icon(Icons.cloud_off,
+                      size: ScreenUtil().setWidth(50),
+                      color: kGrey),
                   Text(
                     '''You\'re offline.
 Your network is unavailable.''',
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: ScreenUtil().setHeight(20),
                         color: widget.theme == "light" ? kCharcoal : kGrey),
                   )
                 ],
@@ -152,8 +154,10 @@ Your network is unavailable.''',
             ButtonBar(
               children: <Widget>[
                 RaisedButton(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    child: Text('Retry', style: TextStyle(fontSize: 20)),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ScreenUtil().setWidth(20),
+                        vertical: ScreenUtil().setHeight(10)),
+                    child: Text('Retry', style: TextStyle(fontSize: ScreenUtil().setHeight(20))),
                     onPressed: () {},
                     color: kTeal)
               ],

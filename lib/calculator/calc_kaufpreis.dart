@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/constant.dart';
 
@@ -26,13 +27,17 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    ScreenUtil.init(context, width: width, height: height);
+
     return Material(
       color: kCard,
       elevation: elevation,
       child: Container(
-
-        width: MediaQuery.of(context).size.width * 1.5,
-        margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+        width: ScreenUtil().setWidth(470),
+        margin: EdgeInsets.all(
+          ScreenUtil().setHeight(16),),
         child: Column(
           children: <Widget>[
 
@@ -44,10 +49,10 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
                   style: styleText,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.004),
+                  padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(4)),
                   child: Icon(
                     SystemIconsIS.is24_system_48px_info,
-                    size: MediaQuery.of(context).size.height * 0.02,
+                    size: ScreenUtil().setWidth(15),
                   ),
                 ),
                 Spacer(),
@@ -59,7 +64,7 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
             //KAUFPREIS SLIDER
             SliderTheme(
               data: SliderThemeData(
-                trackHeight: MediaQuery.of(context).size.height * 0.01,
+                trackHeight: ScreenUtil().setHeight(5),
                 activeTrackColor: dSliderColor,
                 inactiveTrackColor: kGrey,
                 thumbColor: kTeal,
@@ -81,7 +86,7 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
 
             //KAUFNEBENKOSTEN ROW
             Padding(
-              padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.01),
+              padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(6)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -92,25 +97,22 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
             ),
 
             //HORIZONTAL LINE
-            Padding(
-              padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.0),
-              child: Container(
-                  child: new SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.001,
-                    child: new Center(
-                      child: new Container(
-                        margin: new EdgeInsetsDirectional.only(start: 1.0, end: 1.0),
-                        height: MediaQuery.of(context).size.height * 0.001,
-                        color: Colors.grey,
-                      ),
+            Container(
+                child: new SizedBox(
+                  height: ScreenUtil().setHeight(1),
+                  child: new Center(
+                    child: new Container(
+                      margin: new EdgeInsetsDirectional.only(start: 1.0, end: 1.0),
+                      height: ScreenUtil().setHeight(0.5),
+                      color: Colors.grey,
                     ),
-                  )
-              ),
+                  ),
+                )
             ),
 
            //KAUFGESAMTPREIS ROW
             Padding(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
+              padding: EdgeInsets.only(top: ScreenUtil().setHeight(7)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[

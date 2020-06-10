@@ -21,13 +21,15 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBarWithArrow(),
       body: SettingsContent(
-          theme: widget.theme,
-        ),
-      bottomNavigationBar: BottomBar(selectedIndex: 2, theme: light,),
+        theme: widget.theme,
+      ),
+      bottomNavigationBar: BottomBar(
+        selectedIndex: 2,
+        theme: light,
+      ),
     );
   }
 }

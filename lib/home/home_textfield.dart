@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:privateinvestorsmobile/constant.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:privateinvestorsmobile/home/location.dart';
 import 'auto_complete_location.dart';
+import '../constant.dart';
 
 class HomeTextField extends StatefulWidget {
   final String topValue;
@@ -47,18 +48,11 @@ class _HomeInputField extends State<HomeTextField> {
             alignment: Alignment.centerLeft,
             child: Text(
               widget.topValue,
-              style: TextStyle(
-                backgroundColor: Colors.transparent,
-                fontFamily: 'MakeItSans',
-                fontWeight: FontWeight.normal,
-                fontSize: MediaQuery.of(context).size.height * 0.017,
-                height: MediaQuery.of(context).size.height * 0.0007,
-                color: kLightGrey2,
-              ),
+              style: CustomStyle.textFieldHeader(context),
             ),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.012,
+            height: ScreenUtil().setHeight(10),
           ),
           Theme(
             data: new ThemeData(
@@ -76,10 +70,7 @@ class _HomeInputField extends State<HomeTextField> {
                           ),
                         ),
                         labelText: widget.textFieldValue,
-                        labelStyle: TextStyle(
-                            color: kLightGrey,
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.014)),
+                        labelStyle: CustomStyle.inputPlaceholder(context)),
                     onChanged: (it) {
                       if (it.length >= 2) {
                         _timer = Timer(
@@ -121,7 +112,8 @@ class _HomeInputField extends State<HomeTextField> {
                               return Container();
                           }
                         },
-                      ) : Container(),
+                      )
+                    : Container(),
               ],
             ),
           ),
@@ -130,7 +122,8 @@ class _HomeInputField extends State<HomeTextField> {
     );
   }
 
-  Widget _buildListView(BuildContext context, List<Location> locations, ValueChanged<String> onValueChanged) {
+  Widget _buildListView(BuildContext context, List<Location> locations,
+      ValueChanged<String> onValueChanged) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: locations.length,

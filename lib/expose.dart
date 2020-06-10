@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:privateinvestorsmobile/appBar/app_bar_for_expose.dart';
-import 'package:privateinvestorsmobile/transition/sleder_direction.dart';
-import 'appBar/app_bar_with_ArrowLeft.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:privateinvestorsmobile/transition/slederDirection.dart';
+import 'appBar/app_bar_for_expose.dart';
 import 'bottomBar/bottom_bar.dart';
 import 'expose/expose_content.dart';
+import 'icons/system_icons_i_s_icons.dart';
 import 'results/card/real_estate_object.dart';
 import './constant.dart';
 
@@ -16,17 +17,13 @@ class ExposeScreen extends StatefulWidget {
     Key key,
     this.housesList,
     this.selectedIndex,
-    this.comeFromPage = 0,
+    this.comeFromPage = 0, //for AppBarForExpose()
   }) : super(key: key);
 
   @override
-
   @override
   _ExposeScreenState createState() => _ExposeScreenState();
-
 }
-
-
 
 class _ExposeScreenState extends State<ExposeScreen>
     with TickerProviderStateMixin {
@@ -143,9 +140,9 @@ class _ExposeScreenState extends State<ExposeScreen>
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, width: 375, height: 667);
 
     return Scaffold(
       appBar: AppBarForExpose(fromPage: widget.comeFromPage, houseId: widget.housesList[currentIndex].id),//AppBarWithArrow(),

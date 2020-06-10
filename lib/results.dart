@@ -9,132 +9,69 @@ import 'network/search_service.dart';
 
 class ResultScreen extends StatefulWidget {
   final String theme;
-  final List<RealEstateObject> resultsList;
 
   const ResultScreen({
     Key key,
     this.theme,
-    this.resultsList,
   }) : super(key: key);
   @override
   _ResultScreenState createState() => _ResultScreenState();
 }
 
 class _ResultScreenState extends State<ResultScreen> {
-  List<RealEstateObject> _estates = List<RealEstateObject>();
-  SearchService _searchService = SearchService();
-  ScrollController _scrollController = ScrollController();
+  final GlobalKey<AppBarSliverBigState> _key = GlobalKey();
+  final GlobalKey<ListViewForResultsState> _key2 = GlobalKey();
+  String sortingBy = 'firstActivationDate';
 
-  int _pageNumber = 1;
-
-  @override
-  void initState() {
-    super.initState();
-    _searchService.fetchList(pageNumber: _pageNumber).then((onValue) {
-      setState(() {
-        _estates.addAll(onValue);
-      });
-    });
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels >=
-          (0.975 * _scrollController.position.maxScrollExtent)) {
-        setState(() {
-          _pageNumber++;
-        });
-        _fetchMoreEstates();
-      }
+  //For sorting:
+  //  refreshChoice() is called in AppBarSliverBig;
+  //  what does: _ResultScreenState.setState() with new sortingBy property
+  void refreshChoice() {
+    setState(() {
+      sortingBy = AppBarSliverBigState.sortingChoice;
+      refreshList(sortingBy);
     });
   }
 
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
+  //  refreshList(String sort) is called in refreshChoice();
+  //  what does: ListViewForResults.listSorted(sort) -> update list of results
+  void refreshList(String sort) {
+    _key2.currentState.sortBy = sortingBy; //sortBy in ListViewForResults = sortingBy in ResultScreen
+    _key2.currentState.listSorted(sort);
   }
 
 // Infinite scroll
   @override
   Widget build(BuildContext context) {
     var colorBackground =
-    (widget.theme == 'Dark') ? dBackgroundColor : kBackgroundLight;
-
+        (widget.theme == 'Dark') ? dBackgroundColor : kBackgroundLight;
 
     return Scaffold(
       body: SafeArea(
         child: Container(
           color: colorBackground,
-            child: NestedScrollView(
-              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-                return <Widget>[
-                  AppBarSliverBig(
-                    theme: widget.theme,
-                    resultsLength:
-                    (_estates.length == null) ? 0 : _estates.length,
-                  ),
-                ];
-              },
-              body: ListViewForResults(),
+          child: NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                AppBarSliverBig(
+                  key: _key,
+                  function: refreshChoice,
+                  theme: widget.theme,
+                  resultsLength: 0, //to do: we don't have resultsLength !!!
+                ),
+              ];
+            },
+            body: ListViewForResults(
+              key: _key2,
             ),
-        ),
-      ),
-        bottomNavigationBar: BottomBar(selectedIndex: 0, theme: widget.theme,),
-    );
-  }
-
-// fetches all estates minh cong
-  _fetchMoreEstates() {
-    _searchService.fetchList(pageNumber: _pageNumber).then((onValue) {
-      _estates.addAll(onValue);
-    });
-    setState(() {});
-  }
-}
-
-/*
-return Scaffold(
-      body: SafeArea(
-        child: Container(
-          color: listBackground,
-          child: CustomScrollView(
-            slivers: <Widget>[
-              /*AppBarSliver(
-                theme: widget.theme,
-                resultsLength: (widget.resultsList == null) ? 0 : widget.resultsList.length,
-              ),*/
-              SliverList(
-                  delegate: SliverChildListDelegate([
-                    ListView.builder(
-                      controller: _scrollController,
-                      //shrinkWrap: true,
-                      itemCount: _estates.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          child: Column(
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  top: 10.0,
-                                  left: 10.0,
-                                  right: 10.0
-                                ),
-                              ),
-                              RealEstateCard(
-                                house: _estates[index],
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ])),
-            ],
           ),
         ),
       ),
-      bottomNavigationBar: SafeArea(
-          child: BottomBar(
+      bottomNavigationBar: BottomBar(
+        selectedIndex: 0,
         theme: widget.theme,
-      )),
+      ),
     );
- */
-
+  }
+}

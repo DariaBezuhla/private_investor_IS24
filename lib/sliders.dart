@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import './constant.dart';
 
 class Sliders extends StatefulWidget {
@@ -36,14 +37,16 @@ class _SlidersState extends State<Sliders> {
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding:  EdgeInsets.symmetric(
+                    vertical: ScreenUtil().setWidth(10.0),
+                    horizontal: ScreenUtil().setHeight(10.0)),
                 child: Container(
-                  width: 400,
-                  height: 200,
+                  width: ScreenUtil().setWidth(400),
+                  height: ScreenUtil().setHeight(200),
                   child: Card(
                     shape: BeveledRectangleBorder(),
                     child: Padding(
-                      padding: const EdgeInsets.all(14.0),
+                      padding: EdgeInsets.all(ScreenUtil().setHeight(14)),
                       child: Column(
                         children: <Widget>[
                           Expanded(
@@ -74,7 +77,7 @@ class _SlidersState extends State<Sliders> {
                             flex: 1,
                             child: SliderTheme(
                               data: SliderThemeData(
-                                trackHeight: 5,
+                                trackHeight: ScreenUtil().setHeight(5),
                                 activeTrackColor: Color(0xff5C5C5C),
                                 inactiveTrackColor: kGrey,
                                 thumbColor: kTeal,
@@ -118,7 +121,7 @@ class _SlidersState extends State<Sliders> {
                                     fontFamily: 'MakeItSans',
                                     fontWeight: FontWeight.bold,
                                     color: kCharcoal,
-                                    fontSize: 24.0,
+                                    fontSize: ScreenUtil().setHeight(24.0),
                                   ),
                                 ),
                                 Text(
@@ -127,7 +130,7 @@ class _SlidersState extends State<Sliders> {
                                     fontFamily: 'MakeItSans',
                                     fontWeight: FontWeight.bold,
                                     color: kCharcoal,
-                                    fontSize: 24.0,
+                                    fontSize: ScreenUtil().setHeight(24.0),
                                   ),
                                 ),
                               ],
@@ -140,14 +143,16 @@ class _SlidersState extends State<Sliders> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: EdgeInsets.symmetric(
+                  vertical: ScreenUtil().setWidth(10.0),
+                    horizontal: ScreenUtil().setHeight(10.0)),
                 child: Container(
-                  width: 400,
-                  height: 100,
+                  width: ScreenUtil().setWidth(400),
+                  height: ScreenUtil().setHeight(100.0),
                   child: Card(
                     shape: BeveledRectangleBorder(),
                     child: Padding(
-                      padding: const EdgeInsets.all(14.0),
+                      padding: EdgeInsets.all(ScreenUtil().setHeight(14)),
                       child: Column(
                         children: <Widget>[
                           Expanded(
@@ -166,7 +171,7 @@ class _SlidersState extends State<Sliders> {
                             flex: 1,
                             child: SliderTheme(
                               data: SliderThemeData(
-                                trackHeight: 5,
+                                trackHeight: ScreenUtil().setHeight(5),
                                 activeTrackColor: Color(0xff5C5C5C),
                                 inactiveTrackColor: kGrey,
                                 thumbColor: kTeal,
@@ -198,14 +203,16 @@ class _SlidersState extends State<Sliders> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding:EdgeInsets.symmetric(
+                    vertical: ScreenUtil().setWidth(10.0),
+                    horizontal: ScreenUtil().setHeight(10.0)),
                 child: Container(
-                  width: 400,
-                  height: 100,
+                  width: ScreenUtil().setWidth(400.0),
+                  height: ScreenUtil().setHeight(100.0),
                   child: Card(
                     shape: BeveledRectangleBorder(),
                     child: Padding(
-                      padding: const EdgeInsets.all(14.0),
+                      padding: EdgeInsets.all(ScreenUtil().setHeight(14)),
                       child: Column(
                         children: <Widget>[
                           Expanded(
@@ -223,7 +230,7 @@ class _SlidersState extends State<Sliders> {
                             flex: 1,
                             child: SliderTheme(
                               data: SliderThemeData(
-                                trackHeight: 5,
+                                trackHeight: ScreenUtil().setHeight(5),
                                 activeTrackColor: Color(0xff5C5C5C),
                                 inactiveTrackColor: kGrey,
                                 thumbColor: kTeal,

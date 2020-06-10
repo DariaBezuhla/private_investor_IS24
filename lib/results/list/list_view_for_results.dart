@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:privateinvestorsmobile/network/search_service.dart';
 import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../expose.dart';
 import '../../results/card/real_estate_card.dart';
 import '../../results/card/real_estate_object.dart';
-
 
 class ListViewForResults extends StatefulWidget {
   final String theme; // for 'Dark' or 'Light' Theme
@@ -14,14 +14,12 @@ class ListViewForResults extends StatefulWidget {
     this.theme,
   }) : super(key: key);
 
-  _ListViewForResultsState createState() => _ListViewForResultsState();
+  ListViewForResultsState createState() => ListViewForResultsState();
 }
 
-
-class _ListViewForResultsState extends State<ListViewForResults>
+class ListViewForResultsState extends State<ListViewForResults>
     with TickerProviderStateMixin {
-
-
+  String sortBy;
   //For ListView
   List<RealEstateObject> _estates = List<RealEstateObject>();
   SearchService _searchService = SearchService();
@@ -33,23 +31,24 @@ class _ListViewForResultsState extends State<ListViewForResults>
   bool returnFromDetailPage = false;
   ValueNotifier<bool> stateNotifier;
 
-
   @override
   void initState() {
     super.initState();
     _initAnimationController();
-    _searchService.fetchList(pageNumber: _pageNumber).then((onValue) {
+
+    _searchService.fetchList(pageNumber: _pageNumber,).then((onValue) {
       setState(() {
         _estates.addAll(onValue);
       });
     });
+
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           (0.975 * _scrollController.position.maxScrollExtent)) {
         setState(() {
           _pageNumber++;
         });
-        _fetchMoreEstates();
+        _fetchMoreEstates(sortBy);
       }
     });
   }
@@ -59,8 +58,8 @@ class _ListViewForResultsState extends State<ListViewForResults>
       vsync: this,
       duration: Duration(milliseconds: 250),
     )..addListener(() {
-      setState(() {});
-    });
+        setState(() {});
+      });
 
     stateNotifier = ValueNotifier(returnFromDetailPage)
       ..addListener(() {
@@ -83,20 +82,20 @@ class _ListViewForResultsState extends State<ListViewForResults>
     _animationController.forward(from: 0.0);
     stateNotifier.value = await Navigator.of(context).push(
       PageRouteGenerator(
-        //fullscreenDialog: true,
+          //fullscreenDialog: true,
           builder: (context) {
-            return ExposeScreen(
-              comeFromPage: 0, //0->from ResultsList, 1->from WishList
-              housesList: _estates,
-              selectedIndex: _estates.indexOf(house),
-            );
-          }),
+        return ExposeScreen(
+          comeFromPage: 0, //0->from ResultsList, 1->from WishList
+          housesList: _estates,
+          selectedIndex: _estates.indexOf(house),
+        );
+      }),
     );
   }
+
   @override
   Widget build(BuildContext context) {
-
-    return  ListView.builder(
+    return ListView.builder(
       controller: _scrollController,
       itemCount: _estates.length,
       itemBuilder: (BuildContext context, int index) {
@@ -105,7 +104,10 @@ class _ListViewForResultsState extends State<ListViewForResults>
             children: <Widget>[
               Padding(
                 padding:
-                EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+                EdgeInsets.only(
+                    top: ScreenUtil().setWidth(10),
+                    left: ScreenUtil().setWidth(10),
+                    right: ScreenUtil().setWidth(10),),
               ),
               RealEstateCard(
                 house: _estates[index],
@@ -119,8 +121,22 @@ class _ListViewForResultsState extends State<ListViewForResults>
     );
   }
 
-  _fetchMoreEstates() {
-    _searchService.fetchList(pageNumber: _pageNumber).then((onValue) {
+  void listSorted(String sortBy) {
+    _pageNumber = 1;
+    _estates.clear();
+    setState(() {
+      _searchService
+          .fetchList(pageNumber: _pageNumber, sortBy: sortBy /*'pricePerSqm'*/)
+          .then((onValue) {
+        setState(() {
+          _estates.addAll(onValue);
+        });
+      });
+    });
+  }
+
+  _fetchMoreEstates(String sort) {
+    _searchService.fetchList(pageNumber: _pageNumber, sortBy: sort ).then((onValue) {
       _estates.addAll(onValue);
     });
     setState(() {});

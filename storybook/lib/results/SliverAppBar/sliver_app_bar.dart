@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:storybook/icons/system_icons_i_s_icons.dart';
 
+
 import '../../constant.dart';
 import 'filters_app_bar.dart';
+
 
 class AppBarSliver extends StatelessWidget {
   final bool _filterOpen = true;
@@ -49,14 +51,14 @@ class AppBarSliver extends StatelessWidget {
       //snap: false,
       floating: true,
       //primary: true,
-      expandedHeight: filterBarHeight + statusBarHeight,
+      expandedHeight: filterBarHeight+statusBarHeight,
       //126.0,//_filterOpen ? 200 : 50.0,
       backgroundColor: backgroundColor,
       //forceElevated: true,
       elevation: 2,
       flexibleSpace: FlexibleSpaceBar(
         background: AppBarFilters(
-          resultsLength: 2354, //resultsLength,
+          resultsLength: 2354,//resultsLength,
           theme: theme,
         ),
       ),

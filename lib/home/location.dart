@@ -1,4 +1,5 @@
 import 'dart:core';
+
 /**
  * This class represents as City, Country, Quarters and Postcode.
  * In general, it is a superclass of the json subtypes from the response body!
@@ -9,12 +10,7 @@ class Location {
   String label;
   String geoPath;
 
-  Location({
-    this.geoId,
-    this.type,
-    this.label,
-    this.geoPath
-  });
+  Location({this.geoId, this.type, this.label, this.geoPath});
 
   factory Location.fromJson(dynamic json) {
     return Location(

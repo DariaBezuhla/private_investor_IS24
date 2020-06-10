@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import '../constant.dart';
 
@@ -12,12 +13,13 @@ class CalcCashflow extends StatefulWidget {
 class _CalcCashflowState extends State<CalcCashflow> {
   @override
   Widget build(BuildContext context) {
+
     return Material(
       color: kCard,
       elevation: elevation,
       child: Container(
-        width: MediaQuery.of(context).size.width * 1.5,
-        margin: EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+        width: ScreenUtil().setWidth(470),
+        margin: EdgeInsets.all(ScreenUtil().setHeight(16)),
         child: Column(
             children: <Widget>[
 
@@ -30,10 +32,10 @@ class _CalcCashflowState extends State<CalcCashflow> {
                     style: header4,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.004),
+                    padding: EdgeInsets.only(top: ScreenUtil().setHeight(4)),
                     child: Icon(
                       SystemIconsIS.is24_system_48px_info,
-                      size: MediaQuery.of(context).size.height * 0.02,
+                      size: ScreenUtil().setWidth(15),
                     ),
                   ),
                   Spacer(),
@@ -41,8 +43,6 @@ class _CalcCashflowState extends State<CalcCashflow> {
                       style: header4),
                 ],
               ),
-
-
             ]
         ),
       ),

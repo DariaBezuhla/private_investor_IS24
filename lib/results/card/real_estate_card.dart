@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:privateinvestorsmobile/results/card/ranking_button.dart';
 import 'package:privateinvestorsmobile/wishlist/favorites.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../results/card/real_estate_detail_context.dart';
 import '../../results/card/real_estate_object.dart';
 import '../../results/card/view_states.dart';
 import '../../icons/system_icons_i_s_icons.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../constant.dart';
 
 //Must be Stateful for saving in Favorite List (Wish List)
@@ -29,59 +31,60 @@ class RealEstateCard extends StatefulWidget {
 }
 
 class _RealEstateCardState extends State<RealEstateCard> {
-
   @override
   Widget build(BuildContext context) {
-    //bool isPressed = saved.contains(widget.house);
-    bool isPressed =  Favorites.savedFavorites.contains(widget.house.id);
+    var currencyFormatter = new NumberFormat.currency(
+        locale: "de_DE", symbol: "€", decimalDigits: 0, name: "EUR");
+    var numberFormatter = new NumberFormat("###.##", "de_DE");
     var width = MediaQuery.of(context).size.width;
-    var widthOfTrendsContainer = (3 * width - 170) / 11;
-    var widthOfImage = width - 40 - widthOfTrendsContainer;
-    const hightOfImage = 169.0;
+    bool isPressed = Favorites.savedFavorites.contains(widget.house.id);
+    var widthOfTrendsContainer = (3 * width - ScreenUtil().setWidth(170)) / 11;
+        //(ScreenUtil().setWidth(3) * width - width * 0.4) / width * ScreenUtil().setWidth(37);
+    var widthOfImage = width - ScreenUtil().setWidth(40) - widthOfTrendsContainer;
+    var heightOfImage = ScreenUtil().setHeight(160);
 
     //colors and textStyles for light and dark theme
     var cardColor = (widget.theme == 'Dark') ? dCardsColor : kCard;
     var styleHeader4 = (widget.theme == 'Dark') ? dHeader4 : header4;
     var styleDescription =
-    (widget.theme == 'Dark') ? dStyleDescriptionText : styleDescriptionText;
-    var elevation = (widget.theme == 'Dark') ? 0.0 : 2.0;
+        (widget.theme == 'Dark') ? dStyleDescriptionText : styleDescriptionText;
+    var elevationSize = (widget.theme == 'Dark') ? dElevation : elevation;
     var iconsColor = (widget.theme == 'Dark') ? dTextColorLight : null;
 
     var pressedFavoriteIcon = Icon(
       Icons.favorite,
-      size: 24,
+      size: ScreenUtil().setWidth(24),
       color: kError,
     );
     var favoriteIcon = (!isPressed)
         ? Icon(
-      SystemIconsIS.is24_system_48px_heart_favorite,
-      color: iconsColor,
-      size: 24.0,
-    ) : pressedFavoriteIcon; //Icon(Icons.favorite, size: 24, color: kTeal,);
+            SystemIconsIS.is24_system_48px_heart_favorite,
+            color: iconsColor,
+            size: ScreenUtil().setWidth(24),
+          )
+        : pressedFavoriteIcon; //Icon(Icons.favorite, size: 24, color: kTeal,);
 
     arrowUp() => SizedBox(
-      height: 15.0,
-      width: 15.0,
-      child: Image.asset(
-        'assets/icons/arrow_up.png',
-        color: kTeal,
-      ),
-    );
+          height: ScreenUtil().setHeight(15),
+          width: ScreenUtil().setHeight(15),
+          child: Image.asset(
+            'assets/icons/arrow_up.png',
+            color: kTeal,
+          ),
+        );
 
     arrowDown() => SizedBox(
-      height: 15.0,
-      width: 15.0,
-      child: Image.asset(
-        'assets/icons/arrow_down.png',
-        color: kError,
-      ),
-    );
-    
-
+          height: ScreenUtil().setHeight(15),
+          width: ScreenUtil().setHeight(15),
+          child: Image.asset(
+            'assets/icons/arrow_down.png',
+            color: kError,
+          ),
+        );
 
     void _saveInWishList() {
       setState(() //<--whenever icon is pressed, force redraw the widget
-      {
+          {
         if (isPressed) //favorites.contains(widget.house.id)
           Favorites.savedFavorites.remove(widget.house.id);
         else
@@ -89,7 +92,6 @@ class _RealEstateCardState extends State<RealEstateCard> {
         Favorites.saveList();
         //Favorites.loadList();
       });
-
     }
 
     ;
@@ -97,35 +99,40 @@ class _RealEstateCardState extends State<RealEstateCard> {
     List elementsInRow3 = [
       Padding(
         // 3.1
-        padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+        padding: EdgeInsets.only(
+            top: ScreenUtil().setWidth(10), bottom: ScreenUtil().setWidth(10)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Hero(
               tag: '${widget.house.id}-price',
               flightShuttleBuilder: (
-                  BuildContext flightContext,
-                  Animation<double> animation,
-                  HeroFlightDirection flightDirection,
-                  BuildContext fromHeroContext,
-                  BuildContext toHeroContext,
-                  ) {
+                BuildContext flightContext,
+                Animation<double> animation,
+                HeroFlightDirection flightDirection,
+                BuildContext fromHeroContext,
+                BuildContext toHeroContext,
+              ) {
                 return DetailsStyle(
-                  title: widget.house.price,
+                  title: widget.house.price.value != null
+                      ? currencyFormatter.format(widget.house.price.value)
+                      : "--- ${currencyFormatter.currencySymbol}",
                   isOverflow: true,
                   viewState: flightDirection == HeroFlightDirection.push
                       ? ViewState.enlarge
                       : ViewState.shrink,
-                  smallFontSize: 18.0,
-                  largeFontSize: 18.0,
+                  smallFontSize: ScreenUtil().setHeight(18),
+                  largeFontSize: ScreenUtil().setHeight(18),
                   textStyle: styleHeader4,
                 );
               },
               child: DetailsStyle(
-                title: widget.house.price,
+                title: widget.house.price.value != null
+                    ? currencyFormatter.format(widget.house.price.value)
+                    : "--- ${currencyFormatter.currencySymbol}",
                 viewState: ViewState.shrunk,
-                smallFontSize: 18.0,
-                largeFontSize: 18.0,
+                smallFontSize: ScreenUtil().setHeight(18),
+                largeFontSize: ScreenUtil().setHeight(18),
                 textStyle: styleHeader4,
               ),
             ),
@@ -138,35 +145,41 @@ class _RealEstateCardState extends State<RealEstateCard> {
         ),
       ),
       Padding(
-        padding: const EdgeInsets.only(top: 10.0),
+        padding: EdgeInsets.only(
+            top: ScreenUtil().setHeight(10),
+            bottom: ScreenUtil().setHeight(10)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Hero(
               tag: '${widget.house.id}-pricePerSqm',
               flightShuttleBuilder: (
-                  BuildContext flightContext,
-                  Animation<double> animation,
-                  HeroFlightDirection flightDirection,
-                  BuildContext fromHeroContext,
-                  BuildContext toHeroContext,
-                  ) {
+                BuildContext flightContext,
+                Animation<double> animation,
+                HeroFlightDirection flightDirection,
+                BuildContext fromHeroContext,
+                BuildContext toHeroContext,
+              ) {
                 return DetailsStyle(
-                  title: widget.house.pricePerSqm,
+                  title:widget.house.pricePerSqm.value != null
+                      ? currencyFormatter.format(widget.house.pricePerSqm.value)
+                      : "--- ${currencyFormatter.currencySymbol}",
                   isOverflow: true,
                   viewState: flightDirection == HeroFlightDirection.push
                       ? ViewState.enlarge
                       : ViewState.shrink,
-                  smallFontSize: 18.0,
-                  largeFontSize: 18.0,
+                  smallFontSize: ScreenUtil().setHeight(18),
+                  largeFontSize: ScreenUtil().setHeight(18),
                   textStyle: styleHeader4,
                 );
               },
               child: DetailsStyle(
-                title: widget.house.pricePerSqm,
+                title: widget.house.pricePerSqm.value != null
+                    ? currencyFormatter.format(widget.house.pricePerSqm.value)
+                : "--- ${currencyFormatter.currencySymbol}",
                 viewState: ViewState.shrunk,
-                smallFontSize: 18.0,
-                largeFontSize: 18.0,
+                smallFontSize: ScreenUtil().setHeight(18),
+                largeFontSize: ScreenUtil().setHeight(18),
                 textStyle: styleHeader4,
               ),
             ),
@@ -182,15 +195,21 @@ class _RealEstateCardState extends State<RealEstateCard> {
 
     return Padding(
       //p1
-      padding: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+      padding: EdgeInsets.only(
+          top: ScreenUtil().setHeight(10),
+          left: ScreenUtil().setWidth(10),
+          right: ScreenUtil().setWidth(10)),
       child: Material(
         color: cardColor,
-        elevation: elevation,
+        elevation: elevationSize,
         shadowColor: kShadow,
         borderRadius: BorderRadius.circular(3.0),
         child: Padding(
           //p2
-          padding: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+          padding: EdgeInsets.only(
+              top: ScreenUtil().setHeight(10),
+              left: ScreenUtil().setWidth(10),
+              right: ScreenUtil().setWidth(10)),
           child: Column(
             children: <Widget>[
               Row(
@@ -205,12 +224,23 @@ class _RealEstateCardState extends State<RealEstateCard> {
                     },
                     child: Hero(
                       tag: '${widget.house.id}-img',
+                      /*child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            PageRouteGenerator(builder: (context) {
+                              return ExposeScreen(house: widget.house);
+                            }),
+                          );
+                        }, */
                       child: Container(
                         width: widthOfImage,
-                        height: hightOfImage,
+                        height: heightOfImage,
                         decoration: new BoxDecoration(
                           image: new DecorationImage(
-                            image: (widget.house.pictureUrl != null) ? NetworkImage(widget.house.pictureUrl) : NetworkImage('https://dummyimage.com/640x360/fff/aaa'),
+                            image: (widget.house.pictureUrl != null)
+                                ? NetworkImage(widget.house.pictureUrl)
+                                : NetworkImage(
+                                    'https://dummyimage.com/640x360/fff/aaa'),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -225,20 +255,22 @@ class _RealEstateCardState extends State<RealEstateCard> {
                       Container(
                         //1.2.1
                         width: widthOfTrendsContainer,
-                        height: hightOfImage / 2,
+                        height: heightOfImage / 2,
                         child: Padding(
                           //p3
-                          padding: const EdgeInsets.only(
-                              top: 10.0, left: 10.0, right: 10.0),
+                          padding: EdgeInsets.only(
+                              top: ScreenUtil().setHeight(10),
+                              left: ScreenUtil().setWidth(10),
+                              right: ScreenUtil().setWidth(10)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              widget.house.priceTrend < 0
+                              widget.house.priceTrend.value < 0
                                   ? arrowDown()
                                   : arrowUp(),
-                              const SizedBox(height: 3.0),
+                              SizedBox(height: ScreenUtil().setHeight(3)),
                               Text(
-                                '${widget.house.priceTrend.toString()} %',
+                                '${widget.house.priceTrend.value} %',
                                 style: styleHeader4,
                                 textAlign: TextAlign.left,
                               ),
@@ -254,23 +286,22 @@ class _RealEstateCardState extends State<RealEstateCard> {
                       Container(
                         //1.2.2
                         width: widthOfTrendsContainer,
-                        height: hightOfImage / 2,
+                        height: heightOfImage / 2,
                         child: Padding(
                           //p4
-                          padding: const EdgeInsets.only(
-                            bottom: 10,
-                            left: 10.0,
-                            right: 10.0,
-                          ),
+                          padding: EdgeInsets.only(
+                              top: ScreenUtil().setHeight(10),
+                              left: ScreenUtil().setWidth(10),
+                              right: ScreenUtil().setWidth(10)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              widget.house.rentTrend < 0
+                              widget.house.rentTrend.value < 0
                                   ? arrowDown()
                                   : arrowUp(),
-                              const SizedBox(height: 3.0),
+                              SizedBox(height: ScreenUtil().setHeight(3)),
                               Text(
-                                '${widget.house.rentTrend.toString()} %',
+                                '${widget.house.rentTrend.value} %',
                                 style: styleHeader4,
                                 textAlign: TextAlign.left,
                               ),
@@ -291,45 +322,46 @@ class _RealEstateCardState extends State<RealEstateCard> {
                 children: <Widget>[
                   Container(
                     width: widthOfImage,
-                    padding: const EdgeInsets.only(top: 10.0),
+                    padding: EdgeInsets.only(
+                      top: ScreenUtil().setHeight(10),
+                    ),
                     child: Hero(
                       tag: '${widget.house.id}-title',
                       flightShuttleBuilder: (
-                          BuildContext flightContext,
-                          Animation<double> animation,
-                          HeroFlightDirection flightDirection,
-                          BuildContext fromHeroContext,
-                          BuildContext toHeroContext,
-                          ) {
+                        BuildContext flightContext,
+                        Animation<double> animation,
+                        HeroFlightDirection flightDirection,
+                        BuildContext fromHeroContext,
+                        BuildContext toHeroContext,
+                      ) {
                         return DetailsStyle(
-                          title: widget.house.title,
+                          title:  widget.house?.title ?? "",
                           isOverflow: true,
                           viewState: flightDirection == HeroFlightDirection.push
                               ? ViewState.enlarge
                               : ViewState.shrink,
                           textStyle: styleHeader4,
-                          smallFontSize: 18.0,
-                          largeFontSize: 18.0,
+                          smallFontSize: ScreenUtil().setHeight(18),
+                          largeFontSize: ScreenUtil().setHeight(18),
                         );
                       },
                       child: DetailsStyle(
-                        title: widget.house.title,
+                        title: widget.house?.title ?? "",
                         viewState: ViewState.shrunk,
-                        smallFontSize: 18.0,
-                        largeFontSize: 18.0,
+                        smallFontSize: ScreenUtil().setHeight(18),
+                        largeFontSize: ScreenUtil().setHeight(18),
                         textStyle: styleHeader4,
                       ),
                     ),
                   ),
                   Spacer(),
                   Container(
-                      height: 24.0,
+                      height: ScreenUtil().setHeight(24),
                       child: GestureDetector(
                           onTap: () {
                             _saveInWishList();
                           },
-                          child: favoriteIcon)
-                  ),
+                          child: favoriteIcon)),
                 ],
               ),
               Row(
@@ -340,16 +372,19 @@ class _RealEstateCardState extends State<RealEstateCard> {
                   widget.house.price.toString().length >= 23
                       ? elementsInRow3[0]
                       : Wrap(
-                    children: <Widget>[
-                      elementsInRow3[0],
-                      elementsInRow3[1]
-                    ],
-                    spacing: 15.0,
-                  ),
+                          children: <Widget>[
+                            elementsInRow3[0],
+                            elementsInRow3[1]
+                          ],
+                          spacing: 15.0,
+                        ),
                   Spacer(),
                   Padding(
-                    padding: const EdgeInsets.only(top:10.0, bottom: 10),
-                    child: RatingButton(rating: widget.house.rating),
+                    padding: EdgeInsets.only(
+                      top: ScreenUtil().setHeight(10),
+                      bottom: ScreenUtil().setHeight(10),
+                    ),
+                    child: RatingButton(objectRating: widget.house.rating),
                   ),
                 ],
               ),

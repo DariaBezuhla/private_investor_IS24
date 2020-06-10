@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:privateinvestorsmobile/results/card/rating.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../constant.dart';
 
 class RatingButton extends StatelessWidget {
-  final Rating rating;
+  final String objectRating;
 
-  const RatingButton({Key key, this.rating}) : super(key: key);
+  const RatingButton({Key key, this.objectRating}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    Rating rating = whatRaiting(objectRating);
+
     var backgroundColor = colorForButton(rating);
     var firstSmallCardColor = colorForButton(rating);
     var secondSmallCardColor = colorForSecondCard(rating);
@@ -16,13 +20,16 @@ class RatingButton extends StatelessWidget {
     var fourthSmallCardColor = colorForFourthCard(rating);
     var fifthSmallCardColor = colorForFifthCard(rating);
 
-    var buttonHeight = 30.0;
+    var buttonHeight = ScreenUtil().setHeight(30);
     var width = MediaQuery.of(context).size.width;
-    var widthOfX = (width - 160) /12;
-    var widthOfY = 10.0;
-    var widthOfButton = 5*widthOfX + 4*widthOfY;
-    var widthOfSmallCard = (widthOfButton - 8) / 5;
-    var hightOfSmallCard = 9.0;
+    var widthOfX =
+        (width - ScreenUtil().setWidth(160)) / 12;//ScreenUtil().setWidth(12);
+    var widthOfY = ScreenUtil().setWidth(10);
+    var widthOfButton = 5 * widthOfX + 4 * widthOfY;//ScreenUtil().setWidth(5) * widthOfX +
+        //ScreenUtil().setWidth(4) * widthOfY;
+    var widthOfSmallCard =
+        (widthOfButton - ScreenUtil().setWidth(8)) / 5;//ScreenUtil().setWidth(5);
+    var hightOfSmallCard = ScreenUtil().setHeight(9);
     var text = textForButton(rating);
 
     return Container(
@@ -31,10 +38,10 @@ class RatingButton extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(bottom: 2.0),
+            padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(2)),
             child: Container(
               width: widthOfButton,
-              height: 18,
+              height: ScreenUtil().setHeight(18),
               child: Card(
                 elevation: 0,
                 shape: RoundedRectangleBorder(
@@ -45,10 +52,7 @@ class RatingButton extends StatelessWidget {
                 child: Center(
                   child: Text(
                     text,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 10),
+                    style: CustomStyle.rankingText(context),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -58,39 +62,39 @@ class RatingButton extends StatelessWidget {
           Row(
             children: <Widget>[
               Padding(
-                  padding: const EdgeInsets.only(right: 2.0),
+                  padding: EdgeInsets.only(right: ScreenUtil().setWidth(2)),
                   child: SmallCard(
-                    rating: this.rating,
+                    rating: rating,
                     color: firstSmallCardColor,
                     width: widthOfSmallCard,
                     height: hightOfSmallCard,
                   )),
               Padding(
-                  padding: const EdgeInsets.only(right: 2.0),
+                  padding: EdgeInsets.only(right: ScreenUtil().setWidth(2)),
                   child: SmallCard(
-                    rating: this.rating,
+                    rating: rating,
                     color: secondSmallCardColor,
                     width: widthOfSmallCard,
                     height: hightOfSmallCard,
                   )),
               Padding(
-                  padding: const EdgeInsets.only(right: 2.0),
+                  padding: EdgeInsets.only(right: ScreenUtil().setWidth(2)),
                   child: SmallCard(
-                    rating: this.rating,
+                    rating: rating,
                     color: thirdSmallCardColor,
                     width: widthOfSmallCard,
                     height: hightOfSmallCard,
                   )),
               Padding(
-                  padding: const EdgeInsets.only(right: 2.0),
+                  padding: EdgeInsets.only(right: ScreenUtil().setWidth(2)),
                   child: SmallCard(
-                    rating: this.rating,
+                    rating: rating,
                     color: fourthSmallCardColor,
                     width: widthOfSmallCard,
                     height: hightOfSmallCard,
                   )),
               SmallCard(
-                rating: this.rating,
+                rating: rating,
                 color: fifthSmallCardColor,
                 width: widthOfSmallCard,
                 height: hightOfSmallCard,
@@ -212,7 +216,6 @@ class RatingButton extends StatelessWidget {
           return Color(0xffCDCDCD);
         }
         break;
-
        */
       default:
         {
@@ -253,7 +256,6 @@ class RatingButton extends StatelessWidget {
           return Color(0xffCDCDCD);
         }
         break;
-
        */
       default:
         {
@@ -294,7 +296,6 @@ class RatingButton extends StatelessWidget {
           return Color(0xffCDCDCD);
         }
         break;
-
        */
       default:
         {
@@ -335,7 +336,6 @@ class RatingButton extends StatelessWidget {
           return Color(0xffCDCDCD);
         }
         break;
-
        */
       default:
         {
@@ -344,6 +344,50 @@ class RatingButton extends StatelessWidget {
     }
   }
 }
+
+whatRaiting (String r) {
+  switch (r) {
+    case "TOP":
+      {
+        return Rating.TOP;
+      }
+      break;
+    case "GOOD":
+      {
+        return Rating.GOOD;
+      }
+      break;
+    case "FAIR":
+      {
+        return Rating.FAIR;
+      }
+      break;
+    case "POOR":
+      {
+        return Rating.POOR;
+      }
+      break;
+    case "BAD":
+      {
+        return Rating.BAD;
+      }
+      break;
+    case "NONE":
+      {
+        return Rating.NONE;
+      }
+      break;
+
+    default:
+      {
+        return Rating.NONE;
+      }
+  }
+}
+
+
+
+
 
 class SmallCard extends StatelessWidget {
   final Rating rating;
@@ -370,4 +414,3 @@ class SmallCard extends StatelessWidget {
     );
   }
 }
-
