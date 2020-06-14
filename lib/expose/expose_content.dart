@@ -8,6 +8,7 @@ import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
 import 'package:privateinvestorsmobile/results/card/view_states.dart';
 import 'package:privateinvestorsmobile/wishlist/favorites.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../constant.dart';
 import '../network/search_service.dart';
 import 'exposeObject.dart';
@@ -83,8 +84,7 @@ class _ExposeContentState extends State<ExposeContent> {
             height: ScreenUtil().setHeight(300),
             decoration: new BoxDecoration(
               image: new DecorationImage(
-                image:
-                (widget.house.pictureUrl != null)
+                image: (widget.house.pictureUrl != null)
                     ? NetworkImage(widget.house.pictureUrl)
                     : NetworkImage('https://dummyimage.com/640x360/fff/aaa'),
                 fit: BoxFit.cover,
@@ -105,7 +105,9 @@ class _ExposeContentState extends State<ExposeContent> {
               ),
             ),
             child: Container(
-              padding: EdgeInsets.all(ScreenUtil().setHeight(14),),
+              padding: EdgeInsets.all(
+                ScreenUtil().setHeight(14),
+              ),
               //color: Colors.white,
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -135,7 +137,7 @@ class _ExposeContentState extends State<ExposeContent> {
                       ),
                       Spacer(),
                       Container(
-                          height:  ScreenUtil().setHeight(24),
+                          height: ScreenUtil().setHeight(24),
                           child: GestureDetector(
                               onTap: () {
                                 _saveInWishList();
@@ -153,7 +155,7 @@ class _ExposeContentState extends State<ExposeContent> {
         FractionallySizedBox(
           widthFactor: 0.8,
           child: Container(
-              margin: EdgeInsets.only(bottom:  ScreenUtil().setHeight(24)),
+              margin: EdgeInsets.only(bottom: ScreenUtil().setHeight(24)),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -271,7 +273,9 @@ class _ExposeContentState extends State<ExposeContent> {
 
         //props
         Container(
-          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(48), horizontal: ScreenUtil().setWidth(24)),
+          padding: EdgeInsets.symmetric(
+              vertical: ScreenUtil().setHeight(48),
+              horizontal: ScreenUtil().setWidth(24)),
           child: Wrap(
               direction: Axis.horizontal,
               alignment: WrapAlignment.spaceEvenly,
@@ -295,7 +299,7 @@ class _ExposeContentState extends State<ExposeContent> {
 
         //object description
         Container(
-          padding:  EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(24)),
+          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(24)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -310,9 +314,13 @@ class _ExposeContentState extends State<ExposeContent> {
         //maps
         Container(
           padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(24)),
-          child: new Image.asset(
-            "assets/images/maps.png",
-          ),
+          child: (_exposeObject?.coordinate != null)
+              ? _buildStaticMaps(_exposeObject.coordinate.latitude,
+                  _exposeObject.coordinate.longitude)
+              : new Container(
+                  width: 0,
+                  height: 0,
+                ),
         ),
 
         //contact
@@ -342,7 +350,7 @@ class _ExposeContentState extends State<ExposeContent> {
                   child: FlatButton(
                     color: kTeal,
                     textColor: kCharcoal,
-                    padding:EdgeInsets.all(
+                    padding: EdgeInsets.all(
                       ScreenUtil().setHeight(10),
                     ),
                     onPressed: () async {
@@ -369,7 +377,7 @@ class _ExposeContentState extends State<ExposeContent> {
 
   Container _buildInfoItemForPriceWithTransition(String title, num value) {
     return Container(
-      padding:  EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
+      padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
       child: Column(
         children: <Widget>[
           Hero(
@@ -498,7 +506,8 @@ class _ExposeContentState extends State<ExposeContent> {
           (e) => Container(
             padding: EdgeInsets.symmetric(
               vertical: ScreenUtil().setHeight(5),
-              horizontal: ScreenUtil().setWidth(10),),
+              horizontal: ScreenUtil().setWidth(10),
+            ),
             child: Text(
               e,
               style: TextStyle(color: Colors.grey[600]),
@@ -518,7 +527,7 @@ class _ExposeContentState extends State<ExposeContent> {
             children: [
               Container(
                 color: kTeal,
-                width:  ScreenUtil().setWidth(5),
+                width: ScreenUtil().setWidth(5),
                 height: ScreenUtil().setHeight(28.0),
               ),
               Expanded(
@@ -551,13 +560,56 @@ class _ExposeContentState extends State<ExposeContent> {
           ),
         ),
         Container(
-            padding:EdgeInsets.only(
+            padding: EdgeInsets.only(
               left: ScreenUtil().setWidth(24),
               right: ScreenUtil().setWidth(24),
               bottom: ScreenUtil().setHeight(10.0),
             ),
             child: Divider(color: kLightGrey)),
       ],
+    );
+  }
+
+  // renders Static Google Maps Image, if lat and lng can be found in coordinate
+  Widget _buildStaticMaps(num lat, num lng) {
+    if ((lat < -90 || lat > 90) || (lng < -180 || lng > 180)) {
+      return Container(
+        width: 0,
+        height: 0,
+      );
+    }
+
+    return GestureDetector(
+      child: Container(
+        // padding: EdgeInsets.symmetric(horizontal: 24),
+        child: new Image.network(
+          'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=15&size=720x400&markers=color:0x00FFD0|$lat,$lng&key=$GOOGLE_MAPS_API',
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Center(
+              child: CircularProgressIndicator(
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded /
+                        loadingProgress.expectedTotalBytes
+                    : null,
+              ),
+            );
+          },
+        ),
+      ),
+      onTap: () async {
+        final String googleMapsUrl = "comgooglemaps://?center=$lat,$lng";
+        final String appleMapsUrl = "https://maps.apple.com/?q=$lat,$lng";
+
+        if (await canLaunch(googleMapsUrl)) {
+          await launch(googleMapsUrl);
+        }
+        if (await canLaunch(appleMapsUrl)) {
+          await launch(appleMapsUrl, forceSafariVC: false);
+        } else {
+          throw "Couldn't launch URL";
+        }
+      },
     );
   }
 }

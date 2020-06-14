@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:privateinvestorsmobile/results/card/ranking_button.dart';
 import 'package:privateinvestorsmobile/wishlist/favorites.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../constant.dart';
+import '../../icons/system_icons_i_s_icons.dart';
 import '../../results/card/real_estate_detail_context.dart';
 import '../../results/card/real_estate_object.dart';
 import '../../results/card/view_states.dart';
-import '../../icons/system_icons_i_s_icons.dart';
-import '../../constant.dart';
 
 //Must be Stateful for saving in Favorite List (Wish List)
 class RealEstateCard extends StatefulWidget {
@@ -39,8 +40,9 @@ class _RealEstateCardState extends State<RealEstateCard> {
     var width = MediaQuery.of(context).size.width;
     bool isPressed = Favorites.savedFavorites.contains(widget.house.id);
     var widthOfTrendsContainer = (3 * width - ScreenUtil().setWidth(170)) / 11;
-        //(ScreenUtil().setWidth(3) * width - width * 0.4) / width * ScreenUtil().setWidth(37);
-    var widthOfImage = width - ScreenUtil().setWidth(40) - widthOfTrendsContainer;
+    //(ScreenUtil().setWidth(3) * width - width * 0.4) / width * ScreenUtil().setWidth(37);
+    var widthOfImage =
+        width - ScreenUtil().setWidth(40) - widthOfTrendsContainer;
     var heightOfImage = ScreenUtil().setHeight(160);
 
     //colors and textStyles for light and dark theme
@@ -161,7 +163,7 @@ class _RealEstateCardState extends State<RealEstateCard> {
                 BuildContext toHeroContext,
               ) {
                 return DetailsStyle(
-                  title:widget.house.pricePerSqm.value != null
+                  title: widget.house.pricePerSqm.value != null
                       ? currencyFormatter.format(widget.house.pricePerSqm.value)
                       : "--- ${currencyFormatter.currencySymbol}",
                   isOverflow: true,
@@ -176,7 +178,7 @@ class _RealEstateCardState extends State<RealEstateCard> {
               child: DetailsStyle(
                 title: widget.house.pricePerSqm.value != null
                     ? currencyFormatter.format(widget.house.pricePerSqm.value)
-                : "--- ${currencyFormatter.currencySymbol}",
+                    : "--- ${currencyFormatter.currencySymbol}",
                 viewState: ViewState.shrunk,
                 smallFontSize: ScreenUtil().setHeight(18),
                 largeFontSize: ScreenUtil().setHeight(18),
@@ -201,7 +203,7 @@ class _RealEstateCardState extends State<RealEstateCard> {
           right: ScreenUtil().setWidth(10)),
       child: Material(
         color: cardColor,
-        elevation: elevationSize,
+        elevation: elevation,
         shadowColor: kShadow,
         borderRadius: BorderRadius.circular(3.0),
         child: Padding(
@@ -335,7 +337,7 @@ class _RealEstateCardState extends State<RealEstateCard> {
                         BuildContext toHeroContext,
                       ) {
                         return DetailsStyle(
-                          title:  widget.house?.title ?? "",
+                          title: widget.house?.title ?? "",
                           isOverflow: true,
                           viewState: flightDirection == HeroFlightDirection.push
                               ? ViewState.enlarge

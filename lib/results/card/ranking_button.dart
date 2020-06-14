@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:privateinvestorsmobile/results/card/rating.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:privateinvestorsmobile/results/card/rating.dart';
+
 import '../../constant.dart';
 
 class RatingButton extends StatelessWidget {
@@ -10,7 +11,6 @@ class RatingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Rating rating = whatRaiting(objectRating);
 
     var backgroundColor = colorForButton(rating);
@@ -23,12 +23,13 @@ class RatingButton extends StatelessWidget {
     var buttonHeight = ScreenUtil().setHeight(30);
     var width = MediaQuery.of(context).size.width;
     var widthOfX =
-        (width - ScreenUtil().setWidth(160)) / 12;//ScreenUtil().setWidth(12);
+        (width - ScreenUtil().setWidth(160)) / 12; //ScreenUtil().setWidth(12);
     var widthOfY = ScreenUtil().setWidth(10);
-    var widthOfButton = 5 * widthOfX + 4 * widthOfY;//ScreenUtil().setWidth(5) * widthOfX +
-        //ScreenUtil().setWidth(4) * widthOfY;
-    var widthOfSmallCard =
-        (widthOfButton - ScreenUtil().setWidth(8)) / 5;//ScreenUtil().setWidth(5);
+    var widthOfButton =
+        5 * widthOfX + 4 * widthOfY; //ScreenUtil().setWidth(5) * widthOfX +
+    //ScreenUtil().setWidth(4) * widthOfY;
+    var widthOfSmallCard = (widthOfButton - ScreenUtil().setWidth(8)) /
+        5; //ScreenUtil().setWidth(5);
     var hightOfSmallCard = ScreenUtil().setHeight(9);
     var text = textForButton(rating);
 
@@ -345,7 +346,7 @@ class RatingButton extends StatelessWidget {
   }
 }
 
-whatRaiting (String r) {
+whatRaiting(String r) {
   switch (r) {
     case "TOP":
       {
@@ -384,10 +385,6 @@ whatRaiting (String r) {
       }
   }
 }
-
-
-
-
 
 class SmallCard extends StatelessWidget {
   final Rating rating;

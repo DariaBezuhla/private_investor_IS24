@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// API Keys
+const String GOOGLE_MAPS_API = 'AIzaSyAeJKK0mroXTxP6OvFwxplvf88Q-ZqyfBc';
+
 // Colors
 const kTeal = Color(0xFF00FFD0);
 const kCharcoal = Color(0xFF333333);

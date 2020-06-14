@@ -16,7 +16,6 @@ import 'package:privateinvestorsmobile/results/card/subtypes/price_trend.dart';
 import 'package:privateinvestorsmobile/results/card/subtypes/rent_trend.dart';
 import 'package:privateinvestorsmobile/results/card/subtypes/room.dart';
 
-
 class ExposeObject {
   bool active;
   String id;
@@ -101,8 +100,6 @@ class ExposeObject {
       this.rating,
       this.rentAbsolute,
       this.rentSubsidy});
-
-
 
   factory ExposeObject.fromJson(Map<String, dynamic> json) {
     return ExposeObject(
