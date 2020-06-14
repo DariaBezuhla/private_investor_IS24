@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/constant.dart';
+import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
+
 import 'calc_bankrate.dart';
 
 class CalcFinanzierung extends StatefulWidget {
@@ -22,15 +23,14 @@ String eigenkapital(price) {
 class _CalcFinanzierungState extends State<CalcFinanzierung> {
   @override
   Widget build(BuildContext context) {
-
-
     return Material(
-      color: kCard,
+        color: kCard,
         elevation: elevation,
         child: Container(
-          width:  ScreenUtil().setWidth(470),
+          width: ScreenUtil().setWidth(470),
           margin: EdgeInsets.all(
-               ScreenUtil().setHeight(16), ),
+            ScreenUtil().setHeight(16),
+          ),
           child: Column(
             children: <Widget>[
               //FINANZIERUNG and SWITCH
@@ -84,8 +84,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal:
-                            ScreenUtil().setWidth(4)),
+                            horizontal: ScreenUtil().setWidth(4)),
                         child: Icon(
                           SystemIconsIS.is24_system_48px_info,
                           size: ScreenUtil().setWidth(15),
@@ -108,8 +107,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal:
-                            ScreenUtil().setWidth(4)),
+                            horizontal: ScreenUtil().setWidth(4)),
                         child: Icon(
                           SystemIconsIS.is24_system_48px_info,
                           size: ScreenUtil().setWidth(15),
@@ -159,12 +157,12 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                                   color: kLightGrey,
                                   fontSize: dStyleLabel.fontSize),
                               decoration: InputDecoration(
-                                  hintText: 'z.B. 25%',
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: kDivider,
-                                    ),
+                                hintText: 'z.B. 25%',
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: kDivider,
                                   ),
+                                ),
                               ),
                             ),
                           ),
@@ -199,8 +197,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal:
-                            ScreenUtil().setWidth(4)),
+                            horizontal: ScreenUtil().setWidth(4)),
                         child: Icon(
                           SystemIconsIS.is24_system_48px_info,
                           size: ScreenUtil().setWidth(15),
@@ -216,16 +213,16 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                   //HORIZONTAL LINE
                   Container(
                       child: new SizedBox(
-                        height: ScreenUtil().setHeight(1),
-                        child: new Center(
-                          child: new Container(
-                            margin: new EdgeInsetsDirectional.only(start: 1.0, end: 1.0),
-                            height: ScreenUtil().setHeight(0.5),
-                            color: Colors.grey,
-                          ),
-                        ),
-                      )
-                  ),
+                    height: ScreenUtil().setHeight(1),
+                    child: new Center(
+                      child: new Container(
+                        margin: new EdgeInsetsDirectional.only(
+                            start: 1.0, end: 1.0),
+                        height: ScreenUtil().setHeight(0.5),
+                        color: Colors.grey,
+                      ),
+                    ),
+                  )),
 
                   SizedBox(height: ScreenUtil().setHeight(10)),
 

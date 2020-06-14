@@ -1,12 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
-import 'package:privateinvestorsmobile/theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
+import 'package:privateinvestorsmobile/settings.dart';
+import 'package:privateinvestorsmobile/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:easy_localization/easy_localization.dart';
+
 import '../constant.dart';
-import '../main.dart';
 
 class LanguageSelectionContent extends StatefulWidget {
   final String theme;
@@ -57,7 +58,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PrivateInvestors()));
+                              builder: (context) => SettingsScreen()));
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(
@@ -91,7 +92,7 @@ class _LanguageSelectionContentState extends State<LanguageSelectionContent> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PrivateInvestors()));
+                              builder: (context) => SettingsScreen()));
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(

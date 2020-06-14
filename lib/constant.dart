@@ -93,6 +93,8 @@ ThemeData dark = ThemeData(
 );
 
 const themeKey = "isDarkMode";
+const locationKey = "trackUserLocation";
+const equityKey = "userEquity";
 
 //Light Text Style
 //const header2 = TextStyle(fontSize: 20, color: kCharcoal);
