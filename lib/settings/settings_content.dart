@@ -1,20 +1,22 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:privateinvestorsmobile/icons/product_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/theme.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:easy_localization/easy_localization.dart';
-import '../constant.dart';
-import 'impress_page.dart';
-import 'terms_and_condition_page.dart';
-import 'data_protection_page.dart';
-import 'language_selection.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../constant.dart';
+import 'data_protection_page.dart';
 import 'feedback_selection.dart';
+import 'impress_page.dart';
+import 'language_selection.dart';
 import 'notification_page.dart';
+import 'terms_and_condition_page.dart';
 import 'tracking_information.dart';
 
 class SettingsContent extends StatefulWidget {
@@ -300,6 +302,7 @@ class _SettingsContentState extends State<SettingsContent> {
                           setState(() {
                             isSwitched = !isSwitched;
                             themeProvider.setTheme(isSwitched ? dark : light);
+                            setPreference(themeKey, isSwitched);
                           });
                         },
                       ),
@@ -655,4 +658,9 @@ class CustomTrackShape extends RoundedRectSliderTrackShape {
     final double trackWidth = parentBox.size.width * 0.99;
     return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
   }
+}
+
+void setPreference(String key, bool value) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setBool(key, value);
 }

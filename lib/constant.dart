@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // API Keys
@@ -91,6 +91,8 @@ ThemeData dark = ThemeData(
       subtitle1: dStyleBigText,
       subtitle2: dStyleDescriptionText),
 );
+
+const themeKey = "isDarkMode";
 
 //Light Text Style
 //const header2 = TextStyle(fontSize: 20, color: kCharcoal);
@@ -358,7 +360,6 @@ const kBAD = Color(0xffDA3030);
 const kNONE = Color(0xffDCDCDC);
 
 class CustomStyle {
-
   //Light Text Styles
   static TextStyle header1(BuildContext context) {
     // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
@@ -560,7 +561,7 @@ class CustomStyle {
     return TextStyle(
       fontFamily: 'MakeItSans',
       fontWeight: FontWeight.bold,
-      color:  dTextColorLight,
+      color: dTextColorLight,
       fontSize: ScreenUtil().setSp(24),
     );
   }
@@ -570,7 +571,7 @@ class CustomStyle {
     return TextStyle(
       fontFamily: 'MakeItSans',
       fontWeight: FontWeight.bold,
-      color:  dTextColorLight,
+      color: dTextColorLight,
       fontSize: ScreenUtil().setSp(18),
     );
   }

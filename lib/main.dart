@@ -1,29 +1,42 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:privateinvestorsmobile/home.dart';
 import 'package:privateinvestorsmobile/constant.dart';
+import 'package:privateinvestorsmobile/home.dart';
 import 'package:privateinvestorsmobile/theme.dart';
 import 'package:privateinvestorsmobile/wishlist/favorites.dart';
 import 'package:provider/provider.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(EasyLocalization(child: PrivateInvestors(),
-  path : "assets/translations",
-saveLocale:true ,
-supportedLocales: [
-  Locale('de'),
-  Locale('en')
-],
-));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool isDark = prefs.getBool(themeKey) ?? false;
+  ThemeData theme = isDark ? dark : light;
+
+  runApp(EasyLocalization(
+    child: PrivateInvestors(
+      theme: theme,
+    ),
+    path: "assets/translations",
+    saveLocale: true,
+    supportedLocales: [Locale('de'), Locale('en')],
+  ));
 }
 
 class PrivateInvestors extends StatelessWidget {
+  final ThemeData theme;
+  const PrivateInvestors({
+    Key key,
+    this.theme,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ThemeChanger>(
-      create: (_) => ThemeChanger(light),
+      create: (_) => ThemeChanger(theme),
       child: Material(),
     );
   }
@@ -47,7 +60,7 @@ class Material extends StatelessWidget {
       theme: themeProvider.getTheme(),
       title: 'ImmoScout Private Investors',
       localizationsDelegates: context.localizationDelegates,
-      supportedLocales:context.supportedLocales,
+      supportedLocales: context.supportedLocales,
       locale: context.locale,
       home: Home(),
     );
