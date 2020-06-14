@@ -9,6 +9,9 @@ import '../constant.dart';
 import '../results.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'location_textfield.dart';
 
 class StarteSuche extends StatefulWidget {
   @override
@@ -21,6 +24,53 @@ class _StarteSuchePage extends State<StarteSuche> {
   final String containerTitle = 'containerTitle'.tr().toString();
 
   final String containerDescription = 'containerDescription'.tr().toString();
+
+  final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+  Position _currentPosition;
+  String _currentAddress;
+
+  _getCurrentLocation() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    dynamic _userlocation = prefs.getBool('location');
+
+    if (_userlocation is bool && _userlocation == true) {
+      geolocator
+          .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+          .then((Position position) {
+        setState(() {
+          _currentPosition = position;
+        });
+        _getAddressFromLatLng();
+      }).catchError((e) {
+        print(e);
+      });
+    } else {
+      setState(() {
+        _currentAddress = '';
+      });
+    }
+  }
+
+  _getAddressFromLatLng() async {
+    try {
+      List<Placemark> p = await geolocator.placemarkFromCoordinates(
+          _currentPosition.latitude, _currentPosition.longitude);
+
+      Placemark place = p[0];
+
+      setState(() {
+        _currentAddress = "${place.locality}";
+      });
+      print(_currentAddress);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void initState() {
+    super.initState();
+    _getCurrentLocation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +106,8 @@ class _StarteSuchePage extends State<StarteSuche> {
                           minFontSize: dStyleDescriptionText.fontSize,
                           maxFontSize: styleTextHighlight.fontSize,
                           style: CustomStyle.styleTextHighlight(context)),
-                      AutoSizeText('Die Nr. 1 rund um Immobilien'.tr().toString(),
+                      AutoSizeText(
+                          'Die Nr. 1 rund um Immobilien'.tr().toString(),
                           minFontSize: dStyleDescriptionText.fontSize,
                           maxFontSize: styleText.fontSize,
                           style: CustomStyle.styleText(context)),
@@ -104,15 +155,13 @@ class _StarteSuchePage extends State<StarteSuche> {
                             primaryColor: kTeal,
                             primaryColorDark: kTeal,
                           ),
-                          child: new HomeTextField(
-                              "Region".tr().toString(),
-                              (String str) {
-                                print(str);
-                              },
-                              "Wo: Bezirk, Stadt oder Bundesland".tr().toString(),
-                              (String st) {
-                                print(st);
-                              }),
+                          child: new LocationTextField(
+                            textFieldValue: 'Wo: Bezirk, Stadt oder Bundesland'
+                                .tr()
+                                .toString(),
+                            topValue: 'Region'.tr().toString(),
+                            location: _currentAddress,
+                          ),
                         ),
 
                         SizedBox(height: ScreenUtil().setHeight(10)),

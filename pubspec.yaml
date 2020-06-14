@@ -20,6 +20,7 @@ dependencies:
   provider:
   flutter_screenutil: ^1.1.0
   intl:
+  geolocator: ^5.3.2+2
 
 dev_dependencies:
   flutter_test:
@@ -36,7 +37,6 @@ flutter:
     - assets/images/
     - assets/objects/
     - assets/translations/
-
 
   fonts:
     - family: MakeItSans
@@ -55,4 +55,3 @@ flutter:
     - family: AditionalIconsIS
       fonts:
         - asset: assets/icons/AditionalIconsIS.ttf
-

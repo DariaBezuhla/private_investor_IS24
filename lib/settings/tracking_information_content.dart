@@ -76,7 +76,7 @@ class _TrackingInformationContentState
                           child: Container(
                             padding: EdgeInsets.symmetric(),
                             child: Text(
-                              'Benachrichtigungen aktivieren'.tr().toString(),
+                              'Daten senden'.tr().toString(),
                               style: CustomStyle.styleText(context),
                             ),
                           ),
