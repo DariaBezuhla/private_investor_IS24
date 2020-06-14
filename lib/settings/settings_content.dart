@@ -8,6 +8,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../constant.dart';
+import 'impress_page.dart';
+import 'terms_and_condition_page.dart';
+import 'data_protection_page.dart';
+import 'language_selection.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'feedback_selection.dart';
+import 'notification_page.dart';
+import 'tracking_information.dart';
 
 class SettingsContent extends StatefulWidget {
   final String theme;
@@ -57,7 +65,7 @@ class _SettingsContentState extends State<SettingsContent> {
                   horizontal: ScreenUtil().setWidth(24),
                   vertical: ScreenUtil().setHeight(24)),
               child: Text(
-                'Dein Investment Profil',
+                'Dein Investment Profil'.tr().toString(),
                 style: CustomStyle.header3(context),
               ),
             ),
@@ -66,7 +74,9 @@ class _SettingsContentState extends State<SettingsContent> {
                 horizontal: ScreenUtil().setWidth(24),
               ),
               child: Text(
-                  'Für optimiertere Suchergebnisse kannst du hier dein Investment Profil konfigurieren. Damit hilfst du uns, alle Ergebnisse genau auf deine Bedürfnisse abzustimmen.',
+                  'Für optimiertere Suchergebnisse kannst du hier dein Investment Profil konfigurieren. Damit hilfst du uns, alle Ergebnisse genau auf deine Bedürfnisse abzustimmen.'
+                      .tr()
+                      .toString(),
                   style: CustomStyle.styleText(context)),
             ),
           ],
@@ -94,7 +104,7 @@ class _SettingsContentState extends State<SettingsContent> {
                     Expanded(
                       child: Container(
                         child: Text(
-                          'Eigenkapital',
+                          'Eigenkapital'.tr().toString(),
                           style: CustomStyle.header4(context),
                         ),
                       ),
@@ -111,7 +121,7 @@ class _SettingsContentState extends State<SettingsContent> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          "Maximal",
+                          "Maximal".tr().toString(),
                           style: CustomStyle.styleText(context),
                         ),
                         Spacer(),
@@ -181,7 +191,7 @@ class _SettingsContentState extends State<SettingsContent> {
                     Expanded(
                       child: Container(
                         child: Text(
-                          'Ortung',
+                          'Ortung'.tr().toString(),
                           style: CustomStyle.header4(context),
                         ),
                       ),
@@ -197,7 +207,7 @@ class _SettingsContentState extends State<SettingsContent> {
                         padding: EdgeInsets.symmetric(
                             horizontal: ScreenUtil().setWidth(24)),
                         child: Text(
-                          'Geo-Location verwenden',
+                          'Geo-Location verwenden'.tr().toString(),
                           style: CustomStyle.styleText(context),
                         ),
                       ),
@@ -254,7 +264,7 @@ class _SettingsContentState extends State<SettingsContent> {
                     Expanded(
                       child: Container(
                         child: Text(
-                          'Design',
+                          'Design'.tr().toString(),
                           style: CustomStyle.header4(context),
                         ),
                       ),
@@ -270,7 +280,7 @@ class _SettingsContentState extends State<SettingsContent> {
                         padding: EdgeInsets.symmetric(
                             horizontal: ScreenUtil().setWidth(24)),
                         child: Text(
-                          'Dark-Theme',
+                          'Dark-Theme'.tr().toString(),
                           style: CustomStyle.styleText(context),
                         ),
                       ),
@@ -320,65 +330,92 @@ class _SettingsContentState extends State<SettingsContent> {
                     padding: EdgeInsets.symmetric(
                         vertical: ScreenUtil().setHeight(10)),
                     child: Text(
-                      "Einstellungen",
+                      "Einstellungen".tr().toString(),
                       style: CustomStyle.header3(context),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: ScreenUtil().setHeight(10)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Benachrichtigungen",
-                          style: CustomStyle.styleText(context),
-                        ),
-                        IconTheme(
-                          data: theme.iconTheme,
-                          child: Icon(
-                            SystemIconsIS.is24_system_48px_chevron_right,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NotificationPage(),
+                          ));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setHeight(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Benachrichtigungen".tr().toString(),
+                            style: CustomStyle.styleText(context),
                           ),
-                        ),
-                      ],
+                          IconTheme(
+                            data: theme.iconTheme,
+                            child: Icon(
+                              SystemIconsIS.is24_system_48px_chevron_right,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: ScreenUtil().setHeight(10)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Sprachauswahl",
-                          style: CustomStyle.styleText(context),
-                        ),
-                        IconTheme(
-                          data: theme.iconTheme,
-                          child: Icon(
-                            SystemIconsIS.is24_system_48px_chevron_right,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LanguageSelection(),
+                          ));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setHeight(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Sprachauswahl".tr().toString(),
+                            style: CustomStyle.styleText(context),
                           ),
-                        ),
-                      ],
+                          IconTheme(
+                            data: theme.iconTheme,
+                            child: Icon(
+                              SystemIconsIS.is24_system_48px_chevron_right,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: ScreenUtil().setHeight(10)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Feedback zur App",
-                          style: CustomStyle.styleText(context),
-                        ),
-                        IconTheme(
-                          data: theme.iconTheme,
-                          child: Icon(
-                            SystemIconsIS.is24_system_48px_chevron_right,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FeedbackSelection(),
+                          ));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setHeight(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Feedback zur App".tr().toString(),
+                            style: CustomStyle.styleText(context),
                           ),
-                        ),
-                      ],
+                          IconTheme(
+                            data: theme.iconTheme,
+                            child: Icon(
+                              SystemIconsIS.is24_system_48px_chevron_right,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -399,13 +436,15 @@ class _SettingsContentState extends State<SettingsContent> {
                     padding: EdgeInsets.symmetric(
                         vertical: ScreenUtil().setHeight(24)),
                     child: Text(
-                      "Plus Mitgliedschaft",
+                      "Plus Mitgliedschaft".tr().toString(),
                       style: CustomStyle.header3(context),
                     ),
                   ),
                   Container(
                     child: Text(
-                      "Du möchtest immer als Erstes von neuen Objekten erfahren und exklusive Beratung? Das und vieles mehr erreichst du durch eine Plus-Mitgliedschaft, die du jetzt einen Monat lang kostenlos testen kannst. ",
+                      "Du möchtest immer als Erstes von neuen Objekten erfahren und exklusive Beratung? Das und vieles mehr erreichst du durch eine Plus-Mitgliedschaft, die du jetzt einen Monat lang kostenlos testen kannst."
+                          .tr()
+                          .toString(),
                       style: CustomStyle.styleText(context),
                     ),
                   ),
@@ -419,11 +458,18 @@ class _SettingsContentState extends State<SettingsContent> {
                           padding: EdgeInsets.symmetric(
                               vertical: ScreenUtil().setHeight(10),
                               horizontal: ScreenUtil().setWidth(20)),
-                          onPressed: () {
-                            /*...*/
+                          onPressed: () async {
+                            const url =
+                                'https://www.immobilienscout24.de/meinkonto/premium-profil-freischalten/?utm_medium=app&utm_campaign=residential_profile&utm_term=rebranding_treatment&utm_source=iphone&utm_content=account_overview_premium_cta&fbclid=IwAR3w5BaEk2ZWTLtKD4FofpcT34Zni9u_PEoc7P4z0I4t8_FNCTlrqYehc7o';
+
+                            if (await canLaunch(url)) {
+                              await launch(url, forceSafariVC: false);
+                            } else {
+                              await launch(url, forceSafariVC: true);
+                            }
                           },
                           child: Text(
-                            "Plus freischalten",
+                            "Plus freischalten".tr().toString(),
                             style: CustomStyle.styleButton(context),
                           ),
                         ),
@@ -443,103 +489,144 @@ class _SettingsContentState extends State<SettingsContent> {
                     padding: EdgeInsets.symmetric(
                         vertical: ScreenUtil().setHeight(12)),
                     child: Text(
-                      "Privacy",
+                      "Privacy".tr().toString(),
                       style: CustomStyle.header3(context),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: ScreenUtil().setHeight(10)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Impressum",
-                          style: CustomStyle.styleText(context),
-                        ),
-                        IconTheme(
-                          data: theme.iconTheme,
-                          child: Icon(
-                            SystemIconsIS.is24_system_48px_chevron_right,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ImpressPage(),
+                          ));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setHeight(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Impressum".tr().toString(),
+                            style: CustomStyle.styleText(context),
                           ),
-                        ),
-                      ],
+                          IconTheme(
+                            data: theme.iconTheme,
+                            child: Icon(
+                              SystemIconsIS.is24_system_48px_chevron_right,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: ScreenUtil().setHeight(10)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Infos zum Tracking",
-                          style: CustomStyle.styleText(context),
-                        ),
-                        IconTheme(
-                          data: theme.iconTheme,
-                          child: Icon(
-                            SystemIconsIS.is24_system_48px_chevron_right,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TrackingInformation(),
+                          ));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setHeight(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Infos zum Tracking".tr().toString(),
+                            style: CustomStyle.styleText(context),
                           ),
-                        ),
-                      ],
+                          IconTheme(
+                            data: theme.iconTheme,
+                            child: Icon(
+                              SystemIconsIS.is24_system_48px_chevron_right,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: ScreenUtil().setHeight(10)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Datenschutz",
-                          style: CustomStyle.styleText(context),
-                        ),
-                        IconTheme(
-                          data: theme.iconTheme,
-                          child: Icon(
-                            SystemIconsIS.is24_system_48px_chevron_right,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DataProtectionPage(),
+                          ));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setHeight(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Datenschutz".tr().toString(),
+                            style: CustomStyle.styleText(context),
                           ),
-                        ),
-                      ],
+                          IconTheme(
+                            data: theme.iconTheme,
+                            child: Icon(
+                              SystemIconsIS.is24_system_48px_chevron_right,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: ScreenUtil().setHeight(10)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Geschäftsbedingungen",
-                          style: CustomStyle.styleText(context),
-                        ),
-                        IconTheme(
-                          data: theme.iconTheme,
-                          child: Icon(
-                            SystemIconsIS.is24_system_48px_chevron_right,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TermsAndConditionPage(),
+                          ));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setHeight(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Geschäftsbedingungen".tr().toString(),
+                            style: CustomStyle.styleText(context),
                           ),
-                        ),
-                      ],
+                          IconTheme(
+                            data: theme.iconTheme,
+                            child: Icon(
+                              SystemIconsIS.is24_system_48px_chevron_right,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: ScreenUtil().setHeight(10)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Lizenzhinweise Dritter",
-                          style: CustomStyle.styleText(context),
-                        ),
-                        IconTheme(
-                          data: theme.iconTheme,
-                          child: Icon(
-                            SystemIconsIS.is24_system_48px_chevron_right,
+                  GestureDetector(
+                    onTap: () {
+                      showAboutDialog(context: context);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setHeight(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Lizenzhinweise Dritter".tr().toString(),
+                            style: CustomStyle.styleText(context),
                           ),
-                        ),
-                      ],
+                          IconTheme(
+                            data: theme.iconTheme,
+                            child: Icon(
+                              SystemIconsIS.is24_system_48px_chevron_right,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

@@ -46,9 +46,33 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+	<key>NSAllowsArbitraryLoads</key>
+	<true/>
+	</dict>
 	<key>LSApplicationQueriesSchemes</key>
-	<array>
+<array>
+  <string>tel</string>
+</array>
+<key>LSApplicationQueriesSchemes</key>
+<array>
 	<string>immobilienscout24</string>
+</array>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>This app needs access to location when open.</string>
+
+<key>NSLocationAlwaysUsageDescription</key>
+<string>This app needs access to location when in the background.</string>
+
+<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+<string>This app needs access to location when open and in the background.</string>
+<key>LSApplicationQueriesSchemes</key>
+<array>
+    <string>comgooglemaps</string>
+    <string>comgooglemaps-x-callback</string>
 </array>
 </dict>
 </plist>

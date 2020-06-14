@@ -61,13 +61,13 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
               //TEXT WEITERE FILTER
               (_additionalFilters == false)
                   ? AutoSizeText(
-                      "Weitere Filter",
+                      "Weitere Filter".tr().toString(),
                       minFontSize: header5.fontSize, //header5 < header4
                       maxFontSize: header4.fontSize,
                       style: header4,
                     )
                   : AutoSizeText(
-                      "Weniger Filter",
+                      "Weniger Filter".tr().toString(),
                       minFontSize: header5.fontSize,
                       maxFontSize: header4.fontSize,
                       style: header4,
@@ -322,23 +322,6 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
                             style: pressedPlausible
                                 ? styleButton
                                 : disabledButton),
-                      ),
-                    ),
-                    SizedBox(height: ScreenUtil().setHeight(10)),
-                    new ButtonTheme(
-                      minWidth: double.infinity,
-                      child: FlatButton(
-                        color: pressedPlausible ? kTeal : kBackgroundLight,
-                        padding: EdgeInsets.all(10.0),
-                        onPressed: () {
-                          setState(() {
-                            pressedPlausible = !pressedPlausible;
-                          });
-                        },
-                        child: Text("Nur plausible",
-                            style: pressedPlausible
-                                ? CustomStyle.styleButton(context)
-                                : CustomStyle.disabledButton(context)),
                       ),
                     ),
                     SizedBox(height: ScreenUtil().setHeight(10)),

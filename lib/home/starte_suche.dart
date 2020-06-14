@@ -4,7 +4,6 @@ import 'package:privateinvestorsmobile/constant.dart';
 import 'package:privateinvestorsmobile/home/home_textfield.dart';
 import 'package:privateinvestorsmobile/home/textfield_normal.dart';
 import 'package:privateinvestorsmobile/home/weitere_filter.dart';
-import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
 import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
 import '../constant.dart';
 import '../results.dart';
@@ -36,7 +35,7 @@ class _StarteSuchePage extends State<StarteSuche> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   //HEADLINE
-                  AutoSizeText('Kapitalanlagen in Deutschland',
+                  AutoSizeText('Kapitalanlagen in Deutschland'.tr().toString(),
                       maxLines: 1,
                       minFontSize: header5.fontSize,
                       style: CustomStyle.headerDarkGrey(context)),
@@ -49,15 +48,15 @@ class _StarteSuchePage extends State<StarteSuche> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      AutoSizeText('Der ',
+                      AutoSizeText('Der'.tr().toString(),
                           minFontSize: dStyleDescriptionText.fontSize,
                           maxFontSize: styleText.fontSize,
                           style: CustomStyle.styleText(context)),
-                      AutoSizeText('Marktführer:',
+                      AutoSizeText('Marktführer'.tr().toString(),
                           minFontSize: dStyleDescriptionText.fontSize,
                           maxFontSize: styleTextHighlight.fontSize,
                           style: CustomStyle.styleTextHighlight(context)),
-                      AutoSizeText(' Die Nr. 1 rund um Immobilien',
+                      AutoSizeText('Die Nr. 1 rund um Immobilien'.tr().toString(),
                           minFontSize: dStyleDescriptionText.fontSize,
                           maxFontSize: styleText.fontSize,
                           style: CustomStyle.styleText(context)),
@@ -106,11 +105,11 @@ class _StarteSuchePage extends State<StarteSuche> {
                             primaryColorDark: kTeal,
                           ),
                           child: new HomeTextField(
-                              "Region",
+                              "Region".tr().toString(),
                               (String str) {
                                 print(str);
                               },
-                              "Wo: Bezirk, Stadt oder Bundesland",
+                              "Wo: Bezirk, Stadt oder Bundesland".tr().toString(),
                               (String st) {
                                 print(st);
                               }),
@@ -128,11 +127,11 @@ class _StarteSuchePage extends State<StarteSuche> {
                               "Realestate", (String str){print(str);},"Wohnung", (String st){print(st);}
                           ),*/
                           child: new NormalTextField(
-                              "Realestate",
+                              "Realestate".tr().toString(),
                               (String str) {
                                 print(str);
                               },
-                              "Wohnung",
+                              "Wohnung".tr().toString(),
                               (String st) {
                                 print(st);
                               }),
@@ -147,11 +146,11 @@ class _StarteSuchePage extends State<StarteSuche> {
                             primaryColorDark: kTeal,
                           ),
                           child: new NormalTextField(
-                              "Budget bis",
+                              "Budget bis".tr().toString(),
                               (String str) {
                                 print(str);
                               },
-                              "100.000€",
+                              "100.000€".tr().toString(),
                               (String st) {
                                 print(st);
                               }),

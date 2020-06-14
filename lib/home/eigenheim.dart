@@ -12,9 +12,9 @@ class Eigenheim extends StatefulWidget {
 }
 
 class _EigenheimPage extends State<Eigenheim> {
-  final String textContainerTitle = "Ein Eigenheim als Anlageobjekt";
+  final String textContainerTitle = 'textContainerTitle'.tr().toString();
 
-  final String textContainerSubTitle = 'textContainerSubTitle'.tr().toString();
+  final String textContainerSubTitle =  'textContainerSubTitle'.tr().toString();
 
   final String textContainerContent = 'textContainerContent'.tr().toString();
 
@@ -74,7 +74,7 @@ class _EigenheimPage extends State<Eigenheim> {
                       onPressed: () {
                         /*...*/
                       },
-                      child: Text("Zum Finanzierungsrechner",
+                      child: Text("Zum Finanzierungsrechner".tr().toString(),
                           style: CustomStyle.styleButton(context)),
                     ),
                   ),
