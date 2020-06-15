@@ -112,7 +112,8 @@ class _LocationInputField extends State<LocationTextField> {
                               }
                               if (snapshot.hasData && !_choseLocation) {
                                 return Material(
-                                  child: _buildListView(context, snapshot.data,
+                                  child: _buildListView(context,
+                                      snapshot.data,
                                       (it) => _geoCodes = it),
                                 );
                               }
@@ -133,7 +134,7 @@ class _LocationInputField extends State<LocationTextField> {
       ValueChanged<String> onValueChanged) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: locations.length,
+      itemCount: 5,
       itemBuilder: (context, index) {
         final location = locations[index];
         return FlatButton(
