@@ -172,10 +172,7 @@ class _StarteSuchePage extends State<StarteSuche> {
                             primaryColor: kTeal,
                             primaryColorDark: kTeal,
                           ),
-                          /*child: new HomeTextField(
-                              "Realestate", (String str){print(str);},"Wohnung", (String st){print(st);}
-                          ),*/
-                          child: new NormalTextField(
+                          child: new PropertyTypeTextField(
                               "Realestate".tr().toString(),
                               (String str) {
                                 print(str);

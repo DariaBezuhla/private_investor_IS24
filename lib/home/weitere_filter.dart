@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:privateinvestorsmobile/constant.dart';
+import 'package:privateinvestorsmobile/home/textfield_normal.dart';
 import 'package:privateinvestorsmobile/icons/aditional_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'home_textfield.dart';
@@ -138,7 +139,7 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
                 visible: _investFilters,
                 child: Column(children: <Widget>[
                   //5 INPUT FIELDS FOR INVESTITIONEN
-                  new HomeTextField(
+                  new NormalTextField(
                       'Nettorendite ab'.tr().toString(),
                       (String str) {
                         print(str);
@@ -150,7 +151,7 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
 
                   SizedBox(height: ScreenUtil().setHeight(10)),
 
-                  new HomeTextField(
+                  new NormalTextField(
                       'Kaufpreisentwicklung'.tr().toString(),
                       (String str) {
                         print(str);
@@ -162,7 +163,7 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
 
                   SizedBox(height: ScreenUtil().setHeight(10)),
 
-                  new HomeTextField(
+                  new NormalTextField(
                       'Mietpreisentwicklung'.tr().toString(),
                       (String str) {
                         print(str);
@@ -174,7 +175,7 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
 
                   SizedBox(height: ScreenUtil().setHeight(10)),
 
-                  new HomeTextField(
+                  new NormalTextField(
                       'Faktor'.tr().toString(),
                       (String str) {
                         print(str);
@@ -186,7 +187,7 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
 
                   SizedBox(height: ScreenUtil().setHeight(10)),
 
-                  new HomeTextField(
+                  new NormalTextField(
                       'Preis pro m2'.tr().toString(),
                       (String str) {
                         print(str);
@@ -246,7 +247,7 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
                   children: <Widget>[
                     //2 TEXT FIELDS FOR IMMOBILIE
 
-                    new HomeTextField(
+                    new NormalTextField(
                         'Zimmer'.tr().toString(),
                         (String str) {
                           print(str);
@@ -258,7 +259,7 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
 
                     SizedBox(height: ScreenUtil().setHeight(10)),
 
-                    new HomeTextField(
+                    new NormalTextField(
                         'Größe'.tr().toString(),
                         (String str) {
                           print(str);
