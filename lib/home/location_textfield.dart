@@ -130,11 +130,13 @@ class _LocationInputField extends State<LocationTextField> {
     );
   }
 
-  Widget _buildListView(BuildContext context, List<Location> locations,
-      ValueChanged<String> onValueChanged) {
-    return ListView.builder(
+Widget _buildListView(BuildContext context, List<Location> locations,
+    ValueChanged<String> onValueChanged) {
+  return ConstrainedBox(
+    constraints: BoxConstraints(maxHeight: ScreenUtil().setHeight(150)),
+    child: ListView.builder(
       shrinkWrap: true,
-      itemCount: 5,
+      itemCount: locations.length,
       itemBuilder: (context, index) {
         final location = locations[index];
         return FlatButton(
@@ -147,8 +149,9 @@ class _LocationInputField extends State<LocationTextField> {
           ),
         );
       },
-    );
-  }
+    ),
+  );
+}
 
   void applyStateChanges(Location location) {
     setState(() {
