@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:privateinvestorsmobile/home/home_textfield.dart';
 import 'appBar/app_bar_main.dart';
 import 'bottomBar/bottom_bar.dart';
 import 'home/eigenheim.dart';
@@ -23,14 +22,6 @@ class _HomePage extends State<Home> {
     //Set the fit size (fill in the screen size of the device in the design)
     //If the design is based on the size of the iPhone6 ​​(iPhone6 ​​750*1334)
     ScreenUtil.init(context, width: 375, height: 667);
-
-    /*//
-    GestureDetector(
-        onTap: () {
-      setState(() {
-        _lights = true;
-      }
-      );*/
 
 
     return Scaffold(

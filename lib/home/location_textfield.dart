@@ -106,6 +106,7 @@ class _LocationInputField extends State<LocationTextField> {
                                   ),
                                 ],
                               );
+                              //
                             default:
                               if (snapshot.hasError) {
                                 return Text("Error: ${snapshot.error}");
