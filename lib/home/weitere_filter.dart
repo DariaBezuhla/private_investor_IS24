@@ -4,7 +4,6 @@ import 'package:privateinvestorsmobile/constant.dart';
 import 'package:privateinvestorsmobile/home/textfield_normal.dart';
 import 'package:privateinvestorsmobile/icons/aditional_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
-import 'home_textfield.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../constant.dart';
 import 'package:easy_localization/easy_localization.dart';
