@@ -55,7 +55,7 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
                         size: ScreenUtil().setHeight(27),
                       ),
                     ),
-
+//
               SizedBox(height: ScreenUtil().setHeight(10)),
 
               //TEXT WEITERE FILTER
@@ -63,20 +63,20 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
                   ? AutoSizeText(
                       "Weitere Filter".tr().toString(),
                       minFontSize: header5.fontSize, //header5 < header4
-                      maxFontSize: header4.fontSize,
-                      style: header4,
+                      maxFontSize: header2.fontSize,
+                      style: header2,
                     )
                   : AutoSizeText(
                       "Weniger Filter".tr().toString(),
                       minFontSize: header5.fontSize,
-                      maxFontSize: header4.fontSize,
-                      style: header4,
+                      maxFontSize: header2.fontSize,
+                      style: header2,
                     ),
 
-              SizedBox(height: ScreenUtil().setHeight(10)),
+              SizedBox(height: ScreenUtil().setHeight(20)),
 
               //DOWN/UP ICON
-              (_additionalFilters == false)
+              /*(_additionalFilters == false)
                   ? Flexible(
                       child: Icon(
                         SystemIconsIS.is24_system_48px_chevron_down,
@@ -89,7 +89,7 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
                         color: kCharcoal,
                         size: ScreenUtil().setHeight(27),
                       ),
-                    ),
+                    ),*/
             ]),
       ),
 
