@@ -177,10 +177,7 @@ class _StarteSuchePage extends State<StarteSuche> {
                               (String str) {
                                 print(str);
                               },
-                              "Wohnung".tr().toString(),
-                              (String st) {
-                                print(st);
-                              }),
+                          ),
                         ),
 
                         SizedBox(height: ScreenUtil().setHeight(10)),

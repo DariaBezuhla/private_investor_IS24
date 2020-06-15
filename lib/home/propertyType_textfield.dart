@@ -1,33 +1,27 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:privateinvestorsmobile/home/location.dart';
-import 'auto_complete_location.dart';
 import '../constant.dart';
 
 class PropertyTypeTextField extends StatefulWidget {
   final String topValue;
-  final String textFieldValue;
   ValueChanged<String> customHead;
-  ValueChanged<String> customWert;
 
   PropertyTypeTextField(
-      this.topValue, this.customHead, this.textFieldValue, this.customWert);
+      this.topValue, this.customHead);
 
   @override
   State<StatefulWidget> createState() => new _HomeInputField();
 }
 
 class _HomeInputField extends State<PropertyTypeTextField> {
+  List<String> propertyTypes = [
+    "New Building",
+    "Apartment",
+    "House",
+    "Everything",
+  ];
 
-
-  void initState() {
-    super.initState();
-  }
-
-  void dispose() {
-    super.dispose();
-  }
+  String dropdownValue = 'New Building';
 
   @override
   Widget build(BuildContext context) {
@@ -42,39 +36,35 @@ class _HomeInputField extends State<PropertyTypeTextField> {
               style: CustomStyle.textFieldHeader(context),
             ),
           ),
-          SizedBox(
-            height: ScreenUtil().setHeight(10),
-          ),
+          SizedBox(height: ScreenUtil().setHeight(10)),
           Theme(
             data: new ThemeData(
               primaryColor: kTeal,
               primaryColorDark: kTeal,
             ),
-            child: Column(
-              children: <Widget>[
-                new TextFormField(
-
-                    decoration: new InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: kLightGrey,
-                          ),
-                        ),
-                        labelText: widget.textFieldValue,
-                        labelStyle: CustomStyle.inputPlaceholder(context)),
-
-                    ),
-
-
-              ],
+            child: DropdownButtonFormField<String>(
+                decoration: new InputDecoration(
+                    border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                    color: kDivider,
+                  ),
+                )),
+                value: dropdownValue,
+                onChanged: (String newValue) {
+                      setState(() {
+                        dropdownValue = newValue;
+                      });
+                    },
+              items: propertyTypes.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
             ),
           ),
         ],
       ),
     );
   }
-
-
-
-
 }
