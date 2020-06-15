@@ -95,7 +95,7 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
                 ],
               ),
             ),
-
+//
             //HORIZONTAL LINE
             Container(
                 child: new SizedBox(
