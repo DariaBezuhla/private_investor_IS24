@@ -4,7 +4,11 @@ import 'package:privateinvestorsmobile/home.dart';
 import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../constant.dart';
-import '../constant.dart';
+import 'package:easy_localization/easy_localization.dart';
+
+final String containerTitle = 'containerTitle'.tr().toString();
+final String checkoutText1 = 'checkoutText1'.tr().toString();
+final String checkoutText2 = 'checkoutText2'.tr().toString();
 
 class NoSavedItems extends StatelessWidget {
   @override
@@ -27,12 +31,12 @@ class NoSavedItems extends StatelessWidget {
                   ),
                 ),
               ),
-              Text('No saved objekts', style: CustomStyle.header4(context)),
+              Text('Keine gespeicherte Objekte'.tr().toString(), style: CustomStyle.header4(context)),
               SizedBox(
                 height: ScreenUtil().setHeight(20),
               ),
-              Text('''Check out our latest results for you 
-             and save them for later! ''', style: styleText),
+              Text(checkoutText1, style: styleText),
+              Text(checkoutText2, style: styleText),
               SizedBox(
                 height: ScreenUtil().setHeight(20),
               ),
@@ -52,7 +56,7 @@ class NoSavedItems extends StatelessWidget {
                         }),
                       );
                     },
-                    child: Text('Start searching',
+                    child: Text(containerTitle,
                         style: CustomStyle.styleButton(context)),
                   ),
                 ),

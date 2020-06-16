@@ -73,6 +73,16 @@
     "Die Nr. 1 rund um Immobilien":"Die Nr. 1 rund um Immobilien",
     "trackingText":"Der Schutz deiner Privatsphäre hat fuer uns hoechste Prioritaet.Wir verarbeiten deine Daten hauptsaechlich, um dir das Angebot und die damit verbundenen Funktionen zur Verfuegung zu stellen.Daneben erfolgen noch einige weitere Verarbeitungen fuer statistische Auswertungen,Ausspielung von interessensgerechten Werbeinhalten sowie fuer die Sicherheit und den Schutz vor Missbrauch.Dafuer greifen wir auf Technologien von Dienstleistern zu.Die Weitergabe von Nutzungsdaten an diese Dienstleister erfolg pseudonymisiert und kann somit keiner Person zugeordnet werden.Weitere Hinweise zur Verwendung deiner Daten findest du in den Datenschutzinformationen.Wenn du moechtest, dass die App keinerlei Nutzungsdaten speichert oder verwendet,kannst du es mit dem Schalter deaktivieren.Bitte beruecksichtige,dass nur eine eingeschraenkte, nicht optimale Nutzbarkeit der App gegeben ist, wenn uns die Daten nicht vorliegen.",
     "Tracking Information": "Tracking Information",
-    "Daten senden": "Send data",
-    "Benachrichtigungen": "Benachrichtungen"
+    "Benachrichtigungen": "Benachrichtungen",
+    "Keine gespeicherte Objekte":"Keine gespeicherte Objekte",
+    "checkoutText1":"Guck dir die neuesten Ergebnisse an",
+    "checkoutText2":"und speicher sie später",
+    "Kaufpreis":"Kaufpreis",
+    "TOP ANGEBOT": "TOP ANGEBOT",
+    "GUTES ANGEBOT": "GUTES ANGEBOT",
+    "FAIRES ANGEBOT": "FAIRES ANGEBOT",
+    "ETWAS TEUER": "ETWAS TEUER",
+    "TEUER":"TEUER",
+    "KEINE ANGABE": "KEINE ANGABE"
+
 }

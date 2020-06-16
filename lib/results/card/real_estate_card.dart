@@ -10,6 +10,7 @@ import '../../icons/system_icons_i_s_icons.dart';
 import '../../results/card/real_estate_detail_context.dart';
 import '../../results/card/real_estate_object.dart';
 import '../../results/card/view_states.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 //Must be Stateful for saving in Favorite List (Wish List)
 class RealEstateCard extends StatefulWidget {
@@ -139,7 +140,7 @@ class _RealEstateCardState extends State<RealEstateCard> {
               ),
             ),
             Text(
-              'Kaufpreis',
+              'Kaufpreis'.tr().toString(),
               style: styleDescription,
               textAlign: TextAlign.start,
             ),
@@ -186,7 +187,7 @@ class _RealEstateCardState extends State<RealEstateCard> {
               ),
             ),
             Text(
-              'Preis pro m²',
+              'Preis pro m2'.tr().toString(),
               style: styleDescription,
               textAlign: TextAlign.start,
             ),
@@ -277,7 +278,7 @@ class _RealEstateCardState extends State<RealEstateCard> {
                                 textAlign: TextAlign.left,
                               ),
                               Text(
-                                'Mietpreis-entwicklung',
+                                'Mietpreisentwicklung'.tr().toString(),
                                 textAlign: TextAlign.left,
                                 style: styleDescription,
                               ),
@@ -308,7 +309,7 @@ class _RealEstateCardState extends State<RealEstateCard> {
                                 textAlign: TextAlign.left,
                               ),
                               Text(
-                                'Kaufpreis-entwicklung',
+                                'Kaufpreisentwicklung'.tr().toString(),
                                 textAlign: TextAlign.left,
                                 style: styleDescription,
                               ),

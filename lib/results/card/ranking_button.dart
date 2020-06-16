@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:privateinvestorsmobile/results/card/rating.dart';
 
 import '../../constant.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class RatingButton extends StatelessWidget {
   final String objectRating;
@@ -150,37 +151,37 @@ class RatingButton extends StatelessWidget {
     switch (rating) {
       case Rating.TOP:
         {
-          return "TOP ANGEBOT";
+          return "TOP ANGEBOT".tr().toString();
         }
         break;
       case Rating.GOOD:
         {
-          return "GUTES ANGEBOT";
+          return "GUTES ANGEBOT".tr().toString();
         }
         break;
       case Rating.FAIR:
         {
-          return "FAIRES ANGEBOT";
+          return "FAIRES ANGEBOT".tr().toString();
         }
         break;
       case Rating.POOR:
         {
-          return "ETWAS TEUER";
+          return "ETWAS TEUER".tr().toString();
         }
         break;
       case Rating.BAD:
         {
-          return "TEUER";
+          return "TEUER".tr().toString();
         }
         break;
       case Rating.NONE:
         {
-          return "KEINE ANGABE";
+          return "KEINE ANGABE".tr().toString();
         }
         break;
       default:
         {
-          return "KEINE ANGABE";
+          return "KEINE ANGABE".tr().toString();
         }
     }
   }
