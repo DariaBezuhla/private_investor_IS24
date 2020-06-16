@@ -354,11 +354,11 @@ var logo = Image.asset(
 );
 
 //RatingButton colors
-const kTOP = Color(0xff155239);
-const kGOOD = Color(0xff259D58);
-const kFAIR = Color(0xff74D99F);
-const kPOOR = Color(0xffF4CA64);
-const kBAD = Color(0xffDA3030);
+const kTOP = Color(0xff538974);
+const kGOOD = Color(0xff69C18E);
+const kFAIR = Color(0xff9AEABC);
+const kPOOR = Color(0xffF5D994);
+const kBAD = Color(0xffF59898);
 const kNONE = Color(0xffDCDCDC);
 
 class CustomStyle {
@@ -413,6 +413,16 @@ class CustomStyle {
     );
   }
 
+  static TextStyle header5(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.bold,
+      color: kCharcoal,
+      fontSize: ScreenUtil().setSp(13),
+    );
+  }
+
   static TextStyle styleBigText(BuildContext context) {
     // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
     return TextStyle(
@@ -443,11 +453,21 @@ class CustomStyle {
     );
   }
 
+  static TextStyle styleTextForTablets(BuildContext context) {
+    // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
+    return TextStyle(
+      fontFamily: 'MakeItSans',
+      fontWeight: FontWeight.bold,
+      color: kCharcoal,
+      fontSize: ScreenUtil().setSp(10),
+    );
+  }
+
   static TextStyle rankingText(BuildContext context) {
     // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
     return TextStyle(
       color: Colors.white,
-      fontWeight: FontWeight.normal,
+      fontWeight: FontWeight.bold,
       fontSize: ScreenUtil().setSp(10),
     );
   }

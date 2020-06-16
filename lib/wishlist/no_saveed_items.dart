@@ -35,8 +35,8 @@ class NoSavedItems extends StatelessWidget {
               SizedBox(
                 height: ScreenUtil().setHeight(20),
               ),
-              Text(checkoutText1, style: styleText),
-              Text(checkoutText2, style: styleText),
+              Text(checkoutText1, style: CustomStyle.styleButton(context)),
+              Text(checkoutText2, style: CustomStyle.styleButton(context)),
               SizedBox(
                 height: ScreenUtil().setHeight(20),
               ),

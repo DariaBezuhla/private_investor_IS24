@@ -25,6 +25,8 @@ class AppBarSliverBigState extends State<AppBarSliverBig> {
 
   @override
   Widget build(BuildContext context) {
+    var iconSizeForTablets = 45.0;
+    var iconSize = MediaQuery.of(context).size.height > 1300.0 ? iconSizeForTablets : ScreenUtil().setWidth (24);
     var backgroundColor = (widget.theme == 'Dark') ? dHeaderFooter : kCard;
     var iconColor = (widget.theme == 'Dark') ? dIconColor : kCharcoal;
     var logoApp = (widget.theme == 'Dark') ? dLogo : logo;
@@ -34,7 +36,7 @@ class AppBarSliverBigState extends State<AppBarSliverBig> {
     var iconArrowLeft = IconButton(
         icon: Icon(
           SystemIconsIS.is24_system_48px_chevron_left,
-          size: ScreenUtil().setWidth(24),
+          size: iconSize,
           color: kIcon,
         ),
         onPressed: () {
@@ -45,7 +47,7 @@ class AppBarSliverBigState extends State<AppBarSliverBig> {
     var iconSort = IconButton(
       icon: Icon(
         SystemIconsIS.is24_system_48px_rearrange,
-        size: ScreenUtil().setWidth(24),
+        size: iconSize,
         color: iconColor,
       ),
       onPressed: null,
@@ -62,7 +64,7 @@ class AppBarSliverBigState extends State<AppBarSliverBig> {
               value: choice,
               child: Text(
                 choice,
-                style: styleText,
+                style: CustomStyle.styleText(context),
               ),
             );
           }).toList();

@@ -121,7 +121,7 @@ class _ExposeContentState extends State<ExposeContent> {
                       title: _exposeObject?.title ?? "",
                       viewState: ViewState.enlarged,
                       largeFontSize: ScreenUtil().setHeight(18),
-                      textStyle: header4,
+                      textStyle: CustomStyle.header4(context),
                     ),
                   ),
                   SizedBox(height: ScreenUtil().setHeight(10)),
@@ -131,7 +131,7 @@ class _ExposeContentState extends State<ExposeContent> {
                         width: MediaQuery.of(context).size.width * 0.75,
                         child: Text(
                           _exposeObject?.address?.getQuarter() ?? "",
-                          style: styleText,
+                          style:  CustomStyle.styleText(context),
                           textAlign: TextAlign.left,
                         ),
                       ),
@@ -337,7 +337,7 @@ class _ExposeContentState extends State<ExposeContent> {
                         padding: EdgeInsets.all(ScreenUtil().setHeight(24)),
                         child: Text(
                           'Weitere Fragen zur Immobilie?',
-                          style: header4,
+                          style: CustomStyle.header4(context),
                         ),
                       ),
                     ),
@@ -364,7 +364,7 @@ class _ExposeContentState extends State<ExposeContent> {
                             forceSafariVC: true);
                       }
                     },
-                    child: Text("Anbieter kontaktieren", style: styleButton),
+                    child: Text("Anbieter kontaktieren", style:  CustomStyle.styleButton(context),),
                   ),
                 ),
               ),
@@ -388,12 +388,12 @@ class _ExposeContentState extends State<ExposeContent> {
                   : "--- ${currencyFormatter.currencySymbol}",
               viewState: ViewState.enlarged,
               largeFontSize: ScreenUtil().setHeight(18),
-              textStyle: header4,
+              textStyle: CustomStyle.header4(context),
             ),
           ),
           Text(
             title,
-            style: styleDescriptionText,
+            style: CustomStyle.descriptionText(context),
           )
         ],
       ),
@@ -413,7 +413,7 @@ class _ExposeContentState extends State<ExposeContent> {
                   : "--- ${currencyFormatter.currencySymbol}",
               viewState: ViewState.enlarged,
               largeFontSize: ScreenUtil().setHeight(18),
-              textStyle: header4,
+              textStyle: CustomStyle.header4(context),
             ),
           ),
           Text(
@@ -438,7 +438,7 @@ class _ExposeContentState extends State<ExposeContent> {
           ),
           Text(
             title,
-            style: styleDescriptionText,
+            style: CustomStyle.descriptionText(context),
           )
         ],
       ),
@@ -454,11 +454,11 @@ class _ExposeContentState extends State<ExposeContent> {
             value != null
                 ? "${numberFormatter.format(value)}${unit != null ? ' $unit' : ''}"
                 : "---${unit != null ? ' $unit' : ''}",
-            style: header4,
+            style: CustomStyle.header4(context),
           ),
           Text(
             title,
-            style: styleDescriptionText,
+            style: CustomStyle.descriptionText(context),
           )
         ],
       ),
@@ -486,11 +486,11 @@ class _ExposeContentState extends State<ExposeContent> {
             children: <Widget>[
               Text(
                 value != null ? "${numberFormatter.format(value)} %" : "--- %",
-                style: header4,
+                style: CustomStyle.header4(context),
               ),
               Text(
                 title,
-                style: styleDescriptionText,
+                style: CustomStyle.descriptionText(context),
               )
             ],
           ),
@@ -510,7 +510,7 @@ class _ExposeContentState extends State<ExposeContent> {
             ),
             child: Text(
               e,
-              style: TextStyle(color: Colors.grey[600]),
+              style:  CustomStyle.descriptionText(context),//TextStyle(color: Colors.grey[600]),
             ),
           ),
         )
@@ -539,7 +539,7 @@ class _ExposeContentState extends State<ExposeContent> {
                       bottom: ScreenUtil().setHeight(10.0)),
                   child: Text(
                     title,
-                    style: header4,
+                    style: CustomStyle.header4(context),
                   ),
                 ),
               ),
@@ -556,7 +556,7 @@ class _ExposeContentState extends State<ExposeContent> {
             description.toString().contains("null")
                 ? "Keine Angaben"
                 : "${description}",
-            style: styleText,
+            style: CustomStyle.styleText(context),
           ),
         ),
         Container(

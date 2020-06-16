@@ -21,9 +21,7 @@ class Calculator extends StatefulWidget{
  class _CalculatorPage extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
-    ScreenUtil.init(context, width: width, height: height);
+
 
     return Scaffold(
       appBar: AppBarWithArrow(),

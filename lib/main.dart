@@ -35,6 +35,7 @@ class PrivateInvestors extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ChangeNotifierProvider<ThemeChanger>(
       create: (_) => ThemeChanger(theme),
       child: Material(),

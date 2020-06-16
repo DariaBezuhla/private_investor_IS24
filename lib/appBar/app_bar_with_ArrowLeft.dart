@@ -15,11 +15,11 @@ class AppBarWithArrow extends StatelessWidget implements PreferredSizeWidget  {
 
   @override
   Widget build(BuildContext context) {
-
+    var iconSize = MediaQuery.of(context).size.height > 1300.0 ? 45.0 : ScreenUtil().setWidth (24);
     var iconArrowLeft = IconButton(
         icon: Icon(
           SystemIconsIS.is24_system_48px_chevron_left,
-          size: ScreenUtil().setWidth (24),
+          size: iconSize,
           color: kIcon,
         ),
         onPressed: () {

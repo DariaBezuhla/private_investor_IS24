@@ -96,7 +96,7 @@ Investor erwarten ?''',
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text('Zum Kostenrechner', style: styleButton),
+                      Text('Zum Kostenrechner', style: CustomStyle.styleButton(context)),
                     ],
                   ),
                   onPressed: () {

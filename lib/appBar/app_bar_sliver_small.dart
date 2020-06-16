@@ -15,11 +15,11 @@ class AppBarSliverSmall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = 56; //<-- NOT ScreenUtil().setWidth(24), It must be const 56.0
-
+    var iconSize = MediaQuery.of(context).size.height > 1300.0 ? 45.0 : ScreenUtil().setWidth (24);
     var iconArrowLeft = IconButton(
         icon: Icon(
           SystemIconsIS.is24_system_48px_chevron_left,
-          size: ScreenUtil().setWidth(24),
+          size: iconSize,
           color: kCharcoal,
         ),
         onPressed: () {

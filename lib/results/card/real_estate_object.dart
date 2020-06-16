@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:core';
 
+import 'package:privateinvestorsmobile/results/card/subtypes/factor.dart';
+
 import 'subtypes/address.dart';
 import 'subtypes/living_space.dart';
 import 'subtypes/price.dart';
@@ -21,6 +23,7 @@ class RealEstateObject {
   PricePerSqm pricePerSqm;
   PriceTrend priceTrend;
   RentTrend rentTrend;
+  Factor factor;
 
 
   RealEstateObject( {
@@ -35,6 +38,7 @@ class RealEstateObject {
     this.pictureUrl = 'https://dummyimage.com/640x360/fff/aaa',
     this.address,
     this.rating,
+    this.factor,
   });
 
   factory RealEstateObject.fromJson(Map<String, dynamic> json) {
@@ -50,6 +54,7 @@ class RealEstateObject {
         address: Address.fromJson(json['address']),
         pictureUrl: json['pictureUrl'],
         rating: json['rating'],
+      factor: Factor.fromJson(json['factor']),
     );
   }
 }
