@@ -83,6 +83,9 @@
     "FAIRES ANGEBOT": "FAIRES ANGEBOT",
     "ETWAS TEUER": "ETWAS TEUER",
     "TEUER":"TEUER",
-    "KEINE ANGABE": "KEINE ANGABE"
+    "KEINE ANGABE": "KEINE ANGABE",
+    "KaufpreisentwicklungRes":"Kaufpreis-\nentwicklung",
+    "MietpreisentwicklungRes":"Mietpreis-\nentwicklung",
+    "X-fache Miete":"X-fache Miete"
 
 }

@@ -81,6 +81,9 @@
     "FAIRES ANGEBOT": "FAIR DEAL",
     "ETWAS TEUER": "PRICIER",
     "TEUER":"EXPENSIVE",
-    "KEINE ANGABE": "NOT SPECIFIED"
+    "KEINE ANGABE": "NOT SPECIFIED",
+    "KaufpreisentwicklungRes":"Price Trend",
+    "MietpreisentwicklungRes":"Rent Trend",
+    "X-fache Miete":"Rent Factor"
     
 }
