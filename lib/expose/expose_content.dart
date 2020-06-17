@@ -49,6 +49,7 @@ class _ExposeContentState extends State<ExposeContent> {
   @override
   Widget build(BuildContext context) {
     bool isPressed = Favorites.savedFavorites.contains(widget.house.id);
+    Size size = MediaQuery.of(context).size;
     var pressedFavoriteIcon = Icon(
       Icons.favorite,
       size: ScreenUtil().setWidth(24),
@@ -131,7 +132,7 @@ class _ExposeContentState extends State<ExposeContent> {
                         width: MediaQuery.of(context).size.width * 0.75,
                         child: Text(
                           _exposeObject?.address?.getQuarter() ?? "",
-                          style:  CustomStyle.styleText(context),
+                          style: CustomStyle.styleText(context),
                           textAlign: TextAlign.left,
                         ),
                       ),
@@ -316,7 +317,7 @@ class _ExposeContentState extends State<ExposeContent> {
           padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(24)),
           child: (_exposeObject?.coordinate != null)
               ? _buildStaticMaps(_exposeObject.coordinate.latitude,
-                  _exposeObject.coordinate.longitude)
+                  _exposeObject.coordinate.longitude, size)
               : new Container(
                   width: 0,
                   height: 0,
@@ -364,7 +365,10 @@ class _ExposeContentState extends State<ExposeContent> {
                             forceSafariVC: true);
                       }
                     },
-                    child: Text("Anbieter kontaktieren", style:  CustomStyle.styleButton(context),),
+                    child: Text(
+                      "Anbieter kontaktieren",
+                      style: CustomStyle.styleButton(context),
+                    ),
                   ),
                 ),
               ),
@@ -510,7 +514,8 @@ class _ExposeContentState extends State<ExposeContent> {
             ),
             child: Text(
               e,
-              style:  CustomStyle.descriptionText(context),//TextStyle(color: Colors.grey[600]),
+              style: CustomStyle.descriptionText(
+                  context), //TextStyle(color: Colors.grey[600]),
             ),
           ),
         )
@@ -571,31 +576,39 @@ class _ExposeContentState extends State<ExposeContent> {
   }
 
   // renders Static Google Maps Image, if lat and lng can be found in coordinate
-  Widget _buildStaticMaps(num lat, num lng) {
-    if ((lat < -90 || lat > 90) || (lng < -180 || lng > 180)) {
-      return Container(
-        width: 0,
-        height: 0,
-      );
-    }
-
+  Widget _buildStaticMaps(num lat, num lng, Size size) {
     return GestureDetector(
-      child: Container(
-        // padding: EdgeInsets.symmetric(horizontal: 24),
-        child: new Image.network(
-          'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=15&size=720x400&markers=color:0x00FFD0|$lat,$lng&key=$GOOGLE_MAPS_API',
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) return child;
-            return Center(
-              child: CircularProgressIndicator(
-                value: loadingProgress.expectedTotalBytes != null
-                    ? loadingProgress.cumulativeBytesLoaded /
-                        loadingProgress.expectedTotalBytes
-                    : null,
+      child: Stack(
+        children: <Widget>[
+          Container(
+            child: new Image.network(
+              'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=15&size=720x400&key=$GOOGLE_MAPS_API',
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Center(
+                  child: CircularProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes
+                        : null,
+                  ),
+                );
+              },
+            ),
+          ),
+          Positioned(
+            top: 35,
+            left: size.width * 0.3125,
+            child: Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                color: kTeal.withOpacity(0.5),
+                shape: BoxShape.circle
               ),
-            );
-          },
-        ),
+            ),
+          )
+        ],
       ),
       onTap: () async {
         final String googleMapsUrl = "comgooglemaps://?center=$lat,$lng";
