@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import '../constant.dart';
+
 import '../appBar/app_bar_with_ArrowLeft.dart';
 import '../bottomBar/bottom_bar.dart';
+import '../constant.dart';
 import 'data_protection_page_content.dart';
 
 class DataProtectionPage extends StatefulWidget {
-  final String theme;
+  final ThemeData theme;
   final int selectedIndex;
 
   const DataProtectionPage({

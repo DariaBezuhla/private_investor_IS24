@@ -16,6 +16,12 @@ class ThemeChanger with ChangeNotifier {
     notifyListeners();
   }
 
+  getDisplayTheme(context) {
+    return _themeData == dark
+        ? CustomStyle.dark(context)
+        : CustomStyle.light(context);
+  }
+
   setThemeFromSystem(BuildContext context) {
     final Brightness brightnessValue =
         MediaQuery.of(context).platformBrightness;

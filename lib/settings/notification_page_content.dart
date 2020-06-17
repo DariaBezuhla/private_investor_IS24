@@ -1,14 +1,15 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:privateinvestorsmobile/theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
-import 'package:easy_localization/easy_localization.dart';
-import '../constant.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:privateinvestorsmobile/theme.dart';
+import 'package:provider/provider.dart';
+
+import '../constant.dart';
 
 class NotificationPageContent extends StatefulWidget {
-  final String theme;
+  final ThemeData theme;
   const NotificationPageContent({
     Key key,
     this.theme,

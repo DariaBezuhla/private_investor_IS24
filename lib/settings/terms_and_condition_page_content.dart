@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class TermsAndConditionPageContent extends StatefulWidget {
-  final String theme;
+  final ThemeData theme;
   const TermsAndConditionPageContent({
     Key key,
     this.theme,

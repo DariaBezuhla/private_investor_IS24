@@ -19,7 +19,7 @@ import 'terms_and_condition_page.dart';
 import 'tracking_information.dart';
 
 class SettingsContent extends StatefulWidget {
-  final String theme;
+  final ThemeData theme;
 
   const SettingsContent({
     Key key,
@@ -60,10 +60,7 @@ class _SettingsContentState extends State<SettingsContent> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeChanger>(context);
-    ThemeData theme = themeProvider.getTheme();
-    print("theme: " + theme.toString());
 
-    //var colorIcon = (widget.theme == 'Dark') ? dIconColor : kCharcoal;
     bool isSwitched = false;
 
     return ListView(
@@ -77,10 +74,10 @@ class _SettingsContentState extends State<SettingsContent> {
               padding: EdgeInsets.symmetric(
                   horizontal: ScreenUtil().setWidth(24),
                   vertical: ScreenUtil().setHeight(24)),
-              child: Text(
-                'Dein Investment Profil'.tr().toString(),
-                style: CustomStyle.header3(context),
-              ),
+              child: Text('Dein Investment Profil'.tr().toString(),
+                  style: widget
+                      .theme.textTheme.headline3 //CustomStyle.header3(context),
+                  ),
             ),
             Container(
               padding: EdgeInsets.symmetric(
@@ -90,7 +87,7 @@ class _SettingsContentState extends State<SettingsContent> {
                   'Für optimiertere Suchergebnisse kannst du hier dein Investment Profil konfigurieren. Damit hilfst du uns, alle Ergebnisse genau auf deine Bedürfnisse abzustimmen.'
                       .tr()
                       .toString(),
-                  style: CustomStyle.styleText(context)),
+                  style: widget.theme.textTheme.bodyText2),
             ),
           ],
         ),
@@ -108,7 +105,7 @@ class _SettingsContentState extends State<SettingsContent> {
                           vertical: ScreenUtil().setHeight(24),
                           horizontal: ScreenUtil().setWidth(24)),
                       child: IconTheme(
-                        data: theme.primaryIconTheme,
+                        data: widget.theme.primaryIconTheme,
                         child: Icon(
                           ProductIconsIS.is24_product_48px_book_with_euro_sign,
                         ),
@@ -118,7 +115,7 @@ class _SettingsContentState extends State<SettingsContent> {
                       child: Container(
                         child: Text(
                           'Eigenkapital'.tr().toString(),
-                          style: CustomStyle.header4(context),
+                          style: widget.theme.textTheme.headline4,
                         ),
                       ),
                     ),
@@ -135,12 +132,12 @@ class _SettingsContentState extends State<SettingsContent> {
                       children: [
                         Text(
                           "Maximal".tr().toString(),
-                          style: CustomStyle.styleText(context),
+                          style: widget.theme.textTheme.bodyText2,
                         ),
                         Spacer(),
                         Text(
                           mn.toInt().toString() + ' €',
-                          style: CustomStyle.styleText(context),
+                          style: widget.theme.textTheme.bodyText2,
                         ),
                       ],
                     ),
@@ -175,7 +172,7 @@ class _SettingsContentState extends State<SettingsContent> {
                 padding: EdgeInsets.symmetric(
                     vertical: ScreenUtil().setHeight(10),
                     horizontal: ScreenUtil().setWidth(24)),
-                child: Divider(color: theme.dividerColor),
+                child: Divider(color: widget.theme.dividerColor),
               ),
             ],
           ),
@@ -192,7 +189,7 @@ class _SettingsContentState extends State<SettingsContent> {
                     vertical: ScreenUtil().setHeight(24)),
                 child: Text(
                   "Einstellungen".tr().toString(),
-                  style: CustomStyle.header3(context),
+                  style: widget.theme.textTheme.headline3,
                 ),
               ),
               Row(
@@ -202,7 +199,7 @@ class _SettingsContentState extends State<SettingsContent> {
                         vertical: ScreenUtil().setHeight(24),
                         horizontal: ScreenUtil().setWidth(24)),
                     child: IconTheme(
-                      data: theme.primaryIconTheme,
+                      data: widget.theme.primaryIconTheme,
                       child: Icon(
                         ProductIconsIS.is24_product_48px_location,
                       ),
@@ -212,7 +209,7 @@ class _SettingsContentState extends State<SettingsContent> {
                     child: Container(
                       child: Text(
                         'Ortung'.tr().toString(),
-                        style: CustomStyle.header4(context),
+                        style: widget.theme.textTheme.headline4,
                       ),
                     ),
                   ),
@@ -226,7 +223,7 @@ class _SettingsContentState extends State<SettingsContent> {
                           horizontal: ScreenUtil().setWidth(24)),
                       child: Text(
                         'Geo-Location verwenden'.tr().toString(),
-                        style: CustomStyle.styleText(context),
+                        style: widget.theme.textTheme.bodyText2,
                       ),
                     ),
                   ),
@@ -268,7 +265,7 @@ class _SettingsContentState extends State<SettingsContent> {
                           vertical: ScreenUtil().setHeight(24),
                           horizontal: ScreenUtil().setWidth(24)),
                       child: IconTheme(
-                        data: theme.primaryIconTheme,
+                        data: widget.theme.primaryIconTheme,
                         child: Icon(
                           SystemIconsIS.is24_system_48px_rating_state_2,
                         ),
@@ -278,7 +275,7 @@ class _SettingsContentState extends State<SettingsContent> {
                       child: Container(
                         child: Text(
                           'Design'.tr().toString(),
-                          style: CustomStyle.header4(context),
+                          style: widget.theme.textTheme.headline4,
                         ),
                       ),
                     ),
@@ -294,7 +291,7 @@ class _SettingsContentState extends State<SettingsContent> {
                             horizontal: ScreenUtil().setWidth(24)),
                         child: Text(
                           'Dark-Theme'.tr().toString(),
-                          style: CustomStyle.styleText(context),
+                          style: widget.theme.textTheme.bodyText2,
                         ),
                       ),
                     ),
@@ -325,7 +322,7 @@ class _SettingsContentState extends State<SettingsContent> {
                 padding: EdgeInsets.symmetric(
                     vertical: ScreenUtil().setHeight(10),
                     horizontal: ScreenUtil().setWidth(24)),
-                child: Divider(color: theme.dividerColor),
+                child: Divider(color: widget.theme.dividerColor),
               ),
             ],
           ),
@@ -356,12 +353,15 @@ class _SettingsContentState extends State<SettingsContent> {
                         children: [
                           Text(
                             "Benachrichtigungen".tr().toString(),
-                            style: CustomStyle.inputLabel(context),
+                            style: TextStyle(
+                                fontSize:
+                                    widget.theme.textTheme.bodyText2.fontSize,
+                                color: widget.theme.disabledColor),
                           ),
                           IconTheme(
                             data: IconThemeData(
-                                color: CustomStyle.inputLabel(context).color,
-                                size: theme.iconTheme.size),
+                                size: widget.theme.iconTheme.size,
+                                color: widget.theme.disabledColor),
                             child: Icon(
                               SystemIconsIS.is24_system_48px_chevron_right,
                             ),
@@ -375,7 +375,9 @@ class _SettingsContentState extends State<SettingsContent> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => LanguageSelection(),
+                            builder: (context) => LanguageSelection(
+                              theme: widget.theme,
+                            ),
                           ));
                     },
                     child: Container(
@@ -386,10 +388,10 @@ class _SettingsContentState extends State<SettingsContent> {
                         children: [
                           Text(
                             "Sprachauswahl".tr().toString(),
-                            style: CustomStyle.styleText(context),
+                            style: widget.theme.textTheme.bodyText2,
                           ),
                           IconTheme(
-                            data: theme.iconTheme,
+                            data: widget.theme.iconTheme,
                             child: Icon(
                               SystemIconsIS.is24_system_48px_chevron_right,
                             ),
@@ -403,7 +405,9 @@ class _SettingsContentState extends State<SettingsContent> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => FeedbackSelection(),
+                            builder: (context) => FeedbackSelection(
+                              theme: widget.theme,
+                            ),
                           ));
                     },
                     child: Container(
@@ -414,10 +418,10 @@ class _SettingsContentState extends State<SettingsContent> {
                         children: [
                           Text(
                             "Feedback zur App".tr().toString(),
-                            style: CustomStyle.styleText(context),
+                            style: widget.theme.textTheme.bodyText2,
                           ),
                           IconTheme(
-                            data: theme.iconTheme,
+                            data: widget.theme.iconTheme,
                             child: Icon(
                               SystemIconsIS.is24_system_48px_chevron_right,
                             ),
@@ -433,7 +437,7 @@ class _SettingsContentState extends State<SettingsContent> {
                 // padding: EdgeInsets.symmetric(
                 //   vertical: ScreenUtil().setHeight(12),
                 // ),
-                child: Divider(color: theme.dividerColor),
+                child: Divider(color: widget.theme.dividerColor),
               ),
 
               //plus membership
@@ -445,7 +449,7 @@ class _SettingsContentState extends State<SettingsContent> {
                         vertical: ScreenUtil().setHeight(24)),
                     child: Text(
                       "Plus Mitgliedschaft".tr().toString(),
-                      style: CustomStyle.header3(context),
+                      style: widget.theme.textTheme.headline3,
                     ),
                   ),
                   Container(
@@ -453,7 +457,7 @@ class _SettingsContentState extends State<SettingsContent> {
                       "Du möchtest immer als Erstes von neuen Objekten erfahren und exklusive Beratung? Das und vieles mehr erreichst du durch eine Plus-Mitgliedschaft, die du jetzt einen Monat lang kostenlos testen kannst."
                           .tr()
                           .toString(),
-                      style: CustomStyle.styleText(context),
+                      style: widget.theme.textTheme.bodyText2,
                     ),
                   ),
                   Container(
@@ -461,9 +465,9 @@ class _SettingsContentState extends State<SettingsContent> {
                           vertical: ScreenUtil().setHeight(24)),
                       child: ButtonTheme(
                         child: FlatButton(
-                          disabledColor: Colors.grey[200],
-                          color: theme.buttonColor,
-                          textColor: kCharcoal,
+                          disabledColor: widget.theme.disabledColor,
+                          color: widget.theme.buttonColor,
+                          /*  textColor: kCharcoal,*/
                           padding: EdgeInsets.symmetric(
                               vertical: ScreenUtil().setHeight(10),
                               horizontal: ScreenUtil().setWidth(20)),
@@ -480,7 +484,10 @@ class _SettingsContentState extends State<SettingsContent> {
                           },*/
                           child: Text(
                             "Plus freischalten".tr().toString(),
-                            style: CustomStyle.styleButton(context),
+                            style: TextStyle(
+                                fontSize:
+                                    widget.theme.textTheme.button.fontSize,
+                                color: widget.theme.accentColor),
                           ),
                         ),
                       )),
@@ -488,7 +495,7 @@ class _SettingsContentState extends State<SettingsContent> {
               ),
               Container(
                 padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(12)),
-                child: Divider(color: theme.dividerColor),
+                child: Divider(color: widget.theme.dividerColor),
               ),
 
               //Privacy
@@ -500,7 +507,7 @@ class _SettingsContentState extends State<SettingsContent> {
                         vertical: ScreenUtil().setHeight(12)),
                     child: Text(
                       "Privacy".tr().toString(),
-                      style: CustomStyle.header3(context),
+                      style: widget.theme.textTheme.headline3,
                     ),
                   ),
                   GestureDetector(
@@ -508,7 +515,8 @@ class _SettingsContentState extends State<SettingsContent> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ImpressPage(),
+                            builder: (context) =>
+                                ImpressPage(theme: widget.theme),
                           ));
                     },
                     child: Container(
@@ -519,10 +527,10 @@ class _SettingsContentState extends State<SettingsContent> {
                         children: [
                           Text(
                             "Impressum".tr().toString(),
-                            style: CustomStyle.styleText(context),
+                            style: widget.theme.textTheme.bodyText2,
                           ),
                           IconTheme(
-                            data: theme.iconTheme,
+                            data: widget.theme.iconTheme,
                             child: Icon(
                               SystemIconsIS.is24_system_48px_chevron_right,
                             ),
@@ -536,7 +544,8 @@ class _SettingsContentState extends State<SettingsContent> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => TrackingInformation(),
+                            builder: (context) =>
+                                TrackingInformation(theme: widget.theme),
                           ));
                     },
                     child: Container(
@@ -547,10 +556,10 @@ class _SettingsContentState extends State<SettingsContent> {
                         children: [
                           Text(
                             "Infos zum Tracking".tr().toString(),
-                            style: CustomStyle.styleText(context),
+                            style: widget.theme.textTheme.bodyText2,
                           ),
                           IconTheme(
-                            data: theme.iconTheme,
+                            data: widget.theme.iconTheme,
                             child: Icon(
                               SystemIconsIS.is24_system_48px_chevron_right,
                             ),
@@ -564,7 +573,8 @@ class _SettingsContentState extends State<SettingsContent> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DataProtectionPage(),
+                            builder: (context) =>
+                                DataProtectionPage(theme: widget.theme),
                           ));
                     },
                     child: Container(
@@ -575,10 +585,10 @@ class _SettingsContentState extends State<SettingsContent> {
                         children: [
                           Text(
                             "Datenschutz".tr().toString(),
-                            style: CustomStyle.styleText(context),
+                            style: widget.theme.textTheme.bodyText2,
                           ),
                           IconTheme(
-                            data: theme.iconTheme,
+                            data: widget.theme.iconTheme,
                             child: Icon(
                               SystemIconsIS.is24_system_48px_chevron_right,
                             ),
@@ -592,7 +602,8 @@ class _SettingsContentState extends State<SettingsContent> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => TermsAndConditionPage(),
+                            builder: (context) =>
+                                TermsAndConditionPage(theme: widget.theme),
                           ));
                     },
                     child: Container(
@@ -603,10 +614,10 @@ class _SettingsContentState extends State<SettingsContent> {
                         children: [
                           Text(
                             "Geschäftsbedingungen".tr().toString(),
-                            style: CustomStyle.styleText(context),
+                            style: widget.theme.textTheme.bodyText2,
                           ),
                           IconTheme(
-                            data: theme.iconTheme,
+                            data: widget.theme.iconTheme,
                             child: Icon(
                               SystemIconsIS.is24_system_48px_chevron_right,
                             ),
@@ -627,10 +638,10 @@ class _SettingsContentState extends State<SettingsContent> {
                         children: [
                           Text(
                             "Lizenzhinweise Dritter".tr().toString(),
-                            style: CustomStyle.styleText(context),
+                            style: widget.theme.textTheme.bodyText2,
                           ),
                           IconTheme(
-                            data: theme.iconTheme,
+                            data: widget.theme.iconTheme,
                             child: Icon(
                               SystemIconsIS.is24_system_48px_chevron_right,
                             ),

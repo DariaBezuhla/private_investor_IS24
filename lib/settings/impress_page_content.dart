@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ImpressPageContent extends StatefulWidget {
-  final String theme;
+  final ThemeData theme;
   const ImpressPageContent({
     Key key,
     this.theme,

@@ -728,6 +728,8 @@ class CustomStyle {
       accentIconTheme: IconThemeData(size: 32, color: kCharcoal), //normal icons
       dividerColor: kLightGrey,
       buttonColor: kTeal,
+      disabledColor: Colors.grey[400],
+      accentColor: Colors.grey[700],
       textTheme: TextTheme(
           headline1: header1(context),
           headline2: header2(context),
@@ -735,7 +737,9 @@ class CustomStyle {
           headline4: header4(context),
           bodyText2: styleText(context), // default light style für Text()
           subtitle1: styleBigText(context),
-          subtitle2: descriptionText(context)),
+          subtitle2: descriptionText(context),
+          caption: inputLabel(context),
+          button: styleButton(context)),
     );
   }
 
@@ -758,14 +762,20 @@ class CustomStyle {
       accentIconTheme: IconThemeData(size: 32, color: dIconColor),
       dividerColor: dCardsColor,
       buttonColor: kTeal,
+      disabledColor: Colors.grey[700],
+      accentColor: Colors.grey[900],
+      //buttonTheme: ButtonThemeData(disabledColor: Colors.grey[700]),
       textTheme: TextTheme(
-          headline1: dHeader1(context),
-          headline2: dHeader2(context),
-          headline3: dHeader3(context),
-          headline4: dHeader4(context),
-          bodyText2: dStyleText(context), // default light style für Text()
-          subtitle1: dStyleBigText(context),
-          subtitle2: dDescriptionText(context)),
+        headline1: dHeader1(context),
+        headline2: dHeader2(context),
+        headline3: dHeader3(context),
+        headline4: dHeader4(context),
+        bodyText2: dStyleText(context), // default light style für Text()
+        subtitle1: dStyleBigText(context),
+        subtitle2: dDescriptionText(context),
+        caption: dInputLabel(context),
+        button: dStyleButton(context),
+      ),
     );
   }
 }

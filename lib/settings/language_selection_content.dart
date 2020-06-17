@@ -11,7 +11,7 @@ import 'package:privateinvestorsmobile/main.dart';
 import '../constant.dart';
 
 class LanguageSelectionContent extends StatefulWidget {
-  final String theme;
+  final ThemeData theme;
   const LanguageSelectionContent({
     Key key,
     this.theme,

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import '../constant.dart';
+
 import '../appBar/app_bar_with_ArrowLeft.dart';
 import '../bottomBar/bottom_bar.dart';
+import '../constant.dart';
 import 'impress_page_content.dart';
 
 class ImpressPage extends StatefulWidget {
-  final String theme;
+  final ThemeData theme;
   final int selectedIndex;
 
   const ImpressPage({
