@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 class SetingsChoices {
-  static const String Actuality = 'Actuality';
-  static const String Price = 'Price';
-  static const String PricePerSqm = 'Price per m²';
-  static const String NetYield = 'Net yield';
+  static  String Actuality = 'Aktualität'.tr().toString();
+  static  String Price = 'Preis'.tr().toString();
+  static  String PricePerSqm = 'Preis pro m2'.tr().toString();
+  static String NetYield = 'Nettorendite'.tr().toString();
 
-  static const List<String> choices = <String> [
+  static  List<String> choices = <String> [
     Actuality,
     Price,
     PricePerSqm,

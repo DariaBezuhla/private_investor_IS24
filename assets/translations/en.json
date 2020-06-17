@@ -84,6 +84,12 @@
     "KEINE ANGABE": "NOT SPECIFIED",
     "KaufpreisentwicklungRes":"Price Trend",
     "MietpreisentwicklungRes":"Rent Trend",
-    "X-fache Miete":"Rent Factor"
+    "X-fache Miete":"Rent Factor",
+    "Suche bearbeiten":"Edit Search",
+    "Ihre Suche ergab":"Your results are ",
+    "Treffer":"matches ",
+    "Aktualität": "Recent",
+    "Preis":"Price"
+    
     
 }

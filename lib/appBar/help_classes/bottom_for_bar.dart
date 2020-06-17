@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import '../../constant.dart';
 import 'button_suche_bearbeiten.dart';
+
 
 class FiltersForAppBar extends StatelessWidget {
   final String theme;
@@ -78,7 +79,7 @@ class FiltersForAppBar extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Row(
                       children: <Widget>[
-                        Text("Ihre Suche ergab ", style: textStyle),
+                        Text("Ihre Suche ergab".tr().toString(), style: textStyle),
                         Stack(
                           alignment: AlignmentDirectional.center,
                           children: <Widget>[
@@ -90,7 +91,7 @@ class FiltersForAppBar extends StatelessWidget {
                                 )),
                           ],
                         ),
-                        Text(" Treffer", style: textStyle),
+                        Text("Treffer".tr().toString(), style: textStyle),
                       ],
                     ),
                   ),
