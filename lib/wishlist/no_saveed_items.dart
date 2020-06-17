@@ -6,11 +6,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../constant.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-final String containerTitle = 'containerTitle'.tr().toString();
-final String checkoutText1 = 'checkoutText1'.tr().toString();
-final String checkoutText2 = 'checkoutText2'.tr().toString();
+
 
 class NoSavedItems extends StatelessWidget {
+ String containerTitle = 'containerTitle'.tr().toString();
+ String checkoutText1 = 'checkoutText1'.tr().toString();
+ String checkoutText2 = 'checkoutText2'.tr().toString();
+ String noObject = 'Keine gespeicherte Objekte'.tr().toString();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -31,7 +33,7 @@ class NoSavedItems extends StatelessWidget {
                   ),
                 ),
               ),
-              Text('Keine gespeicherte Objekte'.tr().toString(), style: CustomStyle.header4(context)),
+              Text(noObject, style: CustomStyle.header4(context)),
               SizedBox(
                 height: ScreenUtil().setHeight(20),
               ),
