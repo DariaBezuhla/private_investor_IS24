@@ -4,6 +4,7 @@ import 'package:privateinvestorsmobile/calculator.dart';
 import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
 import '../constant.dart';
 import '../icons/product_icons_i_s_icons.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 final String assetName = 'assets/icons/calculator.svg';
 
@@ -53,6 +54,7 @@ class KostenrechnerButton extends StatefulWidget {
 }
 
 class _KostenrechnerState extends State<KostenrechnerButton> {
+  var welcheKosten = 'WelcheKosten'.tr().toString();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -79,9 +81,7 @@ class _KostenrechnerState extends State<KostenrechnerButton> {
                       /*SvgPicture.asset(assetName,
                           semanticsLabel: 'Calculator', color: kGrey),
                        */
-                      Text(
-                        '''Welche Kosten könnten mich als
-Investor erwarten ?''',
+                      Text(welcheKosten,
                         style: TextStyle(
                             fontSize: ScreenUtil().setHeight(16),
                             color: widget.theme == "light" ? kCharcoal : kGrey),
@@ -96,7 +96,7 @@ Investor erwarten ?''',
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text('Zum Kostenrechner', style: CustomStyle.styleButton(context)),
+                      Text('Zum Kostenrechner'.tr().toString(), style: CustomStyle.styleButton(context)),
                     ],
                   ),
                   onPressed: () {
@@ -142,8 +142,7 @@ class _OfflineButtonState extends State<OfflineButton> {
                       size: ScreenUtil().setWidth(50),
                       color: kGrey),
                   Text(
-                    '''You\'re offline.
-Your network is unavailable.''',
+                    "Offline".tr().toString(),
                     style: TextStyle(
                         fontSize: ScreenUtil().setHeight(20),
                         color: widget.theme == "light" ? kCharcoal : kGrey),
@@ -157,7 +156,7 @@ Your network is unavailable.''',
                     padding: EdgeInsets.symmetric(
                         horizontal: ScreenUtil().setWidth(20),
                         vertical: ScreenUtil().setHeight(10)),
-                    child: Text('Retry', style: TextStyle(fontSize: ScreenUtil().setHeight(20))),
+                    child: Text('Erneut versuchen'.tr().toString(), style: TextStyle(fontSize: ScreenUtil().setHeight(20))),
                     onPressed: () {},
                     color: kTeal)
               ],

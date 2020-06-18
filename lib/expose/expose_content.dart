@@ -8,6 +8,7 @@ import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
 import 'package:privateinvestorsmobile/results/card/view_states.dart';
 import 'package:privateinvestorsmobile/wishlist/favorites.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../constant.dart';
 import '../network/search_service.dart';
@@ -16,6 +17,7 @@ import 'kostenrechner_widget.dart';
 
 class ExposeContent extends StatefulWidget {
   final RealEstateObject house;
+
 
   const ExposeContent({
     Key key,
@@ -32,6 +34,13 @@ class ExposeContent extends StatefulWidget {
 class _ExposeContentState extends State<ExposeContent> {
   ExposeObject _exposeObject;
   SearchService _searchService = new SearchService();
+  var zimmer = 'Zimmer'.tr().toString();
+  var aufzug = 'Aufzug'.tr().toString();
+  var balkon = 'Balkon'.tr().toString();
+  var keller = 'Keller'.tr().toString();
+  var garten = 'Garten'.tr().toString();
+  var weitereFragen= 'Weitere Fragen zur Immobilie?'.tr().toString();
+  var geschKaltmiete = 'GeschKaltmiete'.tr().toString();
   var currencyFormatter = new NumberFormat.currency(
       locale: "de_DE", symbol: "€", decimalDigits: 0, name: "EUR");
   var numberFormatter = new NumberFormat("###.##", "de_DE");
@@ -167,10 +176,10 @@ class _ExposeContentState extends State<ExposeContent> {
                         Column(
                           children: <Widget>[
                             _buildInfoItemForPriceWithTransition(
-                                "Kaufpreis", _exposeObject?.price?.value),
+                                "Kaufpreis".tr().toString(), _exposeObject?.price?.value),
                             SizedBox(height: ScreenUtil().setHeight(24)),
                             _buildCurrencyItem(
-                                "Aktuelle Miete", _exposeObject?.rent?.value)
+                                "Aktuelle Miete".tr().toString(), _exposeObject?.rent?.value)
                           ],
                         ),
                       ],
@@ -184,11 +193,11 @@ class _ExposeContentState extends State<ExposeContent> {
                         Column(
                           children: <Widget>[
                             _buildInfoItemForPriceProMWithTransition(
-                                "Preis pro m²",
+                                "Preis pro m2".tr().toString(),
                                 _exposeObject?.pricePerSqm?.value),
                             SizedBox(height: ScreenUtil().setHeight(24)),
                             _buildCurrencyItem(
-                                "Hausgeld", _exposeObject?.rentSubsidy?.value)
+                                "Hausgeld".tr().toString(), _exposeObject?.rentSubsidy?.value)
                           ],
                         ),
                       ],
@@ -218,7 +227,7 @@ class _ExposeContentState extends State<ExposeContent> {
                         child: Wrap(
                           alignment: WrapAlignment.center,
                           children: <Widget>[
-                            _buildNumberItem("Nettorendite",
+                            _buildNumberItem("Nettorendite".tr().toString(),
                                 _exposeObject?.netYield?.value, "%"),
                           ],
                         ),
@@ -227,7 +236,7 @@ class _ExposeContentState extends State<ExposeContent> {
                         child: Wrap(
                           alignment: WrapAlignment.center,
                           children: <Widget>[
-                            _buildCurrencyItem("Gesch. Kaltmiete",
+                            _buildCurrencyItem(geschKaltmiete,
                                 _exposeObject?.rentAbsolute?.value),
                           ],
                         ),
@@ -236,7 +245,7 @@ class _ExposeContentState extends State<ExposeContent> {
                         child: Wrap(
                           alignment: WrapAlignment.center,
                           children: <Widget>[
-                            _buildNumberItem("X-fache Miete",
+                            _buildNumberItem("X-fache Miete".tr().toString(),
                                 _exposeObject?.factor?.value, null)
                           ],
                         ),
@@ -252,7 +261,7 @@ class _ExposeContentState extends State<ExposeContent> {
                     child: Row(
                       children: <Widget>[
                         _buildInfoItem2(
-                          "Mietpreis-\nentwicklung",
+                          "MietpreisentwicklungRes".tr().toString(),
                           _exposeObject?.rentTrend?.value,
                         ),
                         VerticalDivider(
@@ -260,7 +269,7 @@ class _ExposeContentState extends State<ExposeContent> {
                           color: kBackground,
                         ),
                         _buildInfoItem2(
-                          "Kaufpreis-\nentwicklung",
+                          "KaufpreisentwicklungRes".tr().toString(),
                           _exposeObject?.priceTrend?.value,
                         ),
                       ],
@@ -284,11 +293,11 @@ class _ExposeContentState extends State<ExposeContent> {
                 _exposeObject != null
                     ? "${numberFormatter.format(_exposeObject?.livingSpace?.value)}m²"
                     : "",
-                "${_exposeObject?.rooms?.value.toString()} Zimmer",
-                "${_exposeObject?.lift == true ? "Aufzug" : ""}",
-                "${_exposeObject?.balcony == true ? "Balkon" : ""}",
-                "${_exposeObject?.cellar == true ? "Keller" : ""}",
-                "${_exposeObject?.garden == true ? "Garten" : ""}",
+                "${_exposeObject?.rooms?.value.toString()} $zimmer",
+                "${_exposeObject?.lift == true ? "$aufzug" : ""}",
+                "${_exposeObject?.balcony == true ? "$balkon" : ""}",
+                "${_exposeObject?.cellar == true ? "$keller" : ""}",
+                "${_exposeObject?.garden == true ? "$garten" : ""}",
               ])),
         ),
 
@@ -304,10 +313,10 @@ class _ExposeContentState extends State<ExposeContent> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildDescriptionItem('Objektbeschreibung',
-                  _exposeObject?.description ?? "Keine Angaben"),
+              _buildDescriptionItem('Objektbeschreibung'.tr().toString(),
+                  _exposeObject?.description ?? "Keine Angaben".tr().toString()),
               _buildDescriptionItem(
-                  'Ort', _exposeObject?.location ?? "Keine Angaben"),
+                  'Ort'.tr().toString(), _exposeObject?.location ?? "Keine Angaben".tr().toString()),
             ],
           ),
         ),
@@ -337,7 +346,7 @@ class _ExposeContentState extends State<ExposeContent> {
                       child: Container(
                         padding: EdgeInsets.all(ScreenUtil().setHeight(24)),
                         child: Text(
-                          'Weitere Fragen zur Immobilie?',
+                          weitereFragen,
                           style: CustomStyle.header4(context),
                         ),
                       ),
@@ -357,16 +366,16 @@ class _ExposeContentState extends State<ExposeContent> {
                     onPressed: () async {
                       if (await canLaunch('immobilienscout24://')) {
                         await launch(
-                            'https://www.immobilienscout24.de/expose/${widget.house.id}?referrer=HP_INSPIRATION_ONE#/',
+                            'https://www.immobilienscout24.de/expose/${widget.house.id}',
                             forceSafariVC: false);
                       } else {
                         await launch(
-                            'https://www.immobilienscout24.de/expose/${widget.house.id}?referrer=HP_INSPIRATION_ONE#/',
+                            'https://www.immobilienscout24.de/expose/${widget.house.id}',
                             forceSafariVC: true);
                       }
                     },
                     child: Text(
-                      "Anbieter kontaktieren",
+                      "Anbieter kontaktieren".tr().toString(),
                       style: CustomStyle.styleButton(context),
                     ),
                   ),

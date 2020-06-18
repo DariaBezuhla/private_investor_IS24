@@ -67,7 +67,7 @@
     "Daten senden":"Send data",
     "Aktualität":"Actuality",
     "Preis":"Price",
-    "Nettorendite":"Net yield",
+    "Nettorendite":"Net Yield",
     "Die Nr. 1 rund um Immobilien":"#1 in Real Estate",
     "trackingText":"Protecting your privacy is our top priority.We process your data mainly in order to provide you with the offer and the associated functions, as well as some further processing for statistical evaluations, the display of interest-based advertising content, and for security and protection against misuse, for which we use technologies.The transfer of usage data to these service providers is pseudonymized and can therefore not be assigned to any person. Further information on the use of your data can be found in the data protection information. If you do not want the app to save or use any usage data, you can deactivate the switch. Please take into account that the app usability is limited, if we do not have the data.",
     "Tracking Information":"Tracking Information",
@@ -89,7 +89,24 @@
     "Ihre Suche ergab":"Your results are ",
     "Treffer":"matches ",
     "Aktualität": "Recent",
-    "Preis":"Price"
+    "Preis":"Price",
+    "Aktuelle Miete":"Current rent",
+    "Hausgeld":"Condo fee",
+    "Weitere Fragen zur Immobilie?":"Further questions about the property?",
+    "Anbieter kontaktieren":"Contact Realtor",
+    "Objektbeschreibung":"Object description",
+    "Keine Angaben":"Keine Angaben",
+    "Ort":"Location",
+    "Aufzug":"Elevator",
+    "Balkon":"Balcony",
+    "Keller":"Cellar",
+    "Garten":"Garden",
+    "GeschKaltmiete":"Estimated Cold Rent",
+    "WelcheKosten":"What costs could I expect as an investor?",
+    "Zum Kostenrechner":"To the Investment Cost Calculator",
+    "Erneut versuchen":"Retry",
+    "Offline":"You are offline.\nThe network is unavailable"
+
     
     
 }
