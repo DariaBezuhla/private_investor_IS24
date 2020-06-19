@@ -26,6 +26,7 @@ class ListViewForResultsState extends State<ListViewForResults>
   SearchService _searchService = SearchService();
   ScrollController _scrollController = ScrollController();
   int _pageNumber = 1;
+  bool _loading = false;
 
   //For Animation (PageTransition)
   AnimationController _animationController;
@@ -37,7 +38,9 @@ class ListViewForResultsState extends State<ListViewForResults>
     super.initState();
     _initAnimationController();
 
-    _searchService.fetchList(pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting).then((onValue) {
+    _searchService
+        .fetchList(pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting)
+        .then((onValue) {
       setState(() {
         _estates.addAll(onValue);
       });
@@ -45,12 +48,11 @@ class ListViewForResultsState extends State<ListViewForResults>
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
-          (0.975 * _scrollController.position.maxScrollExtent)) {
-        setState(() {
-          _pageNumber++;
-        });
-        _fetchMoreEstates(); //_fetchMoreEstates
-    }
+          (_scrollController.position.maxScrollExtent)) {
+        if (_estates.length > 0) {
+          _fetchMoreEstates();
+        }
+      }
     });
   }
 
@@ -96,57 +98,84 @@ class ListViewForResultsState extends State<ListViewForResults>
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      controller: _scrollController,
-      itemCount: _estates.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          child: Column(
+    return Expanded(
+      child: ListView(
+        controller: _scrollController,
+        children: <Widget>[
+          (_estates.length > 0) ? Column(
             children: <Widget>[
-              Padding(
-                padding:
-                EdgeInsets.only(
-                    top: ScreenUtil().setWidth(10),
-                    left: ScreenUtil().setWidth(10),
-                    right: ScreenUtil().setWidth(10),),
+              for (var estate in _estates) Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: ScreenUtil().setWidth(10),
+                      left: ScreenUtil().setWidth(10),
+                      right: ScreenUtil().setWidth(10),
+                    ),
+                  ),
+                  RealEstateCard(
+                    house: estate,
+                    theme: widget.theme,
+                    onSelected: onSelected,
+                  ),
+                ],
               ),
-              RealEstateCard(
-                house: _estates[index],
-                theme: widget.theme,
-                onSelected: onSelected,
-              )
+
+              (_loading == true) ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  CircularProgressIndicator(),
+                ],
+              ) : Container(width: 0, height: 0,)
             ],
-          ),
-        );
-      },
+          ) : Center(
+            child: CircularProgressIndicator(),
+          )
+        ],
+      ),
     );
   }
 
   void listSorted() {
-    _pageNumber = 1;
-    _estates.clear();
-      _searchService.fetchList(pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting).then((onValue) {
-        setState(() {
-          _estates.addAll(onValue);
-        });
-      });
+    setState(() {
+      _pageNumber = 1;
+      _estates.clear();
+      _loading = true;
+    });
 
-      _scrollController.addListener(() {
-        if (_scrollController.position.pixels >=
-            (0.975 * _scrollController.position.maxScrollExtent)) {
+    Future.delayed(const Duration(microseconds: 1000), () {
+      _searchService
+        .fetchList(
+            pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting)
+        .then((onValue) {
           setState(() {
-            _pageNumber++;
+            _loading = false;
+            _estates.addAll(onValue);
           });
-          _fetchMoreEstates(); //_fetchMoreEstates
-        }
-      });
- //  print("listSorted: " + sortingBy +" : " + howSorting);
+        }).catchError((onError) {
+          setState(() {
+            _loading = false;
+          });
+        });
+    });
   }
 
-  _fetchMoreEstates() {
-      _searchService.fetchList(pageNumber: _pageNumber,sortBy: sortingBy, sort: howSorting).then((onValue) {
-      _estates.addAll(onValue);
+  void _fetchMoreEstates() {
+    setState(() {
+      _pageNumber++;
+      _loading = true;
     });
-    setState(() {});
+    
+    _searchService
+      .fetchList(pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting)
+      .then((onValue) {
+        setState(() {
+          _loading = false;
+          _estates.addAll(onValue);
+        });
+      }).catchError((onError) {
+        print(onError);
+        _loading = false;
+    });
   }
 }
