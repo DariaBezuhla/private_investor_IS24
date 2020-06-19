@@ -359,7 +359,7 @@ const kGOOD = Color(0xff69C18E);
 const kFAIR = Color(0xff9AEABC);
 const kPOOR = Color(0xffF5D994);
 const kBAD = Color(0xffF59898);
-const kNONE = Color(0xffDCDCDC);
+const kNONE = Color(0xffEEEEEE);
 
 class CustomStyle {
   //Light Text Styles
@@ -466,7 +466,7 @@ class CustomStyle {
   static TextStyle rankingText(BuildContext context) {
     // return Theme.of(context).textTheme.headline1.copyWith(fontSize: 192.0);
     return TextStyle(
-      color: Colors.white,
+      color: greyContainerContent,
       fontWeight: FontWeight.bold,
       fontSize: ScreenUtil().setSp(10),
     );
