@@ -1,10 +1,7 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/constant.dart';
-import 'package:privateinvestorsmobile/home/location.dart';
 import '../constant.dart';
-import 'auto_complete_location.dart';
 
 class NormalTextField extends StatefulWidget {
   final String topNormalValue;

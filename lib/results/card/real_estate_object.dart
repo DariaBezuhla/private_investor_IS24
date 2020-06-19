@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:core';
-
 import 'package:privateinvestorsmobile/results/card/subtypes/factor.dart';
-
 import 'subtypes/address.dart';
 import 'subtypes/living_space.dart';
 import 'subtypes/price.dart';
@@ -55,6 +53,7 @@ class RealEstateObject {
         pictureUrl: json['pictureUrl'],
         rating: json['rating'],
       factor: Factor.fromJson(json['factor']),
+
     );
   }
 }

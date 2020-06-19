@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:privateinvestorsmobile/appBar/app_bar_for_expose.dart';
 import 'package:privateinvestorsmobile/calculator/calc_cashflow.dart';
 import 'package:privateinvestorsmobile/calculator/calc_finanzierung.dart';
 import 'package:privateinvestorsmobile/calculator/calc_kaufpreis.dart';

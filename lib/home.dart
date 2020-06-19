@@ -5,8 +5,7 @@ import 'home/eigenheim.dart';
 import 'home/starte_suche.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import './constant.dart';
-import 'icons/system_icons_i_s_icons.dart';
-import 'package:easy_localization/easy_localization.dart';
+
 
 class Home extends StatefulWidget {
   @override

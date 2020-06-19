@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:privateinvestorsmobile/constant.dart';
-import 'package:privateinvestorsmobile/home/home_textfield.dart';
 import 'package:privateinvestorsmobile/home/textfield_normal.dart';
 import 'package:privateinvestorsmobile/home/weitere_filter.dart';
 import 'package:privateinvestorsmobile/transition/page_route_generator.dart';

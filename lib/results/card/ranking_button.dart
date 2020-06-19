@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:privateinvestorsmobile/results/card/rating.dart';
-
 import '../../constant.dart';
 import 'package:easy_localization/easy_localization.dart';
 

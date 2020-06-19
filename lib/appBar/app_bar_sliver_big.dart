@@ -22,6 +22,7 @@ class AppBarSliverBig extends StatefulWidget {
 
 class AppBarSliverBigState extends State<AppBarSliverBig> {
   static String sortingChoice;
+  static String ascending = "desc"; //  descending (desc) 3-2-1 <--> ascending (asc) 1-2-3-... newesd->oldest
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class AppBarSliverBigState extends State<AppBarSliverBig> {
     var backgroundColor = (widget.theme == 'Dark') ? dHeaderFooter : kCard;
     var iconColor = (widget.theme == 'Dark') ? dIconColor : kCharcoal;
     var logoApp = (widget.theme == 'Dark') ? dLogo : logo;
-    var filterBarHeight = 80;
+    var filterBarHeight = ScreenUtil().setHeight(12) + ScreenUtil().setWidth(27) ;
     final double statusBarHeight = 56;
 
     var iconArrowLeft = IconButton(
@@ -96,6 +97,21 @@ class AppBarSliverBigState extends State<AppBarSliverBig> {
 
   String valueForFetchingResults (String userChoice) {
     switch (userChoice) {
+      case 'Aktualität': {
+        return 'firstActivationDate';
+      }
+      break;
+      case 'Preis': {
+        return 'price';
+      }
+      break;
+      case 'Preis pro m2': {
+        return 'pricePerSqm';
+      }
+      break;
+      case 'Nettorendite': {
+        return 'netYield';
+      }
       case 'Actuality': {
         return 'firstActivationDate';
       }
@@ -104,11 +120,11 @@ class AppBarSliverBigState extends State<AppBarSliverBig> {
         return 'price';
       }
       break;
-      case 'Price per m²': {
+      case 'Price per m2': {
         return 'pricePerSqm';
       }
       break;
-      case 'Net yield': {
+      case 'Net Yield': {
         return 'netYield';
       }
       break;
@@ -123,6 +139,7 @@ class AppBarSliverBigState extends State<AppBarSliverBig> {
   void choiceAction(String choice) {
     this.setState(() {
       sortingChoice = valueForFetchingResults(choice);
+      ascending = ascending == 'desc' ? 'asc' : 'desc';
       //print(sortingChoice + ' inAPP');
       widget.function(); //function() is in Parent Widget -> ResultsScreen
 

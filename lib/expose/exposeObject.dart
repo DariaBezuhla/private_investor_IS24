@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:core';
-
 import 'package:privateinvestorsmobile/results/card/subtypes/address.dart';
 import 'package:privateinvestorsmobile/results/card/subtypes/contactDetails.dart';
 import 'package:privateinvestorsmobile/results/card/subtypes/coordinate.dart';

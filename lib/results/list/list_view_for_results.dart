@@ -19,8 +19,9 @@ class ListViewForResults extends StatefulWidget {
 
 class ListViewForResultsState extends State<ListViewForResults>
     with TickerProviderStateMixin {
-  String sortBy;
-  //For ListView
+  String howSorting = "desc";
+  String sortingBy = "firstActivationDate";
+
   List<RealEstateObject> _estates = List<RealEstateObject>();
   SearchService _searchService = SearchService();
   ScrollController _scrollController = ScrollController();
@@ -36,7 +37,7 @@ class ListViewForResultsState extends State<ListViewForResults>
     super.initState();
     _initAnimationController();
 
-    _searchService.fetchList(pageNumber: _pageNumber,).then((onValue) {
+    _searchService.fetchList(pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting).then((onValue) {
       setState(() {
         _estates.addAll(onValue);
       });
@@ -48,8 +49,8 @@ class ListViewForResultsState extends State<ListViewForResults>
         setState(() {
           _pageNumber++;
         });
-        _fetchMoreEstates(sortBy);
-      }
+        _fetchMoreEstates(); //_fetchMoreEstates
+    }
     });
   }
 
@@ -121,22 +122,29 @@ class ListViewForResultsState extends State<ListViewForResults>
     );
   }
 
-  void listSorted(String sortBy) {
+  void listSorted() {
     _pageNumber = 1;
     _estates.clear();
-    setState(() {
-      _searchService
-          .fetchList(pageNumber: _pageNumber, sortBy: sortBy /*'pricePerSqm'*/)
-          .then((onValue) {
+      _searchService.fetchList(pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting).then((onValue) {
         setState(() {
           _estates.addAll(onValue);
         });
       });
-    });
+
+      _scrollController.addListener(() {
+        if (_scrollController.position.pixels >=
+            (0.975 * _scrollController.position.maxScrollExtent)) {
+          setState(() {
+            _pageNumber++;
+          });
+          _fetchMoreEstates(); //_fetchMoreEstates
+        }
+      });
+ //  print("listSorted: " + sortingBy +" : " + howSorting);
   }
 
-  _fetchMoreEstates(String sort) {
-    _searchService.fetchList(pageNumber: _pageNumber, sortBy: sort ).then((onValue) {
+  _fetchMoreEstates() {
+      _searchService.fetchList(pageNumber: _pageNumber,sortBy: sortingBy, sort: howSorting).then((onValue) {
       _estates.addAll(onValue);
     });
     setState(() {});

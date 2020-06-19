@@ -4,7 +4,6 @@ import 'package:privateinvestorsmobile/results/card/real_estate_card.dart';
 import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
 import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
 import 'package:privateinvestorsmobile/wishlist/favorites.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../expose.dart';
 import 'no_saveed_items.dart';
 

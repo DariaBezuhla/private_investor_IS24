@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:privateinvestorsmobile/results/card/real_estate_detail_context.dart';
-import 'package:privateinvestorsmobile/results/card/real_estate_object.dart';
-import 'package:privateinvestorsmobile/results/card/view_states.dart';
-import 'package:privateinvestorsmobile/calculator.dart';
-import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/constant.dart';
 
 class CalcTopRow extends StatefulWidget {

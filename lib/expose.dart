@@ -4,7 +4,6 @@ import 'package:privateinvestorsmobile/transition/slederDirection.dart';
 import 'appBar/app_bar_for_expose.dart';
 import 'bottomBar/bottom_bar.dart';
 import 'expose/expose_content.dart';
-import 'icons/system_icons_i_s_icons.dart';
 import 'results/card/real_estate_object.dart';
 import './constant.dart';
 
