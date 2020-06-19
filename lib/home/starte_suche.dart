@@ -30,9 +30,10 @@ class _StarteSuchePage extends State<StarteSuche> {
 
   _getCurrentLocation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    dynamic _userlocation = prefs.getBool('location');
+    bool _userlocation = false;
+    _userlocation = prefs.getBool('trackUserLocation');
 
-    if (_userlocation is bool && _userlocation == true) {
+    if (_userlocation == true) {
       geolocator
           .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
           .then((Position position) {
@@ -66,6 +67,7 @@ class _StarteSuchePage extends State<StarteSuche> {
     }
   }
 
+  @override
   void initState() {
     super.initState();
     _getCurrentLocation();
@@ -162,7 +164,6 @@ class _StarteSuchePage extends State<StarteSuche> {
                             location: _currentAddress,
                           ),
                         ),
-
                         SizedBox(height: ScreenUtil().setHeight(10)),
 
                         //2. TEXTFIELD

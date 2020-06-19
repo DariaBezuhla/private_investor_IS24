@@ -37,17 +37,17 @@ class _SettingsContentState extends State<SettingsContent> {
   double ruecklagen = 0.0;
   double hwkosten = 0.0;
   double mn = 0.0;
-  bool _setCurrentLocation = false;
+  bool _setCurrentLocation;
 
   @override
   initState() {
     super.initState();
     _getPreferenceBool(locationKey).then((value) => setState(() {
-          //print("geo-location" + value.toString());
+          print("geo-location" + value.toString());
           _setCurrentLocation = value;
         }));
     _getPreferenceDouble(equityKey).then((value) => setState(() {
-          //print(value);
+          print(value);
           mn = value;
         }));
   }
@@ -227,7 +227,7 @@ class _SettingsContentState extends State<SettingsContent> {
                       ),
                     ),
                   ),
-                  Container(
+                  (_setCurrentLocation is bool) ? Container(
                     padding: EdgeInsets.symmetric(
                         horizontal: ScreenUtil().setWidth(24)),
                     child: FlutterSwitch(
@@ -245,7 +245,7 @@ class _SettingsContentState extends State<SettingsContent> {
                         });
                       },
                     ),
-                  ),
+                  ): Container(width: 0, height: 0,),
                 ],
               ),
             ],
