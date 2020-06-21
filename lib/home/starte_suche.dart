@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:privateinvestorsmobile/constant.dart';
+import 'package:privateinvestorsmobile/home/propertyType_textfield.dart';
 import 'package:privateinvestorsmobile/home/textfield_normal.dart';
 import 'package:privateinvestorsmobile/home/weitere_filter.dart';
 import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
@@ -164,6 +165,7 @@ class _StarteSuchePage extends State<StarteSuche> {
                             location: _currentAddress,
                           ),
                         ),
+
                         SizedBox(height: ScreenUtil().setHeight(10)),
 
                         //2. TEXTFIELD
@@ -172,18 +174,12 @@ class _StarteSuchePage extends State<StarteSuche> {
                             primaryColor: kTeal,
                             primaryColorDark: kTeal,
                           ),
-                          /*child: new HomeTextField(
-                              "Realestate", (String str){print(str);},"Wohnung", (String st){print(st);}
-                          ),*/
-                          child: new NormalTextField(
+                          child: new PropertyTypeTextField(
                               "Realestate".tr().toString(),
                               (String str) {
                                 print(str);
                               },
-                              "Wohnung".tr().toString(),
-                              (String st) {
-                                print(st);
-                              }),
+                          ),
                         ),
 
                         SizedBox(height: ScreenUtil().setHeight(10)),

@@ -6,7 +6,6 @@ import 'home/starte_suche.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import './constant.dart';
 
-
 class Home extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -24,28 +23,33 @@ class _HomePage extends State<Home> {
 
     return Scaffold(
       appBar: AppBarMain(),
-      body: Container(
-        color: kBackgroundLight,
-        child: Stack(
-          children: <Widget>[
-            Container(
-              child: Image(image: AssetImage('assets/images/ftor.png')),
-            ),
-            ListView(
-              padding: new EdgeInsets.symmetric(
-                horizontal: ScreenUtil().setWidth(10),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: Container(
+          color: kBackgroundLight,
+          child: Stack(
+            children: <Widget>[
+              Container(
+                child: Image(image: AssetImage('assets/images/ftor.png')),
               ),
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    StarteSuche(),
-                    SizedBox(height: ScreenUtil().setHeight(24)),
-                    Eigenheim(),
-                  ],
+              ListView(
+                padding: new EdgeInsets.symmetric(
+                  horizontal: ScreenUtil().setWidth(10),
                 ),
-              ],
-            ),
-          ],
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      StarteSuche(),
+                      SizedBox(height: ScreenUtil().setHeight(24)),
+                      Eigenheim(),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomBar(
