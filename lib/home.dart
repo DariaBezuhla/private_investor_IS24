@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import './constant.dart';
 import 'appBar/app_bar_main.dart';
 import 'bottomBar/bottom_bar.dart';
 import 'home/eigenheim.dart';
 import 'home/starte_suche.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import './constant.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -54,7 +55,6 @@ class _HomePage extends State<Home> {
       ),
       bottomNavigationBar: BottomBar(
         selectedIndex: 0,
-        theme: light,
       ),
     );
   }

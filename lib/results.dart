@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:privateinvestorsmobile/appBar/app_bar_sliver_big.dart';
+import 'package:privateinvestorsmobile/bottomBar/bottom_bar.dart';
 import 'package:privateinvestorsmobile/results/list/lengthOfResult.dart';
 import 'package:privateinvestorsmobile/results/list/list_view_for_results.dart';
-import 'package:privateinvestorsmobile/bottomBar/bottom_bar.dart';
+
 import 'constant.dart';
 import 'network/search_service.dart';
 
@@ -43,11 +44,11 @@ class _ResultScreenState extends State<ResultScreen> {
   //  refreshList(String sort) is called in refreshChoice();
   //  what does: ListViewForResults.listSorted(sort) -> update list of results
   void refreshList() {
-      _key2.currentState.sortingBy = this.sortingBy; //sortingBy in ListViewForResults = this.sortingBy in ResultScreen
-      _key2.currentState.howSorting = this.howSorting;
-      _key2.currentState.listSorted(); //try without
+    _key2.currentState.sortingBy = this
+        .sortingBy; //sortingBy in ListViewForResults = this.sortingBy in ResultScreen
+    _key2.currentState.howSorting = this.howSorting;
+    _key2.currentState.listSorted(); //try without
   }
-
 
   @override
   void initState() {
@@ -78,8 +79,8 @@ class _ResultScreenState extends State<ResultScreen> {
                 AppBarSliverBig(
                   key: _key,
                   function: refreshChoice,
-                  theme: widget.theme,
-                  resultsLength: _lenght, //to do: we don't have resultsLength !!!
+                  resultsLength:
+                      _lenght, //to do: we don't have resultsLength !!!
                 ),
               ];
             },
@@ -91,9 +92,7 @@ class _ResultScreenState extends State<ResultScreen> {
       ),
       bottomNavigationBar: BottomBar(
         selectedIndex: 0,
-        theme: widget.theme,
       ),
     );
   }
 }
-

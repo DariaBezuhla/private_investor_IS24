@@ -723,13 +723,14 @@ class CustomStyle {
       scaffoldBackgroundColor:
           kHeaderFooter, //Important for SafeArea for AppBar -> scaffoldBackgroundColor = kHeaderFooter
       backgroundColor: kBackgroundLight,
-      primaryIconTheme: IconThemeData(size: 24, color: kCharcoal),
-      iconTheme: IconThemeData(size: 16, color: kCharcoal), //big icons dark
-      accentIconTheme: IconThemeData(size: 32, color: kCharcoal), //normal icons
+      primaryIconTheme: IconThemeData(size: 24, color: kIcon),
+      iconTheme: IconThemeData(size: 16, color: kIcon), //big icons dark
+      accentIconTheme: IconThemeData(size: 32, color: kIcon), //normal icons
       dividerColor: kLightGrey,
       buttonColor: kTeal,
       disabledColor: Colors.grey[400],
       accentColor: Colors.grey[700],
+      highlightColor: dTextColorLight,
       textTheme: TextTheme(
           headline1: header1(context),
           headline2: header2(context),
@@ -765,6 +766,7 @@ class CustomStyle {
       disabledColor: Colors.grey[700],
       accentColor: Colors.grey[900],
       //buttonTheme: ButtonThemeData(disabledColor: Colors.grey[700]),
+      highlightColor: greyContainerContent,
       textTheme: TextTheme(
         headline1: dHeader1(context),
         headline2: dHeader2(context),

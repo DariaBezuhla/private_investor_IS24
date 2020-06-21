@@ -5,23 +5,21 @@ import 'package:privateinvestorsmobile/calculator/calc_finanzierung.dart';
 import 'package:privateinvestorsmobile/calculator/calc_kaufpreis.dart';
 import 'package:privateinvestorsmobile/calculator/calc_mieteinahmen.dart';
 import 'package:privateinvestorsmobile/calculator/calc_top_row.dart';
+
 import 'appBar/app_bar_with_ArrowLeft.dart';
 import 'bottomBar/bottom_bar.dart';
 import 'constant.dart';
 
-
-class Calculator extends StatefulWidget{
+class Calculator extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _CalculatorPage();
   }
 }
 
- class _CalculatorPage extends State<Calculator> {
+class _CalculatorPage extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar: AppBarWithArrow(),
       body: Container(
@@ -30,8 +28,7 @@ class Calculator extends StatefulWidget{
           children: <Widget>[
             ListView(
               padding: new EdgeInsets.symmetric(
-                horizontal: ScreenUtil().setWidth(15)
-              ),
+                  horizontal: ScreenUtil().setWidth(15)),
               children: <Widget>[
                 Column(
                   children: <Widget>[
@@ -48,7 +45,6 @@ class Calculator extends StatefulWidget{
                     SizedBox(height: ScreenUtil().setHeight(15)),
                     CalcCashflow(),
                     SizedBox(height: ScreenUtil().setHeight(15)),
-
                   ],
                 ),
               ],
@@ -56,9 +52,9 @@ class Calculator extends StatefulWidget{
           ],
         ),
       ),
-
-      bottomNavigationBar: BottomBar(selectedIndex: 0, theme: light,),
+      bottomNavigationBar: BottomBar(
+        selectedIndex: 0,
+      ),
     );
   }
-
-  }
+}

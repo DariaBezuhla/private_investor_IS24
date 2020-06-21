@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../appBar/app_bar_with_ArrowLeft.dart';
 import '../bottomBar/bottom_bar.dart';
-import '../constant.dart';
 import 'data_protection_page_content.dart';
 
 class DataProtectionPage extends StatefulWidget {
@@ -28,7 +28,6 @@ class _DataProtectionPageState extends State<DataProtectionPage> {
       ),
       bottomNavigationBar: BottomBar(
         selectedIndex: 2,
-        theme: light,
       ),
     );
   }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:privateinvestorsmobile/theme.dart';
 import 'package:provider/provider.dart';
 
-import './constant.dart';
 import 'appBar/app_bar_with_ArrowLeft.dart';
 import 'bottomBar/bottom_bar.dart';
 import 'settings/settings_content.dart';
@@ -33,7 +32,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       bottomNavigationBar: BottomBar(
         selectedIndex: 2,
-        theme: light,
       ),
     );
   }

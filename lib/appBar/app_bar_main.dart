@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import '../constant.dart';
+import '../theme.dart';
 
 //AppBar without iconArrowLeft for Home()
 class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
@@ -10,10 +13,13 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeChanger>(context);
+    ThemeData theme = themeProvider.getDisplayTheme(context);
+
     return new AppBar(
-      title: Center(child: logo),
+      title: Center(child: themeProvider.getTheme() == dark ? dLogo : logo),
       leading: new Container(),
-      backgroundColor: kHeaderFooter,
+      backgroundColor: theme.appBarTheme.color,
       elevation: elevation,
       actions: <Widget>[
         new Container(

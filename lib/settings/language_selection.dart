@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../appBar/app_bar_with_ArrowLeft.dart';
 import '../bottomBar/bottom_bar.dart';
-import '../constant.dart';
 import 'language_selection_content.dart';
 
 class LanguageSelection extends StatefulWidget {
@@ -29,7 +28,6 @@ class _LanguageSelectionState extends State<LanguageSelection> {
       ),
       bottomNavigationBar: BottomBar(
         selectedIndex: 2,
-        theme: light,
       ),
     );
   }

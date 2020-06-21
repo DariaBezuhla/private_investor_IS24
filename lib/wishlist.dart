@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:privateinvestorsmobile/results.dart';
 import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
 import 'package:privateinvestorsmobile/wishlist/wishlist_list.dart';
+
+import './constant.dart';
 import 'appBar/app_bar_sliver_small.dart';
 import 'bottomBar/bottom_bar.dart';
 import 'icons/system_icons_i_s_icons.dart';
-import './constant.dart';
 
 class WishlistScreen extends StatefulWidget {
   final int selectedIndex;
@@ -36,7 +37,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
             }),
           );
         });
-
 
     var iconSort = IconButton(
       icon: Icon(
@@ -72,7 +72,9 @@ class _WishlistScreenState extends State<WishlistScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomBar(selectedIndex: 1, theme: light,),
+      bottomNavigationBar: BottomBar(
+        selectedIndex: 1,
+      ),
     );
   }
 }

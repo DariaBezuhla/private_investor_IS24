@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../appBar/app_bar_with_ArrowLeft.dart';
 import '../bottomBar/bottom_bar.dart';
-import '../constant.dart';
 import 'notification_page_content.dart';
 
 class NotificationPage extends StatefulWidget {
@@ -29,7 +28,6 @@ class _NotificationPageState extends State<NotificationPage> {
       ),
       bottomNavigationBar: BottomBar(
         selectedIndex: 2,
-        theme: light,
       ),
     );
   }

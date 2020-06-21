@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:privateinvestorsmobile/transition/slederDirection.dart';
+
+import './constant.dart';
 import 'appBar/app_bar_for_expose.dart';
 import 'bottomBar/bottom_bar.dart';
 import 'expose/expose_content.dart';
 import 'results/card/real_estate_object.dart';
-import './constant.dart';
 
 class ExposeScreen extends StatefulWidget {
   final List<RealEstateObject> housesList;
@@ -144,16 +145,16 @@ class _ExposeScreenState extends State<ExposeScreen>
     ScreenUtil.init(context, width: 375, height: 667);
 
     return Scaffold(
-      appBar: AppBarForExpose(fromPage: widget.comeFromPage, houseId: widget.housesList[currentIndex].id),//AppBarWithArrow(),
-      body:
-      Container(
+      appBar: AppBarForExpose(
+          fromPage: widget.comeFromPage,
+          houseId: widget.housesList[currentIndex].id), //AppBarWithArrow(),
+      body: Container(
         color: kBackgroundLight,
         child: ExposeContent(
           house: widget.housesList[currentIndex],
         ),
       ),
-      bottomNavigationBar: BottomBar(selectedIndex: 0, theme: light,),
+      bottomNavigationBar: BottomBar(selectedIndex: 0),
     );
   }
-
 }
