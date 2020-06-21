@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../constant.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class PropertyTypeTextField extends StatefulWidget {
   final String topValue;
@@ -15,13 +16,13 @@ class PropertyTypeTextField extends StatefulWidget {
 
 class _HomeInputField extends State<PropertyTypeTextField> {
   List<String> propertyTypes = [
-    "New Building",
-    "Apartment",
-    "House",
-    "Everything",
+    "Neubau".tr().toString(),
+    "Wohnung".tr().toString(),
+    "Haus".tr().toString(),
+    "Alles".tr().toString()
   ];
 
-  String dropdownValue = 'New Building';
+  String dropdownValue = 'Neubau'.tr().toString();
 
   @override
   Widget build(BuildContext context) {

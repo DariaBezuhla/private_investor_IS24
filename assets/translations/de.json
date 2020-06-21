@@ -107,7 +107,11 @@
     "WelcheKosten":"Welche Kosten könnten mich\nals Investor erwarten ?",
     "Zum Kostenrechner": "Zum Kostenrechner",
     "Erneut versuchen": "Erneut versuchen",
-    "Offline":"Du bist offline.\nDas Netzwerk ist nicht verfügbar"
+    "Offline":"Du bist offline.\nDas Netzwerk ist nicht verfügbar",
+    "Neubau" :"Neubau",
+    "Wohnung":"Wohnung",
+    "Haus":"Haus",
+    "Alles":"Alles"
 
 
 }

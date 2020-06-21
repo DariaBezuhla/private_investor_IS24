@@ -105,7 +105,11 @@
     "WelcheKosten":"What costs could I expect \nas an investor?",
     "Zum Kostenrechner":"To the Investment Cost Calculator",
     "Erneut versuchen":"Retry",
-    "Offline":"You are offline.\nThe network is unavailable"
+    "Offline":"You are offline.\nThe network is unavailable",
+    "Neubau" :"New Building",
+    "Wohnung":"Apartment",
+    "Haus":"House",
+    "Alles":"Everything"
 
     
     
