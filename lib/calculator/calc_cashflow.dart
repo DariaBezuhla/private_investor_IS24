@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import '../constant.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 
 class CalcCashflow extends StatefulWidget {
@@ -28,7 +29,7 @@ class _CalcCashflowState extends State<CalcCashflow> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text("Cashflow von Steuern",
+                  Text("Cashflow vor Steuern".tr().toString(),
                     style: header4,
                   ),
                   Padding(

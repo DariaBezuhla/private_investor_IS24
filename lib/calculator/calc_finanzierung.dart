@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:privateinvestorsmobile/constant.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'calc_bankrate.dart';
 
 class CalcFinanzierung extends StatefulWidget {
@@ -55,7 +55,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                   ),
                   SizedBox(width: ScreenUtil().setWidth(16)),
                   Text(
-                    "Finanzierung",
+                    "Finanzierung".tr().toString(),
                     style: styleButton,
                   ),
                   Padding(
@@ -79,7 +79,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        "Gesamtkaufpreis",
+                        "Gesamtkaufpreis".tr().toString(),
                         style: styleText,
                       ),
                       Padding(
@@ -102,7 +102,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        "Eigenkapital",
+                        "Eigenkapital".tr().toString(),
                         style: styleText,
                       ),
                       Padding(
@@ -157,7 +157,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                                   color: kLightGrey,
                                   fontSize: dStyleLabel.fontSize),
                               decoration: InputDecoration(
-                                hintText: 'z.B. 25%',
+                                hintText: 'z.B. 25%'.tr().toString(),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: kDivider,
@@ -192,7 +192,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        "Nettodarlehen",
+                        "Nettodarlehen".tr().toString(),
                         style: styleButton,
                       ),
                       Padding(

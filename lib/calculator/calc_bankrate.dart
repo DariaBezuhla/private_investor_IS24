@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import '../constant.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 
 class CalcBankRate extends StatefulWidget {
@@ -29,7 +30,7 @@ class _CalcBankRateState extends State<CalcBankRate> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text("Sollzins",
+                  Text("Sollzins".tr().toString(),
                     style: styleText,
                   ),
                   Padding(
@@ -63,7 +64,7 @@ class _CalcBankRateState extends State<CalcBankRate> {
                               color: kLightGrey,
                               fontSize: dStyleLabel.fontSize),
                           decoration: InputDecoration(
-                              hintText: 'z.B. 1.00%',
+                              hintText: 'z.B. 1.00%'.tr().toString(),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: kDivider,
@@ -95,7 +96,7 @@ class _CalcBankRateState extends State<CalcBankRate> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text("Tilgunsrate",
+                  Text("Tilgungsrate".tr().toString(),
                     style: styleText,
                   ),
                   Padding(
@@ -129,7 +130,7 @@ class _CalcBankRateState extends State<CalcBankRate> {
                               color: kLightGrey,
                               fontSize: dStyleLabel.fontSize),
                           decoration: InputDecoration(
-                            hintText: 'z.B. 2.00%',
+                            hintText: 'z.B. 2.00%'.tr().toString(),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: kDivider,
@@ -181,7 +182,7 @@ class _CalcBankRateState extends State<CalcBankRate> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      'Rate an die Bank',
+                      'Rate an die Bank'.tr().toString(),
                       style: header4,
                     ),
                     Text(

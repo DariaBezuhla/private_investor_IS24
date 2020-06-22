@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/constant.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CalcKaufpreis extends StatefulWidget {
   @override
@@ -45,7 +46,7 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Kaufpreis",
+                Text("Kaufpreis".tr().toString(),
                   style: styleText,
                 ),
                 Padding(
@@ -90,7 +91,7 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('+ Kaufnebenkosten 19%', style: styleText),
+                  Text('+ Kaufnebenkosten 19%'.tr().toString(), style: styleText),
                   Text(nebenkosten(price) + ' €', style: styleText)
                 ],
               ),
@@ -117,7 +118,7 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Kaufgesamtpreis',
+                    'Kaufgesamtpreis'.tr().toString(),
                     style: header4,
                   ),
                   Text(

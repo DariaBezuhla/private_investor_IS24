@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/constant.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CalcTopRow extends StatefulWidget {
   @override
@@ -49,7 +50,7 @@ class _CalcTopRowState extends State<CalcTopRow> {
                   height: ScreenUtil().setHeight(23),
                   child: Align(
                     alignment: Alignment.topCenter,
-                    child: Text("Cashflow vor Steuern",
+                    child: Text("Cashflow vor Steuern".tr().toString(),
                       style: styleDescriptionText,
                     ),
                   ),
@@ -84,7 +85,7 @@ class _CalcTopRowState extends State<CalcTopRow> {
                   height: ScreenUtil().setHeight(23),
                   child: Align(
                     alignment: Alignment.topCenter,
-                    child: Text("Geb. Sollzins",
+                    child: Text("Geb. Sollzins".tr().toString(),
                       style: styleDescriptionText,
                     ),
                   ),
@@ -119,7 +120,7 @@ class _CalcTopRowState extends State<CalcTopRow> {
                   height: ScreenUtil().setHeight(23),
                   child: Align(
                     alignment: Alignment.topCenter,
-                    child: Text("Eigenkapitalrendite",
+                    child: Text("Eigenkapitalrendite".tr().toString(),
                       style: styleDescriptionText,
                     ),
                   ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/constant.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CalcMieteinahmen extends StatefulWidget {
   @override
@@ -44,7 +45,7 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Mieteinahmen",
+                Text("Mieteinahmen".tr().toString(),
                   style: styleText,
                 ),
                 Padding(
@@ -88,7 +89,7 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Nicht umlagefähiges Hausgeld",
+                Text("Nicht umlagefähiges Hausgeld".tr().toString(),
                   style: styleText,
                 ),
                 Padding(
@@ -151,7 +152,7 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Rücklagen für Mietausfall",
+                Text("Rücklagen für Mietausfall".tr().toString(),
                   style: styleText,
                 ),
                 Padding(
@@ -213,7 +214,7 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Handwerkerkosten",
+                Text("Handwerkerkosten".tr().toString(),
                   style: styleText,
                 ),
                 Padding(
@@ -295,7 +296,7 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Betriebskosten',
+                    'Betriebskosten'.tr().toString(),
                     style: header4,
                   ),
                   Text(
