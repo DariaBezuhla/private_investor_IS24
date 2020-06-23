@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/constant.dart';
+import 'package:privateinvestorsmobile/home/search_data.dart';
 import '../constant.dart';
 
 class NormalTextField extends StatefulWidget {
@@ -17,6 +18,22 @@ class NormalTextField extends StatefulWidget {
 }
 
 class _NormalTextFieldState extends State<NormalTextField> {
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
+
+  void _onItemTapped() {
+    setState(() {
+      SearchData.budgetTo = int.parse(myController.text); //First for butget
+      print(SearchData.budgetTo);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -37,6 +54,7 @@ class _NormalTextFieldState extends State<NormalTextField> {
               primaryColorDark: kTeal,
             ),
             child: new TextFormField(
+                controller: myController,
                 decoration: new InputDecoration(
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -46,7 +64,9 @@ class _NormalTextFieldState extends State<NormalTextField> {
                   labelText: widget.normalFieldValue,
                   labelStyle: CustomStyle.textFieldInsideHeader(context),
                 ),
-                onChanged: widget.customWert),
+                onChanged: widget.customWert,
+            onTap: _onItemTapped,
+            ),
           ),
         ],
       ),

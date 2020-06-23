@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:privateinvestorsmobile/home/search_data.dart';
 import 'package:privateinvestorsmobile/network/search_service.dart';
 import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,8 +25,8 @@ class ListViewForResultsState extends State<ListViewForResults>
 
   List<RealEstateObject> _estates = List<RealEstateObject>();
   SearchService _searchService = SearchService();
-  ScrollController _scrollController = ScrollController();
-  int _pageNumber = 1;
+  ScrollController _scrollController;
+  int _pageNumber = 0;
   bool _loading = false;
 
   //For Animation (PageTransition)
@@ -33,28 +34,32 @@ class ListViewForResultsState extends State<ListViewForResults>
   bool returnFromDetailPage = false;
   ValueNotifier<bool> stateNotifier;
 
+  _scrollListener() {
+    if (_scrollController.offset >= _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      _fetchMoreEstates();
+    }
+  }
+
   @override
   void initState() {
-    super.initState();
     _initAnimationController();
-
+    _scrollController = ScrollController();
+    _scrollController.addListener(_scrollListener);
     _searchService
-        .fetchList(pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting)
+        .fetchList(pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting, priceTo: SearchData.budgetTo)
         .then((onValue) {
       setState(() {
         _estates.addAll(onValue);
       });
     });
 
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels >=
-          (_scrollController.position.maxScrollExtent)) {
-        if (_estates.length > 0) {
-          _fetchMoreEstates();
-        }
-      }
-    });
+
+    // to do: super.initState();
+
   }
+
+
 
   void _initAnimationController() {
     _animationController = AnimationController(
@@ -98,8 +103,7 @@ class ListViewForResultsState extends State<ListViewForResults>
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView(
+    return ListView(
         controller: _scrollController,
         children: <Widget>[
           (_estates.length > 0) ? Column(
@@ -132,46 +136,64 @@ class ListViewForResultsState extends State<ListViewForResults>
             child: CircularProgressIndicator(),
           )
         ],
-      ),
     );
   }
 
   void listSorted() {
+//    setState(() {
+//      _pageNumber = 0;
+//      _estates.clear();
+//      _loading = true;
+//      _scrollController.dispose();
+//    });
+//
+//    Future.delayed(const Duration(microseconds: 1000), () {
+//      _searchService
+//        .fetchList(
+//            pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting, priceTo: SearchData.budgetTo)
+//        .then((onValue) {
+//          setState(() {
+//            _loading = false;
+//            _estates.addAll(onValue);
+//          });
+//        }).catchError((onError) {
+//          setState(() {
+//            _loading = false;
+//          });
+//        });
+//    });
     setState(() {
-      _pageNumber = 1;
-      _estates.clear();
       _loading = true;
+      _pageNumber = 0;
+      _estates.clear();
     });
 
-    Future.delayed(const Duration(microseconds: 1000), () {
-      _searchService
-        .fetchList(
-            pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting)
+    _searchService
+        .fetchList(pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting, priceTo: SearchData.budgetTo)
         .then((onValue) {
-          setState(() {
-            _loading = false;
-            _estates.addAll(onValue);
-          });
-        }).catchError((onError) {
-          setState(() {
-            _loading = false;
-          });
-        });
+      setState(() {
+        _loading = false;
+        _estates.addAll(onValue);
+        // print("ACHTUNG! BUDGET: " + SearchData.budgetTo.toString());
+      });
+    }).catchError((onError) {
+      print(onError);
+      _loading = false;
     });
   }
 
   void _fetchMoreEstates() {
     setState(() {
-      _pageNumber++;
       _loading = true;
     });
-    
     _searchService
-      .fetchList(pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting)
+      .fetchList(pageNumber: _pageNumber + 1, sortBy: sortingBy, sort: howSorting, priceTo: SearchData.budgetTo)
       .then((onValue) {
         setState(() {
           _loading = false;
+          _pageNumber++;
           _estates.addAll(onValue);
+          // print("ACHTUNG! BUDGET: " + SearchData.budgetTo.toString());
         });
       }).catchError((onError) {
         print(onError);

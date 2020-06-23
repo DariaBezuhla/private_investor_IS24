@@ -21,7 +21,7 @@ class SearchService {
         int priceTo = 100000,
         String sortBy,
         String sort,
-        int pageNumber = 1,
+        int pageNumber = 0,
         int limit = 3,
         List<RealEstateObject> estateList}) async {
     final response = await http.get(
@@ -101,7 +101,7 @@ class SearchService {
   Future<ResultsLength> fetchLength ({int geocode = 1276003001,
     String estateType = 'BOTH',
     int priceTo = 100000,
-    int pageNumber = 1,
+    int pageNumber = 0,
     int limit = 3,
     List<RealEstateObject> estateList}) async {
 
