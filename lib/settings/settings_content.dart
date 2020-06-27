@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:privateinvestorsmobile/icons/product_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
+import 'package:privateinvestorsmobile/settings/language_choices.dart';
 import 'package:privateinvestorsmobile/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -60,6 +61,7 @@ class _SettingsContentState extends State<SettingsContent> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeChanger>(context);
+    ThemeData theme = themeProvider.getDisplayTheme(context);
 
     bool isSwitched = false;
 
@@ -192,68 +194,225 @@ class _SettingsContentState extends State<SettingsContent> {
                   style: widget.theme.textTheme.headline3,
                 ),
               ),
-              Row(
+              Column(
                 children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: ScreenUtil().setHeight(24),
-                        horizontal: ScreenUtil().setWidth(24)),
-                    child: IconTheme(
-                      data: widget.theme.primaryIconTheme,
-                      child: Icon(
-                        ProductIconsIS.is24_product_48px_location,
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: ScreenUtil().setHeight(12),
+                            horizontal: ScreenUtil().setWidth(24)),
+                        child: IconTheme(
+                          data: widget.theme.primaryIconTheme,
+                          child: Icon(
+                            ProductIconsIS.is24_product_48px_location,
+                          ),
+                        ),
                       ),
-                    ),
+                      Expanded(
+                        child: Container(
+                          child: Text(
+                            'Ortung'.tr().toString(),
+                            style: widget.theme.textTheme.headline4,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Container(
-                      child: Text(
-                        'Ortung'.tr().toString(),
-                        style: widget.theme.textTheme.headline4,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: ScreenUtil().setWidth(24)),
+                          child: Text(
+                            'Geo-Location verwenden'.tr().toString(),
+                            style: widget.theme.textTheme.bodyText2,
+                          ),
+                        ),
                       ),
-                    ),
+                      (_setCurrentLocation is bool)
+                          ? Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: ScreenUtil().setWidth(24)),
+                              child: FlutterSwitch(
+                                activeColor: kTeal,
+                                inactiveColor: kGrey,
+                                toggleSize: ScreenUtil().setHeight(17),
+                                height: ScreenUtil().setHeight(20),
+                                width: ScreenUtil().setWidth(50),
+                                value: _setCurrentLocation,
+                                onToggle: (value) {
+                                  //print(value);
+                                  setState(() {
+                                    _setCurrentLocation = value;
+                                    _setPreferenceBool(locationKey, value);
+                                  });
+                                },
+                              ),
+                            )
+                          : Container(
+                              width: 0,
+                              height: 0,
+                            ),
+                    ],
                   ),
                 ],
               ),
-              Row(
+              Container(
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+                  child: Divider(color: widget.theme.dividerColor)),
+              //LANGUAGE
+              Column(
                 children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: ScreenUtil().setWidth(24)),
-                      child: Text(
-                        'Geo-Location verwenden'.tr().toString(),
-                        style: widget.theme.textTheme.bodyText2,
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: ScreenUtil().setHeight(12),
+                            horizontal: ScreenUtil().setWidth(24)),
+                        child: IconTheme(
+                          data: widget.theme.primaryIconTheme,
+                          child: Icon(
+                            ProductIconsIS.is24_product_48px_geo_location,
+                          ),
+                        ),
                       ),
-                    ),
+                      Expanded(
+                        child: Container(
+                          child: Text(
+                            'Sprachauswahl'.tr().toString(),
+                            style: widget.theme.textTheme.headline4,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  (_setCurrentLocation is bool) ? Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ScreenUtil().setWidth(24)),
-                    child: FlutterSwitch(
-                      activeColor: kTeal,
-                      inactiveColor: kGrey,
-                      toggleSize: ScreenUtil().setHeight(17),
-                      height: ScreenUtil().setHeight(20),
-                      width: ScreenUtil().setWidth(50),
-                      value: _setCurrentLocation,
-                      onToggle: (value) {
-                        //print(value);
-                        setState(() {
-                          _setCurrentLocation = value;
-                          _setPreferenceBool(locationKey, value);
-                        });
-                      },
-                    ),
-                  ): Container(width: 0, height: 0,),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: ScreenUtil().setWidth(24)),
+                          child: Text(
+                            "Sprache verwenden".tr().toString(),
+                            style: widget.theme.textTheme.bodyText2,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ScreenUtil().setWidth(24)),
+                        child: PopupMenuButton<LanguageItem>(
+                          child: Container(
+                              child: Row(
+                            children: [
+                              Container(
+                                child: Text(
+                                  LanguageChoices.getItem(context.locale)
+                                      .displayName,
+                                ),
+                                padding: EdgeInsets.symmetric(horizontal: 12),
+                              ),
+                              Icon(
+                                SystemIconsIS.is24_system_48px_chevron_down,
+                                size: 24,
+                              ),
+                            ],
+                          )),
+                          onSelected: (lang) {
+                            //print(lang.locale);
+                            setState(() {
+                              EasyLocalization.of(context).locale =
+                                  Locale(lang.locale);
+                            });
+                          },
+                          itemBuilder: (BuildContext context) {
+                            return LanguageChoices.choices.map(
+                              (LanguageItem choice) {
+                                return PopupMenuItem<LanguageItem>(
+                                  value: choice,
+                                  child: Text(
+                                    choice.displayName,
+                                    style: theme.textTheme.bodyText2,
+                                  ),
+                                );
+                              },
+                            ).toList();
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
+              Container(
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+                  child: Divider(color: widget.theme.dividerColor)),
+
+              //NOTIFICATIONS
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: ScreenUtil().setHeight(12),
+                            horizontal: ScreenUtil().setWidth(24)),
+                        child: IconTheme(
+                          data: widget.theme.primaryIconTheme,
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_notification_alert,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          child: Text(
+                            'Benachrichtigungen'.tr().toString(),
+                            style: widget.theme.textTheme.headline4,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: ScreenUtil().setWidth(24)),
+                          child: Text(
+                            "Empfange Benachrichtigungen".tr().toString(),
+                            style: TextStyle(
+                                fontSize:
+                                    widget.theme.textTheme.bodyText2.fontSize,
+                                color: widget.theme.disabledColor),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ScreenUtil().setWidth(24)),
+                        child: Icon(
+                          SystemIconsIS.is24_system_48px_chevron_down,
+                          color: widget.theme.disabledColor,
+                          size: 24,
+                        ),
+                      )
+                    ],
+                  ),
                 ],
               ),
             ],
           ),
         ),
-
-        //appearance
         Container(
+            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+            child: Divider(color: widget.theme.dividerColor)),
+        //appearance
+        /*Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -320,16 +479,19 @@ class _SettingsContentState extends State<SettingsContent> {
               ),
               Container(
                 padding: EdgeInsets.symmetric(
-                    vertical: ScreenUtil().setHeight(10),
+                    vertical: Scree
+                    nUtil().setHeight(10),
                     horizontal: ScreenUtil().setWidth(24)),
                 child: Divider(color: widget.theme.dividerColor),
               ),
             ],
           ),
-        ),
+        ),*/
 
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(24)),
+          padding: EdgeInsets.symmetric(
+              horizontal: ScreenUtil().setWidth(24),
+              vertical: ScreenUtil().setWidth(0)),
           // Settings
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -337,7 +499,7 @@ class _SettingsContentState extends State<SettingsContent> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  GestureDetector(
+                  /*GestureDetector(
                     /* onTap: () {
                       Navigator.push(
                           context,
@@ -399,7 +561,7 @@ class _SettingsContentState extends State<SettingsContent> {
                         ],
                       ),
                     ),
-                  ),
+                  ),*/
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -432,13 +594,9 @@ class _SettingsContentState extends State<SettingsContent> {
                   ),
                 ],
               ),
-
               Container(
-                // padding: EdgeInsets.symmetric(
-                //   vertical: ScreenUtil().setHeight(12),
-                // ),
-                child: Divider(color: widget.theme.dividerColor),
-              ),
+                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 24),
+                  child: Divider(color: widget.theme.dividerColor)),
 
               //plus membership
               Column(

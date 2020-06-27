@@ -38,7 +38,6 @@ class _LocationInputField extends State<LocationTextField> {
       _autoCompleteLocationService = AutoCompleteLocationService();
     });
     setState(() {});
-    print('userlocation:' + widget.location);
   }
 
   void dispose() {

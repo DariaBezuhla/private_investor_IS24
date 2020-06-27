@@ -45,6 +45,7 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
                   ? Flexible(
                       child: Icon(
                         SystemIconsIS.is24_system_48px_add,
+                        color: kCharcoal,
                         size: ScreenUtil().setHeight(27),
                       ),
                     )

@@ -12,13 +12,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool isDark = prefs.getBool(themeKey) ?? false;
-  ThemeData theme = isDark ? dark : light;
+  //SharedPreferences prefs = await SharedPreferences.getInstance();
+  //bool isDark = prefs.getBool(themeKey) ?? false;
+  //ThemeData theme = isDark ? dark : light;
 
   runApp(EasyLocalization(
     child: PrivateInvestors(
-      theme: theme,
+      theme: light,
     ),
     path: "assets/translations",
     saveLocale: true,
