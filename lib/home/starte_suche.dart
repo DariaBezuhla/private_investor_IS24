@@ -16,18 +16,73 @@ import 'location_textfield.dart';
 class StarteSuche extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _StarteSuchePage();
+    return StarteSucheState();
   }
 }
 
-class _StarteSuchePage extends State<StarteSuche> {
+class StarteSucheState extends State<StarteSuche> {
   final String containerTitle = 'containerTitle'.tr().toString();
-
   final String containerDescription = 'containerDescription'.tr().toString();
-
   final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
   Position _currentPosition;
   String _currentAddress;
+  final GlobalKey<NormalTextFieldState> _key = GlobalKey();
+  final GlobalKey<LocationInputFieldState> _key2 = GlobalKey();
+
+  //For Filters
+  //final GlobalKey<NormalTextFieldState> _key = GlobalKey();
+  static int budgetFromUser;
+  static int geoCodeFromUser;
+  static String estateTypeFromUser;
+
+  //Filters with default value
+  static int netYieldFromUser = 0;
+  static int priceTrendFromUser = 0;
+  static int rentTrendFromUser = 0;
+  static int factorFromUser = 100;
+  static int pricePerSqFromUser = 1000000;
+  static double roomsFromUser = 1;
+  static int livingSpaceFromUser = 0;
+  static bool refurbishedFromUser = false;
+  static bool rentedFromUser = false;
+  static bool plausibleFromUser = false;
+
+
+  //For refreshing filters:
+  //  refreshFilter() is called in NormalTextField and other TextFields;
+  //  what does: StarteSuchePage.setState() with new filters properties from user
+  void refreshFilter() {
+    setState(() {
+      budgetFromUser = NormalTextFieldState.budget;
+      estateTypeFromUser = PropertyTypeTextFieldState.estateType;
+      geoCodeFromUser = LocationInputFieldState.geoCode;
+      netYieldFromUser = NormalTextFieldState.netYield;
+      priceTrendFromUser = NormalTextFieldState.priceTrend;
+      rentTrendFromUser = NormalTextFieldState.rentTrend;
+      factorFromUser = NormalTextFieldState.factor;
+      pricePerSqFromUser = NormalTextFieldState.pricePerSq;
+      roomsFromUser = NormalTextFieldState.rooms;
+      livingSpaceFromUser = NormalTextFieldState.livingSpace;
+      refurbishedFromUser = WeitereFilterDropDownState.pressedSaniert;
+      rentedFromUser =  WeitereFilterDropDownState.pressedVermietet;
+      plausibleFromUser =  WeitereFilterDropDownState.pressedPlausible;
+
+      /*print('budgetInStarteSuche: ' + budgetFromUser.toString());
+      print('estateTypeInStarteSuche: ' + estateTypeFromUser.toString());
+      print('geoCodeInStarteSuche: ' + geoCodeFromUser.toString());
+      print('netYieldInStarteSuche: ' + netYieldFromUser.toString());
+      print('priceTrendInStarteSuche: ' + priceTrendFromUser.toString());
+      print('rentTrendInStarteSuche: ' + rentTrendFromUser.toString());
+      print('factorInStarteSuche: ' + factorFromUser.toString());
+      print('pricePerSqFInStarteSuche: ' + pricePerSqFromUser.toString());
+      print('roomsInStarteSuche: ' + roomsFromUser.toString());
+      print('livingSpaceSqFInStarteSuche: ' + livingSpaceFromUser.toString());
+      print('refurbishedInStarteSuche: ' + refurbishedFromUser.toString());
+      print('rentedInStarteSuche: ' + rentedFromUser.toString());
+      print('plausibleInStarteSuche: ' + plausibleFromUser.toString());
+       */
+    });
+  }
 
   _getCurrentLocation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -62,7 +117,6 @@ class _StarteSuchePage extends State<StarteSuche> {
       setState(() {
         _currentAddress = "${place.locality}";
       });
-      print(_currentAddress);
     } catch (e) {
       print(e);
     }
@@ -158,11 +212,13 @@ class _StarteSuchePage extends State<StarteSuche> {
                             primaryColorDark: kTeal,
                           ),
                           child: new LocationTextField(
+                            key: _key2,
                             textFieldValue: 'Wo: Bezirk, Stadt oder Bundesland'
                                 .tr()
                                 .toString(),
                             topValue: 'Region'.tr().toString(),
                             location: _currentAddress,
+                            function: refreshFilter,
                           ),
                         ),
 
@@ -170,17 +226,17 @@ class _StarteSuchePage extends State<StarteSuche> {
 
                         //2. TEXTFIELD
                         Theme(
-                          data: new ThemeData(
-                            primaryColor: kTeal,
-                            primaryColorDark: kTeal,
-                          ),
-                          child: new PropertyTypeTextField(
-                              "Realestate".tr().toString(),
-                              (String str) {
+                            data: new ThemeData(
+                              primaryColor: kTeal,
+                              primaryColorDark: kTeal,
+                            ),
+                            child: new PropertyTypeTextField(
+                              topValue: "Realestate".tr().toString(),
+                              customHead: (String str) {
                                 print(str);
                               },
-                          ),
-                        ),
+                              function: refreshFilter,
+                            )),
 
                         SizedBox(height: ScreenUtil().setHeight(10)),
 
@@ -191,14 +247,18 @@ class _StarteSuchePage extends State<StarteSuche> {
                             primaryColorDark: kTeal,
                           ),
                           child: new NormalTextField(
-                              "Budget bis".tr().toString(),
-                              (String str) {
-                                print(str);
-                              },
-                              "100.000€".tr().toString(),
-                              (String st) {
-                                print(st);
-                              }),
+                            key: _key,
+                            topNormalValue: "Budget bis".tr().toString(),
+                            customHead: (String str) {
+                              print(str);
+                            },
+                            normalFieldValue: "100.000€".tr().toString(),
+                            customWert: (String st) {
+                              //print(st);
+                            },
+                            function: refreshFilter,
+                            filterName: 'budget',
+                          ),
                         ),
 
                         SizedBox(height: ScreenUtil().setHeight(10)),
@@ -209,7 +269,9 @@ class _StarteSuchePage extends State<StarteSuche> {
                           child: Divider(color: kLightGrey),
                         ),
 
-                        WeitereFilter(),
+                        WeitereFilter(
+                          function: refreshFilter,
+                        ),
 
                         SizedBox(height: ScreenUtil().setHeight(10)),
 
@@ -223,11 +285,31 @@ class _StarteSuchePage extends State<StarteSuche> {
                                 vertical: ScreenUtil().setHeight(10),
                                 horizontal: ScreenUtil().setWidth(10)),
                             onPressed: () {
-                              Navigator.of(context).push(
-                                PageRouteGenerator(builder: (context) {
-                                  return ResultScreen();
-                                }),
-                              );
+                              _key.currentState.validateInput();
+                              _key2.currentState.validateInput();
+                              if (_key.currentState.validateInput() && _key2.currentState.validateInput()) {
+                                Navigator.of(context).push(
+                                  PageRouteGenerator(builder: (context) {
+                                    return ResultScreen(
+                                      budget: budgetFromUser,
+                                      estateType:
+                                          checkEstateType(estateTypeFromUser),
+                                      geoCode: geoCodeFromUser,
+                                      netYield: netYieldFromUser,
+                                      priceTrend: priceTrendFromUser,
+                                      rentTrend: rentTrendFromUser,
+                                      factor: factorFromUser,
+                                      pricePerSqm: pricePerSqFromUser,
+                                      rooms: roomsFromUser,
+                                      livingSpace: livingSpaceFromUser,
+                                        refurbished: refurbishedFromUser,
+                                        rented: rentedFromUser,
+                                        plausible: plausibleFromUser,
+
+                                    );
+                                  }),
+                                );
+                              }
                             },
                             child: Text('Suchen'.tr().toString(),
                                 style: CustomStyle.styleButton(context)),
@@ -243,5 +325,54 @@ class _StarteSuchePage extends State<StarteSuche> {
         ],
       ),
     );
+  }
+}
+
+String checkEstateType(String typeFromUser) {
+  switch (typeFromUser) {
+    case 'Alles':
+      {
+        return 'BOTH';
+      }
+      break;
+    case 'Everything':
+      {
+        return 'BOTH';
+      }
+      break;
+    case 'Neubau':
+      {
+        return 'NEW_HOME';
+      }
+      break;
+    case 'New building':
+      {
+        return 'NEW_HOME';
+      }
+      break;
+    case 'Wohnung':
+      {
+        return 'APARTMENT_BUY';
+      }
+      break;
+    case 'Apartment':
+      {
+        return 'APARTMENT_BUY';
+      }
+      break;
+    case 'Haus':
+      {
+        return 'HOUSE_BUY';
+      }
+    case 'House':
+      {
+        return 'HOUSE_BUY';
+      }
+      break;
+    default:
+      {
+        return 'BOTH';
+      }
+      break;
   }
 }

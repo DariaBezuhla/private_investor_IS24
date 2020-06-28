@@ -38,7 +38,7 @@ class _SettingsContentState extends State<SettingsContent> {
   double ruecklagen = 0.0;
   double hwkosten = 0.0;
   double mn = 0.0;
-  bool _setCurrentLocation ;
+  bool _setCurrentLocation = false;
 
   @override
   initState() {
@@ -243,7 +243,7 @@ class _SettingsContentState extends State<SettingsContent> {
                                 width: ScreenUtil().setWidth(50),
                                 value: _setCurrentLocation,
                                 onToggle: (value) {
-                                  print(value);
+                                  //print(value);
                                   setState(() {
                                     _setCurrentLocation = value;
                                     _setPreferenceBool(locationKey, value);

@@ -7,22 +7,33 @@ class PropertyTypeTextField extends StatefulWidget {
   final String topValue;
   ValueChanged<String> customHead;
 
+  //For Filters -> transportation user wishes to Results List
+  final Function() function;
+
   PropertyTypeTextField(
-      this.topValue, this.customHead);
+      {Key key, this.topValue, this.customHead, this.function})
+      : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => new _HomeInputField();
+  State<StatefulWidget> createState() => new PropertyTypeTextFieldState();
 }
 
-class _HomeInputField extends State<PropertyTypeTextField> {
+class PropertyTypeTextFieldState extends State<PropertyTypeTextField> {
+  static String estateType = "BOTH"; //default Real Estate Type
   List<String> propertyTypes = [
-    "Neubau".tr().toString(),
+    "Alles".tr().toString(),
     "Wohnung".tr().toString(),
     "Haus".tr().toString(),
-    "Alles".tr().toString()
+    "Neubau".tr().toString(),
   ];
+  String dropdownValue = "Alles".tr().toString();
 
-  String dropdownValue = 'Neubau'.tr().toString();
+  void _onItemTapped() {
+    setState(() {
+      estateType = dropdownValue;
+      widget.function();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,19 +55,22 @@ class _HomeInputField extends State<PropertyTypeTextField> {
               primaryColorDark: kTeal,
             ),
             child: DropdownButtonFormField<String>(
-                decoration: new InputDecoration(
-                    border: OutlineInputBorder(
-                    borderSide: BorderSide(
+              decoration: new InputDecoration(
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
                     color: kDivider,
                   ),
-                )),
-                value: dropdownValue,
-                onChanged: (String newValue) {
-                      setState(() {
-                        dropdownValue = newValue;
-                      });
-                    },
-              items: propertyTypes.map<DropdownMenuItem<String>>((String value) {
+                ),
+              ),
+              value: dropdownValue,
+              onChanged: (String newValue) {
+                setState(() {
+                  dropdownValue = newValue;
+                  _onItemTapped();
+                });
+              },
+              items:
+                  propertyTypes.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),

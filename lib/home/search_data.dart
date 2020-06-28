@@ -1,8 +1,12 @@
+//Help class -> helps to know default values for search
+
 class SearchData {
+  //Shows
   //main filters
-  static int budgetTo = 100000;
-  static int geocode = 1276003001;
-  static String exposeType = "BOTH";
+  static int budgetTo = null; // done
+  static String exposeType = "BOTH"; //done
+  static int geocode = null; //done
+
 
   //additional filters investments
   static int netYieldFrom = 0;

@@ -149,7 +149,6 @@ class AppBarSliverBigState extends State<AppBarSliverBig> {
     this.setState(() {
       sortingChoice = valueForFetchingResults(choice);
       ascending = ascending == 'desc' ? 'asc' : 'desc';
-      //print(sortingChoice + ' inAPP');
       widget.function(); //function() is in Parent Widget -> ResultsScreen
     });
   }

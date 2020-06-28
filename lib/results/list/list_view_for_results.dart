@@ -1,18 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:privateinvestorsmobile/home/search_data.dart';
 import 'package:privateinvestorsmobile/network/search_service.dart';
 import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../expose.dart';
 import '../../results/card/real_estate_card.dart';
 import '../../results/card/real_estate_object.dart';
+import 'no_results_card.dart';
 
 class ListViewForResults extends StatefulWidget {
   final String theme; // for 'Dark' or 'Light' Theme
+  final int budget;
+  final String estateType;
+  final int geocode;
+  final int netYield;
+  final int priceTrend;
+  final int rentTrend;
+  final int factorTo;
+  final int pricePerSqm;
+  final double rooms;
+  final int livingSpace;
+  final bool refurbished;
+  final bool rented;
+  final bool plausible;
 
   const ListViewForResults({
     Key key,
     this.theme,
+    this.budget,
+    this.estateType,
+    this.geocode,
+    this.netYield,
+    this.priceTrend,
+    this.rentTrend,
+    this.factorTo,
+    this.pricePerSqm,
+    this.rooms,
+    this.livingSpace,
+    this.refurbished, //TODO complett
+    this.rented, //TODO
+    this.plausible, //TODO
   }) : super(key: key);
 
   ListViewForResultsState createState() => ListViewForResultsState();
@@ -47,7 +73,11 @@ class ListViewForResultsState extends State<ListViewForResults>
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
     _searchService
-        .fetchList(pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting, priceTo: SearchData.budgetTo)
+        .fetchList(pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting, priceTo: widget.budget,
+        estateType: widget.estateType, geocode: widget.geocode, netYieldFrom: widget.netYield,
+    priceTrendFrom: widget.priceTrend, rentTrendFrom: widget.rentTrend, factorTo: widget.factorTo,
+        pricePerSqm: widget.pricePerSqm, roomsFrom: widget.rooms, livingSpaceFrom: widget.livingSpace,
+        isRented: widget.rented, isNotFlagged: widget.plausible,)
         .then((onValue) {
       setState(() {
         _estates.addAll(onValue);
@@ -132,36 +162,15 @@ class ListViewForResultsState extends State<ListViewForResults>
                 ],
               ) : Container(width: 0, height: 0,)
             ],
-          ) : Center(
-            child: CircularProgressIndicator(),
+          ) :
+          Center(
+            child: NoResultsFound(),// CircularProgressIndicator(),
           )
         ],
     );
   }
 
   void listSorted() {
-//    setState(() {
-//      _pageNumber = 0;
-//      _estates.clear();
-//      _loading = true;
-//      _scrollController.dispose();
-//    });
-//
-//    Future.delayed(const Duration(microseconds: 1000), () {
-//      _searchService
-//        .fetchList(
-//            pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting, priceTo: SearchData.budgetTo)
-//        .then((onValue) {
-//          setState(() {
-//            _loading = false;
-//            _estates.addAll(onValue);
-//          });
-//        }).catchError((onError) {
-//          setState(() {
-//            _loading = false;
-//          });
-//        });
-//    });
     setState(() {
       _loading = true;
       _pageNumber = 0;
@@ -169,12 +178,15 @@ class ListViewForResultsState extends State<ListViewForResults>
     });
 
     _searchService
-        .fetchList(pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting, priceTo: SearchData.budgetTo)
+        .fetchList(pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting, priceTo: widget.budget,
+        estateType: widget.estateType, geocode: widget.geocode,  netYieldFrom: widget.netYield,
+        priceTrendFrom: widget.priceTrend, rentTrendFrom: widget.rentTrend, factorTo: widget.factorTo,
+        pricePerSqm: widget.pricePerSqm, roomsFrom: widget.rooms, livingSpaceFrom: widget.livingSpace,
+      isRented: widget.rented, isNotFlagged: widget.plausible,)
         .then((onValue) {
       setState(() {
         _loading = false;
         _estates.addAll(onValue);
-        // print("ACHTUNG! BUDGET: " + SearchData.budgetTo.toString());
       });
     }).catchError((onError) {
       print(onError);
@@ -187,13 +199,16 @@ class ListViewForResultsState extends State<ListViewForResults>
       _loading = true;
     });
     _searchService
-      .fetchList(pageNumber: _pageNumber + 1, sortBy: sortingBy, sort: howSorting, priceTo: SearchData.budgetTo)
+      .fetchList(pageNumber: _pageNumber + 1, sortBy: sortingBy, sort: howSorting, priceTo: widget.budget,
+        estateType: widget.estateType, geocode: widget.geocode,  netYieldFrom: widget.netYield,
+        priceTrendFrom: widget.priceTrend, rentTrendFrom: widget.rentTrend, factorTo: widget.factorTo,
+        pricePerSqm: widget.pricePerSqm, roomsFrom: widget.rooms, livingSpaceFrom: widget.livingSpace,
+      isRented: widget.rented, isNotFlagged: widget.plausible,)
       .then((onValue) {
         setState(() {
           _loading = false;
           _pageNumber++;
           _estates.addAll(onValue);
-          // print("ACHTUNG! BUDGET: " + SearchData.budgetTo.toString());
         });
       }).catchError((onError) {
         print(onError);

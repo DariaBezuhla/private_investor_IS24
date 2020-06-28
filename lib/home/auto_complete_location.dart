@@ -32,8 +32,7 @@ class AutoCompleteLocationService {
     if (response.statusCode == 200) {
       var cities =
           json.decode(utf8.decode(response.bodyBytes))['city']; // possibly list
-      var postcodes =
-          json.decode(utf8.decode(response.bodyBytes))['postcode']; // List
+ //     var postcodes = json.decode(utf8.decode(response.bodyBytes))['postcode']; // List
       var quarterOrTowns = json.decode(
           utf8.decode(response.bodyBytes))['quarterOrTown']; // definetely list
       var countries = json.decode(utf8.decode(response.bodyBytes))['country'];
@@ -43,12 +42,13 @@ class AutoCompleteLocationService {
           locations.add(Location.fromJson(city));
         }
       }
-//
-      if (postcodes != null) {
+
+    /*  if (postcodes != null) {
         for (var postcode in postcodes) {
           locations.add(Location.fromJson(postcode));
         }
       }
+    */
 
       if (quarterOrTowns != null) {
         for (var qOrT in quarterOrTowns) {

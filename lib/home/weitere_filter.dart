@@ -9,9 +9,16 @@ import '../constant.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class WeitereFilter extends StatefulWidget {
+  final Function() function;
+
+  WeitereFilter({
+    Key key,
+    this.function,
+  }) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
-    return _WeitereFilterDropDown();
+    return WeitereFilterDropDownState();
   }
 }
 
@@ -19,11 +26,23 @@ bool _investFilters = false;
 bool _immobilieFilters = false;
 bool _additionalFilters = false;
 
-var pressedSaniert = false;
-var pressedVermietet = false;
-var pressedPlausible = false;
 
-class _WeitereFilterDropDown extends State<WeitereFilter> {
+
+class WeitereFilterDropDownState extends State<WeitereFilter> {
+ static var pressedSaniert = false;
+ static var pressedVermietet = false;
+ static var pressedPlausible = false;
+  //For Filters
+
+
+  //  refreshFilter() is called in NormalTextField;
+  //  what does: call function() in Perent -> StarteSuchePage
+  void refreshFilter() {
+    setState(() {
+      widget.function();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,24 +76,25 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
                       ),
                     ),
 //
-              SizedBox(height: ScreenUtil().setHeight(10)),
+              SizedBox(height: ScreenUtil().setHeight(10),),
 
               //TEXT WEITERE FILTER
               (_additionalFilters == false)
                   ? AutoSizeText(
                       "Weitere Filter".tr().toString(),
                       minFontSize: header5.fontSize, //header5 < header4
-                      maxFontSize: header2.fontSize,
-                      style: header2,
+                      maxFontSize: header3.fontSize,
+                      style: header3,
                     )
                   : AutoSizeText(
                       "Weniger Filter".tr().toString(),
                       minFontSize: header5.fontSize,
-                      maxFontSize: header2.fontSize,
-                      style: header2,
+                      maxFontSize: header3.fontSize,
+                      style: header3,
                     ),
 
               SizedBox(height: ScreenUtil().setHeight(20)),
+              Container (width: ScreenUtil().setHeight(27),)
 
               //DOWN/UP ICON
               /*(_additionalFilters == false)
@@ -140,63 +160,69 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
                 child: Column(children: <Widget>[
                   //5 INPUT FIELDS FOR INVESTITIONEN
                   new NormalTextField(
-                      'Nettorendite ab'.tr().toString(),
-                      (String str) {
-                        print(str);
-                      },
-                      'z.B. ab 3%'.tr().toString(),
-                      (String st) {
-                        print(st);
-                      }),
-
+                    topNormalValue: 'Nettorendite ab'.tr().toString(),
+                    customHead: (String str) {
+                      print(str);
+                    },
+                    normalFieldValue: 'z.B. ab 3%'.tr().toString(),
+                    customWert: (String st) {
+                      //print(st);
+                    },
+                    function: refreshFilter,
+                    filterName: 'netYield', //Net yield
+                  ),
                   SizedBox(height: ScreenUtil().setHeight(10)),
-
                   new NormalTextField(
-                      'Kaufpreisentwicklung'.tr().toString(),
-                      (String str) {
-                        print(str);
-                      },
-                      'z.B. ab 5%'.tr().toString(),
-                      (String st) {
-                        print(st);
-                      }),
-
+                    topNormalValue: 'Kaufpreisentwicklung'.tr().toString(),
+                    customHead: (String str) {
+                      print(str);
+                    },
+                    normalFieldValue: 'z.B. ab 5%'.tr().toString(),
+                    customWert: (String st) {
+                      //print(st);
+                    },
+                    function: refreshFilter,
+                    filterName: 'priceTrend',
+                  ),
                   SizedBox(height: ScreenUtil().setHeight(10)),
-
-                  new NormalTextField(
-                      'Mietpreisentwicklung'.tr().toString(),
-                      (String str) {
-                        print(str);
-                      },
-                      'z.B. ab 5%'.tr().toString(),
-                      (String st) {
-                        print(st);
-                      }),
-
+                  NormalTextField(
+                    topNormalValue: 'Mietpreisentwicklung'.tr().toString(),
+                    customHead: (String str) {
+                      print(str);
+                    },
+                    normalFieldValue: 'z.B. ab 5%'.tr().toString(),
+                    customWert: (String st) {
+                     // print(st);
+                    },
+                    function: refreshFilter,
+                   filterName: 'rentTrend',
+                  ),
                   SizedBox(height: ScreenUtil().setHeight(10)),
-
-                  new NormalTextField(
-                      'Faktor'.tr().toString(),
-                      (String str) {
-                        print(str);
-                      },
-                      'z.B. bis 10'.tr().toString(),
-                      (String st) {
-                        print(st);
-                      }),
-
+                  NormalTextField(
+                    topNormalValue: 'Faktor'.tr().toString(),
+                    customHead: (String str) {
+                      print(str);
+                    },
+                    normalFieldValue:  'z.B. bis 10'.tr().toString(),
+                    customWert: (String st) {
+                      //print(st);
+                    },
+                    function: refreshFilter,
+                    filterName: 'factor',
+                  ),
                   SizedBox(height: ScreenUtil().setHeight(10)),
-
-                  new NormalTextField(
-                      'Preis pro m2'.tr().toString(),
-                      (String str) {
-                        print(str);
-                      },
-                      'z.B. bis 600€'.tr().toString(),
-                      (String st) {
-                        print(st);
-                      }),
-
+                  NormalTextField(
+                    topNormalValue: 'Preis pro m2'.tr().toString(),
+                    customHead: (String str) {
+                      print(str);
+                    },
+                    normalFieldValue:  'z.B. bis 600€'.tr().toString(),
+                    customWert: (String st) {
+                     // print(st);
+                    },
+                    function: refreshFilter,
+                    filterName: 'pricePerSq',
+                  ),
                   SizedBox(height: ScreenUtil().setHeight(24)),
                 ]),
               ),
@@ -246,28 +272,31 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
                 child: Column(
                   children: <Widget>[
                     //2 TEXT FIELDS FOR IMMOBILIE
-
-                    new NormalTextField(
-                        'Zimmer'.tr().toString(),
-                        (String str) {
-                          print(str);
-                        },
-                        'Zimmer egal'.tr().toString(),
-                        (String st) {
-                          print(st);
-                        }),
-
+                    NormalTextField(
+                      topNormalValue:  'Zimmer'.tr().toString(),
+                      customHead: (String str) {
+                        print(str);
+                      },
+                      normalFieldValue: 'Zimmer egal'.tr().toString(),
+                      customWert: (String st) {
+                       // print(st);
+                      },
+                      function: refreshFilter,
+                     filterName: 'rooms',
+                    ),
                     SizedBox(height: ScreenUtil().setHeight(10)),
-
-                    new NormalTextField(
-                        'Größe'.tr().toString(),
-                        (String str) {
-                          print(str);
-                        },
-                        'z.B. ab 100 m2'.tr().toString(),
-                        (String st) {
-                          print(st);
-                        }),
+                    NormalTextField(
+                      topNormalValue:  'Größe'.tr().toString(),
+                      customHead: (String str) {
+                        print(str);
+                      },
+                      normalFieldValue: 'z.B. ab 100 m2'.tr().toString(),
+                      customWert: (String st) {
+                       // print(st);
+                      },
+                      function: refreshFilter,
+                      filterName: 'livingSpace',
+                    ),
 
                     SizedBox(height: ScreenUtil().setHeight(10)),
 
@@ -280,6 +309,7 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
                         onPressed: () {
                           setState(() {
                             pressedSaniert = !pressedSaniert;
+                            refreshFilter();
                           });
                         },
                         child: Text('Saniert'.tr().toString(),
@@ -298,6 +328,7 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
                         onPressed: () {
                           setState(() {
                             pressedVermietet = !pressedVermietet;
+                            refreshFilter();
                           });
                         },
                         child: Text('Vermietet'.tr().toString(),
@@ -317,6 +348,7 @@ class _WeitereFilterDropDown extends State<WeitereFilter> {
                         onPressed: () {
                           setState(() {
                             pressedPlausible = !pressedPlausible;
+                            refreshFilter();
                           });
                         },
                         child: Text('Nur plausibel'.tr().toString(),

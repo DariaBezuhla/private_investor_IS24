@@ -12,14 +12,22 @@ class LocationTextField extends StatefulWidget {
   ValueChanged<String> customHead;
   ValueChanged<String> customWert;
 
+  //For Filters -> transportation user wishes to Results List
+  final Function() function;
+
   LocationTextField(
-      { this.topValue, this.customHead, this.textFieldValue, this.customWert, this.location});
+      {Key key,
+      this.topValue,
+      this.customHead,
+      this.textFieldValue,
+      this.customWert,
+      this.location, this.function}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => new _LocationInputField();
+  State<StatefulWidget> createState() => new LocationInputFieldState();
 }
 
-class _LocationInputField extends State<LocationTextField> {
+class LocationInputFieldState extends State<LocationTextField> {
   AutoCompleteLocationService _autoCompleteLocationService;
   TextEditingController _controller;
   String _geoCodes;
@@ -28,6 +36,15 @@ class _LocationInputField extends State<LocationTextField> {
   bool _choseLocation;
   bool focusedInputField = true;
   FocusNode _myFocusNode;
+  // For User Filters transition into Results List
+  static int geoCode;
+
+  //Validate the TextFieldForm
+  final _formKey = GlobalKey<FormState>();
+  bool validateInput(){
+    if (_formKey.currentState.validate()) return true;
+    return false;
+  }
 
   void initState() {
     super.initState();
@@ -38,7 +55,6 @@ class _LocationInputField extends State<LocationTextField> {
       _autoCompleteLocationService = AutoCompleteLocationService();
     });
     setState(() {});
-    print('userlocation:' + widget.location);
   }
 
   void dispose() {
@@ -47,16 +63,26 @@ class _LocationInputField extends State<LocationTextField> {
     _myFocusNode.dispose();
   }
 
+  //clear Text Field when new value
+  void _clearTextInput(){
+    _controller.clear();
+    geoCode = null;
+    widget.function();
+    //FocusScope.of(context).unfocus();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
-    return
-      GestureDetector(
-          onTap: () {
-            setState(() {
-              focusedInputField = false;
-            });
-          },
-
+    return GestureDetector(
+        onTap: () {
+          setState(() {
+            focusedInputField = false;
+          });
+        },
+        child: Form(
+          key: _formKey,
           child: Material(
             color: Colors.white,
             child: Column(
@@ -71,7 +97,6 @@ class _LocationInputField extends State<LocationTextField> {
                 SizedBox(
                   height: ScreenUtil().setHeight(10),
                 ),
-
                 Column(
                   children: <Widget>[
                     new TextFormField(
@@ -93,7 +118,7 @@ class _LocationInputField extends State<LocationTextField> {
                           if (it.length >= 2) {
                             _timer = Timer(
                               const Duration(milliseconds: 500),
-                                  () {
+                              () {
                                 setState(() {
                                   _input = it;
                                   _choseLocation = false;
@@ -102,46 +127,54 @@ class _LocationInputField extends State<LocationTextField> {
                               },
                             );
                           }
-                        }),
-                    (!_choseLocation) ? FutureBuilder(
-                      future: _autoCompleteLocationService
-                          .fetchAutocompleteLocation(location: _input),
-                      builder: (context, snapshot) {
-                        switch (snapshot.connectionState) {
-                          case ConnectionState.none:
-                          case ConnectionState.waiting:
-                            return Column(
-                              children: <Widget>[
-                                Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              ],
-                            );
-                        //
-                          default:
-                            if (snapshot.hasError) {
-                              return Text("Error: ${snapshot.error}");
-                            }
-                            if (snapshot.hasData && !_choseLocation &&
-                                focusedInputField) {
-                              return Material(
-                                child: _buildListView(context,
-                                    snapshot.data,
-                                        (it) => _geoCodes = it),
-                              );
-                            }
-                            return Container();
+                        },
+                      onTap: _clearTextInput,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter region';
                         }
+                        return null;
                       },
-                    ) : Container()
+                        ),
+                    (!_choseLocation)
+                        ? FutureBuilder(
+                            future: _autoCompleteLocationService
+                                .fetchAutocompleteLocation(location: _input),
+                            builder: (context, snapshot) {
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.none:
+                                case ConnectionState.waiting:
+                                  return Column(
+                                    children: <Widget>[
+                                      Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    ],
+                                  );
+                                //
+                                default:
+                                  if (snapshot.hasError) {
+                                    return Text("Error: ${snapshot.error}");
+                                  }
+                                  if (snapshot.hasData &&
+                                      !_choseLocation &&
+                                      focusedInputField) {
+                                    return Material(
+                                      child: _buildListView(context,
+                                          snapshot.data, (it) => _geoCodes = it),
+                                    );
+                                  }
+                                  return Container();
+                              }
+                            },
+                          )
+                        : Container()
                   ],
                 ),
-
-
               ],
             ),
-          )
-      );
+          ),
+        ));
   }
 
   Widget _buildListView(BuildContext context, List<Location> locations,
@@ -173,6 +206,12 @@ class _LocationInputField extends State<LocationTextField> {
       _input = location.getLabel();
       _choseLocation = true;
       _controller.text = location.getLabel();
+
+      //For User Filer -> transition to Results List
+      geoCode = int.tryParse(_geoCodes) ?? null;
+      widget.function();
+      _formKey.currentState.validate();
+      FocusScope.of(context).unfocus();
     });
   }
 }

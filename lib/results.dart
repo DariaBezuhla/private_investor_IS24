@@ -4,16 +4,41 @@ import 'package:privateinvestorsmobile/appBar/app_bar_sliver_big.dart';
 import 'package:privateinvestorsmobile/bottomBar/bottom_bar.dart';
 import 'package:privateinvestorsmobile/results/list/lengthOfResult.dart';
 import 'package:privateinvestorsmobile/results/list/list_view_for_results.dart';
-
 import 'constant.dart';
 import 'network/search_service.dart';
 
 class ResultScreen extends StatefulWidget {
   final String theme;
+  final int budget;
+  final String estateType;
+  final int geoCode;
+  final int netYield;
+  final int rentTrend;
+  final int priceTrend;
+  final int factor;
+  final int pricePerSqm;
+  final double rooms;
+  final int livingSpace;
+  final bool refurbished;
+  final bool rented;
+  final bool plausible;
 
   const ResultScreen({
     Key key,
     this.theme,
+    this.budget,
+    this.estateType,
+    this.geoCode,
+    this.netYield,
+    this.rentTrend,
+    this.priceTrend,
+    this.factor,
+    this.pricePerSqm,
+    this.rooms,
+    this.livingSpace,
+    this.refurbished,
+    this.rented,
+    this.plausible,
   }) : super(key: key);
 
   @override
@@ -53,8 +78,17 @@ class _ResultScreenState extends State<ResultScreen> {
   @override
   void initState() {
     super.initState();
+    _fetchLengthForAppBar();
+  }
 
-    _searchService.fetchLength().then((value) {
+  _fetchLengthForAppBar() {
+    _searchService.fetchLength(
+        priceTo: widget.budget,
+        estateType: widget.estateType, geocode: widget.geoCode,  netYieldFrom: widget.netYield,
+        priceTrendFrom: widget.priceTrend, rentTrendFrom: widget.rentTrend, factorTo: widget.factor,
+        pricePerSqm: widget.pricePerSqm, roomsFrom: widget.rooms, livingSpaceFrom: widget.livingSpace,
+      isRented: widget.rented, isNotFlagged: widget.plausible,
+    ).then((value) {
       setState(() {
         _lengthOfResults = value;
         _lenght = _lengthOfResults.numberOfListings.toInt();
@@ -86,6 +120,19 @@ class _ResultScreenState extends State<ResultScreen> {
             },
             body: ListViewForResults(
               key: _key2,
+              budget: widget.budget,
+              estateType: widget.estateType,
+              geocode: widget.geoCode,
+              netYield: widget.netYield,
+              priceTrend: widget.priceTrend,
+              rentTrend: widget.rentTrend,
+              factorTo: widget.factor,
+              pricePerSqm: widget.pricePerSqm,
+              rooms: widget.rooms,
+              livingSpace: widget.livingSpace,
+                refurbished: widget.refurbished,
+            rented: widget.rented,
+            plausible: widget.plausible,
             ),
           ),
         ),

@@ -40,7 +40,7 @@ class AppBarSliverSmall extends StatelessWidget {
         });
 
     return SliverAppBar(
-      leading: iconArrowLeft,
+      leading:  new Container(),//iconArrowLeft,
       title: Center(child: themeProvider.getTheme() == dark ? dLogo : logo),
       actions: <Widget>[
         Container(
