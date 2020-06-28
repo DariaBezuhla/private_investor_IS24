@@ -11,7 +11,7 @@ class CalcKaufpreis extends StatefulWidget {
 class _CalcKaufpreisState extends State<CalcKaufpreis> {
   CalculatorDataService _calculatorDataService;
 
-  var buyingPrice;
+  var buyingPrice = 0;
   var additionalCostData = 0.0;
   var additionalCostPercentData = 0;
   var purchasePriceData = 0;
@@ -49,7 +49,7 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
   //count the Kaufgesamtpreis
  void wholeBuyingPrice() {
     setState(() {
-       buyingPrice = purchasePriceData + additionalCostData;
+       buyingPrice =(purchasePriceData + additionalCostData).toInt();
     });
   }
 
@@ -105,7 +105,7 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
                   setState(() {
                     purchasePriceData = newPrice.round();
                     additionalCostData = (purchasePriceData * additionalCostPercentData/100);
-                    buyingPrice = (purchasePriceData + additionalCostData);
+                    buyingPrice = (purchasePriceData + additionalCostData).toInt();
                   });
                 },
                 label:'$purchasePriceData',
