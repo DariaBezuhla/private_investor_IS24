@@ -1,29 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:privateinvestorsmobile/calculator/calc_api_data.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/constant.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class CalcKaufpreis extends StatefulWidget {
-  @override
   _CalcKaufpreisState createState() => _CalcKaufpreisState();
 }
 
 class _CalcKaufpreisState extends State<CalcKaufpreis> {
+  CalculatorDataService _calculatorDataService;
 
-  var nk;
-  var gesamt;
-  double price = 0.0;
-  double space = 0.0;
+  var buyingPrice;
+  var additionalCostData = 0.0;
+  var additionalCostPercentData = 0;
+  var purchasePriceData = 0;
+  double minValue = 0.0;
+  double maxValue = 0.0;
 
-  String nebenkosten(price) {
-    nk = (price.toInt() * 19 / 100);
-    return nk.toInt().toString();
+  @override
+  void initState() {
+    super.initState();
+    _calculatorDataService = CalculatorDataService();
+
+    List<Future> futures = [
+       _calculatorDataService.fetchPurchasePrice(),
+       _calculatorDataService.fetchAdditionalCosts(),
+    ];
+
+    Future.wait(futures).then((value) {
+      setState((){
+        purchasePriceData = value[0].purchasePrice;
+        additionalCostPercentData = value[1].totalPercent;
+        maxValue = purchasePriceData + 20000.0;
+        minValue = 20000.0;
+      });
+      countKaufnebenkosten();
+      wholeBuyingPrice();
+    });
   }
 
-  String gesamtPrice(price) {
-    gesamt = price + nk;
-    return gesamt.toInt().toString();
+  void countKaufnebenkosten() {
+    setState(() {
+      additionalCostData = (purchasePriceData * additionalCostPercentData/100);
+    });
+  }
+
+  //count the Kaufgesamtpreis
+ void wholeBuyingPrice() {
+    setState(() {
+       buyingPrice = purchasePriceData + additionalCostData;
+    });
   }
 
   @override
@@ -33,12 +60,10 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
     ScreenUtil.init(context, width: width, height: height);
 
     return Material(
-      color: kCard,
       elevation: elevation,
       child: Container(
         width: ScreenUtil().setWidth(470),
-        margin: EdgeInsets.all(
-          ScreenUtil().setHeight(16),),
+        margin: EdgeInsets.all(ScreenUtil().setHeight(16)),
         child: Column(
           children: <Widget>[
 
@@ -46,24 +71,24 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Kaufpreis".tr().toString(),
+                Text("Kaufpreis",
                   style: styleText,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(4)),
+                  padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setHeight(4)),
                   child: Icon(
                     SystemIconsIS.is24_system_48px_info,
-                    size: ScreenUtil().setWidth(15),
+                    size: ScreenUtil().setHeight(15),
                   ),
                 ),
                 Spacer(),
-                Text(price.toInt().toString() + ' €',
-                    style: styleText),
+
+                Text(purchasePriceData.toString()),
               ],
             ),
 
             //KAUFPREIS SLIDER
-            SliderTheme(
+           SliderTheme(
               data: SliderThemeData(
                 trackHeight: ScreenUtil().setHeight(5),
                 activeTrackColor: dSliderColor,
@@ -73,15 +98,17 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
                 overlayColor: kCharcoal.withOpacity(.2),
               ),
               child: Slider(
-                value: price,
-                min: 0,
-                max: 250000,
+                value: purchasePriceData.toDouble(),
+                min: minValue,
+                max: maxValue,
                 onChanged: (double newPrice) {
                   setState(() {
-                    price = newPrice;
+                    purchasePriceData = newPrice.round();
+                    additionalCostData = (purchasePriceData * additionalCostPercentData/100);
+                    buyingPrice = (purchasePriceData + additionalCostData);
                   });
                 },
-                label: '$price',
+                label:'$purchasePriceData',
               ),
             ),
 
@@ -91,12 +118,17 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('+ Kaufnebenkosten 19%'.tr().toString(), style: styleText),
-                  Text(nebenkosten(price) + ' €', style: styleText)
+                  Text('+ Kaufnebenkosten', style: styleText),
+                  Container(
+                    child: Text(additionalCostPercentData.toString() + "%")
+                  ),
+                  Container(
+                    child: Text(additionalCostData.round().toString())
+                  )
                 ],
               ),
             ),
-//
+
             //HORIZONTAL LINE
             Container(
                 child: new SizedBox(
@@ -111,18 +143,17 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
                 )
             ),
 
-           //KAUFGESAMTPREIS ROW
+            //KAUFGESAMTPREIS ROW
             Padding(
               padding: EdgeInsets.only(top: ScreenUtil().setHeight(7)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Kaufgesamtpreis'.tr().toString(),
+                    'Kaufgesamtpreis',
                     style: header4,
                   ),
-                  Text(
-                    gesamtPrice(price) + ' €',
+                  Text(buyingPrice.round().toString() + ' €',
                     style: header4,
                   ),
                 ],
@@ -152,4 +183,3 @@ class CustomTrackShape extends RoundedRectSliderTrackShape {
     return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
   }
 }
-

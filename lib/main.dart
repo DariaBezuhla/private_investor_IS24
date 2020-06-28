@@ -7,7 +7,6 @@ import 'package:privateinvestorsmobile/home.dart';
 import 'package:privateinvestorsmobile/theme.dart';
 import 'package:privateinvestorsmobile/wishlist/favorites.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
