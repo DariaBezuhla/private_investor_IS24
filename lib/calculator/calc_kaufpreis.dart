@@ -26,31 +26,28 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
     _calculatorDataService = CalculatorDataService();
 
     List<Future> futures = [
-      _calculatorDataService.fetchPurchasePrice(),
-      _calculatorDataService.fetchAdditionalCosts(),
+         _calculatorDataService.fetchAPIData(),
     ];
 
     Future.wait(futures).then((value) {
       setState(() {
         purchasePriceData = value[0].purchasePrice;
-        additionalCostPercentData = value[1].totalPercent;
+        additionalCostPercentData = value[0].totalPercentAdditionalCosts;
         maxValue = purchasePriceData + 20000.0;
         minValue = 20000.0;
       });
       countKaufnebenkosten();
-      wholeBuyingPrice();
+      totalAcquisitionCost();
     });
   }
 
   void countKaufnebenkosten() {
     setState(() {
-      additionalCostData =
-          (purchasePriceData * additionalCostPercentData / 100);
+      additionalCostData = (purchasePriceData * additionalCostPercentData/100);
     });
   }
 
-  //count the Kaufgesamtpreis
-  void wholeBuyingPrice() {
+ void totalAcquisitionCost() {
     setState(() {
       buyingPrice = (purchasePriceData + additionalCostData).toInt();
     });
@@ -114,10 +111,8 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
                 onChanged: (double newPrice) {
                   setState(() {
                     purchasePriceData = newPrice.round();
-                    additionalCostData =
-                        (purchasePriceData * additionalCostPercentData / 100);
-                    buyingPrice =
-                        (purchasePriceData + additionalCostData).toInt();
+                    additionalCostData = (purchasePriceData * additionalCostPercentData/100);
+                    buyingPrice = (purchasePriceData + additionalCostData).toInt();
                   });
                 },
                 label: '$purchasePriceData',
@@ -133,7 +128,8 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
                   Text('+ Kaufnebenkosten'.tr().toString(), style: styleText),
                   Container(
                       child: Text(additionalCostPercentData.toString() + "%")),
-                  Container(child: Text(additionalCostData.round().toString()))
+                  Container(
+                      child: Text(additionalCostData.round().toString())),
                 ],
               ),
             ),

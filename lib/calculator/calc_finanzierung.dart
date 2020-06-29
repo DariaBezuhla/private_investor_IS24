@@ -4,6 +4,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:privateinvestorsmobile/constant.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'calc_api_data.dart';
 import '../calculator.dart';
 import 'calc_bankrate.dart';
 
@@ -22,6 +23,47 @@ String eigenkapital(price) {
 }
 
 class _CalcFinanzierungState extends State<CalcFinanzierung> {
+
+  CalculatorDataService _calculatorDataService;
+
+  var buyingPrice = 0;
+  var additionalCostData = 0.0;
+  var additionalCostPercentData = 0;
+  var purchasePriceData = 0;
+
+
+   void initState() {
+    super.initState();
+    _calculatorDataService = CalculatorDataService();
+
+    List<Future> futures = [
+       _calculatorDataService.fetchAPIData(),
+    ];
+
+    Future.wait(futures).then((value) {
+      setState((){
+        purchasePriceData = value[0].purchasePrice;
+        additionalCostPercentData = value[0].totalPercentAdditionalCosts;
+      });
+      countKaufnebenkosten();
+      totalAcquisitionCost();
+    });
+  }
+
+
+   void countKaufnebenkosten() {
+    setState(() {
+      additionalCostData = (purchasePriceData * additionalCostPercentData/100);
+    });
+  }
+
+
+ void totalAcquisitionCost() {
+    setState(() {
+       buyingPrice =(purchasePriceData + additionalCostData).toInt();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -110,7 +152,8 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                         ),
                       ),
                       Spacer(),
-                      Text('250.000' + ' €', style: styleText),
+                      Text(buyingPrice.round().toString() + ' €',
+                          style: styleText),
                     ],
                   ),
 
