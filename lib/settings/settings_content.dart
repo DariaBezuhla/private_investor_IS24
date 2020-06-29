@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant.dart';
+import '../main.dart';
 import 'data_protection_page.dart';
 import 'feedback_selection.dart';
 import 'impress_page.dart';
@@ -325,6 +326,10 @@ class _SettingsContentState extends State<SettingsContent> {
                             setState(() {
                               EasyLocalization.of(context).locale =
                                   Locale(lang.locale);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PrivateInvestors(theme:theme )));
                             });
                           },
                           itemBuilder: (BuildContext context) {
