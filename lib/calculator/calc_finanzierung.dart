@@ -50,7 +50,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
     });
   }
 
-
+//
    void countKaufnebenkosten() {
     setState(() {
       additionalCostData = (purchasePriceData * additionalCostPercentData/100);

@@ -28,11 +28,12 @@ class ExposeContent extends StatefulWidget {
   Widget build(BuildContext context) {}
 
   @override
-  _ExposeContentState createState() => _ExposeContentState();
+  ExposeContentState createState() => ExposeContentState();
 }
 
-class _ExposeContentState extends State<ExposeContent> {
+class ExposeContentState extends State<ExposeContent> {
   ExposeObject _exposeObject;
+  var fetchedKaltmiete;
   SearchService _searchService = new SearchService();
   var zimmer = 'Zimmer'.tr().toString();
   var aufzug = 'Aufzug'.tr().toString();
@@ -51,6 +52,7 @@ class _ExposeContentState extends State<ExposeContent> {
     _searchService.fetchEstate(id: widget.house.id).then((value) {
       setState(() {
         _exposeObject = value;
+        fetchedKaltmiete = _exposeObject?.rentAbsolute?.value;
       });
     });
   }
@@ -304,7 +306,7 @@ class _ExposeContentState extends State<ExposeContent> {
         //calculator button
         FractionallySizedBox(
           widthFactor: 0.95,
-          child: KostenrechnerButton(theme: "light"),
+          child: KostenrechnerButton(theme: "light", fetchedKaltmiete: fetchedKaltmiete),
         ),
 
         //object description

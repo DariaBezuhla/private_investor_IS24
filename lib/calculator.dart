@@ -13,6 +13,9 @@ import 'constant.dart';
 import 'icons/system_icons_i_s_icons.dart';
 
 class Calculator extends StatefulWidget {
+  final fetchedKaltmiete;
+  const Calculator({Key key, this.fetchedKaltmiete}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _CalculatorPage();
@@ -41,7 +44,7 @@ class _CalculatorPage extends State<Calculator> {
                     //KAUFPREIS
                     CalcKaufpreis(),
                     SizedBox(height: ScreenUtil().setHeight(15)),
-                    CalcMieteinahmen(),
+                    CalcMieteinahmen(fetchedKaltmiete: widget.fetchedKaltmiete),
                     SizedBox(height: ScreenUtil().setHeight(15)),
                     CalcFinanzierung(),
                     SizedBox(height: ScreenUtil().setHeight(15)),

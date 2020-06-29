@@ -46,8 +46,9 @@ class Others extends StatelessWidget {
 
 class KostenrechnerButton extends StatefulWidget {
   final String theme;
+  final fetchedKaltmiete;
 
-  const KostenrechnerButton({Key key, this.theme}) : super(key: key);
+  const KostenrechnerButton({Key key, this.theme, this.fetchedKaltmiete}) : super(key: key);
 
   @override
   _KostenrechnerState createState() => _KostenrechnerState();
@@ -102,7 +103,7 @@ class _KostenrechnerState extends State<KostenrechnerButton> {
                   onPressed: () {
                     Navigator.of(context).push(
                       PageRouteGenerator(builder: (context) {
-                        return Calculator();
+                        return Calculator(fetchedKaltmiete: widget.fetchedKaltmiete);
                       }),
                     );
                   },

@@ -7,6 +7,9 @@ import 'package:privateinvestorsmobile/constant.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class CalcMieteinahmen extends StatefulWidget {
+  final fetchedKaltmiete;
+  const CalcMieteinahmen({Key key, this.fetchedKaltmiete}) : super(key: key);
+
   @override
   _CalcMieteinahmenState createState() => _CalcMieteinahmenState();
 }
@@ -63,7 +66,8 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                   ),
                 ),
                 Spacer(),
-                Text(mn.toInt().toString() + ' €', style: styleText),
+                Text(widget.fetchedKaltmiete.toString() + ' €',
+                    style: styleText),
               ],
             ),
 
