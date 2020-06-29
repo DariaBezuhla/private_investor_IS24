@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:privateinvestorsmobile/home/location.dart';
 import 'auto_complete_location.dart';
 import '../constant.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LocationTextField extends StatefulWidget {
   final String topValue;
@@ -55,6 +56,7 @@ class LocationInputFieldState extends State<LocationTextField> {
       _autoCompleteLocationService = AutoCompleteLocationService();
     });
     setState(() {});
+      // print('userlocation:' + widget.location);
   }
 
   void dispose() {
@@ -131,7 +133,7 @@ class LocationInputFieldState extends State<LocationTextField> {
                       onTap: _clearTextInput,
                       validator: (value) {
                         if (value.isEmpty) {
-                          return 'Please enter region';
+                          return 'enterRegion'.tr().toString();
                         }
                         return null;
                       },

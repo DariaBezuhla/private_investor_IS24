@@ -9,10 +9,8 @@ class CalcTopRow extends StatefulWidget {
 }
 
 class _CalcTopRowState extends State<CalcTopRow> {
-
   @override
   Widget build(BuildContext context) {
-
     return Material(
       elevation: elevation,
       child: Container(
@@ -22,7 +20,6 @@ class _CalcTopRowState extends State<CalcTopRow> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-
             // 1
             Container(
               color: kTeal,
@@ -39,8 +36,9 @@ class _CalcTopRowState extends State<CalcTopRow> {
                   height: ScreenUtil().setHeight(23),
                   child: Align(
                     alignment: Alignment.bottomCenter,
-                    child: Text("516 €",
-                    style: header4,
+                    child: Text(
+                      "516 €",
+                      style: header4,
                     ),
                   ),
                 ),
@@ -50,7 +48,8 @@ class _CalcTopRowState extends State<CalcTopRow> {
                   height: ScreenUtil().setHeight(23),
                   child: Align(
                     alignment: Alignment.topCenter,
-                    child: Text("Cashflow vor Steuern".tr().toString(),
+                    child: Text(
+                      "Cashflow vor Steuern".tr().toString(),
                       style: styleDescriptionText,
                     ),
                   ),
@@ -74,7 +73,8 @@ class _CalcTopRowState extends State<CalcTopRow> {
                   height: ScreenUtil().setHeight(23),
                   child: Align(
                     alignment: Alignment.bottomCenter,
-                    child: Text("0.95%",
+                    child: Text(
+                      "0.95%",
                       style: header4,
                     ),
                   ),
@@ -85,7 +85,8 @@ class _CalcTopRowState extends State<CalcTopRow> {
                   height: ScreenUtil().setHeight(23),
                   child: Align(
                     alignment: Alignment.topCenter,
-                    child: Text("Geb. Sollzins".tr().toString(),
+                    child: Text(
+                      "Geb. Sollzins".tr().toString(),
                       style: styleDescriptionText,
                     ),
                   ),
@@ -109,7 +110,8 @@ class _CalcTopRowState extends State<CalcTopRow> {
                   height: ScreenUtil().setHeight(23),
                   child: Align(
                     alignment: Alignment.bottomCenter,
-                    child: Text("9,1%",
+                    child: Text(
+                      "9,1%",
                       style: header4,
                     ),
                   ),
@@ -120,7 +122,8 @@ class _CalcTopRowState extends State<CalcTopRow> {
                   height: ScreenUtil().setHeight(23),
                   child: Align(
                     alignment: Alignment.topCenter,
-                    child: Text("Eigenkapitalrendite".tr().toString(),
+                    child: Text(
+                      "Eigenkapitalrendite".tr().toString(),
                       style: styleDescriptionText,
                     ),
                   ),
@@ -140,5 +143,3 @@ class _CalcTopRowState extends State<CalcTopRow> {
     );
   }
 }
-
-

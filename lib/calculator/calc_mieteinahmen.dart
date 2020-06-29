@@ -11,7 +11,6 @@ class CalcMieteinahmen extends StatefulWidget {
 }
 
 class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
-
   var nk;
   var gesamt;
   double mn = 0.0;
@@ -31,7 +30,6 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Material(
       color: kCard,
       elevation: elevation,
@@ -40,24 +38,45 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
         margin: EdgeInsets.all(ScreenUtil().setHeight(16)),
         child: Column(
           children: <Widget>[
-
             //KAUFPREIS ROW
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Mieteinahmen".tr().toString(),
+                Text(
+                  "Mieteinahmen".tr().toString(),
                   style: styleText,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setHeight(4)),
-                  child: Icon(
-                    SystemIconsIS.is24_system_48px_info,
-                    size: ScreenUtil().setWidth(15),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ScreenUtil().setHeight(4)),
+                  child: GestureDetector(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                                  title: Icon(
+                                    SystemIconsIS.is24_system_48px_info,
+                                    size: ScreenUtil().setHeight(15),
+                                  ),
+                                  content: Text(
+                                      'rentalIncomeDialog'.tr().toString(),
+                                      style: styleText),
+                                  actions: [
+                                    FlatButton(
+                                      onPressed: () => Navigator.pop(
+                                          context, false), // passing false
+                                      child: Text('schließen'.tr().toString()),
+                                    ),
+                                  ]));
+                    },
+                    child: Icon(
+                      SystemIconsIS.is24_system_48px_info,
+                      size: ScreenUtil().setWidth(15),
+                    ),
                   ),
                 ),
                 Spacer(),
-                Text(mn.toInt().toString() + ' €',
-                    style: styleText),
+                Text(mn.toInt().toString() + ' €', style: styleText),
               ],
             ),
 
@@ -89,14 +108,36 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Nicht umlagefähiges Hausgeld".tr().toString(),
+                Text(
+                  "Nicht umlagefähiges Hausgeld".tr().toString(),
                   style: styleText,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setHeight(5)),
-                  child: Icon(
-                    SystemIconsIS.is24_system_48px_info,
-                    size: ScreenUtil().setWidth(15),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ScreenUtil().setHeight(5)),
+                  child: GestureDetector(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                                  title: Icon(
+                                    SystemIconsIS.is24_system_48px_info,
+                                    size: ScreenUtil().setHeight(15),
+                                  ),
+                                  content: Text('feeDialog'.tr().toString(),
+                                      style: styleText),
+                                  actions: [
+                                    FlatButton(
+                                      onPressed: () => Navigator.pop(
+                                          context, false), // passing false
+                                      child: Text('schließen'.tr().toString()),
+                                    ),
+                                  ]));
+                    },
+                    child: Icon(
+                      SystemIconsIS.is24_system_48px_info,
+                      size: ScreenUtil().setWidth(15),
+                    ),
                   ),
                 ),
                 Spacer(),
@@ -114,17 +155,17 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                     width: ScreenUtil().setWidth(300),
                     height: ScreenUtil().setHeight(45),
                     child: Theme(
-                        data: new ThemeData(
-                          primaryColor: kTeal,
-                          primaryColorDark: kTeal,
-                        ),
+                      data: new ThemeData(
+                        primaryColor: kTeal,
+                        primaryColorDark: kTeal,
+                      ),
                       child: TextFormField(
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: kDivider,
-                              ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: kDivider,
                             ),
+                          ),
                         ),
                       ),
                     ),
@@ -137,14 +178,15 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                     height: ScreenUtil().setHeight(45),
                     child: Align(
                       alignment: Alignment.centerRight,
-                      child: Text(hausgeld.toInt().toString() + " €",
+                      child: Text(
+                        hausgeld.toInt().toString() + " €",
                         style: styleText,
                       ),
                     ),
                   ),
                 ),
-            ],
-          ),
+              ],
+            ),
 
             SizedBox(height: ScreenUtil().setHeight(10)),
 
@@ -152,14 +194,37 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Rücklagen für Mietausfall".tr().toString(),
+                Text(
+                  "Rücklagen für Mietausfall".tr().toString(),
                   style: styleText,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setHeight(5)),
-                  child: Icon(
-                    SystemIconsIS.is24_system_48px_info,
-                    size: ScreenUtil().setWidth(15),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ScreenUtil().setHeight(5)),
+                  child: GestureDetector(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                                  title: Icon(
+                                    SystemIconsIS.is24_system_48px_info,
+                                    size: ScreenUtil().setHeight(15),
+                                  ),
+                                  content: Text(
+                                      'rentLossDialog'.tr().toString(),
+                                      style: styleText),
+                                  actions: [
+                                    FlatButton(
+                                      onPressed: () => Navigator.pop(
+                                          context, false), // passing false
+                                      child: Text('schließen'.tr().toString()),
+                                    ),
+                                  ]));
+                    },
+                    child: Icon(
+                      SystemIconsIS.is24_system_48px_info,
+                      size: ScreenUtil().setWidth(15),
+                    ),
                   ),
                 ),
                 Spacer(),
@@ -199,7 +264,8 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                     height: ScreenUtil().setHeight(45),
                     child: Align(
                       alignment: Alignment.centerRight,
-                      child: Text(ruecklagen.toInt().toString() + " €",
+                      child: Text(
+                        ruecklagen.toInt().toString() + " €",
                         style: styleText,
                       ),
                     ),
@@ -214,14 +280,37 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Handwerkerkosten".tr().toString(),
+                Text(
+                  "Handwerkerkosten".tr().toString(),
                   style: styleText,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setHeight(5)),
-                  child: Icon(
-                    SystemIconsIS.is24_system_48px_info,
-                    size: ScreenUtil().setWidth(15),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ScreenUtil().setHeight(5)),
+                  child: GestureDetector(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                                  title: Icon(
+                                    SystemIconsIS.is24_system_48px_info,
+                                    size: ScreenUtil().setHeight(15),
+                                  ),
+                                  content: Text(
+                                      'maintenanceDialog'.tr().toString(),
+                                      style: styleText),
+                                  actions: [
+                                    FlatButton(
+                                      onPressed: () => Navigator.pop(
+                                          context, false), // passing false
+                                      child: Text('schließen'.tr().toString()),
+                                    ),
+                                  ]));
+                    },
+                    child: Icon(
+                      SystemIconsIS.is24_system_48px_info,
+                      size: ScreenUtil().setWidth(15),
+                    ),
                   ),
                 ),
                 Spacer(),
@@ -261,7 +350,8 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                     height: ScreenUtil().setHeight(45),
                     child: Align(
                       alignment: Alignment.centerRight,
-                      child: Text(hwkosten.toInt().toString() + " €",
+                      child: Text(
+                        hwkosten.toInt().toString() + " €",
                         style: styleText,
                       ),
                     ),
@@ -278,16 +368,15 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
             //HORIZONTAL LINE
             Container(
                 child: new SizedBox(
-                  height: ScreenUtil().setHeight(1),
-                  child: new Center(
-                    child: new Container(
-                      margin: new EdgeInsetsDirectional.only(start: 1.0, end: 1.0),
-                      height: ScreenUtil().setHeight(0.5),
-                      color: Colors.grey,
-                    ),
-                  ),
-                )
-            ),
+              height: ScreenUtil().setHeight(1),
+              child: new Center(
+                child: new Container(
+                  margin: new EdgeInsetsDirectional.only(start: 1.0, end: 1.0),
+                  height: ScreenUtil().setHeight(0.5),
+                  color: Colors.grey,
+                ),
+              ),
+            )),
 
             //BETRIEBSKOSTEN ROW
             Padding(
@@ -330,4 +419,3 @@ class CustomTrackShape extends RoundedRectSliderTrackShape {
     return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
   }
 }
-

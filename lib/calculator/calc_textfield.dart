@@ -9,7 +9,6 @@ class CalcTextField extends StatefulWidget {
 }
 
 class _CalcTextFieldState extends State<CalcTextField> {
-
   var myheader;
   String header;
 
@@ -21,18 +20,19 @@ class _CalcTextFieldState extends State<CalcTextField> {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: <Widget>[
         // 1 - "Nicht umlagefähiges Hausgeld + Icon"
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(header,
+            Text(
+              header,
               style: styleText,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setHeight(4)),
+              padding:
+                  EdgeInsets.symmetric(horizontal: ScreenUtil().setHeight(4)),
               child: Icon(
                 SystemIconsIS.is24_system_48px_info,
                 size: ScreenUtil().setHeight(15),
@@ -59,15 +59,14 @@ class _CalcTextFieldState extends State<CalcTextField> {
                   ),
                   child: TextFormField(
                     style: TextStyle(
-                        color: kLightGrey,
-                        fontSize: dStyleLabel.fontSize),
+                        color: kLightGrey, fontSize: dStyleLabel.fontSize),
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: kDivider,
-                          ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: kDivider,
                         ),
-                        /*labelStyle: TextStyle(
+                      ),
+                      /*labelStyle: TextStyle(
                             color: kLightGrey,
                             fontSize: styleContainerDescription2.fontSize)*/
                     ),
@@ -79,9 +78,7 @@ class _CalcTextFieldState extends State<CalcTextField> {
         ),
 
         SizedBox(height: ScreenUtil().setHeight(16)),
-
       ],
     );
   }
 }
-

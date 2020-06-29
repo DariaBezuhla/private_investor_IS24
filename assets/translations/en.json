@@ -127,11 +127,29 @@
     "Betriebskosten":"Operating costs",
     "Geb. Sollzins":"Debit interest",
     "Eigenkapitalrendite":"Return on interest",
-    "Kaufgesamtpreis":"Total price",
+    "Kaufgesamtpreis":"Total acquisition cost",
     "Neubau" :"New building",
     "Wohnung":"Apartment",
     "Haus":"House",
-    "Alles":"Everything"
+    "Alles":"Everything",
+    "priceDialog":"The purchase price of your real estate or investment object",
+    "rentalIncomeDialog":"The data given in this section are based on market estimates and represent non-binding recommendations.",
+    "feeDialog":"Costs that can not be passed on to the renter can be considered here.",
+    "rentLossDialog":"In order to prevent the case of non-payment of rental payments, monthly reserves can be taken into account here.",
+    "maintenanceDialog":"Repair and maintenance costs can be considered here.",
+    "mortgageDialog":"The data given in this section are based on market estimates and represent non-binding recommendations.",
+    "debitDialog":"The monthly debit interest in case of financing can be set here.",
+    "amortizationDialog":"The monthly repayment installment in case of financing can be set here.",
+    "totalDialog":"The purchase price of your real estate or investment object plus ancillary purchase costs",
+    "equityDialog":"Equity For a mortgage, you should contribute at least 10% of the purchase price to equity.",
+    "cashflowDialog":"Monthly income before taking into account any tax payments. A negative value means the investment object generates a monthly loss.",
+    "schließen":"close",
+    "enterBudget":"Please enter budget",
+    "enterRegion":"Please enter region"
+
+
+
+
 
     
     

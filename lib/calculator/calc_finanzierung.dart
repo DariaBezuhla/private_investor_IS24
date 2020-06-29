@@ -61,9 +61,31 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: ScreenUtil().setWidth(4)),
-                    child: Icon(
-                      SystemIconsIS.is24_system_48px_info,
-                      size: ScreenUtil().setWidth(15),
+                    child: GestureDetector(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                                    title: Icon(
+                                      SystemIconsIS.is24_system_48px_info,
+                                      size: ScreenUtil().setHeight(15),
+                                    ),
+                                    content: Text(
+                                        'mortgageDialog'.tr().toString(),
+                                        style: styleText),
+                                    actions: [
+                                      FlatButton(
+                                        onPressed: () => Navigator.pop(
+                                            context, false), // passing false
+                                        child:
+                                            Text('schließen'.tr().toString()),
+                                      ),
+                                    ]));
+                      },
+                      child: Icon(
+                        SystemIconsIS.is24_system_48px_info,
+                        size: ScreenUtil().setHeight(15),
+                      ),
                     ),
                   ),
                 ],
@@ -85,9 +107,32 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: ScreenUtil().setWidth(4)),
-                        child: Icon(
-                          SystemIconsIS.is24_system_48px_info,
-                          size: ScreenUtil().setWidth(15),
+                        child: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                        title: Icon(
+                                          SystemIconsIS.is24_system_48px_info,
+                                          size: ScreenUtil().setHeight(15),
+                                        ),
+                                        content: Text(
+                                            'totalDialog'.tr().toString(),
+                                            style: styleText),
+                                        actions: [
+                                          FlatButton(
+                                            onPressed: () => Navigator.pop(
+                                                context,
+                                                false), // passing false
+                                            child: Text(
+                                                'schließen'.tr().toString()),
+                                          ),
+                                        ]));
+                          },
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_info,
+                            size: ScreenUtil().setHeight(15),
+                          ),
                         ),
                       ),
                       Spacer(),
@@ -108,9 +153,32 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: ScreenUtil().setWidth(4)),
-                        child: Icon(
-                          SystemIconsIS.is24_system_48px_info,
-                          size: ScreenUtil().setWidth(15),
+                        child: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                        title: Icon(
+                                          SystemIconsIS.is24_system_48px_info,
+                                          size: ScreenUtil().setHeight(15),
+                                        ),
+                                        content: Text(
+                                            'equityDialog'.tr().toString(),
+                                            style: styleText),
+                                        actions: [
+                                          FlatButton(
+                                            onPressed: () => Navigator.pop(
+                                                context,
+                                                false), // passing false
+                                            child: Text(
+                                                'schließen'.tr().toString()),
+                                          ),
+                                        ]));
+                          },
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_info,
+                            size: ScreenUtil().setHeight(15),
+                          ),
                         ),
                       ),
                     ],
@@ -198,10 +266,6 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: ScreenUtil().setWidth(4)),
-                        child: Icon(
-                          SystemIconsIS.is24_system_48px_info,
-                          size: ScreenUtil().setWidth(15),
-                        ),
                       ),
                       Spacer(),
                       Text('115.000' + ' €', style: styleButton),

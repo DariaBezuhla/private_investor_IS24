@@ -38,7 +38,7 @@ class _SettingsContentState extends State<SettingsContent> {
   double ruecklagen = 0.0;
   double hwkosten = 0.0;
   double mn = 0.0;
-  bool _setCurrentLocation = false;
+  bool _setCurrentLocation;
 
   @override
   initState() {

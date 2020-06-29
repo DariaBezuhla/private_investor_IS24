@@ -25,12 +25,12 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
     _calculatorDataService = CalculatorDataService();
 
     List<Future> futures = [
-       _calculatorDataService.fetchPurchasePrice(),
-       _calculatorDataService.fetchAdditionalCosts(),
+      _calculatorDataService.fetchPurchasePrice(),
+      _calculatorDataService.fetchAdditionalCosts(),
     ];
 
     Future.wait(futures).then((value) {
-      setState((){
+      setState(() {
         purchasePriceData = value[0].purchasePrice;
         additionalCostPercentData = value[1].totalPercent;
         maxValue = purchasePriceData + 20000.0;
@@ -43,14 +43,15 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
 
   void countKaufnebenkosten() {
     setState(() {
-      additionalCostData = (purchasePriceData * additionalCostPercentData/100);
+      additionalCostData =
+          (purchasePriceData * additionalCostPercentData / 100);
     });
   }
 
   //count the Kaufgesamtpreis
- void wholeBuyingPrice() {
+  void wholeBuyingPrice() {
     setState(() {
-       buyingPrice =(purchasePriceData + additionalCostData).toInt();
+      buyingPrice = (purchasePriceData + additionalCostData).toInt();
     });
   }
 
@@ -67,29 +68,49 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
         margin: EdgeInsets.all(ScreenUtil().setHeight(16)),
         child: Column(
           children: <Widget>[
-
             //KAUFPREIS ROW
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Kaufpreis".tr().toString(),
+                Text(
+                  "Kaufpreis".tr().toString(),
                   style: styleText,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setHeight(4)),
-                  child: Icon(
-                    SystemIconsIS.is24_system_48px_info,
-                    size: ScreenUtil().setHeight(15),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ScreenUtil().setHeight(4)),
+                  child: GestureDetector(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                                  title: Icon(
+                                    SystemIconsIS.is24_system_48px_info,
+                                    size: ScreenUtil().setHeight(15),
+                                  ),
+                                  content: Text('priceDialog'.tr().toString(),
+                                      style: styleText),
+                                  actions: [
+                                    FlatButton(
+                                      onPressed: () => Navigator.pop(
+                                          context, false), // passing false
+                                      child: Text('schließen'.tr().toString()),
+                                    ),
+                                  ]));
+                    },
+                    child: Icon(
+                      SystemIconsIS.is24_system_48px_info,
+                      size: ScreenUtil().setHeight(15),
+                    ),
                   ),
                 ),
                 Spacer(),
-
                 Text(purchasePriceData.toString()),
               ],
             ),
 
             //KAUFPREIS SLIDER
-           SliderTheme(
+            SliderTheme(
               data: SliderThemeData(
                 trackHeight: ScreenUtil().setHeight(5),
                 activeTrackColor: dSliderColor,
@@ -105,11 +126,13 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
                 onChanged: (double newPrice) {
                   setState(() {
                     purchasePriceData = newPrice.round();
-                    additionalCostData = (purchasePriceData * additionalCostPercentData/100);
-                    buyingPrice = (purchasePriceData + additionalCostData).toInt();
+                    additionalCostData =
+                        (purchasePriceData * additionalCostPercentData / 100);
+                    buyingPrice =
+                        (purchasePriceData + additionalCostData).toInt();
                   });
                 },
-                label:'$purchasePriceData',
+                label: '$purchasePriceData',
               ),
             ),
 
@@ -121,11 +144,8 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
                 children: <Widget>[
                   Text('+ Kaufnebenkosten'.tr().toString(), style: styleText),
                   Container(
-                    child: Text(additionalCostPercentData.toString() + "%")
-                  ),
-                  Container(
-                    child: Text(additionalCostData.round().toString())
-                  )
+                      child: Text(additionalCostPercentData.toString() + "%")),
+                  Container(child: Text(additionalCostData.round().toString()))
                 ],
               ),
             ),
@@ -133,16 +153,15 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
             //HORIZONTAL LINE
             Container(
                 child: new SizedBox(
-                  height: ScreenUtil().setHeight(1),
-                  child: new Center(
-                    child: new Container(
-                      margin: new EdgeInsetsDirectional.only(start: 1.0, end: 1.0),
-                      height: ScreenUtil().setHeight(0.5),
-                      color: Colors.grey,
-                    ),
-                  ),
-                )
-            ),
+              height: ScreenUtil().setHeight(1),
+              child: new Center(
+                child: new Container(
+                  margin: new EdgeInsetsDirectional.only(start: 1.0, end: 1.0),
+                  height: ScreenUtil().setHeight(0.5),
+                  color: Colors.grey,
+                ),
+              ),
+            )),
 
             //KAUFGESAMTPREIS ROW
             Padding(
@@ -154,7 +173,8 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
                     'Kaufgesamtpreis'.tr().toString(),
                     style: header4,
                   ),
-                  Text(buyingPrice.round().toString() + ' €',
+                  Text(
+                    buyingPrice.round().toString() + ' €',
                     style: header4,
                   ),
                 ],

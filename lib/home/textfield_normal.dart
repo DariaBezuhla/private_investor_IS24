@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/constant.dart';
 import  'package:keyboard_actions/keyboard_actions.dart';
 import '../constant.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class NormalTextField extends StatefulWidget {
   final String topNormalValue;
@@ -228,7 +229,7 @@ class NormalTextFieldState extends State<NormalTextField> {
                 onTap: _clearTextInput,
                 validator: (value) {
                   if (value.isEmpty) {
-                    return 'Please enter butget';
+                    return 'enterBudget'.tr().toString();
                   }
                   return null;
                 },
