@@ -4,6 +4,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:privateinvestorsmobile/constant.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:easy_localization/easy_localization.dart';
+import '../calculator.dart';
 import 'calc_bankrate.dart';
 
 class CalcFinanzierung extends StatefulWidget {
@@ -64,23 +65,11 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                     child: GestureDetector(
                       onTap: () {
                         showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                                    title: Icon(
-                                      SystemIconsIS.is24_system_48px_info,
-                                      size: ScreenUtil().setHeight(15),
-                                    ),
-                                    content: Text(
-                                        'mortgageDialog'.tr().toString(),
-                                        style: styleText),
-                                    actions: [
-                                      FlatButton(
-                                        onPressed: () => Navigator.pop(
-                                            context, false), // passing false
-                                        child:
-                                            Text('schließen'.tr().toString()),
-                                      ),
-                                    ]));
+                          context: context,
+                          builder: (_) => ModalBox(
+                            content: 'mortgageDialog'.tr().toString(),
+                          ),
+                        );
                       },
                       child: Icon(
                         SystemIconsIS.is24_system_48px_info,
@@ -110,24 +99,9 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                         child: GestureDetector(
                           onTap: () {
                             showDialog(
-                                context: context,
-                                builder: (_) => AlertDialog(
-                                        title: Icon(
-                                          SystemIconsIS.is24_system_48px_info,
-                                          size: ScreenUtil().setHeight(15),
-                                        ),
-                                        content: Text(
-                                            'totalDialog'.tr().toString(),
-                                            style: styleText),
-                                        actions: [
-                                          FlatButton(
-                                            onPressed: () => Navigator.pop(
-                                                context,
-                                                false), // passing false
-                                            child: Text(
-                                                'schließen'.tr().toString()),
-                                          ),
-                                        ]));
+                              context: context,
+                              builder: (_) => ModalBox(content: 'totalDialog'.tr().toString(),)
+                            );
                           },
                           child: Icon(
                             SystemIconsIS.is24_system_48px_info,
@@ -157,23 +131,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                           onTap: () {
                             showDialog(
                                 context: context,
-                                builder: (_) => AlertDialog(
-                                        title: Icon(
-                                          SystemIconsIS.is24_system_48px_info,
-                                          size: ScreenUtil().setHeight(15),
-                                        ),
-                                        content: Text(
-                                            'equityDialog'.tr().toString(),
-                                            style: styleText),
-                                        actions: [
-                                          FlatButton(
-                                            onPressed: () => Navigator.pop(
-                                                context,
-                                                false), // passing false
-                                            child: Text(
-                                                'schließen'.tr().toString()),
-                                          ),
-                                        ]));
+                                builder: (_) => ModalBox(content: 'equityDialog'.tr().toString(),));
                           },
                           child: Icon(
                             SystemIconsIS.is24_system_48px_info,

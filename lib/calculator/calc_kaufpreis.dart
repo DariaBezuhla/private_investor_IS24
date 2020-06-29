@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:privateinvestorsmobile/calculator.dart';
 import 'package:privateinvestorsmobile/calculator/calc_api_data.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/constant.dart';
@@ -83,20 +84,7 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
                     onTap: () {
                       showDialog(
                           context: context,
-                          builder: (_) => AlertDialog(
-                                  title: Icon(
-                                    SystemIconsIS.is24_system_48px_info,
-                                    size: ScreenUtil().setHeight(15),
-                                  ),
-                                  content: Text('priceDialog'.tr().toString(),
-                                      style: styleText),
-                                  actions: [
-                                    FlatButton(
-                                      onPressed: () => Navigator.pop(
-                                          context, false), // passing false
-                                      child: Text('schließen'.tr().toString()),
-                                    ),
-                                  ]));
+                          builder: (_) => ModalBox(content: 'priceDialog'.tr().toString(),));
                     },
                     child: Icon(
                       SystemIconsIS.is24_system_48px_info,

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:privateinvestorsmobile/calculator.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import '../constant.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -37,20 +38,9 @@ class _CalcBankRateState extends State<CalcBankRate> {
                   onTap: () {
                     showDialog(
                         context: context,
-                        builder: (_) => AlertDialog(
-                                title: Icon(
-                                  SystemIconsIS.is24_system_48px_info,
-                                  size: ScreenUtil().setWidth(15),
-                                ),
-                                content: Text('debitDialog'.tr().toString(),
-                                    style: styleText),
-                                actions: [
-                                  FlatButton(
-                                    onPressed: () => Navigator.pop(
-                                        context, false), // passing false
-                                    child: Text('schließen'.tr().toString()),
-                                  ),
-                                ]));
+                        builder: (_) => ModalBox(
+                              content: 'debitDialog'.tr().toString(),
+                            ));
                   },
                   child: Icon(
                     SystemIconsIS.is24_system_48px_info,
@@ -126,21 +116,9 @@ class _CalcBankRateState extends State<CalcBankRate> {
                   onTap: () {
                     showDialog(
                         context: context,
-                        builder: (_) => AlertDialog(
-                                title: Icon(
-                                  SystemIconsIS.is24_system_48px_info,
-                                  size: ScreenUtil().setHeight(15),
-                                ),
-                                content: Text(
-                                    'amortizationDialog'.tr().toString(),
-                                    style: styleText),
-                                actions: [
-                                  FlatButton(
-                                    onPressed: () => Navigator.pop(
-                                        context, false), // passing false
-                                    child: Text('schließen'.tr().toString()),
-                                  ),
-                                ]));
+                        builder: (_) => ModalBox(
+                              content: 'amortizationDialog'.tr().toString(),
+                            ));
                   },
                   child: Icon(
                     SystemIconsIS.is24_system_48px_info,

@@ -1,6 +1,7 @@
 //import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:privateinvestorsmobile/calculator.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/constant.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -53,21 +54,7 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                     onTap: () {
                       showDialog(
                           context: context,
-                          builder: (_) => AlertDialog(
-                                  title: Icon(
-                                    SystemIconsIS.is24_system_48px_info,
-                                    size: ScreenUtil().setHeight(15),
-                                  ),
-                                  content: Text(
-                                      'rentalIncomeDialog'.tr().toString(),
-                                      style: styleText),
-                                  actions: [
-                                    FlatButton(
-                                      onPressed: () => Navigator.pop(
-                                          context, false), // passing false
-                                      child: Text('schließen'.tr().toString()),
-                                    ),
-                                  ]));
+                          builder: (_) => ModalBox(content: 'rentalIncomeDialog'.tr().toString(),));
                     },
                     child: Icon(
                       SystemIconsIS.is24_system_48px_info,
@@ -119,20 +106,7 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                     onTap: () {
                       showDialog(
                           context: context,
-                          builder: (_) => AlertDialog(
-                                  title: Icon(
-                                    SystemIconsIS.is24_system_48px_info,
-                                    size: ScreenUtil().setHeight(15),
-                                  ),
-                                  content: Text('feeDialog'.tr().toString(),
-                                      style: styleText),
-                                  actions: [
-                                    FlatButton(
-                                      onPressed: () => Navigator.pop(
-                                          context, false), // passing false
-                                      child: Text('schließen'.tr().toString()),
-                                    ),
-                                  ]));
+                          builder: (_) => ModalBox(content: 'feeDialog'.tr().toString(),));
                     },
                     child: Icon(
                       SystemIconsIS.is24_system_48px_info,
@@ -205,21 +179,7 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                     onTap: () {
                       showDialog(
                           context: context,
-                          builder: (_) => AlertDialog(
-                                  title: Icon(
-                                    SystemIconsIS.is24_system_48px_info,
-                                    size: ScreenUtil().setHeight(15),
-                                  ),
-                                  content: Text(
-                                      'rentLossDialog'.tr().toString(),
-                                      style: styleText),
-                                  actions: [
-                                    FlatButton(
-                                      onPressed: () => Navigator.pop(
-                                          context, false), // passing false
-                                      child: Text('schließen'.tr().toString()),
-                                    ),
-                                  ]));
+                          builder: (_) => ModalBox(content: 'rentLossDialog'.tr().toString(),));
                     },
                     child: Icon(
                       SystemIconsIS.is24_system_48px_info,
@@ -291,21 +251,7 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                     onTap: () {
                       showDialog(
                           context: context,
-                          builder: (_) => AlertDialog(
-                                  title: Icon(
-                                    SystemIconsIS.is24_system_48px_info,
-                                    size: ScreenUtil().setHeight(15),
-                                  ),
-                                  content: Text(
-                                      'maintenanceDialog'.tr().toString(),
-                                      style: styleText),
-                                  actions: [
-                                    FlatButton(
-                                      onPressed: () => Navigator.pop(
-                                          context, false), // passing false
-                                      child: Text('schließen'.tr().toString()),
-                                    ),
-                                  ]));
+                          builder: (_) => ModalBox(content: 'maintenanceDialog'.tr().toString(),));
                     },
                     child: Icon(
                       SystemIconsIS.is24_system_48px_info,
