@@ -13,7 +13,8 @@ class CalcKaufpreis extends StatefulWidget {
 class _CalcKaufpreisState extends State<CalcKaufpreis> {
   CalculatorDataService _calculatorDataService;
 
-  var buyingPrice = 0;
+
+  var totalAcquisitionCost = 0;
   var additionalCostData = 0.0;
   var additionalCostPercentData = 0;
   var purchasePriceData = 0;
@@ -37,7 +38,7 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
         minValue = 20000.0;
       });
       countKaufnebenkosten();
-      totalAcquisitionCost();
+      countTotalAcquisitionCost();
     });
   }
 
@@ -47,9 +48,9 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
     });
   }
 
- void totalAcquisitionCost() {
+ void countTotalAcquisitionCost() {
     setState(() {
-      buyingPrice = (purchasePriceData + additionalCostData).toInt();
+      totalAcquisitionCost = (purchasePriceData + additionalCostData).toInt();
     });
   }
 
@@ -112,7 +113,7 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
                   setState(() {
                     purchasePriceData = newPrice.round();
                     additionalCostData = (purchasePriceData * additionalCostPercentData/100);
-                    buyingPrice = (purchasePriceData + additionalCostData).toInt();
+                    totalAcquisitionCost = (purchasePriceData + additionalCostData).toInt();
                   });
                 },
                 label: '$purchasePriceData',
@@ -158,7 +159,7 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
                     style: header4,
                   ),
                   Text(
-                    buyingPrice.round().toString() + ' €',
+                    totalAcquisitionCost.round().toString() + ' €',
                     style: header4,
                   ),
                 ],

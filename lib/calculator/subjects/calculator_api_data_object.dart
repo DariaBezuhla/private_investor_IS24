@@ -8,7 +8,7 @@ class CalculatorAPIData {
   double totalOwnFunds;
   int totalPercentOwnFunds;
   int loanAmount;
-  double averageInterestRate;
+  double debitInterestRate;
   int amortizationRate;
 
 
@@ -20,7 +20,7 @@ class CalculatorAPIData {
     this.totalPercentOwnFunds,
     this.loanAmount,
     this.amortizationRate,
-    this.averageInterestRate,
+    this.debitInterestRate,
   });
 
 
@@ -35,7 +35,7 @@ class CalculatorAPIData {
 
       loanAmount: json['loanAmount'],
       amortizationRate: json['amortizationRate'],
-      averageInterestRate: json['averageInterestRate'],
+      debitInterestRate: json['averageInterestRate'],
 
     );
   }
@@ -69,7 +69,7 @@ class CalculatorAPIData {
   }
 
    String getAverageInterestRate() {
-    return averageInterestRate.toString();
+    return debitInterestRate.toString();
   }
 
 }

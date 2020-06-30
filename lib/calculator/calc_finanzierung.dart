@@ -6,61 +6,101 @@ import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'calc_api_data.dart';
 import '../calculator.dart';
-import 'calc_bankrate.dart';
 
 class CalcFinanzierung extends StatefulWidget {
   @override
   _CalcFinanzierungState createState() => _CalcFinanzierungState();
 }
 
-double eigenkap = 0.0;
-double price = 250.000;
-bool isSwitched = false;
-
-String eigenkapital(price) {
-  eigenkap = (price.toInt() * 19 / 100);
-  return eigenkap.toInt().toString();
-}
-
 class _CalcFinanzierungState extends State<CalcFinanzierung> {
-
+  TextEditingController equityController;
+  TextEditingController debitInterestController;
+  TextEditingController amortizationController;
   CalculatorDataService _calculatorDataService;
 
-  var buyingPrice = 0;
+  bool isSwitched = false;
+  var purchasePriceData = 0;
+  var totalAcquisitionCost = 0;
   var additionalCostData = 0.0;
   var additionalCostPercentData = 0;
-  var purchasePriceData = 0;
+  var ownFundsPercentData = 0;
+  var netLoanAmount = 0;
+  var debitInterestRate = 0.0;
+  var amortizationRate = 0;
+  var totalRateToBank = 0;
 
+  var inputValueEquity;
+  var inputValueDebit;
+  var inputValueAmortization;
+  var equityResultValue = 0.0;
+  var debitInterestResultValue = 0.0;
+  var amortizationResultValue = 0.0;
 
-   void initState() {
+  void initState() {
     super.initState();
     _calculatorDataService = CalculatorDataService();
 
     List<Future> futures = [
-       _calculatorDataService.fetchAPIData(),
+      _calculatorDataService.fetchAPIData(),
     ];
 
     Future.wait(futures).then((value) {
-      setState((){
+      setState(() {
         purchasePriceData = value[0].purchasePrice;
         additionalCostPercentData = value[0].totalPercentAdditionalCosts;
+        ownFundsPercentData = value[0].totalPercentOwnFunds;
+        equityResultValue = (purchasePriceData * ownFundsPercentData / 100);
+
+        inputValueEquity = ownFundsPercentData.toString();
+        equityController = TextEditingController(text: inputValueEquity);
+
+        debitInterestRate = value[0].debitInterestRate;
+        inputValueDebit = debitInterestRate.toString();
+        debitInterestController = TextEditingController(text: inputValueDebit);
+
+        amortizationRate = value[0].amortizationRate;
+        inputValueAmortization = amortizationRate.toString();
+        amortizationController = TextEditingController(text: inputValueAmortization);
       });
       countKaufnebenkosten();
-      totalAcquisitionCost();
+      countTotalAcquisitionCost();
+      countNetLoanAmount();
+      countDebitInterestResultValue();
+      countAmortizationResultValue();
+      countTotalRateToBank();
     });
   }
 
-//
-   void countKaufnebenkosten() {
+  void countKaufnebenkosten() {
     setState(() {
-      additionalCostData = (purchasePriceData * additionalCostPercentData/100);
+      additionalCostData =
+          (purchasePriceData * additionalCostPercentData / 100);
     });
   }
 
-
- void totalAcquisitionCost() {
+  void countTotalAcquisitionCost() {
     setState(() {
-       buyingPrice =(purchasePriceData + additionalCostData).toInt();
+      totalAcquisitionCost = (purchasePriceData + additionalCostData).toInt();
+    });
+  }
+
+  void countNetLoanAmount() {
+    setState(() {
+      netLoanAmount = totalAcquisitionCost - equityResultValue.toInt();
+    });
+  }
+
+  void countDebitInterestResultValue() {
+     debitInterestResultValue = (netLoanAmount * debitInterestRate / 100 / 12);
+  }
+
+  void countAmortizationResultValue() {
+    amortizationResultValue = (netLoanAmount * amortizationRate / 100 / 12);
+  }
+
+  void countTotalRateToBank() {
+    setState(() {
+      totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
     });
   }
 
@@ -122,12 +162,14 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                 ],
               ),
 
+              ///////WHEN SWITCH IS ON//////////
+
               Visibility(
                 visible: isSwitched,
                 child: Column(children: <Widget>[
                   SizedBox(height: ScreenUtil().setHeight(16)),
 
-                  //GESAMTKAUFPREIS ROW
+                  //TOTAL ACQUISION PRICE ROW ROW
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -141,9 +183,10 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                         child: GestureDetector(
                           onTap: () {
                             showDialog(
-                              context: context,
-                              builder: (_) => ModalBox(content: 'totalDialog'.tr().toString(),)
-                            );
+                                context: context,
+                                builder: (_) => ModalBox(
+                                      content: 'totalDialog'.tr().toString(),
+                                    ));
                           },
                           child: Icon(
                             SystemIconsIS.is24_system_48px_info,
@@ -152,14 +195,14 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                         ),
                       ),
                       Spacer(),
-                      Text(buyingPrice.round().toString() + ' €',
+                      Text(totalAcquisitionCost.round().toString() + ' €',
                           style: styleText),
                     ],
                   ),
 
                   SizedBox(height: ScreenUtil().setHeight(16)),
 
-                  //EIGENKAPITAL ROW
+                  //EQUITY ROW
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -174,7 +217,9 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                           onTap: () {
                             showDialog(
                                 context: context,
-                                builder: (_) => ModalBox(content: 'equityDialog'.tr().toString(),));
+                                builder: (_) => ModalBox(
+                                      content: 'equityDialog'.tr().toString(),
+                                    ));
                           },
                           child: Icon(
                             SystemIconsIS.is24_system_48px_info,
@@ -196,26 +241,32 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                       overlayColor: kCharcoal.withOpacity(.2),
                     ),
                     child: Slider(
-                      value: eigenkap,
+                      value: ownFundsPercentData.toDouble(),
                       min: 0,
-                      max: 250000,
-                      onChanged: (double newPrice) {
+                      max: 100,
+                      onChanged: (double newProcent) {
                         setState(() {
-                          eigenkap = newPrice;
+                          ownFundsPercentData = newProcent.round();
+                          equityResultValue = (purchasePriceData * ownFundsPercentData / 100);
+                          inputValueEquity = ownFundsPercentData.toString();
+                          equityController = TextEditingController(text: inputValueEquity);
+                          netLoanAmount = (totalAcquisitionCost - equityResultValue.toInt());
+                          debitInterestResultValue = (netLoanAmount * debitInterestRate / 100 / 12);
+                          amortizationResultValue = (netLoanAmount * amortizationRate / 100 / 12);
+                          totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
                         });
                       },
-                      label: '$eigenkap',
+                      label: '$ownFundsPercentData',
                     ),
                   ),
 
-                  //EIGENKAPITAL NUMBERS ROW
+                  //EQUITY PROCENT AND INPUT FIELD ROW
                   Row(
                     children: <Widget>[
                       Flexible(
                         child: Container(
                           color: Colors.transparent,
-                          width: ScreenUtil().setWidth(300),
-                          height: ScreenUtil().setHeight(45),
+                          height: ScreenUtil().setHeight(40),
                           child: Theme(
                             data: new ThemeData(
                               primaryColor: kTeal,
@@ -223,10 +274,28 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                             ),
                             child: TextFormField(
                               style: TextStyle(
-                                  color: kLightGrey,
+                                  color: kCharcoal,
                                   fontSize: dStyleLabel.fontSize),
+                              controller: equityController,
+                              onChanged: (text) {
+                                // ignore: missing_return
+                                setState(() {
+                                  if (text == '') {
+                                    equityResultValue = 0.0;
+                                    netLoanAmount = (totalAcquisitionCost -
+                                        equityResultValue.toInt());
+                                    totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
+                                    return;
+                                  }
+                                  inputValueEquity = text;
+                                  equityResultValue = (purchasePriceData * double.parse(inputValueEquity) / 100);
+                                  netLoanAmount = (totalAcquisitionCost - equityResultValue.toInt());
+                                  amortizationResultValue = (netLoanAmount * amortizationRate / 100 / 12);
+                                  debitInterestResultValue = (netLoanAmount * debitInterestRate/ 100 / 12);
+                                  totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
+                                });
+                              },
                               decoration: InputDecoration(
-                                hintText: 'z.B. 25%'.tr().toString(),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: kDivider,
@@ -240,12 +309,22 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                       Flexible(
                         child: Container(
                           color: Colors.transparent,
-                          //width: ScreenUtil().setWidth(170),
+                          height: ScreenUtil().setHeight(40),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(' %', style: styleText,
+                            ),
+                          ),
+                        )
+                      ),
+                      Flexible(
+                        child: Container(
+                          color: Colors.transparent,
                           height: ScreenUtil().setHeight(45),
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              eigenkap.toInt().toString() + " €",
+                              equityResultValue.round().toString() + " €",
                               style: styleText,
                             ),
                           ),
@@ -256,7 +335,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
 
                   SizedBox(height: ScreenUtil().setHeight(16)),
 
-                  //NETTODARLEHEN ROW
+                  //NET LOAN  ROW
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -269,7 +348,8 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                             horizontal: ScreenUtil().setWidth(4)),
                       ),
                       Spacer(),
-                      Text('115.000' + ' €', style: styleButton),
+                      Text(netLoanAmount.toString() + ' €',
+                          style: styleButton),
                     ],
                   ),
 
@@ -291,7 +371,252 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
 
                   SizedBox(height: ScreenUtil().setHeight(10)),
 
-                  CalcBankRate(),
+                  //PAYMENT TO THE BANK SECTION STARTS HERE
+
+                  //DEBIT INTEREST
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "Sollzins".tr().toString(),
+                        style: styleText,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.004),
+                        child: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) =>
+                                    ModalBox(
+                                      content: 'debitDialog'.tr().toString(),
+                                    ));
+                          },
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_info,
+                            size: ScreenUtil().setWidth(15),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: ScreenUtil().setHeight(8)),
+
+                  //DEBIT INTEREST INPUT FIELD
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Flexible(
+                        child: Container(
+                          color: Colors.transparent,
+                          height: ScreenUtil().setHeight(40),
+                          child: Theme(
+                            data: new ThemeData(
+                              primaryColor: kTeal,
+                              primaryColorDark: kTeal,
+                            ),
+                            child: TextFormField(
+                              style: TextStyle(
+                                  color: kCharcoal,
+                                  fontSize: dStyleLabel.fontSize),
+                              controller: debitInterestController,
+                              onChanged: (text) {
+                                // ignore: missing_return
+                                setState(() {
+                                  if (text == '') {
+                                   debitInterestResultValue = 0.0;
+                                   totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
+                                   return;
+                                  }
+                                  inputValueDebit = text;
+                                  debitInterestResultValue = (netLoanAmount * double.parse(inputValueDebit) / 100 / 12);
+                                  totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
+                                });
+                              },
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: kDivider,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                          child: Container(
+                            color: Colors.transparent,
+                            height: ScreenUtil().setHeight(40),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(' %', style: styleText,
+                              ),
+                            ),
+                          )
+                      ),
+                      Flexible(
+                        child: Container(
+                          color: Colors.transparent,
+                          height: ScreenUtil().setHeight(45),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              debitInterestResultValue.round().toString() + " €",
+                              style: styleText,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                   SizedBox(height: ScreenUtil().setHeight(8)),
+
+                  //AMORTIZATION RATE ROW
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "Tilgungsrate".tr().toString(),
+                        style: styleText,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.004),
+                        child: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) =>
+                                    ModalBox(
+                                      content: 'amortizationDialog'
+                                          .tr()
+                                          .toString(),
+                                    ));
+                          },
+                          child: Icon(
+                            SystemIconsIS.is24_system_48px_info,
+                            size: ScreenUtil().setWidth(15),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: ScreenUtil().setHeight(8)),
+
+                  //AMORTIZATION RATE INPUT FIELD
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Flexible(
+                        child: Container(
+                          color: Colors.transparent,
+                          height: ScreenUtil().setHeight(40),
+                          child: Theme(
+                            data: new ThemeData(
+                              primaryColor: kTeal,
+                              primaryColorDark: kTeal,
+                            ),
+                            child: TextFormField(
+                              style: TextStyle(
+                                  color: kCharcoal,
+                                  fontSize: dStyleLabel.fontSize),
+                              controller: amortizationController,
+                              onChanged: (text) {
+                                // ignore: missing_return
+                                setState(() {
+                                  if (text == '') {
+                                    amortizationResultValue = 0.0;
+                                    totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
+                                    return;
+                                  }
+                                  inputValueAmortization = text;
+                                  amortizationResultValue = (netLoanAmount * double.parse(inputValueAmortization) / 100 / 12);
+                                  totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
+                                });
+                              },
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: kDivider,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                          child: Container(
+                            color: Colors.transparent,
+                            height: ScreenUtil().setHeight(40),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(' %', style: styleText,
+                              ),
+                            ),
+                          )
+                      ),
+                      Flexible(
+                        child: Container(
+                          color: Colors.transparent,
+                          height: ScreenUtil().setHeight(40),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              amortizationResultValue.round().toString() + " €",
+                              style: styleText,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.025),
+
+                  //HORIZONTAL LINE
+                  Container(
+                      child: new SizedBox(
+                        height: ScreenUtil().setHeight(1),
+                        child: new Center(
+                          child: new Container(
+                            margin: new EdgeInsetsDirectional.only(start: 1.0,
+                                end: 1.0),
+                            height: ScreenUtil().setHeight(0.5),
+                            color: Colors.grey,
+                          ),
+                        ),
+                      )),
+
+                  //RATE AN DIE BANK ROW
+                  Padding(
+                    padding: EdgeInsets.only(top: ScreenUtil().setHeight(7)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'Rate an die Bank'.tr().toString(),
+                          style: header4,
+                        ),
+                        Text(
+                         '-' + totalRateToBank.toString() + " €",
+                          style: header4,
+                        ),
+                      ],
+                    ),
+                  ),
+
                 ]),
               )
             ],
