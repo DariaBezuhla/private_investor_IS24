@@ -28,15 +28,21 @@ class SearchService {
       int pricePerSqm,
       double roomsFrom,
       int livingSpaceFrom,
-        bool isNotFlagged,
-        bool isRented,
+      bool isNotFlagged,
+      bool isRented,
+      bool refurbished,
       int pageNumber = 0,
       int limit = 5,
       List<RealEstateObject> estateList}) async {
     final response = await http.get(
-        'https://pib-prod.is24-baufi.eu-west-1.infinity.s24cloud.net/pib/endpoint/search?geoCodes=$geocode&exposeType=$estateType&priceTo=$priceTo&sortBy=$sortBy%3A$sort&pageSize=$limit'
-            + '&pageNumber=$pageNumber&netYieldFrom=$netYieldFrom&priceTrendFrom=$priceTrendFrom&rentTrendFrom=$rentTrendFrom&factorTo=$factorTo&pricePerSqmTo=$pricePerSqm'
-            + '&roomsFrom=$roomsFrom&livingSpaceFrom=$livingSpaceFrom' + '${isNotFlagged ? '&isNotFlagged' : ''}' + '${isRented ? '&isRented' : ''}');
+        'https://pib-prod.is24-baufi.eu-west-1.infinity.s24cloud.net/pib/endpoint/search?geoCodes=$geocode&exposeType=$estateType&priceTo=$priceTo&sortBy=$sortBy%3A$sort&pageSize=$limit' +
+            '&pageNumber=$pageNumber&netYieldFrom=$netYieldFrom&priceTrendFrom=$priceTrendFrom&rentTrendFrom=$rentTrendFrom&factorTo=$factorTo&pricePerSqmTo=$pricePerSqm' +
+            '&roomsFrom=$roomsFrom&livingSpaceFrom=$livingSpaceFrom' +
+            '${isNotFlagged ? '&isNotFlagged' : ''}' +
+            '${isRented ? '&isRented' : ''}' +
+            '${refurbished ? '&condition=REFURBISHED' : ''}');
+
+    https: //pib-prod.is24-baufi.eu-west-1.infinity.s24cloud.net/pib/endpoint/search?geoCodes=1276003001&exposeType=NEW_HOME&isNotFlagged=false&condition=REFURBISHED%2CMODERNIZED%2CFIRST_TIME_USE_AFTER_REFURBISHMENT%2CFULLY_RENOVATED%2CFIRST_TIME_USE&sortBy=factor%3Adesc&pageSize=25&pageNumber=0
 
     List<RealEstateObject> estates = [];
     if (response.statusCode == 200) {
@@ -108,23 +114,28 @@ class SearchService {
    * @params: get geocode: Integer, estateType:String, priceTo: Integer, sortBy: String, pageNumber: Integer
    * @return:Lenght of results list
    */
-  Future<ResultsLength> fetchLength(
-      { String geocode,
-        String estateType,
-        int priceTo,
-        int netYieldFrom,
-        int priceTrendFrom,
-        int rentTrendFrom,
-        int factorTo,
-        int pricePerSqm,
-        double roomsFrom,
-        int livingSpaceFrom,
-        bool isNotFlagged,
-        bool isRented,
-        int pageNumber = 0,
-        int limit = 5,}) async {
+  Future<ResultsLength> fetchLength({
+    String geocode,
+    String estateType,
+    int priceTo,
+    int netYieldFrom,
+    int priceTrendFrom,
+    int rentTrendFrom,
+    int factorTo,
+    int pricePerSqm,
+    double roomsFrom,
+    int livingSpaceFrom,
+    bool isNotFlagged,
+    bool isRented,
+    bool refurbished,
+    int pageNumber = 0,
+    int limit = 5,
+  }) async {
     final response = await http.get(
-        'https://pib-prod.is24-baufi.eu-west-1.infinity.s24cloud.net/pib/endpoint/search?geoCodes=$geocode&exposeType=$estateType&priceTo=$priceTo&sortB y=firstActivationDate%3Adesc&pageSize=$limit&pageNumber=$pageNumber&netYieldFrom=$netYieldFrom&priceTrendFrom=$priceTrendFrom&rentTrendFrom=$rentTrendFrom&factorTo=$factorTo&pricePerSqmTo=$pricePerSqm&roomsFrom=$roomsFrom&livingSpaceFrom=$livingSpaceFrom');
+        'https://pib-prod.is24-baufi.eu-west-1.infinity.s24cloud.net/pib/endpoint/search?geoCodes=$geocode&exposeType=$estateType&priceTo=$priceTo&sortB y=firstActivationDate%3Adesc&pageSize=$limit&pageNumber=$pageNumber&netYieldFrom=$netYieldFrom&priceTrendFrom=$priceTrendFrom&rentTrendFrom=$rentTrendFrom&factorTo=$factorTo&pricePerSqmTo=$pricePerSqm&roomsFrom=$roomsFrom&livingSpaceFrom=$livingSpaceFrom' +
+            '${isNotFlagged ? '&isNotFlagged' : ''}' +
+            '${isRented ? '&isRented' : ''}' +
+            '${refurbished ? '&condition=REFURBISHED' : ''}');
 
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body)['paging'];

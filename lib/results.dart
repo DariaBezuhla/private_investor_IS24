@@ -82,13 +82,23 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 
   _fetchLengthForAppBar() {
-    _searchService.fetchLength(
-        priceTo: widget.budget,
-        estateType: widget.estateType, geocode: widget.geoCode,  netYieldFrom: widget.netYield,
-        priceTrendFrom: widget.priceTrend, rentTrendFrom: widget.rentTrend, factorTo: widget.factor,
-        pricePerSqm: widget.pricePerSqm, roomsFrom: widget.rooms, livingSpaceFrom: widget.livingSpace,
-      isRented: widget.rented, isNotFlagged: widget.plausible,
-    ).then((value) {
+    _searchService
+        .fetchLength(
+      priceTo: widget.budget,
+      estateType: widget.estateType,
+      geocode: widget.geoCode,
+      netYieldFrom: widget.netYield,
+      priceTrendFrom: widget.priceTrend,
+      rentTrendFrom: widget.rentTrend,
+      factorTo: widget.factor,
+      pricePerSqm: widget.pricePerSqm,
+      roomsFrom: widget.rooms,
+      livingSpaceFrom: widget.livingSpace,
+      isRented: widget.rented,
+      isNotFlagged: widget.plausible,
+      refurbished: widget.refurbished,
+    )
+        .then((value) {
       setState(() {
         _lengthOfResults = value;
         _lenght = _lengthOfResults.numberOfListings.toInt();
@@ -130,9 +140,9 @@ class _ResultScreenState extends State<ResultScreen> {
               pricePerSqm: widget.pricePerSqm,
               rooms: widget.rooms,
               livingSpace: widget.livingSpace,
-                refurbished: widget.refurbished,
-            rented: widget.rented,
-            plausible: widget.plausible,
+              refurbished: widget.refurbished,
+              rented: widget.rented,
+              plausible: widget.plausible,
             ),
           ),
         ),

@@ -36,9 +36,9 @@ class ListViewForResults extends StatefulWidget {
     this.pricePerSqm,
     this.rooms,
     this.livingSpace,
-    this.refurbished, //TODO complett
-    this.rented, //TODO
-    this.plausible, //TODO
+    this.refurbished,
+    this.rented,
+    this.plausible,
   }) : super(key: key);
 
   ListViewForResultsState createState() => ListViewForResultsState();
@@ -77,7 +77,7 @@ class ListViewForResultsState extends State<ListViewForResults>
         estateType: widget.estateType, geocode: widget.geocode, netYieldFrom: widget.netYield,
     priceTrendFrom: widget.priceTrend, rentTrendFrom: widget.rentTrend, factorTo: widget.factorTo,
         pricePerSqm: widget.pricePerSqm, roomsFrom: widget.rooms, livingSpaceFrom: widget.livingSpace,
-        isRented: widget.rented, isNotFlagged: widget.plausible,)
+        isRented: widget.rented, isNotFlagged: widget.plausible, refurbished: widget.refurbished,)
         .then((onValue) {
       setState(() {
         _estates.addAll(onValue);
@@ -182,7 +182,7 @@ class ListViewForResultsState extends State<ListViewForResults>
         estateType: widget.estateType, geocode: widget.geocode,  netYieldFrom: widget.netYield,
         priceTrendFrom: widget.priceTrend, rentTrendFrom: widget.rentTrend, factorTo: widget.factorTo,
         pricePerSqm: widget.pricePerSqm, roomsFrom: widget.rooms, livingSpaceFrom: widget.livingSpace,
-      isRented: widget.rented, isNotFlagged: widget.plausible,)
+      isRented: widget.rented, isNotFlagged: widget.plausible, refurbished: widget.refurbished,)
         .then((onValue) {
       setState(() {
         _loading = false;
@@ -203,7 +203,7 @@ class ListViewForResultsState extends State<ListViewForResults>
         estateType: widget.estateType, geocode: widget.geocode,  netYieldFrom: widget.netYield,
         priceTrendFrom: widget.priceTrend, rentTrendFrom: widget.rentTrend, factorTo: widget.factorTo,
         pricePerSqm: widget.pricePerSqm, roomsFrom: widget.rooms, livingSpaceFrom: widget.livingSpace,
-      isRented: widget.rented, isNotFlagged: widget.plausible,)
+      isRented: widget.rented, isNotFlagged: widget.plausible,refurbished: widget.refurbished,)
       .then((onValue) {
         setState(() {
           _loading = false;

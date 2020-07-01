@@ -68,7 +68,8 @@ class StarteSucheState extends State<StarteSuche> {
       refurbishedFromUser = WeitereFilterDropDownState.pressedSaniert;
       rentedFromUser = WeitereFilterDropDownState.pressedVermietet;
       plausibleFromUser = WeitereFilterDropDownState.pressedPlausible;
-      /*print('budgetInStarteSuche: ' + budgetFromUser.toString());
+      /*
+      print('budgetInStarteSuche: ' + budgetFromUser.toString());
       print('estateTypeInStarteSuche: ' + estateTypeFromUser.toString());
       print('geoCodeInStarteSuche: ' + geoCodeFromUser.toString());
       print('netYieldInStarteSuche: ' + netYieldFromUser.toString());
@@ -111,13 +112,6 @@ class StarteSucheState extends State<StarteSuche> {
     } else {
       setState(() {
         currentAddress = '';
-        /*print("in init---" +
-            "geo Code from user: " +
-            geoCodeFromUser.toString() +
-            ", geo Code: " +
-            geoCode.toString());
-
-         */
       });
     }
   }
@@ -136,7 +130,10 @@ class StarteSucheState extends State<StarteSuche> {
         autoCompleteLocationService
             .fetchAutocompleteLocation(location: currentAddress)
             .then((value) {
-          if (value.length > 0) geoCode = value[0].geoId;
+          if (value.length > 0) {
+            geoCode = value[0].geoId;
+            refreshLocation();
+          }
         });
       });
     } catch (e) {
@@ -150,13 +147,12 @@ class StarteSucheState extends State<StarteSuche> {
     _getCurrentLocation();
   }
 
-  _pageTransition () {
+  _pageTransition() {
     Navigator.of(context).push(
       PageRouteGenerator(builder: (context) {
         return ResultScreen(
           budget: budgetFromUser,
-          estateType:
-          checkEstateType(estateTypeFromUser),
+          estateType: checkEstateType(estateTypeFromUser),
           geoCode: geoCodeFromUser,
           netYield: netYieldFromUser,
           priceTrend: priceTrendFromUser,
