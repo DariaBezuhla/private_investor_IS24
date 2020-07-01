@@ -11,7 +11,7 @@ class ResultScreen extends StatefulWidget {
   final String theme;
   final int budget;
   final String estateType;
-  final int geoCode;
+  final String geoCode;
   final int netYield;
   final int rentTrend;
   final int priceTrend;

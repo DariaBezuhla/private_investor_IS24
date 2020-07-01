@@ -11,7 +11,7 @@ class ListViewForResults extends StatefulWidget {
   final String theme; // for 'Dark' or 'Light' Theme
   final int budget;
   final String estateType;
-  final int geocode;
+  final String geocode;
   final int netYield;
   final int priceTrend;
   final int rentTrend;

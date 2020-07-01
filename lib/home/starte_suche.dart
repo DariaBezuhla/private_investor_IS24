@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'auto_complete_location.dart';
 import 'location_textfield.dart';
 
 class StarteSuche extends StatefulWidget {
@@ -25,14 +26,16 @@ class StarteSucheState extends State<StarteSuche> {
   final String containerDescription = 'containerDescription'.tr().toString();
   final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
   Position _currentPosition;
-  String _currentAddress;
+  String currentAddress;
+  String geoCode;
+  bool userLoc;
   final GlobalKey<NormalTextFieldState> _key = GlobalKey();
   final GlobalKey<LocationInputFieldState> _key2 = GlobalKey();
 
   //For Filters
   //final GlobalKey<NormalTextFieldState> _key = GlobalKey();
   static int budgetFromUser;
-  static int geoCodeFromUser;
+  static String geoCodeFromUser;
   static String estateTypeFromUser;
 
   //Filters with default value
@@ -47,7 +50,6 @@ class StarteSucheState extends State<StarteSuche> {
   static bool rentedFromUser = false;
   static bool plausibleFromUser = false;
 
-
   //For refreshing filters:
   //  refreshFilter() is called in NormalTextField and other TextFields;
   //  what does: StarteSuchePage.setState() with new filters properties from user
@@ -55,7 +57,7 @@ class StarteSucheState extends State<StarteSuche> {
     setState(() {
       budgetFromUser = NormalTextFieldState.budget;
       estateTypeFromUser = PropertyTypeTextFieldState.estateType;
-      geoCodeFromUser = LocationInputFieldState.geoCode;
+
       netYieldFromUser = NormalTextFieldState.netYield;
       priceTrendFromUser = NormalTextFieldState.priceTrend;
       rentTrendFromUser = NormalTextFieldState.rentTrend;
@@ -64,9 +66,8 @@ class StarteSucheState extends State<StarteSuche> {
       roomsFromUser = NormalTextFieldState.rooms;
       livingSpaceFromUser = NormalTextFieldState.livingSpace;
       refurbishedFromUser = WeitereFilterDropDownState.pressedSaniert;
-      rentedFromUser =  WeitereFilterDropDownState.pressedVermietet;
-      plausibleFromUser =  WeitereFilterDropDownState.pressedPlausible;
-
+      rentedFromUser = WeitereFilterDropDownState.pressedVermietet;
+      plausibleFromUser = WeitereFilterDropDownState.pressedPlausible;
       /*print('budgetInStarteSuche: ' + budgetFromUser.toString());
       print('estateTypeInStarteSuche: ' + estateTypeFromUser.toString());
       print('geoCodeInStarteSuche: ' + geoCodeFromUser.toString());
@@ -84,10 +85,17 @@ class StarteSucheState extends State<StarteSuche> {
     });
   }
 
+  void refreshLocation() {
+    geoCodeFromUser = LocationInputFieldState.geoCode;
+    if (userLoc) if (geoCodeFromUser == null) geoCodeFromUser = geoCode;
+    //print('geoCodeInStarteSuche: ' + geoCodeFromUser.toString());
+  }
+
   _getCurrentLocation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool _userlocation = false;
     _userlocation = prefs.getBool('trackUserLocation');
+    userLoc = _userlocation;
 
     if (_userlocation == true) {
       geolocator
@@ -102,7 +110,14 @@ class StarteSucheState extends State<StarteSuche> {
       });
     } else {
       setState(() {
-        _currentAddress = '';
+        currentAddress = '';
+        /*print("in init---" +
+            "geo Code from user: " +
+            geoCodeFromUser.toString() +
+            ", geo Code: " +
+            geoCode.toString());
+
+         */
       });
     }
   }
@@ -115,7 +130,14 @@ class StarteSucheState extends State<StarteSuche> {
       Placemark place = p[0];
 
       setState(() {
-        _currentAddress = "${place.locality}";
+        currentAddress = "${place.locality}";
+        AutoCompleteLocationService autoCompleteLocationService =
+            AutoCompleteLocationService();
+        autoCompleteLocationService
+            .fetchAutocompleteLocation(location: currentAddress)
+            .then((value) {
+          if (value.length > 0) geoCode = value[0].geoId;
+        });
       });
     } catch (e) {
       print(e);
@@ -126,6 +148,44 @@ class StarteSucheState extends State<StarteSuche> {
   void initState() {
     super.initState();
     _getCurrentLocation();
+  }
+
+  _pageTransition () {
+    Navigator.of(context).push(
+      PageRouteGenerator(builder: (context) {
+        return ResultScreen(
+          budget: budgetFromUser,
+          estateType:
+          checkEstateType(estateTypeFromUser),
+          geoCode: geoCodeFromUser,
+          netYield: netYieldFromUser,
+          priceTrend: priceTrendFromUser,
+          rentTrend: rentTrendFromUser,
+          factor: factorFromUser,
+          pricePerSqm: pricePerSqFromUser,
+          rooms: roomsFromUser,
+          livingSpace: livingSpaceFromUser,
+          refurbished: refurbishedFromUser,
+          rented: rentedFromUser,
+          plausible: plausibleFromUser,
+        );
+      }),
+    );
+  }
+
+  _goToResultsList() {
+    if (userLoc) {
+      if (_key.currentState.validateInput()) {
+        _pageTransition();
+      }
+    } else {
+      _key.currentState.validateInput();
+      _key2.currentState.validateInput();
+      if (_key.currentState.validateInput() &&
+          _key2.currentState.validateInput()) {
+        _pageTransition();
+      }
+    }
   }
 
   @override
@@ -217,8 +277,8 @@ class StarteSucheState extends State<StarteSuche> {
                                 .tr()
                                 .toString(),
                             topValue: 'Region'.tr().toString(),
-                            location: _currentAddress,
-                            function: refreshFilter,
+                            location: currentAddress,
+                            function: refreshLocation,
                           ),
                         ),
 
@@ -284,33 +344,7 @@ class StarteSucheState extends State<StarteSuche> {
                             padding: EdgeInsets.symmetric(
                                 vertical: ScreenUtil().setHeight(10),
                                 horizontal: ScreenUtil().setWidth(10)),
-                            onPressed: () {
-                              _key.currentState.validateInput();
-                              _key2.currentState.validateInput();
-                              if (_key.currentState.validateInput() && _key2.currentState.validateInput()) {
-                                Navigator.of(context).push(
-                                  PageRouteGenerator(builder: (context) {
-                                    return ResultScreen(
-                                      budget: budgetFromUser,
-                                      estateType:
-                                          checkEstateType(estateTypeFromUser),
-                                      geoCode: geoCodeFromUser,
-                                      netYield: netYieldFromUser,
-                                      priceTrend: priceTrendFromUser,
-                                      rentTrend: rentTrendFromUser,
-                                      factor: factorFromUser,
-                                      pricePerSqm: pricePerSqFromUser,
-                                      rooms: roomsFromUser,
-                                      livingSpace: livingSpaceFromUser,
-                                        refurbished: refurbishedFromUser,
-                                        rented: rentedFromUser,
-                                        plausible: plausibleFromUser,
-
-                                    );
-                                  }),
-                                );
-                              }
-                            },
+                            onPressed: _goToResultsList,
                             child: Text('Suchen'.tr().toString(),
                                 style: CustomStyle.styleButton(context)),
                           ),

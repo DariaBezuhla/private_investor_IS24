@@ -16,7 +16,6 @@ import '../main.dart';
 import 'data_protection_page.dart';
 import 'feedback_selection.dart';
 import 'impress_page.dart';
-import 'language_selection.dart';
 import 'terms_and_condition_page.dart';
 import 'tracking_information.dart';
 

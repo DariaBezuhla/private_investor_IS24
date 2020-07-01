@@ -9,7 +9,7 @@ import 'package:privateinvestorsmobile/locations/location.dart';
  * Each instance of this class can obtain the location results by querying the input 'location'
  * The list of location is necessary for the autocomplete textfield.
  */
-class AutoCompleteLocationService {
+ class AutoCompleteLocationService {
   AutoCompleteLocationService(){}
 
   /**
@@ -23,7 +23,7 @@ class AutoCompleteLocationService {
    * @returns List<Location>
    * @Exception Exception
    */
-  Future<List<Location>> fetchAutocompleteLocation ({String location = 'berlin'}) async {
+  static Future<List<Location>> fetchAutocompleteLocation ({String location = 'berlin'}) async {
     final response = await http.get(
         'https://pib-prod.is24-baufi.eu-west-1.infinity.s24cloud.net/pib/endpoint/geo-auto-complete?t=country%2Cregion%2Ccity%2Cdistrict%2Cpostcode%2CquarterOrTown%2CpostcodeWithQuarter&i=$location'
     );

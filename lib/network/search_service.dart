@@ -16,7 +16,7 @@ class SearchService {
    * @return:Arraylist from EstateCard
    */
   Future<List<RealEstateObject>> fetchList(
-      {int geocode,
+      {String geocode,
       String estateType,
       int priceTo,
       String sortBy,
@@ -109,7 +109,7 @@ class SearchService {
    * @return:Lenght of results list
    */
   Future<ResultsLength> fetchLength(
-      { int geocode,
+      { String geocode,
         String estateType,
         int priceTo,
         int netYieldFrom,

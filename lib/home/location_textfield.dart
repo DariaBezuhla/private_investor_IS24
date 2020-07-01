@@ -9,7 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 class LocationTextField extends StatefulWidget {
   final String topValue;
   final String textFieldValue;
-  final String location;
+  String location;
   ValueChanged<String> customHead;
   ValueChanged<String> customWert;
 
@@ -22,7 +22,9 @@ class LocationTextField extends StatefulWidget {
       this.customHead,
       this.textFieldValue,
       this.customWert,
-      this.location, this.function}) : super(key: key);
+      this.location = '',
+      this.function})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => new LocationInputFieldState();
@@ -37,12 +39,14 @@ class LocationInputFieldState extends State<LocationTextField> {
   bool _choseLocation;
   bool focusedInputField = true;
   FocusNode _myFocusNode;
+
   // For User Filters transition into Results List
-  static int geoCode;
+  static String geoCode;
 
   //Validate the TextFieldForm
   final _formKey = GlobalKey<FormState>();
-  bool validateInput(){
+
+  bool validateInput() {
     if (_formKey.currentState.validate()) return true;
     return false;
   }
@@ -56,7 +60,6 @@ class LocationInputFieldState extends State<LocationTextField> {
       _autoCompleteLocationService = AutoCompleteLocationService();
     });
     setState(() {});
-      // print('userlocation:' + widget.location);
   }
 
   void dispose() {
@@ -66,14 +69,12 @@ class LocationInputFieldState extends State<LocationTextField> {
   }
 
   //clear Text Field when new value
-  void _clearTextInput(){
+  void _clearTextInput() {
     _controller.clear();
     geoCode = null;
     widget.function();
     //FocusScope.of(context).unfocus();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -102,42 +103,68 @@ class LocationInputFieldState extends State<LocationTextField> {
                 Column(
                   children: <Widget>[
                     new TextFormField(
-                        focusNode: _myFocusNode,
-                        controller: _controller,
-                        decoration: new InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: kLightGrey,
-                              ),
-                            ),
-                            labelText: widget.textFieldValue,
-                            labelStyle: CustomStyle.inputPlaceholder(context)),
-                        onEditingComplete: () {
-                          _myFocusNode.unfocus();
-                          focusedInputField = false;
-                        },
-                        onChanged: (it) {
-                          if (it.length >= 2) {
-                            _timer = Timer(
-                              const Duration(milliseconds: 500),
-                              () {
-                                setState(() {
-                                  _input = it;
-                                  _choseLocation = false;
-                                  focusedInputField = true;
-                                });
-                              },
-                            );
-                          }
-                        },
+                      focusNode: _myFocusNode,
+                      controller: _controller,
+                      decoration: new InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: kLightGrey,
+                          ),
+                        ),
+                        labelText: widget.location != null
+                            ? (widget.location.isEmpty
+                                ? widget.textFieldValue
+                                : widget.location)
+                            : widget.textFieldValue,
+                        //widget.textFieldValue,
+                        labelStyle: widget.location != null
+                            ? (widget.location.isEmpty
+                                ? CustomStyle.inputPlaceholder(context)
+                                : CustomStyle.styleText(context))
+                            : CustomStyle.inputPlaceholder(context),
+                      ),
+                      onEditingComplete: () {
+                        _myFocusNode.unfocus();
+                        focusedInputField = false;
+                      },
+                      onChanged: (it) {
+                        if (it.length >= 2) {
+                          _timer = Timer(
+                            const Duration(milliseconds: 500),
+                            () {
+                              setState(() {
+                                _input = it;
+                                _choseLocation = false;
+                                focusedInputField = true;
+                              });
+                            },
+                          );
+                        }
+                      },
                       onTap: _clearTextInput,
                       validator: (value) {
+                        //DON'T FOUND A Location - for dummy location
+                        /* AutoCompleteLocationService
+                            autoCompleteLocationService =
+                            AutoCompleteLocationService();
+                        var s = autoCompleteLocationService
+                            .fetchAutocompleteLocation(location: value);
+                        var pruf = s.then((loc) => loc.length > 0
+                            ? false
+                            : true);
+
+                        if (pruf) {
+                          return 'enterRegion'.tr().toString();
+                        }
+                        */
+                        //FIELD is empty
                         if (value.isEmpty) {
                           return 'enterRegion'.tr().toString();
                         }
+
                         return null;
                       },
-                        ),
+                    ),
                     (!_choseLocation)
                         ? FutureBuilder(
                             future: _autoCompleteLocationService
@@ -162,8 +189,10 @@ class LocationInputFieldState extends State<LocationTextField> {
                                       !_choseLocation &&
                                       focusedInputField) {
                                     return Material(
-                                      child: _buildListView(context,
-                                          snapshot.data, (it) => _geoCodes = it),
+                                      child: _buildListView(
+                                          context,
+                                          snapshot.data,
+                                          (it) => _geoCodes = it),
                                     );
                                   }
                                   return Container();
@@ -210,7 +239,7 @@ class LocationInputFieldState extends State<LocationTextField> {
       _controller.text = location.getLabel();
 
       //For User Filer -> transition to Results List
-      geoCode = int.tryParse(_geoCodes) ?? null;
+      geoCode = _geoCodes;
       widget.function();
       _formKey.currentState.validate();
       FocusScope.of(context).unfocus();

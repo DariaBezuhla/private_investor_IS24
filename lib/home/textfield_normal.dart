@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/constant.dart';
 import  'package:keyboard_actions/keyboard_actions.dart';
 import '../constant.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class NormalTextField extends StatefulWidget {
   final String topNormalValue;
@@ -213,7 +212,7 @@ class NormalTextFieldState extends State<NormalTextField> {
               child: new TextFormField(
                 controller: myController,
                 textInputAction: TextInputAction.go,
-                keyboardType: TextInputType.number,
+                //keyboardType: TextInputType.number,
                 inputFormatters: <TextInputFormatter>[WhitelistingTextInputFormatter.digitsOnly],
                 decoration: new InputDecoration(
                   border: OutlineInputBorder(
@@ -229,7 +228,7 @@ class NormalTextFieldState extends State<NormalTextField> {
                 onTap: _clearTextInput,
                 validator: (value) {
                   if (value.isEmpty) {
-                    return 'enterBudget'.tr().toString();
+                    return 'Please enter butget';
                   }
                   return null;
                 },
