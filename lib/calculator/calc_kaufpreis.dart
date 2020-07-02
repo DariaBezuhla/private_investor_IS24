@@ -13,7 +13,6 @@ class CalcKaufpreis extends StatefulWidget {
 class _CalcKaufpreisState extends State<CalcKaufpreis> {
   CalculatorDataService _calculatorDataService;
 
-
   var totalAcquisitionCost = 0;
   var additionalCostData = 0.0;
   var additionalCostPercentData = 0;

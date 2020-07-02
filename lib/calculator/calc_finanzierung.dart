@@ -74,7 +74,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
   void countKaufnebenkosten() {
     setState(() {
       additionalCostData =
-          (purchasePriceData * additionalCostPercentData / 100);
+      (purchasePriceData * additionalCostPercentData / 100);
     });
   }
 
@@ -91,7 +91,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
   }
 
   void countDebitInterestResultValue() {
-     debitInterestResultValue = (netLoanAmount * debitInterestRate / 100 / 12);
+    debitInterestResultValue = (netLoanAmount * debitInterestRate / 100 / 12);
   }
 
   void countAmortizationResultValue() {
@@ -163,7 +163,6 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
               ),
 
               ///////WHEN SWITCH IS ON//////////
-
               Visibility(
                 visible: isSwitched,
                 child: Column(children: <Widget>[
@@ -185,8 +184,8 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                             showDialog(
                                 context: context,
                                 builder: (_) => ModalBox(
-                                      content: 'totalDialog'.tr().toString(),
-                                    ));
+                                  content: 'totalDialog'.tr().toString(),
+                                ));
                           },
                           child: Icon(
                             SystemIconsIS.is24_system_48px_info,
@@ -218,8 +217,8 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                             showDialog(
                                 context: context,
                                 builder: (_) => ModalBox(
-                                      content: 'equityDialog'.tr().toString(),
-                                    ));
+                                  content: 'equityDialog'.tr().toString(),
+                                ));
                           },
                           child: Icon(
                             SystemIconsIS.is24_system_48px_info,
@@ -273,12 +272,8 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                               primaryColorDark: kTeal,
                             ),
                             child: TextFormField(
-                              style: TextStyle(
-                                  color: kCharcoal,
-                                  fontSize: dStyleLabel.fontSize),
                               controller: equityController,
                               onChanged: (text) {
-                                // ignore: missing_return
                                 setState(() {
                                   if (text == '') {
                                     equityResultValue = 0.0;
@@ -307,15 +302,15 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                         ),
                       ),
                       Flexible(
-                        child: Container(
-                          color: Colors.transparent,
-                          height: ScreenUtil().setHeight(40),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(' %', style: styleText,
+                          child: Container(
+                            color: Colors.transparent,
+                            height: ScreenUtil().setHeight(40),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(' %', style: styleText,
+                              ),
                             ),
-                          ),
-                        )
+                          )
                       ),
                       Flexible(
                         child: Container(
@@ -358,16 +353,16 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                   //HORIZONTAL LINE
                   Container(
                       child: new SizedBox(
-                    height: ScreenUtil().setHeight(1),
-                    child: new Center(
-                      child: new Container(
-                        margin: new EdgeInsetsDirectional.only(
-                            start: 1.0, end: 1.0),
-                        height: ScreenUtil().setHeight(0.5),
-                        color: Colors.grey,
-                      ),
-                    ),
-                  )),
+                        height: ScreenUtil().setHeight(1),
+                        child: new Center(
+                          child: new Container(
+                            margin: new EdgeInsetsDirectional.only(
+                                start: 1.0, end: 1.0),
+                            height: ScreenUtil().setHeight(0.5),
+                            color: Colors.grey,
+                          ),
+                        ),
+                      )),
 
                   SizedBox(height: ScreenUtil().setHeight(10)),
 
@@ -421,17 +416,14 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                               primaryColorDark: kTeal,
                             ),
                             child: TextFormField(
-                              style: TextStyle(
-                                  color: kCharcoal,
-                                  fontSize: dStyleLabel.fontSize),
                               controller: debitInterestController,
                               onChanged: (text) {
                                 // ignore: missing_return
                                 setState(() {
                                   if (text == '') {
-                                   debitInterestResultValue = 0.0;
-                                   totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
-                                   return;
+                                    debitInterestResultValue = 0.0;
+                                    totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
+                                    return;
                                   }
                                   inputValueDebit = text;
                                   debitInterestResultValue = (netLoanAmount * double.parse(inputValueDebit) / 100 / 12);
@@ -476,7 +468,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                     ],
                   ),
 
-                   SizedBox(height: ScreenUtil().setHeight(8)),
+                  SizedBox(height: ScreenUtil().setHeight(8)),
 
                   //AMORTIZATION RATE ROW
                   Row(
@@ -528,9 +520,6 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                               primaryColorDark: kTeal,
                             ),
                             child: TextFormField(
-                              style: TextStyle(
-                                  color: kCharcoal,
-                                  fontSize: dStyleLabel.fontSize),
                               controller: amortizationController,
                               onChanged: (text) {
                                 // ignore: missing_return
@@ -610,13 +599,12 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                           style: header4,
                         ),
                         Text(
-                         '-' + totalRateToBank.toString() + " €",
+                          '-' + totalRateToBank.toString() + " €",
                           style: header4,
                         ),
                       ],
                     ),
                   ),
-
                 ]),
               )
             ],

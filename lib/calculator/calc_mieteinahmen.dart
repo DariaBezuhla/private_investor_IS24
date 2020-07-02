@@ -1,4 +1,5 @@
 //import 'dart:html';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/calculator.dart';
@@ -7,33 +8,68 @@ import 'package:privateinvestorsmobile/constant.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class CalcMieteinahmen extends StatefulWidget {
-  final fetchedKaltmiete;
-  const CalcMieteinahmen({Key key, this.fetchedKaltmiete}) : super(key: key);
+   final fetchedKaltmiete;
+   const CalcMieteinahmen({Key key, this.fetchedKaltmiete}) : super(key: key);
 
-  @override
   _CalcMieteinahmenState createState() => _CalcMieteinahmenState();
 }
 
 class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
-  var nk;
-  var gesamt;
-  double mn = 0.0;
-  double hausgeld = 0.0;
-  double ruecklagen = 0.0;
-  double hwkosten = 0.0;
+  TextEditingController resultController = new TextEditingController();
+  TextEditingController utilitiesController = new TextEditingController();
+  TextEditingController reservesController = new TextEditingController();
+  TextEditingController maintenanceController = new TextEditingController();
 
-  String mieteinahmen(price) {
-    mn = (price.toInt() * 19 / 100);
-    return mn.toInt().toString();
-  }
+  double minValue = 0.0;
+  double maxValue = 0.0;
+  var kaltmiete;
+  var inputUtilitiesValue;
+  var resultValue;
+  var inputReservesValue;
+  var newInputUtilitiesValue;
+  var reservesValue;
+  var newReservesValue;
+  var resultReservesValue;
+  var maintenanceValue;
+  var resultMaintenanceValue;
+  var newMaintenanceValue;
+  var operatingCosts = 0;
 
-  String gesamtPrice(price) {
-    gesamt = price + mn;
-    return gesamt.toInt().toString();
+  @override
+  void initState() {
+    super.initState();
+    kaltmiete = widget.fetchedKaltmiete;
+    setState(() {
+      maxValue = kaltmiete * 2;
+      minValue = 0.0;
+    });
+    resultValue = (kaltmiete * 7.5 / 100).round().toString();
+    resultController = new TextEditingController(text: resultValue);
+    inputUtilitiesValue = (7.5).toString();
+    reservesValue = (3.0).toString();
+    maintenanceValue = (3.0).toString();
+    resultReservesValue = (kaltmiete * 3.0 / 100).round().toString();
+    resultMaintenanceValue = (kaltmiete * 3.0 / 100).round().toString();
+    utilitiesController = new TextEditingController(text: inputUtilitiesValue);
+    reservesController = new TextEditingController(text: reservesValue);
+    maintenanceController = new TextEditingController(text: maintenanceValue);
+    operatingCosts = (double.parse(resultValue) + double.parse(resultReservesValue) + double.parse(resultMaintenanceValue)).toInt();
+    setState(() {
+      newInputUtilitiesValue = double.parse(inputUtilitiesValue);
+      newReservesValue = double.parse(reservesValue);
+      newMaintenanceValue = double.parse(maintenanceValue);
+      resultValue = (kaltmiete * newInputUtilitiesValue / 100).round();
+      resultReservesValue = (kaltmiete * newReservesValue / 100).round();
+      resultMaintenanceValue = (kaltmiete * newMaintenanceValue / 100).round();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    ScreenUtil.init(context, width: width, height: height);
+
     return Material(
       color: kCard,
       elevation: elevation,
@@ -66,7 +102,7 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                   ),
                 ),
                 Spacer(),
-                Text(widget.fetchedKaltmiete.toString() + ' €',
+                Text(kaltmiete.round().toString() + ' €',
                     style: styleText),
               ],
             ),
@@ -82,15 +118,22 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                 overlayColor: kCharcoal.withOpacity(.2),
               ),
               child: Slider(
-                value: mn,
-                min: 0,
-                max: 250000,
+                value: kaltmiete.toDouble(),
+                min: minValue,
+                max: maxValue,
                 onChanged: (double newPrice) {
                   setState(() {
-                    mn = newPrice;
+                    kaltmiete = newPrice.round().toDouble();
+                    newInputUtilitiesValue = double.parse(inputUtilitiesValue);
+                    newReservesValue = double.parse(reservesValue);
+                    newMaintenanceValue = double.parse(maintenanceValue);
+                    resultValue = (kaltmiete * newInputUtilitiesValue / 100).round();
+                    resultReservesValue = (kaltmiete * newReservesValue / 100).round();
+                    resultMaintenanceValue = (kaltmiete * newMaintenanceValue / 100).round();
+                    operatingCosts = (resultValue + resultReservesValue + resultMaintenanceValue).toInt();
                   });
                 },
-                label: '$mn',
+                //label: '$kaltmiete',
               ),
             ),
 
@@ -125,7 +168,6 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
 
             //1. TEXT FIELD
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Flexible(
                   child: Container(
@@ -138,10 +180,25 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                         primaryColorDark: kTeal,
                       ),
                       child: TextFormField(
-                        decoration: InputDecoration(
+                        controller: utilitiesController,
+                        onChanged: (text) {
+                          setState(() {
+                            if (text == '') {
+                              inputUtilitiesValue = (0.0).toString();
+                              resultValue = 0;
+                              operatingCosts = (resultValue + resultReservesValue + resultMaintenanceValue).toInt();
+                              return;
+                            }
+                            inputUtilitiesValue = text;
+                            double.parse(inputUtilitiesValue);
+                            resultValue = (kaltmiete * double.parse(inputUtilitiesValue) / 100).round();
+                            operatingCosts = (resultValue + resultReservesValue + resultMaintenanceValue).toInt();
+                          });
+                        },
+                          decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: kDivider,
+                          borderSide: BorderSide(
+                          color: kDivider,
                             ),
                           ),
                         ),
@@ -150,16 +207,24 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                   ),
                 ),
                 Flexible(
+                    child: Container(
+                      color: Colors.transparent,
+                      height: ScreenUtil().setHeight(40),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(' %',
+                          style: styleText,
+                        ),
+                      ),
+                    )
+                ),
+                Flexible(
                   child: Container(
                     color: Colors.transparent,
-                    //width: ScreenUtil().setWidth(170),
                     height: ScreenUtil().setHeight(45),
                     child: Align(
                       alignment: Alignment.centerRight,
-                      child: Text(
-                        hausgeld.toInt().toString() + " €",
-                        style: styleText,
-                      ),
+                      child: Text(resultValue.toString() + " €")
                     ),
                   ),
                 ),
@@ -210,6 +275,21 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                         primaryColorDark: kTeal,
                       ),
                       child: TextFormField(
+                        controller: reservesController,
+                        onChanged: (text) {
+                          setState(() {
+                            if (text == '') {
+                              reservesValue = (0.0).toString();
+                              resultReservesValue = 0;
+                              operatingCosts = (resultValue + resultReservesValue + resultMaintenanceValue).toInt();
+                              return;
+                            }
+                            reservesValue = text;
+                            double.parse(reservesValue);
+                            resultReservesValue = (kaltmiete * double.parse(reservesValue) / 100).round();
+                            operatingCosts = (resultValue + resultReservesValue + resultMaintenanceValue).toInt();
+                          });
+                        },
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -222,16 +302,23 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                   ),
                 ),
                 Flexible(
+                    child: Container(
+                      color: Colors.transparent,
+                      height: ScreenUtil().setHeight(40),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(' %', style: styleText,
+                        ),
+                      ),
+                    )
+                ),
+                Flexible(
                   child: Container(
                     color: Colors.transparent,
-                    //width: ScreenUtil().setWidth(170),
                     height: ScreenUtil().setHeight(45),
                     child: Align(
                       alignment: Alignment.centerRight,
-                      child: Text(
-                        ruecklagen.toInt().toString() + " €",
-                        style: styleText,
-                      ),
+                      child: Text(resultReservesValue.toString() + " €")
                     ),
                   ),
                 ),
@@ -282,6 +369,21 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                         primaryColorDark: kTeal,
                       ),
                       child: TextFormField(
+                        controller: maintenanceController,
+                        onChanged: (text) {
+                          setState(() {
+                            if (text == '') {
+                              maintenanceValue = (0.0).toString();
+                              resultMaintenanceValue = 0;
+                              operatingCosts = (resultValue + resultReservesValue + resultMaintenanceValue).toInt();
+                              return;
+                            }
+                            maintenanceValue = text;
+                            double.parse(maintenanceValue);
+                            resultMaintenanceValue = (kaltmiete * double.parse(maintenanceValue) / 100).round();
+                            operatingCosts = (resultValue + resultReservesValue + resultMaintenanceValue).toInt();
+                          });
+                        },
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -294,16 +396,23 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                   ),
                 ),
                 Flexible(
+                    child: Container(
+                      color: Colors.transparent,
+                      height: ScreenUtil().setHeight(40),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(' %', style: styleText,
+                        ),
+                      ),
+                    )
+                ),
+                Flexible(
                   child: Container(
                     color: Colors.transparent,
-                    //width: ScreenUtil().setWidth(170),
                     height: ScreenUtil().setHeight(45),
                     child: Align(
                       alignment: Alignment.centerRight,
-                      child: Text(
-                        hwkosten.toInt().toString() + " €",
-                        style: styleText,
-                      ),
+                      child: Text(resultMaintenanceValue.toString() + " €")
                     ),
                   ),
                 ),
@@ -311,9 +420,6 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
             ),
 
             SizedBox(height: ScreenUtil().setHeight(20)),
-
-            //CalcTextField(),
-            //CalcTextField(),
 
             //HORIZONTAL LINE
             Container(
@@ -339,7 +445,7 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                     style: header4,
                   ),
                   Text(
-                    gesamtPrice(mn) + ' €',
+                      "-" + operatingCosts.round().toString() + " €",
                     style: header4,
                   ),
                 ],
