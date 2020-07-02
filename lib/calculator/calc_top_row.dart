@@ -86,7 +86,7 @@ class _CalcTopRowState extends State<CalcTopRow> {
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: Text(
-                      "Geb. Sollzins".tr().toString(),
+                      "InterestRate".tr().toString(),
                       style: styleDescriptionText,
                     ),
                   ),

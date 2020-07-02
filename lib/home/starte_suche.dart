@@ -287,7 +287,7 @@ class StarteSucheState extends State<StarteSuche> {
                               primaryColorDark: kTeal,
                             ),
                             child: new PropertyTypeTextField(
-                              topValue: "Realestate".tr().toString(),
+                              topValue: "Art".tr().toString(),
                               customHead: (String str) {
                                 print(str);
                               },
