@@ -108,7 +108,7 @@ const shadowMd = <BoxShadow>[
   BoxShadow(
     color: Color.fromRGBO(0, 0, 0, 0.1),
     blurRadius: 3.0,
-    spreadRadius: -0.5,
+    spreadRadius: 0.5,
     offset: Offset(
       0.0,
       0.5,
@@ -117,7 +117,7 @@ const shadowMd = <BoxShadow>[
   BoxShadow(
     color: Color.fromRGBO(0, 0, 0, 0.06),
     blurRadius: 2.0,
-    spreadRadius: -0.5,
+    spreadRadius: 0.5,
     offset: Offset(
       0.0,
       0.25,

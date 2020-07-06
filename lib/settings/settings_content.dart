@@ -236,7 +236,7 @@ class _SettingsContentState extends State<SettingsContent> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: ScreenUtil().setWidth(24)),
                               child: FlutterSwitch(
-                                activeColor: kTeal,
+                                activeColor: kCharcoal,
                                 inactiveColor: kGrey,
                                 toggleSize: ScreenUtil().setHeight(17),
                                 height: ScreenUtil().setHeight(20),
@@ -503,69 +503,6 @@ class _SettingsContentState extends State<SettingsContent> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /*GestureDetector(
-                    /* onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => NotificationPage(),
-                          ));
-                    },*/
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: ScreenUtil().setHeight(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Benachrichtigungen".tr().toString(),
-                            style: TextStyle(
-                                fontSize:
-                                    widget.theme.textTheme.bodyText2.fontSize,
-                                color: widget.theme.disabledColor),
-                          ),
-                          IconTheme(
-                            data: IconThemeData(
-                                size: widget.theme.iconTheme.size,
-                                color: widget.theme.disabledColor),
-                            child: Icon(
-                              SystemIconsIS.is24_system_48px_chevron_right,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LanguageSelection(
-                              theme: widget.theme,
-                            ),
-                          ));
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: ScreenUtil().setHeight(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Sprachauswahl".tr().toString(),
-                            style: widget.theme.textTheme.bodyText2,
-                          ),
-                          IconTheme(
-                            data: widget.theme.iconTheme,
-                            child: Icon(
-                              SystemIconsIS.is24_system_48px_chevron_right,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),*/
                   GestureDetector(
                     onTap: () {
                       Navigator.push(

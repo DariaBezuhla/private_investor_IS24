@@ -1,4 +1,4 @@
- import 'package:carousel_pro/carousel_pro.dart';
+import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
@@ -18,7 +18,6 @@ import 'kostenrechner_widget.dart';
 
 class ExposeContent extends StatefulWidget {
   final RealEstateObject house;
-
 
   const ExposeContent({
     Key key,
@@ -41,7 +40,7 @@ class ExposeContentState extends State<ExposeContent> {
   var balkon = 'Balkon'.tr().toString();
   var keller = 'Keller'.tr().toString();
   var garten = 'Garten'.tr().toString();
-  var weitereFragen= 'Weitere Fragen zur Immobilie?'.tr().toString();
+  var weitereFragen = 'Weitere Fragen zur Immobilie?'.tr().toString();
   var geschKaltmiete = 'GeschKaltmiete'.tr().toString();
   var currencyFormatter = new NumberFormat.currency(
       locale: "de_DE", symbol: "€", decimalDigits: 0, name: "EUR");
@@ -90,34 +89,37 @@ class ExposeContentState extends State<ExposeContent> {
     return ListView(
       children: <Widget>[
         SizedBox(
-            height: ScreenUtil().setHeight(300),
-            width: MediaQuery.of(context).size.width,
-            child: _exposeObject != null ? Carousel(
-                dotBgColor: Colors.transparent,
-                dotVerticalPadding: 20,
-                autoplay: false,
-                dotSpacing: 15,
-                dotSize: 7,
-                images:_exposeObject?.gallery != null ? _exposeObject.gallery.map((e){
-                  return NetworkImage(e.toString());
-                }).toList() : [widget.house.pictureUrl]
-            ) : Hero(
-              tag: '${widget.house.id}-img',
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: ScreenUtil().setHeight(300),
-                decoration: new BoxDecoration(
-                  image: new DecorationImage(
-                    image: (widget.house.pictureUrl != null)
-                        ? NetworkImage(widget.house.pictureUrl)
-                        : NetworkImage('https://dummyimage.com/640x360/fff/aaa'),
-                    fit: BoxFit.cover,
+          height: ScreenUtil().setHeight(300),
+          width: MediaQuery.of(context).size.width,
+          child: _exposeObject != null
+              ? Carousel(
+                  dotBgColor: Colors.transparent,
+                  dotVerticalPadding: 20,
+                  autoplay: false,
+                  dotSpacing: 15,
+                  dotSize: 7,
+                  images: _exposeObject?.gallery != null
+                      ? _exposeObject.gallery.map((e) {
+                          return NetworkImage(e.toString());
+                        }).toList()
+                      : [widget.house.pictureUrl])
+              : Hero(
+                  tag: '${widget.house.id}-img',
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: ScreenUtil().setHeight(300),
+                    decoration: new BoxDecoration(
+                      image: new DecorationImage(
+                        image: (widget.house.pictureUrl != null)
+                            ? NetworkImage(widget.house.pictureUrl)
+                            : NetworkImage(
+                                'https://dummyimage.com/640x360/fff/aaa'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
         ),
-
 
         //intro info
         FractionallySizedBox(
@@ -136,8 +138,11 @@ class ExposeContentState extends State<ExposeContent> {
               ),
               //color: Colors.white,
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(2))),
+                color: Colors.white,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(2),
+                ),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -192,10 +197,11 @@ class ExposeContentState extends State<ExposeContent> {
                         Column(
                           children: <Widget>[
                             _buildInfoItemForPriceWithTransition(
-                                "Kaufpreis".tr().toString(), _exposeObject?.price?.value),
+                                "Kaufpreis".tr().toString(),
+                                _exposeObject?.price?.value),
                             SizedBox(height: ScreenUtil().setHeight(24)),
-                            _buildCurrencyItem(
-                                "Aktuelle Miete".tr().toString(), _exposeObject?.rent?.value)
+                            _buildCurrencyItem("Aktuelle Miete".tr().toString(),
+                                _exposeObject?.rent?.value)
                           ],
                         ),
                       ],
@@ -212,8 +218,8 @@ class ExposeContentState extends State<ExposeContent> {
                                 "Preis pro m2".tr().toString(),
                                 _exposeObject?.pricePerSqm?.value),
                             SizedBox(height: ScreenUtil().setHeight(24)),
-                            _buildCurrencyItem(
-                                "Hausgeld".tr().toString(), _exposeObject?.rentSubsidy?.value)
+                            _buildCurrencyItem("Hausgeld".tr().toString(),
+                                _exposeObject?.rentSubsidy?.value)
                           ],
                         ),
                       ],
@@ -320,7 +326,8 @@ class ExposeContentState extends State<ExposeContent> {
         //calculator button
         FractionallySizedBox(
           widthFactor: 0.95,
-          child: KostenrechnerButton(theme: "light", fetchedKaltmiete: fetchedKaltmiete),
+          child: KostenrechnerButton(
+              theme: "light", fetchedKaltmiete: fetchedKaltmiete),
         ),
 
         //object description
@@ -329,10 +336,12 @@ class ExposeContentState extends State<ExposeContent> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildDescriptionItem('Objektbeschreibung'.tr().toString(),
-                  _exposeObject?.description ?? "Keine Angaben".tr().toString()),
               _buildDescriptionItem(
-                  'Ort'.tr().toString(), _exposeObject?.location ?? "Keine Angaben".tr().toString()),
+                  'Objektbeschreibung'.tr().toString(),
+                  _exposeObject?.description ??
+                      "Keine Angaben".tr().toString()),
+              _buildDescriptionItem('Ort'.tr().toString(),
+                  _exposeObject?.location ?? "Keine Angaben".tr().toString()),
             ],
           ),
         ),
@@ -628,9 +637,7 @@ class ExposeContentState extends State<ExposeContent> {
               height: 100,
               width: 100,
               decoration: BoxDecoration(
-                color: kTeal.withOpacity(0.5),
-                shape: BoxShape.circle
-              ),
+                  color: kTeal.withOpacity(0.5), shape: BoxShape.circle),
             ),
           )
         ],
