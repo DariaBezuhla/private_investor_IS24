@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:privateinvestorsmobile/constant.dart';
 import 'package:privateinvestorsmobile/network/search_service.dart';
 import 'package:privateinvestorsmobile/transition/page_route_generator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -61,7 +62,8 @@ class ListViewForResultsState extends State<ListViewForResults>
   ValueNotifier<bool> stateNotifier;
 
   _scrollListener() {
-    if (_scrollController.offset >= _scrollController.position.maxScrollExtent &&
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
       _fetchMoreEstates();
     }
@@ -69,27 +71,40 @@ class ListViewForResultsState extends State<ListViewForResults>
 
   @override
   void initState() {
+    setState(() {
+      _loading = true;
+    });
     _initAnimationController();
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
     _searchService
-        .fetchList(pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting, priceTo: widget.budget,
-        estateType: widget.estateType, geocode: widget.geocode, netYieldFrom: widget.netYield,
-    priceTrendFrom: widget.priceTrend, rentTrendFrom: widget.rentTrend, factorTo: widget.factorTo,
-        pricePerSqm: widget.pricePerSqm, roomsFrom: widget.rooms, livingSpaceFrom: widget.livingSpace,
-        isRented: widget.rented, isNotFlagged: widget.plausible, refurbished: widget.refurbished,)
+        .fetchList(
+      pageNumber: _pageNumber,
+      sortBy: sortingBy,
+      sort: howSorting,
+      priceTo: widget.budget,
+      estateType: widget.estateType,
+      geocode: widget.geocode,
+      netYieldFrom: widget.netYield,
+      priceTrendFrom: widget.priceTrend,
+      rentTrendFrom: widget.rentTrend,
+      factorTo: widget.factorTo,
+      pricePerSqm: widget.pricePerSqm,
+      roomsFrom: widget.rooms,
+      livingSpaceFrom: widget.livingSpace,
+      isRented: widget.rented,
+      isNotFlagged: widget.plausible,
+      refurbished: widget.refurbished,
+    )
         .then((onValue) {
       setState(() {
         _estates.addAll(onValue);
+        _loading = false;
       });
     });
 
-
     // to do: super.initState();
-
   }
-
-
 
   void _initAnimationController() {
     _animationController = AnimationController(
@@ -134,39 +149,61 @@ class ListViewForResultsState extends State<ListViewForResults>
   @override
   Widget build(BuildContext context) {
     return ListView(
-        controller: _scrollController,
-        children: <Widget>[
-          (_estates.length > 0) ? Column(
-            children: <Widget>[
-              for (var estate in _estates) Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: ScreenUtil().setWidth(10),
-                      left: ScreenUtil().setWidth(10),
-                      right: ScreenUtil().setWidth(10),
-                    ),
-                  ),
-                  RealEstateCard(
-                    house: estate,
-                    theme: widget.theme,
-                    onSelected: onSelected,
-                  ),
-                ],
-              ),
-
-              (_loading == true) ? Row(
+      controller: _scrollController,
+      children: <Widget>[
+        _loading == true
+            ?
+            Container(
+              height: MediaQuery.of(context).size.height - 56*2 -39,
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  CircularProgressIndicator(),
+                  CircularProgressIndicator(
+
+                    backgroundColor: light.backgroundColor,
+                    valueColor: new AlwaysStoppedAnimation<Color>(light.primaryColor),
+                  ),
                 ],
-              ) : Container(width: 0, height: 0,)
-            ],
-          ) :
-          Center(
-            child: NoResultsFound(),// CircularProgressIndicator(),
-          )
-        ],
+        ),
+            )
+            : (_estates.length > 0)
+                ? Column(
+                    children: <Widget>[
+                      for (var estate in _estates)
+                        Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: ScreenUtil().setWidth(10),
+                                left: ScreenUtil().setWidth(10),
+                                right: ScreenUtil().setWidth(10),
+                              ),
+                            ),
+                            RealEstateCard(
+                              house: estate,
+                              theme: widget.theme,
+                              onSelected: onSelected,
+                            ),
+                          ],
+                        ),
+                      (_loading == true)
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                CircularProgressIndicator(),
+                              ],
+                            )
+                          : Container(
+                              width: 0,
+                              height: 0,
+                            )
+                    ],
+                  )
+                : Center(
+                    child: NoResultsFound(), // CircularProgressIndicator(),
+                  )
+      ],
     );
   }
 
@@ -178,11 +215,24 @@ class ListViewForResultsState extends State<ListViewForResults>
     });
 
     _searchService
-        .fetchList(pageNumber: _pageNumber, sortBy: sortingBy, sort: howSorting, priceTo: widget.budget,
-        estateType: widget.estateType, geocode: widget.geocode,  netYieldFrom: widget.netYield,
-        priceTrendFrom: widget.priceTrend, rentTrendFrom: widget.rentTrend, factorTo: widget.factorTo,
-        pricePerSqm: widget.pricePerSqm, roomsFrom: widget.rooms, livingSpaceFrom: widget.livingSpace,
-      isRented: widget.rented, isNotFlagged: widget.plausible, refurbished: widget.refurbished,)
+        .fetchList(
+      pageNumber: _pageNumber,
+      sortBy: sortingBy,
+      sort: howSorting,
+      priceTo: widget.budget,
+      estateType: widget.estateType,
+      geocode: widget.geocode,
+      netYieldFrom: widget.netYield,
+      priceTrendFrom: widget.priceTrend,
+      rentTrendFrom: widget.rentTrend,
+      factorTo: widget.factorTo,
+      pricePerSqm: widget.pricePerSqm,
+      roomsFrom: widget.rooms,
+      livingSpaceFrom: widget.livingSpace,
+      isRented: widget.rented,
+      isNotFlagged: widget.plausible,
+      refurbished: widget.refurbished,
+    )
         .then((onValue) {
       setState(() {
         _loading = false;
@@ -199,20 +249,33 @@ class ListViewForResultsState extends State<ListViewForResults>
       _loading = true;
     });
     _searchService
-      .fetchList(pageNumber: _pageNumber + 1, sortBy: sortingBy, sort: howSorting, priceTo: widget.budget,
-        estateType: widget.estateType, geocode: widget.geocode,  netYieldFrom: widget.netYield,
-        priceTrendFrom: widget.priceTrend, rentTrendFrom: widget.rentTrend, factorTo: widget.factorTo,
-        pricePerSqm: widget.pricePerSqm, roomsFrom: widget.rooms, livingSpaceFrom: widget.livingSpace,
-      isRented: widget.rented, isNotFlagged: widget.plausible,refurbished: widget.refurbished,)
-      .then((onValue) {
-        setState(() {
-          _loading = false;
-          _pageNumber++;
-          _estates.addAll(onValue);
-        });
-      }).catchError((onError) {
-        print(onError);
+        .fetchList(
+      pageNumber: _pageNumber + 1,
+      sortBy: sortingBy,
+      sort: howSorting,
+      priceTo: widget.budget,
+      estateType: widget.estateType,
+      geocode: widget.geocode,
+      netYieldFrom: widget.netYield,
+      priceTrendFrom: widget.priceTrend,
+      rentTrendFrom: widget.rentTrend,
+      factorTo: widget.factorTo,
+      pricePerSqm: widget.pricePerSqm,
+      roomsFrom: widget.rooms,
+      livingSpaceFrom: widget.livingSpace,
+      isRented: widget.rented,
+      isNotFlagged: widget.plausible,
+      refurbished: widget.refurbished,
+    )
+        .then((onValue) {
+      setState(() {
         _loading = false;
+        _pageNumber++;
+        _estates.addAll(onValue);
+      });
+    }).catchError((onError) {
+      print(onError);
+      _loading = false;
     });
   }
 }

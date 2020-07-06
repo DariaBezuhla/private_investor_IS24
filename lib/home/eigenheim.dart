@@ -21,6 +21,7 @@ class _EigenheimPage extends State<Eigenheim> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(bottom: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -58,26 +59,7 @@ class _EigenheimPage extends State<Eigenheim> {
                     style: CustomStyle.styleText(context),
                   ),
                   SizedBox(height: ScreenUtil().setHeight(10)),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: ScreenUtil().setHeight(10)),
-                    child: Divider(color: kLightGrey),
-                  ),
-                  new ButtonTheme(
-                    minWidth: double.infinity,
-                    child: FlatButton(
-                      color: kTeal,
-                      textColor: kCharcoal,
-                      padding: EdgeInsets.symmetric(
-                          vertical: ScreenUtil().setHeight(10),
-                          horizontal: ScreenUtil().setWidth(10)),
-                      onPressed: () {
-                        /*...*/
-                      },
-                      child: Text("Zum Finanzierungsrechner".tr().toString(),
-                          style: CustomStyle.styleButton(context)),
-                    ),
-                  ),
+
                 ],
               ),
             ),
