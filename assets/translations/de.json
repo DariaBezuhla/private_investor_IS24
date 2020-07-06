@@ -135,7 +135,7 @@
     "Haus":"Haus",
     "Alles":"Alles",
     "+ Kaufnebenkosten":"+ Kaufnebenkosten",
-    "priceDialog":"Der Kaufpreis ihrer Immobilie byw. Investitionsobjekts",
+    "priceDialog":"Der Kaufpreis ihrer Immobilie bzw. Investitionsobjekts",
     "rentalIncomeDialog":"Die in dieser Rubrik angegebenen Daten beruhen auf Marktschätzungen und stellen unverbindliche Durchschnittswerte dar.",
     "feeDialog":"Kosten, die nicht an den Mieter weiter gegeben werden dürfen, können hier berücksichtigt werden.",
     "rentLossDialog":"Um dem Fall von ausbleibenden Mietzahlungen vorzubeugen, können hier monatliche Rücklagen berücksichtigt werden.",
@@ -146,7 +146,7 @@
     "totalDialog":"Die Kaufpreis Ihrer Immobiilie bzw. Investitionsobjekts inklusive aller Kaufnebenkosten wie Grunderwerbsteuer, Notarkosten oder Maklerprovision",
     "equityDialog":"Eigenkapital Für eine Finanzierung sollten Sie mindestens 10% des Kaufpreises an Eigenkapital einbringen.",
     "cashflowDialog":"So viel bleibt monatlich vor Berücksichtigung etwaiger Steuerzahlungen. Ein negativer Wert bedeutet, das Investitionsobjekt generiert einen monatlichen Verlust.",
-    "schließen":"schließen",
+    "schließen":"Schließen",
     "enterBudget":"Bitte Budget eingeben",
     "enterRegion":"Bitte Region eingeben"
 

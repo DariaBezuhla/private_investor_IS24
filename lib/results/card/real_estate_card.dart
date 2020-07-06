@@ -269,57 +269,48 @@ class _RealEstateCardState extends State<RealEstateCard> {
       );
     }
 
-    return Padding(
-      //p1
-      padding: EdgeInsets.only(
-          top: ScreenUtil().setHeight(10),
-          left: ScreenUtil().setWidth(10),
-          right: ScreenUtil().setWidth(10)),
-      child: Container(
-        decoration: BoxDecoration(
-          color: cardColor,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(3),
-              topRight: Radius.circular(3),
-              bottomLeft: Radius.circular(3),
-              bottomRight: Radius.circular(3)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: elevationSize,
-              blurRadius: 5,
-              offset: Offset(0, elevationSize), // changes position of shadow
-            ),
-          ],
-        ),
-        child: Padding(
-          //p2
-          padding: EdgeInsets.only(
-              top: ScreenUtil().setHeight(10),
-              left: ScreenUtil().setWidth(10),
-              right: ScreenUtil().setWidth(10)),
-          child: Column(
-            children: <Widget>[
-              Row(
-                //1
-                children: <Widget>[
-                  GestureDetector(
-                    //1.1
-                    onTap: () {
-                      if (widget.onSelected != null) {
-                        widget.onSelected(widget.house);
-                      }
-                    },
-                    child: Hero(
+    return GestureDetector(
+      onTap: () {
+        if (widget.onSelected != null) {
+          widget.onSelected(widget.house);
+        }
+      },
+      child: Padding(
+        //p1
+        padding: EdgeInsets.only(
+            top: ScreenUtil().setHeight(10),
+            left: ScreenUtil().setWidth(10),
+            right: ScreenUtil().setWidth(10)),
+        child: Container(
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(3),
+                topRight: Radius.circular(3),
+                bottomLeft: Radius.circular(3),
+                bottomRight: Radius.circular(3)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: elevationSize,
+                blurRadius: 5,
+                offset: Offset(0, elevationSize), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Padding(
+            //p2
+            padding: EdgeInsets.only(
+                top: ScreenUtil().setHeight(10),
+                left: ScreenUtil().setWidth(10),
+                right: ScreenUtil().setWidth(10)),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  //1
+                  children: <Widget>[
+                    Hero(
                       tag: '${widget.house.id}-img',
-                      /*child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            PageRouteGenerator(builder: (context) {
-                              return ExposeScreen(house: widget.house);
-                            }),
-                          );
-                        }, */
                       child: Container(
                         width: widthOfImage,
                         height: heightOfImage,
@@ -334,142 +325,142 @@ class _RealEstateCardState extends State<RealEstateCard> {
                         ),
                       ),
                     ),
-                    /*  ),
-                   */
-                  ),
-                  Column(
-                    //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        //1.2.1
-                        width: widthOfTrendsContainer,
-                        height: heightOfImage / 3,
-                        child: Padding(
-                          //p3
-                          padding: EdgeInsets.only(
-                              // top: ScreenUtil().setHeight(10),
-                              left: ScreenUtil().setWidth(10),
-                              right: ScreenUtil().setWidth(10)),
-                          child: _buildInfoItem2(
-                              "MietpreisentwicklungRes".tr().toString(),
-                              widget.house.rentTrend.value == null
-                                  ? 0
-                                  : widget.house.rentTrend.value),
+                    //),
+                    Column(
+                      //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          //1.2.1
+                          width: widthOfTrendsContainer,
+                          height: heightOfImage / 3,
+                          child: Padding(
+                            //p3
+                            padding: EdgeInsets.only(
+                                // top: ScreenUtil().setHeight(10),
+                                left: ScreenUtil().setWidth(10),
+                                right: ScreenUtil().setWidth(10)),
+                            child: _buildInfoItem2(
+                                "MietpreisentwicklungRes".tr().toString(),
+                                widget.house.rentTrend.value == null
+                                    ? 0
+                                    : widget.house.rentTrend.value),
+                          ),
                         ),
-                      ),
-                      Container(
-                        //1.2.2
-                        width: widthOfTrendsContainer,
-                        height: heightOfImage / 3,
-                        child: Padding(
-                          //p3
-                          padding: EdgeInsets.only(
-                              //top: ScreenUtil().setHeight(10),
-                              left: ScreenUtil().setWidth(10),
-                              right: ScreenUtil().setWidth(10)),
-                          child: _buildInfoItem2(
-                              "KaufpreisentwicklungRes".tr().toString(),
-                              widget.house.priceTrend.value == null
-                                  ? 0
-                                  : widget.house.priceTrend.value),
+                        Container(
+                          //1.2.2
+                          width: widthOfTrendsContainer,
+                          height: heightOfImage / 3,
+                          child: Padding(
+                            //p3
+                            padding: EdgeInsets.only(
+                                //top: ScreenUtil().setHeight(10),
+                                left: ScreenUtil().setWidth(10),
+                                right: ScreenUtil().setWidth(10)),
+                            child: _buildInfoItem2(
+                                "KaufpreisentwicklungRes".tr().toString(),
+                                widget.house.priceTrend.value == null
+                                    ? 0
+                                    : widget.house.priceTrend.value),
+                          ),
                         ),
-                      ),
-                      Container(
-                        //widget.house.rentTrend.value
-                        //1.2.3
-                        width: widthOfTrendsContainer,
-                        height: heightOfImage / 3,
-                        child: Padding(
-                          //p4
-                          padding: EdgeInsets.only(
-                              // top: ScreenUtil().setHeight(10),
-                              left: ScreenUtil().setWidth(10),
-                              right: ScreenUtil().setWidth(10)),
-                          child: _buildNumberItem(
-                              "X-fache Miete".tr().toString(),
-                              widget.house.factor.value,
-                              null),
+                        Container(
+                          //widget.house.rentTrend.value
+                          //1.2.3
+                          width: widthOfTrendsContainer,
+                          height: heightOfImage / 3,
+                          child: Padding(
+                            //p4
+                            padding: EdgeInsets.only(
+                                // top: ScreenUtil().setHeight(10),
+                                left: ScreenUtil().setWidth(10),
+                                right: ScreenUtil().setWidth(10)),
+                            child: _buildNumberItem(
+                                "X-fache Miete".tr().toString(),
+                                widget.house.factor.value,
+                                null),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Container(
-                    width: widthOfImage,
-                    padding: EdgeInsets.only(
-                      top: ScreenUtil().setHeight(10),
+                      ],
                     ),
-                    child: Hero(
-                      tag: '${widget.house.id}-title',
-                      flightShuttleBuilder: (
-                        BuildContext flightContext,
-                        Animation<double> animation,
-                        HeroFlightDirection flightDirection,
-                        BuildContext fromHeroContext,
-                        BuildContext toHeroContext,
-                      ) {
-                        return DetailsStyle(
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Container(
+                      width: widthOfImage,
+                      padding: EdgeInsets.only(
+                        top: ScreenUtil().setHeight(10),
+                      ),
+                      child: Hero(
+                        tag: '${widget.house.id}-title',
+                        flightShuttleBuilder: (
+                          BuildContext flightContext,
+                          Animation<double> animation,
+                          HeroFlightDirection flightDirection,
+                          BuildContext fromHeroContext,
+                          BuildContext toHeroContext,
+                        ) {
+                          return DetailsStyle(
+                            title: widget.house?.title ?? "",
+                            isOverflow: true,
+                            viewState:
+                                flightDirection == HeroFlightDirection.push
+                                    ? ViewState.enlarge
+                                    : ViewState.shrink,
+                            textStyle: styleHeader4,
+                            smallFontSize: ScreenUtil().setHeight(18),
+                            largeFontSize: ScreenUtil().setHeight(18),
+                          );
+                        },
+                        child: DetailsStyle(
                           title: widget.house?.title ?? "",
-                          isOverflow: true,
-                          viewState: flightDirection == HeroFlightDirection.push
-                              ? ViewState.enlarge
-                              : ViewState.shrink,
-                          textStyle: styleHeader4,
+                          viewState: ViewState.shrunk,
                           smallFontSize: ScreenUtil().setHeight(18),
                           largeFontSize: ScreenUtil().setHeight(18),
-                        );
-                      },
-                      child: DetailsStyle(
-                        title: widget.house?.title ?? "",
-                        viewState: ViewState.shrunk,
-                        smallFontSize: ScreenUtil().setHeight(18),
-                        largeFontSize: ScreenUtil().setHeight(18),
-                        textStyle: styleHeader4,
+                          textStyle: styleHeader4,
+                        ),
                       ),
                     ),
-                  ),
-                  Spacer(),
-                  Container(
-                      height: ScreenUtil().setHeight(24),
-                      child: GestureDetector(
-                          onTap: () {
-                            _saveInWishList();
-                          },
-                          child: favoriteIcon)),
-                ],
-              ),
-              Row(
-                //3
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  widget.house.price.toString().length >= 23
-                      ? elementsInRow3[0]
-                      : Wrap(
-                          children: <Widget>[
-                            elementsInRow3[0],
-                            SizedBox(
-                              width: ScreenUtil().setWidth(10),
-                            ),
-                            elementsInRow3[1]
-                          ],
-                          spacing: 15.0,
-                        ),
-                  Spacer(),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: ScreenUtil().setHeight(10),
-                      bottom: ScreenUtil().setHeight(10),
+                    Spacer(),
+                    Container(
+                        height: ScreenUtil().setHeight(24),
+                        child: GestureDetector(
+                            onTap: () {
+                              _saveInWishList();
+                            },
+                            child: favoriteIcon)),
+                  ],
+                ),
+                Row(
+                  //3
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    widget.house.price.toString().length >= 23
+                        ? elementsInRow3[0]
+                        : Wrap(
+                            children: <Widget>[
+                              elementsInRow3[0],
+                              SizedBox(
+                                width: ScreenUtil().setWidth(10),
+                              ),
+                              elementsInRow3[1]
+                            ],
+                            spacing: 15.0,
+                          ),
+                    Spacer(),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: ScreenUtil().setHeight(10),
+                        bottom: ScreenUtil().setHeight(10),
+                      ),
+                      child: RatingButton(objectRating: widget.house.rating),
                     ),
-                    child: RatingButton(objectRating: widget.house.rating),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
