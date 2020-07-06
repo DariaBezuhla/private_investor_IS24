@@ -17,6 +17,7 @@ class _CalcCashflowState extends State<CalcCashflow> {
     return Material(
       color: kCard,
       elevation: elevation,
+      borderRadius: BorderRadius.circular(4.0),
       child: Container(
         width: ScreenUtil().setWidth(470),
         margin: EdgeInsets.all(ScreenUtil().setHeight(16)),

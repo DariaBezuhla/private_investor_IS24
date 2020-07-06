@@ -68,21 +68,6 @@ class StarteSucheState extends State<StarteSuche> {
       refurbishedFromUser = WeitereFilterDropDownState.pressedSaniert;
       rentedFromUser = WeitereFilterDropDownState.pressedVermietet;
       plausibleFromUser = WeitereFilterDropDownState.pressedPlausible;
-      /*
-      print('budgetInStarteSuche: ' + budgetFromUser.toString());
-      print('estateTypeInStarteSuche: ' + estateTypeFromUser.toString());
-      print('geoCodeInStarteSuche: ' + geoCodeFromUser.toString());
-      print('netYieldInStarteSuche: ' + netYieldFromUser.toString());
-      print('priceTrendInStarteSuche: ' + priceTrendFromUser.toString());
-      print('rentTrendInStarteSuche: ' + rentTrendFromUser.toString());
-      print('factorInStarteSuche: ' + factorFromUser.toString());
-      print('pricePerSqFInStarteSuche: ' + pricePerSqFromUser.toString());
-      print('roomsInStarteSuche: ' + roomsFromUser.toString());
-      print('livingSpaceSqFInStarteSuche: ' + livingSpaceFromUser.toString());
-      print('refurbishedInStarteSuche: ' + refurbishedFromUser.toString());
-      print('rentedInStarteSuche: ' + rentedFromUser.toString());
-      print('plausibleInStarteSuche: ' + plausibleFromUser.toString());
-       */
     });
   }
 

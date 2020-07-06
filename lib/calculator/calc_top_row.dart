@@ -13,6 +13,7 @@ class _CalcTopRowState extends State<CalcTopRow> {
   Widget build(BuildContext context) {
     return Material(
       elevation: elevation,
+      borderRadius: BorderRadius.circular(4.0),
       child: Container(
         width: ScreenUtil().setWidth(470),
         height: ScreenUtil().setHeight(47),

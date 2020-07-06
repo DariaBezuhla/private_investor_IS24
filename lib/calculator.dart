@@ -18,11 +18,11 @@ class Calculator extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _CalculatorPage();
+    return CalculatorPageState();
   }
 }
 
-class _CalculatorPage extends State<Calculator> {
+class CalculatorPageState extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -109,6 +109,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
     return Material(
         color: kCard,
         elevation: elevation,
+        borderRadius: BorderRadius.circular(4.0),
         child: Container(
           width: ScreenUtil().setWidth(470),
           margin: EdgeInsets.all(

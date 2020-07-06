@@ -61,6 +61,7 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
 
     return Material(
       elevation: elevation,
+      borderRadius: BorderRadius.circular(4.0),
       child: Container(
         width: ScreenUtil().setWidth(470),
         margin: EdgeInsets.all(ScreenUtil().setHeight(16)),
