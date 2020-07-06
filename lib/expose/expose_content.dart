@@ -1,3 +1,4 @@
+ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
@@ -88,22 +89,35 @@ class ExposeContentState extends State<ExposeContent> {
 
     return ListView(
       children: <Widget>[
-        //Image -> later Image Slider
-        Hero(
-          tag: '${widget.house.id}-img',
-          child: Container(
-            width: MediaQuery.of(context).size.width,
+        SizedBox(
             height: ScreenUtil().setHeight(300),
-            decoration: new BoxDecoration(
-              image: new DecorationImage(
-                image: (widget.house.pictureUrl != null)
-                    ? NetworkImage(widget.house.pictureUrl)
-                    : NetworkImage('https://dummyimage.com/640x360/fff/aaa'),
-                fit: BoxFit.cover,
+            width: MediaQuery.of(context).size.width,
+            child: _exposeObject != null ? Carousel(
+                dotBgColor: Colors.transparent,
+                dotVerticalPadding: 20,
+                autoplay: false,
+                dotSpacing: 15,
+                dotSize: 7,
+                images:_exposeObject?.gallery != null ? _exposeObject.gallery.map((e){
+                  return NetworkImage(e.toString());
+                }).toList() : [widget.house.pictureUrl]
+            ) : Hero(
+              tag: '${widget.house.id}-img',
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: ScreenUtil().setHeight(300),
+                decoration: new BoxDecoration(
+                  image: new DecorationImage(
+                    image: (widget.house.pictureUrl != null)
+                        ? NetworkImage(widget.house.pictureUrl)
+                        : NetworkImage('https://dummyimage.com/640x360/fff/aaa'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
-          ),
         ),
+
 
         //intro info
         FractionallySizedBox(
