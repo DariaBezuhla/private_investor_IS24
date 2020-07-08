@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:privateinvestorsmobile/calculator/subjects/calculator_api_data_object.dart';
 import 'package:privateinvestorsmobile/constant.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -9,20 +10,27 @@ import '../calculator.dart';
 
 class CalcFinanzierung extends StatefulWidget {
   @override
-  _CalcFinanzierungState createState() => _CalcFinanzierungState();
+   final exposeId;
+   final Function() parentFunction;
+   CalcFinanzierungState createState() => CalcFinanzierungState();
+    const CalcFinanzierung({Key key, this.exposeId, this.parentFunction}) : super(key: key);
+
 }
 
-class _CalcFinanzierungState extends State<CalcFinanzierung> {
+class CalcFinanzierungState extends State<CalcFinanzierung> {
   TextEditingController equityController;
   TextEditingController debitInterestController;
   TextEditingController amortizationController;
   CalculatorDataService _calculatorDataService;
+  CalculatorAPIData data;
 
   bool isSwitched = false;
   var purchasePriceData = 0;
   var totalAcquisitionCost = 0;
+
   var additionalCostData = 0.0;
   var additionalCostPercentData = 0;
+
   var ownFundsPercentData = 0;
   var netLoanAmount = 0;
   var debitInterestRate = 0.0;
@@ -36,40 +44,49 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
   var debitInterestResultValue = 0.0;
   var amortizationResultValue = 0.0;
 
+
+
   void initState() {
     super.initState();
     _calculatorDataService = CalculatorDataService();
-
-    List<Future> futures = [
-      _calculatorDataService.fetchAPIData(),
-    ];
-
-    Future.wait(futures).then((value) {
+    _calculatorDataService.fetchAPIData(exposeId: widget.exposeId).then((value) {
       setState(() {
-        purchasePriceData = value[0].purchasePrice;
-        additionalCostPercentData = value[0].totalPercentAdditionalCosts;
-        ownFundsPercentData = value[0].totalPercentOwnFunds;
+        data = value;
+        purchasePriceData = data.purchasePrice;
+        additionalCostPercentData = data.totalPercentAdditionalCosts;
+        ownFundsPercentData = data.totalPercentOwnFunds;
         equityResultValue = (purchasePriceData * ownFundsPercentData / 100);
 
         inputValueEquity = ownFundsPercentData.toString();
         equityController = TextEditingController(text: inputValueEquity);
 
-        debitInterestRate = value[0].debitInterestRate;
+        debitInterestRate = data.debitInterestRate;
         inputValueDebit = debitInterestRate.toString();
         debitInterestController = TextEditingController(text: inputValueDebit);
 
-        amortizationRate = value[0].amortizationRate;
+        amortizationRate = data.amortizationRate;
         inputValueAmortization = amortizationRate.toString();
         amortizationController = TextEditingController(text: inputValueAmortization);
+
+        countKaufnebenkosten();
+        countTotalAcquisitionCost();
+        countNetLoanAmount();
+        countDebitInterestResultValue();
+        countAmortizationResultValue();
+        countTotalRateToBank();
+        //values that will be passed to CashFlow
+        //should be in the very end to read the right data after it was calculated
+         widget.parentFunction();
       });
-      countKaufnebenkosten();
-      countTotalAcquisitionCost();
-      countNetLoanAmount();
-      countDebitInterestResultValue();
-      countAmortizationResultValue();
-      countTotalRateToBank();
     });
   }
+
+  void refresh() {
+    setState(() {
+      countTotalAcquisitionCost();
+    });
+  }
+
 
   void countKaufnebenkosten() {
     setState(() {
@@ -133,6 +150,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                       onToggle: (value) {
                         setState(() {
                           isSwitched = !isSwitched;
+                          widget.parentFunction();
                         });
                       },
                     ),
@@ -254,6 +272,9 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                           debitInterestResultValue = (netLoanAmount * debitInterestRate / 100 / 12);
                           amortizationResultValue = (netLoanAmount * amortizationRate / 100 / 12);
                           totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
+
+                          //changes the data in the other class(cashFlow)
+                          widget.parentFunction();
                         });
                       },
                       label: '$ownFundsPercentData',
@@ -281,6 +302,7 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                                     netLoanAmount = (totalAcquisitionCost -
                                         equityResultValue.toInt());
                                     totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
+                                    widget.parentFunction();
                                     return;
                                   }
                                   inputValueEquity = text;
@@ -289,8 +311,12 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                                   amortizationResultValue = (netLoanAmount * amortizationRate / 100 / 12);
                                   debitInterestResultValue = (netLoanAmount * debitInterestRate/ 100 / 12);
                                   totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
+
+                                  //changes the data in the other class(cashFlow)
+                                  widget.parentFunction();
                                 });
                               },
+
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -424,11 +450,15 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                                   if (text == '') {
                                     debitInterestResultValue = 0.0;
                                     totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
+                                     //changes the data in the other class(cashFlow)
+                                    widget.parentFunction();
                                     return;
                                   }
                                   inputValueDebit = text;
                                   debitInterestResultValue = (netLoanAmount * double.parse(inputValueDebit) / 100 / 12);
                                   totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
+                                   //changes the data in the other class(cashFlow)
+                                  widget.parentFunction();
                                 });
                               },
                               decoration: InputDecoration(
@@ -528,11 +558,15 @@ class _CalcFinanzierungState extends State<CalcFinanzierung> {
                                   if (text == '') {
                                     amortizationResultValue = 0.0;
                                     totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
+                                     //changes the data in the other class(cashFlow)
+                                    widget.parentFunction();
                                     return;
                                   }
                                   inputValueAmortization = text;
                                   amortizationResultValue = (netLoanAmount * double.parse(inputValueAmortization) / 100 / 12);
                                   totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
+                                   //changes the data in the other class(cashFlow)
+                                    widget.parentFunction();
                                 });
                               },
                               decoration: InputDecoration(

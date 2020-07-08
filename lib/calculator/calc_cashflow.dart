@@ -1,17 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:privateinvestorsmobile/calculator/subjects/calculator_api_data_object.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import '../calculator.dart';
 import '../constant.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class CalcCashflow extends StatefulWidget {
-  @override
-  _CalcCashflowState createState() => _CalcCashflowState();
+class CalcCashFlow extends StatefulWidget {
+  CalcCashFlowState createState() => CalcCashFlowState();
+  const CalcCashFlow({Key key}) : super(key: key);
+
 }
 
-class _CalcCashflowState extends State<CalcCashflow> {
+class CalcCashFlowState extends State<CalcCashFlow> {
+
+  var cashFlow;
+  var operatingCosts;
+  var totalMortgageRate;
+
+
+   @override
+   void initState() {
+     super.initState();
+     setState(() {
+
+     });
+   }
+
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -45,7 +62,7 @@ class _CalcCashflowState extends State<CalcCashflow> {
                 ),
               ),
               Spacer(),
-              Text('250' + ' €', style: header4),
+              Text(cashFlow.toString() + ' €', style: header4),
             ],
           ),
         ]),

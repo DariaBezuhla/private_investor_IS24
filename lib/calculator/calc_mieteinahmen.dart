@@ -1,4 +1,3 @@
-//import 'dart:html';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
@@ -9,12 +8,13 @@ import 'package:easy_localization/easy_localization.dart';
 
 class CalcMieteinahmen extends StatefulWidget {
    final fetchedKaltmiete;
-   const CalcMieteinahmen({Key key, this.fetchedKaltmiete}) : super(key: key);
+   final Function() parentFunction;
+   const CalcMieteinahmen({Key key, this.fetchedKaltmiete, this.parentFunction}) : super(key: key);
 
-  _CalcMieteinahmenState createState() => _CalcMieteinahmenState();
+  CalcMieteinahmenState createState() => CalcMieteinahmenState();
 }
 
-class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
+class CalcMieteinahmenState extends State<CalcMieteinahmen> {
   TextEditingController resultController = new TextEditingController();
   TextEditingController utilitiesController = new TextEditingController();
   TextEditingController reservesController = new TextEditingController();
@@ -132,9 +132,11 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                     resultReservesValue = (kaltmiete * newReservesValue / 100).round();
                     resultMaintenanceValue = (kaltmiete * newMaintenanceValue / 100).round();
                     operatingCosts = (resultValue + resultReservesValue + resultMaintenanceValue).toInt();
+
+                    //changes the data in the other class(cashFlow)
+                    widget.parentFunction();
                   });
                 },
-                //label: '$kaltmiete',
               ),
             ),
 
@@ -188,12 +190,16 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                               inputUtilitiesValue = (0.0).toString();
                               resultValue = 0;
                               operatingCosts = (resultValue + resultReservesValue + resultMaintenanceValue).toInt();
+                              //changes the data in the other class(cashFlow)
+                              widget.parentFunction();
                               return;
                             }
                             inputUtilitiesValue = text;
                             double.parse(inputUtilitiesValue);
                             resultValue = (kaltmiete * double.parse(inputUtilitiesValue) / 100).round();
                             operatingCosts = (resultValue + resultReservesValue + resultMaintenanceValue).toInt();
+                            //changes the data in the other class(cashFlow)
+                            widget.parentFunction();
                           });
                         },
                           decoration: InputDecoration(
@@ -283,12 +289,16 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                               reservesValue = (0.0).toString();
                               resultReservesValue = 0;
                               operatingCosts = (resultValue + resultReservesValue + resultMaintenanceValue).toInt();
+                              //changes the data in the other class(cashFlow)
+                              widget.parentFunction();
                               return;
                             }
                             reservesValue = text;
                             double.parse(reservesValue);
                             resultReservesValue = (kaltmiete * double.parse(reservesValue) / 100).round();
                             operatingCosts = (resultValue + resultReservesValue + resultMaintenanceValue).toInt();
+                            //changes the data in the other class(cashFlow)
+                            widget.parentFunction();
                           });
                         },
                         decoration: InputDecoration(
@@ -377,12 +387,16 @@ class _CalcMieteinahmenState extends State<CalcMieteinahmen> {
                               maintenanceValue = (0.0).toString();
                               resultMaintenanceValue = 0;
                               operatingCosts = (resultValue + resultReservesValue + resultMaintenanceValue).toInt();
+                               //changes the data in the other class(cashFlow)
+                              widget.parentFunction();
                               return;
                             }
                             maintenanceValue = text;
                             double.parse(maintenanceValue);
                             resultMaintenanceValue = (kaltmiete * double.parse(maintenanceValue) / 100).round();
                             operatingCosts = (resultValue + resultReservesValue + resultMaintenanceValue).toInt();
+                             //changes the data in the other class(cashFlow)
+                            widget.parentFunction();
                           });
                         },
                         decoration: InputDecoration(

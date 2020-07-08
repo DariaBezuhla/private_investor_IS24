@@ -15,7 +15,8 @@ import 'icons/system_icons_i_s_icons.dart';
 
 class Calculator extends StatefulWidget {
   final fetchedKaltmiete;
-  const Calculator({Key key, this.fetchedKaltmiete}) : super(key: key);
+  final exposeId;
+  const Calculator({Key key, this.fetchedKaltmiete, this.exposeId}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -24,7 +25,50 @@ class Calculator extends StatefulWidget {
 }
 
 class CalculatorPageState extends State<Calculator> {
-  @override
+  final GlobalKey<CalcKaufpreisState> _key = GlobalKey();
+  final GlobalKey<CalcFinanzierungState> _key2 = GlobalKey();
+  final GlobalKey<CalcCashFlowState> _key3 = GlobalKey();
+  final GlobalKey<CalcMieteinahmenState> _key4 = GlobalKey();
+
+  void refreshTotalAcquisionCost() {
+    setState(() {
+      _key2.currentState.totalAcquisitionCost = _key.currentState.totalAcquisitionCost;
+
+      //calculates and sets new numbers for the "with mortgage" part of calculator
+      //when user moves slider od "purchase price"
+      _key2.currentState.purchasePriceData = _key.currentState.purchasePriceData;
+      _key2.currentState.equityResultValue = (_key2.currentState.purchasePriceData * _key2.currentState.ownFundsPercentData/100);
+      _key2.currentState.netLoanAmount = (_key2.currentState.totalAcquisitionCost -_key2.currentState.equityResultValue.toInt());
+
+      //debit interest, amortization and total rate
+      _key2.currentState.debitInterestResultValue = (_key2.currentState.netLoanAmount * _key2.currentState.debitInterestRate/100/12);
+      _key2.currentState.amortizationResultValue = (_key2.currentState.netLoanAmount * _key2.currentState.amortizationRate/100/12);
+      _key2.currentState.totalRateToBank = (_key2.currentState.debitInterestResultValue + _key2.currentState.amortizationResultValue).toInt();
+    });
+  }
+
+
+  void refreshCashFlow() {
+    setState(() {
+      _key3.currentState.totalMortgageRate = _key2.currentState.totalRateToBank;
+      _key3.currentState.operatingCosts = _key4.currentState.operatingCosts;
+      _key3.currentState.cashFlow = _key2.currentState.totalRateToBank + _key4.currentState.operatingCosts;
+
+       //cashFlow amount
+
+      (_key2.currentState.isSwitched) ?
+      //if the flutter switch is on
+      _key3.currentState.cashFlow = (_key4.currentState.kaltmiete - (_key4.currentState.operatingCosts + _key2.currentState.totalRateToBank)).round() :
+      //if the flutter switch is off
+      _key3.currentState.cashFlow = (_key4.currentState.kaltmiete - _key4.currentState.operatingCosts).round();
+    });
+  }
+
+    void refreshCashFlow2() {
+    setState(() {
+    });
+    }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWithArrow(),
@@ -43,13 +87,13 @@ class CalculatorPageState extends State<Calculator> {
                     SizedBox(height: ScreenUtil().setHeight(15)),
 
                     //KAUFPREIS
-                    CalcKaufpreis(),
+                    CalcKaufpreis(exposeId: widget.exposeId, parentFunction: refreshTotalAcquisionCost, key: _key),
                     SizedBox(height: ScreenUtil().setHeight(15)),
-                    CalcMieteinahmen(fetchedKaltmiete: widget.fetchedKaltmiete),
+                    CalcMieteinahmen(fetchedKaltmiete: widget.fetchedKaltmiete, parentFunction: refreshCashFlow, key: _key4),
                     SizedBox(height: ScreenUtil().setHeight(15)),
-                    CalcFinanzierung(),
+                    CalcFinanzierung(exposeId: widget.exposeId, parentFunction: refreshCashFlow, key: _key2),
                     SizedBox(height: ScreenUtil().setHeight(15)),
-                    CalcCashflow(),
+                    CalcCashFlow(key: _key3),
                     SizedBox(height: ScreenUtil().setHeight(15)),
                   ],
                 ),

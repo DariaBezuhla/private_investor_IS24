@@ -2,16 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/calculator.dart';
 import 'package:privateinvestorsmobile/calculator/calc_api_data.dart';
+import 'package:privateinvestorsmobile/calculator/subjects/calculator_api_data_object.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/constant.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class CalcKaufpreis extends StatefulWidget {
-  _CalcKaufpreisState createState() => _CalcKaufpreisState();
+   final exposeId;
+   final Function() parentFunction;
+  CalcKaufpreisState createState() => CalcKaufpreisState();
+  const CalcKaufpreis({Key key, this.exposeId, this.parentFunction}) : super(key: key);
+
 }
 
-class _CalcKaufpreisState extends State<CalcKaufpreis> {
+class CalcKaufpreisState extends State<CalcKaufpreis> {
   CalculatorDataService _calculatorDataService;
+
+  CalculatorAPIData data;
 
   var totalAcquisitionCost = 0;
   var additionalCostData = 0.0;
@@ -24,22 +31,22 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
   void initState() {
     super.initState();
     _calculatorDataService = CalculatorDataService();
-
-    List<Future> futures = [
-         _calculatorDataService.fetchAPIData(),
-    ];
-
-    Future.wait(futures).then((value) {
+    _calculatorDataService.fetchAPIData(exposeId: widget.exposeId).then((value) {
       setState(() {
-        purchasePriceData = value[0].purchasePrice;
-        additionalCostPercentData = value[0].totalPercentAdditionalCosts;
-        maxValue = purchasePriceData + 20000.0;
+        data = value;
+        purchasePriceData = data.purchasePrice;
+        additionalCostPercentData = data.totalPercentAdditionalCosts;
+        maxValue = purchasePriceData + (purchasePriceData * 20)/100;
         minValue = 20000.0;
+        countKaufnebenkosten();
+        countTotalAcquisitionCost();
+
+          //should be in the very end to read the right data after it was calculated
+        widget.parentFunction();
       });
-      countKaufnebenkosten();
-      countTotalAcquisitionCost();
     });
   }
+
 
   void countKaufnebenkosten() {
     setState(() {
@@ -91,7 +98,7 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
                   ),
                 ),
                 Spacer(),
-                Text(purchasePriceData.toString()),
+                Text(purchasePriceData.toString() + ' €'),
               ],
             ),
 
@@ -114,6 +121,7 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
                     purchasePriceData = newPrice.round();
                     additionalCostData = (purchasePriceData * additionalCostPercentData/100);
                     totalAcquisitionCost = (purchasePriceData + additionalCostData).toInt();
+                    widget.parentFunction();
                   });
                 },
                 label: '$purchasePriceData',
@@ -130,7 +138,7 @@ class _CalcKaufpreisState extends State<CalcKaufpreis> {
                   Container(
                       child: Text(additionalCostPercentData.toString() + "%")),
                   Container(
-                      child: Text(additionalCostData.round().toString())),
+                      child: Text(additionalCostData.round().toString() + ' €')),
                 ],
               ),
             ),

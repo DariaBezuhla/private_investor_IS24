@@ -326,8 +326,7 @@ class ExposeContentState extends State<ExposeContent> {
         //calculator button
         FractionallySizedBox(
           widthFactor: 0.95,
-          child: KostenrechnerButton(
-              theme: "light", fetchedKaltmiete: fetchedKaltmiete),
+          child: KostenrechnerButton(theme: "light", fetchedKaltmiete: fetchedKaltmiete, exposeId: widget.house.id),
         ),
 
         //object description
