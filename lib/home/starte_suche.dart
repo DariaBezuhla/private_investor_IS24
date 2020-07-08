@@ -73,8 +73,11 @@ class StarteSucheState extends State<StarteSuche> {
 
   void refreshLocation() {
     geoCodeFromUser = LocationInputFieldState.geoCode;
-    if (userLoc) if (geoCodeFromUser == null) geoCodeFromUser = geoCode;
-    //print('geoCodeInStarteSuche: ' + geoCodeFromUser.toString());
+    if (userLoc) {
+      if (geoCodeFromUser == null) {
+        geoCodeFromUser = geoCode;
+      }
+    }
   }
 
   _getCurrentLocation() async {

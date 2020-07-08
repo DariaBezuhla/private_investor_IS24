@@ -73,7 +73,6 @@ class LocationInputFieldState extends State<LocationTextField> {
     _controller.clear();
     geoCode = null;
     widget.function();
-    //FocusScope.of(context).unfocus();
   }
 
   @override
@@ -136,6 +135,22 @@ class LocationInputFieldState extends State<LocationTextField> {
                                 _input = it;
                                 _choseLocation = false;
                                 focusedInputField = true;
+
+                                //DON'T FOUND A Location - for dummy location
+                                AutoCompleteLocationService
+                                    autoCompleteLocationService =
+                                    AutoCompleteLocationService();
+                                autoCompleteLocationService
+                                    .fetchAutocompleteLocation(location: _input)
+                                    .then((value) {
+                                  if (value.length > 0) {
+                                  } else {
+                                    geoCode = "-1";
+                                    widget.function();
+
+                                  }
+                                });
+                                //applyStateChanges(it);
                               });
                             },
                           );
@@ -143,25 +158,10 @@ class LocationInputFieldState extends State<LocationTextField> {
                       },
                       onTap: _clearTextInput,
                       validator: (value) {
-                        //DON'T FOUND A Location - for dummy location
-                        /* AutoCompleteLocationService
-                            autoCompleteLocationService =
-                            AutoCompleteLocationService();
-                        var s = autoCompleteLocationService
-                            .fetchAutocompleteLocation(location: value);
-                        var pruf = s.then((loc) => loc.length > 0
-                            ? false
-                            : true);
-
-                        if (pruf) {
-                          return 'enterRegion'.tr().toString();
-                        }
-                        */
                         //FIELD is empty
                         if (value.isEmpty) {
                           return 'enterRegion'.tr().toString();
                         }
-
                         return null;
                       },
                     ),
