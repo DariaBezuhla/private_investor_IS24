@@ -8,16 +8,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'calc_api_data.dart';
 import '../calculator.dart';
 
-class CalcFinanzierung extends StatefulWidget {
+class CalcMortgage extends StatefulWidget {
   @override
    final exposeId;
-   final Function() parentFunction;
-   CalcFinanzierungState createState() => CalcFinanzierungState();
-    const CalcFinanzierung({Key key, this.exposeId, this.parentFunction}) : super(key: key);
+   final Function() parentFunctionCashFlow;
+   final Function() parentFunctionReturnOnEquity;
+   CalcMortgageState createState() => CalcMortgageState();
+    const CalcMortgage({Key key, this.exposeId, this.parentFunctionCashFlow, this.parentFunctionReturnOnEquity}) : super(key: key);
 
 }
 
-class CalcFinanzierungState extends State<CalcFinanzierung> {
+class CalcMortgageState extends State<CalcMortgage> {
   TextEditingController equityController;
   TextEditingController debitInterestController;
   TextEditingController amortizationController;
@@ -43,8 +44,6 @@ class CalcFinanzierungState extends State<CalcFinanzierung> {
   var equityResultValue = 0.0;
   var debitInterestResultValue = 0.0;
   var amortizationResultValue = 0.0;
-
-
 
   void initState() {
     super.initState();
@@ -74,19 +73,13 @@ class CalcFinanzierungState extends State<CalcFinanzierung> {
         countDebitInterestResultValue();
         countAmortizationResultValue();
         countTotalRateToBank();
-        //values that will be passed to CashFlow
+        //values that will be passed to CashFlow and Top row
         //should be in the very end to read the right data after it was calculated
-         widget.parentFunction();
+         widget.parentFunctionCashFlow();
+         widget.parentFunctionReturnOnEquity();
       });
     });
   }
-
-  void refresh() {
-    setState(() {
-      countTotalAcquisitionCost();
-    });
-  }
-
 
   void countKaufnebenkosten() {
     setState(() {
@@ -150,7 +143,8 @@ class CalcFinanzierungState extends State<CalcFinanzierung> {
                       onToggle: (value) {
                         setState(() {
                           isSwitched = !isSwitched;
-                          widget.parentFunction();
+                          widget.parentFunctionCashFlow();
+                          widget.parentFunctionReturnOnEquity();
                         });
                       },
                     ),
@@ -274,7 +268,8 @@ class CalcFinanzierungState extends State<CalcFinanzierung> {
                           totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
 
                           //changes the data in the other class(cashFlow)
-                          widget.parentFunction();
+                          widget.parentFunctionCashFlow();
+                          widget.parentFunctionReturnOnEquity();
                         });
                       },
                       label: '$ownFundsPercentData',
@@ -302,7 +297,8 @@ class CalcFinanzierungState extends State<CalcFinanzierung> {
                                     netLoanAmount = (totalAcquisitionCost -
                                         equityResultValue.toInt());
                                     totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
-                                    widget.parentFunction();
+                                    widget.parentFunctionCashFlow();
+                                    widget.parentFunctionReturnOnEquity();
                                     return;
                                   }
                                   inputValueEquity = text;
@@ -313,7 +309,8 @@ class CalcFinanzierungState extends State<CalcFinanzierung> {
                                   totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
 
                                   //changes the data in the other class(cashFlow)
-                                  widget.parentFunction();
+                                  widget.parentFunctionCashFlow();
+                                  widget.parentFunctionReturnOnEquity();
                                 });
                               },
 
@@ -451,14 +448,16 @@ class CalcFinanzierungState extends State<CalcFinanzierung> {
                                     debitInterestResultValue = 0.0;
                                     totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
                                      //changes the data in the other class(cashFlow)
-                                    widget.parentFunction();
+                                    widget.parentFunctionCashFlow();
+                                    widget.parentFunctionReturnOnEquity();
                                     return;
                                   }
                                   inputValueDebit = text;
                                   debitInterestResultValue = (netLoanAmount * double.parse(inputValueDebit) / 100 / 12);
                                   totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
                                    //changes the data in the other class(cashFlow)
-                                  widget.parentFunction();
+                                  widget.parentFunctionCashFlow();
+                                  widget.parentFunctionReturnOnEquity();
                                 });
                               },
                               decoration: InputDecoration(
@@ -559,14 +558,16 @@ class CalcFinanzierungState extends State<CalcFinanzierung> {
                                     amortizationResultValue = 0.0;
                                     totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
                                      //changes the data in the other class(cashFlow)
-                                    widget.parentFunction();
+                                    widget.parentFunctionCashFlow();
+                                    widget.parentFunctionReturnOnEquity();
                                     return;
                                   }
                                   inputValueAmortization = text;
                                   amortizationResultValue = (netLoanAmount * double.parse(inputValueAmortization) / 100 / 12);
                                   totalRateToBank = (debitInterestResultValue + amortizationResultValue).toInt();
                                    //changes the data in the other class(cashFlow)
-                                    widget.parentFunction();
+                                    widget.parentFunctionCashFlow();
+                                    widget.parentFunctionReturnOnEquity();
                                 });
                               },
                               decoration: InputDecoration(

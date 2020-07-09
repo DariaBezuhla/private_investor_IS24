@@ -12,12 +12,6 @@ class _CalcTextFieldState extends State<CalcTextField> {
   var myheader;
   String header;
 
-  /*String showHeader(header) {
-    myheader = header;
-    return myheader;
-  }
-*/
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -66,9 +60,6 @@ class _CalcTextFieldState extends State<CalcTextField> {
                           color: kDivider,
                         ),
                       ),
-                      /*labelStyle: TextStyle(
-                            color: kLightGrey,
-                            fontSize: styleContainerDescription2.fontSize)*/
                     ),
                   ),
                 ),

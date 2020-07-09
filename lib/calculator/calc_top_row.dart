@@ -5,10 +5,16 @@ import 'package:easy_localization/easy_localization.dart';
 
 class CalcTopRow extends StatefulWidget {
   @override
-  _CalcTopRowState createState() => _CalcTopRowState();
+  CalcTopRowState createState() => CalcTopRowState();
+   const CalcTopRow({Key key}) : super(key: key);
 }
 
-class _CalcTopRowState extends State<CalcTopRow> {
+class CalcTopRowState extends State<CalcTopRow> {
+
+  var cashFlow;
+  var returnOnEquity;
+  var netRent;
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -28,7 +34,7 @@ class _CalcTopRowState extends State<CalcTopRow> {
               width: ScreenUtil().setWidth(10),
             ),
 
-            // 2
+            // 2 CASHFLOW
             Column(
               children: <Widget>[
                 Container(
@@ -38,7 +44,7 @@ class _CalcTopRowState extends State<CalcTopRow> {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Text(
-                      "516 €",
+                    cashFlow.toString() +  " €",
                       style: header4,
                     ),
                   ),
@@ -65,7 +71,7 @@ class _CalcTopRowState extends State<CalcTopRow> {
               width: ScreenUtil().setWidth(10),
             ),
 
-            // 4
+            // 4 DEBIT INTEREST
             Column(
               children: <Widget>[
                 Container(
@@ -102,7 +108,7 @@ class _CalcTopRowState extends State<CalcTopRow> {
               width: ScreenUtil().setWidth(10),
             ),
 
-            // 6
+            // 6 RETURN ON EQUITY
             Column(
               children: <Widget>[
                 Container(
@@ -111,8 +117,7 @@ class _CalcTopRowState extends State<CalcTopRow> {
                   height: ScreenUtil().setHeight(23),
                   child: Align(
                     alignment: Alignment.bottomCenter,
-                    child: Text(
-                      "9,1%",
+                    child: Text(returnOnEquity.toString() + " %",
                       style: header4,
                     ),
                   ),

@@ -7,15 +7,16 @@ import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
 import 'package:privateinvestorsmobile/constant.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class CalcKaufpreis extends StatefulWidget {
+class CalcPurchasePrice extends StatefulWidget {
    final exposeId;
-   final Function() parentFunction;
-  CalcKaufpreisState createState() => CalcKaufpreisState();
-  const CalcKaufpreis({Key key, this.exposeId, this.parentFunction}) : super(key: key);
+   final Function() parentFunctionCashFlow;
+   final Function() parentFunctionReturnOnEquity;
+  CalcPurchasePriceState createState() => CalcPurchasePriceState();
+  const CalcPurchasePrice({Key key, this.exposeId, this.parentFunctionCashFlow, this.parentFunctionReturnOnEquity}) : super(key: key);
 
 }
 
-class CalcKaufpreisState extends State<CalcKaufpreis> {
+class CalcPurchasePriceState extends State<CalcPurchasePrice> {
   CalculatorDataService _calculatorDataService;
 
   CalculatorAPIData data;
@@ -38,17 +39,17 @@ class CalcKaufpreisState extends State<CalcKaufpreis> {
         additionalCostPercentData = data.totalPercentAdditionalCosts;
         maxValue = purchasePriceData + (purchasePriceData * 20)/100;
         minValue = 20000.0;
-        countKaufnebenkosten();
+        countAdditionalCosts();
         countTotalAcquisitionCost();
 
           //should be in the very end to read the right data after it was calculated
-        widget.parentFunction();
+        widget.parentFunctionCashFlow();
       });
     });
   }
 
 
-  void countKaufnebenkosten() {
+  void countAdditionalCosts() {
     setState(() {
       additionalCostData = (purchasePriceData * additionalCostPercentData/100);
     });
@@ -121,7 +122,8 @@ class CalcKaufpreisState extends State<CalcKaufpreis> {
                     purchasePriceData = newPrice.round();
                     additionalCostData = (purchasePriceData * additionalCostPercentData/100);
                     totalAcquisitionCost = (purchasePriceData + additionalCostData).toInt();
-                    widget.parentFunction();
+                    widget.parentFunctionCashFlow();
+                    widget.parentFunctionReturnOnEquity();
                   });
                 },
                 label: '$purchasePriceData',

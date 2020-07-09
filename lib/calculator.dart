@@ -2,12 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/calculator/calc_cashflow.dart';
-import 'package:privateinvestorsmobile/calculator/calc_finanzierung.dart';
-import 'package:privateinvestorsmobile/calculator/calc_kaufpreis.dart';
-import 'package:privateinvestorsmobile/calculator/calc_mieteinahmen.dart';
+import 'package:privateinvestorsmobile/calculator/calc_mortgageCosts.dart';
+import 'package:privateinvestorsmobile/calculator/calc_purchasePrice.dart';
+import 'package:privateinvestorsmobile/calculator/calc_operatingCosts.dart';
 import 'package:privateinvestorsmobile/calculator/calc_top_row.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 import 'appBar/app_bar_with_ArrowLeft.dart';
 import 'bottomBar/bottom_bar.dart';
 import 'constant.dart';
@@ -25,49 +24,67 @@ class Calculator extends StatefulWidget {
 }
 
 class CalculatorPageState extends State<Calculator> {
-  final GlobalKey<CalcKaufpreisState> _key = GlobalKey();
-  final GlobalKey<CalcFinanzierungState> _key2 = GlobalKey();
-  final GlobalKey<CalcCashFlowState> _key3 = GlobalKey();
-  final GlobalKey<CalcMieteinahmenState> _key4 = GlobalKey();
+  final GlobalKey<CalcPurchasePriceState> _keyPurchasePrice = GlobalKey();
+  final GlobalKey<CalcMortgageState> _keyMortgage = GlobalKey();
+  final GlobalKey<CalcOperatingCostsState> _keyOperatingCosts = GlobalKey();
+  final GlobalKey<CalcCashFlowState> _keyCashFlow = GlobalKey();
+  final GlobalKey<CalcTopRowState> _keyCalcTopRow = GlobalKey();
 
   void refreshTotalAcquisionCost() {
     setState(() {
-      _key2.currentState.totalAcquisitionCost = _key.currentState.totalAcquisitionCost;
+      _keyMortgage.currentState.totalAcquisitionCost = _keyPurchasePrice.currentState.totalAcquisitionCost;
 
       //calculates and sets new numbers for the "with mortgage" part of calculator
       //when user moves slider od "purchase price"
-      _key2.currentState.purchasePriceData = _key.currentState.purchasePriceData;
-      _key2.currentState.equityResultValue = (_key2.currentState.purchasePriceData * _key2.currentState.ownFundsPercentData/100);
-      _key2.currentState.netLoanAmount = (_key2.currentState.totalAcquisitionCost -_key2.currentState.equityResultValue.toInt());
+      _keyMortgage.currentState.purchasePriceData = _keyPurchasePrice.currentState.purchasePriceData;
+      _keyMortgage.currentState.equityResultValue = (_keyMortgage.currentState.purchasePriceData * _keyMortgage.currentState.ownFundsPercentData/100);
+      _keyMortgage.currentState.netLoanAmount = (_keyMortgage.currentState.totalAcquisitionCost -_keyMortgage.currentState.equityResultValue.toInt());
 
       //debit interest, amortization and total rate
-      _key2.currentState.debitInterestResultValue = (_key2.currentState.netLoanAmount * _key2.currentState.debitInterestRate/100/12);
-      _key2.currentState.amortizationResultValue = (_key2.currentState.netLoanAmount * _key2.currentState.amortizationRate/100/12);
-      _key2.currentState.totalRateToBank = (_key2.currentState.debitInterestResultValue + _key2.currentState.amortizationResultValue).toInt();
+      _keyMortgage.currentState.debitInterestResultValue = (_keyMortgage.currentState.netLoanAmount * _keyMortgage.currentState.debitInterestRate/100/12);
+      _keyMortgage.currentState.amortizationResultValue = (_keyMortgage.currentState.netLoanAmount * _keyMortgage.currentState.amortizationRate/100/12);
+      _keyMortgage.currentState.totalRateToBank = (_keyMortgage.currentState.debitInterestResultValue + _keyMortgage.currentState.amortizationResultValue).toInt();
     });
   }
 
 
   void refreshCashFlow() {
     setState(() {
-      _key3.currentState.totalMortgageRate = _key2.currentState.totalRateToBank;
-      _key3.currentState.operatingCosts = _key4.currentState.operatingCosts;
-      _key3.currentState.cashFlow = _key2.currentState.totalRateToBank + _key4.currentState.operatingCosts;
+      //cashFlow for the CalcCashFlow class
+      _keyCashFlow.currentState.cashFlow = _keyMortgage.currentState.totalRateToBank + _keyOperatingCosts.currentState.operatingCosts;
 
-       //cashFlow amount
+        //cashFlow for the TopRow when user switches mortgage costs
+       (_keyMortgage.currentState.isSwitched) ?
+       //if the  switch is on
+       _keyCalcTopRow.currentState.cashFlow = (_keyOperatingCosts.currentState.kaltmiete - (_keyOperatingCosts.currentState.operatingCosts + _keyMortgage.currentState.totalRateToBank)).round() :
+       //if the switch is off
+       _keyCalcTopRow.currentState.cashFlow = (_keyOperatingCosts.currentState.kaltmiete - _keyOperatingCosts.currentState.operatingCosts).round();
 
-      (_key2.currentState.isSwitched) ?
-      //if the flutter switch is on
-      _key3.currentState.cashFlow = (_key4.currentState.kaltmiete - (_key4.currentState.operatingCosts + _key2.currentState.totalRateToBank)).round() :
-      //if the flutter switch is off
-      _key3.currentState.cashFlow = (_key4.currentState.kaltmiete - _key4.currentState.operatingCosts).round();
+       //cashFlow when user switches mortgage costs
+      (_keyMortgage.currentState.isSwitched) ?
+      //if the  switch is on
+      _keyCashFlow.currentState.cashFlow = (_keyOperatingCosts.currentState.kaltmiete - (_keyOperatingCosts.currentState.operatingCosts + _keyMortgage.currentState.totalRateToBank)).round() :
+      //if the switch is off
+      _keyCashFlow.currentState.cashFlow = (_keyOperatingCosts.currentState.kaltmiete - _keyOperatingCosts.currentState.operatingCosts).round();
     });
   }
 
-    void refreshCashFlow2() {
+  void refreshReturnOnEquity() {
     setState(() {
+      //calculates the netRent
+      _keyCalcTopRow.currentState.netRent =
+          (_keyOperatingCosts.currentState.kaltmiete - _keyOperatingCosts.currentState.operatingCosts).round();
+
+      //caluclates the return on equity %
+      (_keyMortgage.currentState.isSwitched) ?
+          //with the mortgage
+      _keyCalcTopRow.currentState.returnOnEquity = ((((_keyCalcTopRow.currentState.netRent * 12) -
+              (_keyMortgage.currentState.debitInterestResultValue * 12)) / _keyMortgage.currentState.equityResultValue) * 100).toStringAsFixed(1) :
+          //without mortgage
+      _keyCalcTopRow.currentState.returnOnEquity =
+          ((_keyCalcTopRow.currentState.netRent * 12 * 100) / (_keyMortgage.currentState.totalAcquisitionCost)).toStringAsFixed(1);
     });
-    }
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,17 +100,20 @@ class CalculatorPageState extends State<Calculator> {
                 Column(
                   children: <Widget>[
                     //TOP ROW
-                    CalcTopRow(),
+                    CalcTopRow(key: _keyCalcTopRow),
                     SizedBox(height: ScreenUtil().setHeight(15)),
 
                     //KAUFPREIS
-                    CalcKaufpreis(exposeId: widget.exposeId, parentFunction: refreshTotalAcquisionCost, key: _key),
+                    CalcPurchasePrice(exposeId: widget.exposeId, parentFunctionCashFlow: refreshTotalAcquisionCost,
+                        parentFunctionReturnOnEquity: refreshReturnOnEquity , key: _keyPurchasePrice),
                     SizedBox(height: ScreenUtil().setHeight(15)),
-                    CalcMieteinahmen(fetchedKaltmiete: widget.fetchedKaltmiete, parentFunction: refreshCashFlow, key: _key4),
+                    CalcOperatingCosts(fetchedKaltmiete: widget.fetchedKaltmiete, parentFunctionCashFlow: refreshCashFlow,
+                        parentFunctionReturnOnEquity: refreshReturnOnEquity, key: _keyOperatingCosts),
                     SizedBox(height: ScreenUtil().setHeight(15)),
-                    CalcFinanzierung(exposeId: widget.exposeId, parentFunction: refreshCashFlow, key: _key2),
+                    CalcMortgage(exposeId: widget.exposeId, parentFunctionCashFlow: refreshCashFlow,
+                        parentFunctionReturnOnEquity: refreshReturnOnEquity, key: _keyMortgage),
                     SizedBox(height: ScreenUtil().setHeight(15)),
-                    CalcCashFlow(key: _key3),
+                    CalcCashFlow(key: _keyCashFlow),
                     SizedBox(height: ScreenUtil().setHeight(15)),
                   ],
                 ),
