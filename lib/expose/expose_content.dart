@@ -53,8 +53,18 @@ class ExposeContentState extends State<ExposeContent> {
       setState(() {
         _exposeObject = value;
         fetchedKaltmiete = _exposeObject?.rentAbsolute?.value;
+
       });
     });
+  }
+
+  List<dynamic> _getGalleryImages(int limit){
+    int length = _exposeObject.gallery.length;
+    int end = length <= limit ? length : limit;
+
+    return _exposeObject.gallery.getRange(0, end).map((e) {
+      return NetworkImage(e.toString());
+    }).toList();
   }
 
   @override
@@ -99,9 +109,7 @@ class ExposeContentState extends State<ExposeContent> {
                   dotSpacing: 15,
                   dotSize: 7,
                   images: _exposeObject?.gallery != null
-                      ? _exposeObject.gallery.map((e) {
-                          return NetworkImage(e.toString());
-                        }).toList()
+                      ? _getGalleryImages(10)
                       : [widget.house.pictureUrl])
               : Hero(
                   tag: '${widget.house.id}-img',

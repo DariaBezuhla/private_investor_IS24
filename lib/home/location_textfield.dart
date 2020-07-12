@@ -147,7 +147,6 @@ class LocationInputFieldState extends State<LocationTextField> {
                                   } else {
                                     geoCode = "-1";
                                     widget.function();
-
                                   }
                                 });
                                 //applyStateChanges(it);
@@ -176,7 +175,16 @@ class LocationInputFieldState extends State<LocationTextField> {
                                   return Column(
                                     children: <Widget>[
                                       Center(
-                                        child: CircularProgressIndicator(),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: CircularProgressIndicator(
+                                            backgroundColor:
+                                                light.backgroundColor,
+                                            valueColor:
+                                                new AlwaysStoppedAnimation<
+                                                    Color>(light.primaryColor),
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   );

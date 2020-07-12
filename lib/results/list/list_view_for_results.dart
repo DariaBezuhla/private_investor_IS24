@@ -152,21 +152,20 @@ class ListViewForResultsState extends State<ListViewForResults>
       controller: _scrollController,
       children: <Widget>[
         _loading == true
-            ?
-            Container(
-              height: MediaQuery.of(context).size.height - 56*2 -39,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  CircularProgressIndicator(
-
-                    backgroundColor: light.backgroundColor,
-                    valueColor: new AlwaysStoppedAnimation<Color>(light.primaryColor),
-                  ),
-                ],
-        ),
-            )
+            ? Container(
+                height: MediaQuery.of(context).size.height - 56 * 2 - 39,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    CircularProgressIndicator(
+                      backgroundColor: light.backgroundColor,
+                      valueColor:
+                          new AlwaysStoppedAnimation<Color>(light.primaryColor),
+                    ),
+                  ],
+                ),
+              )
             : (_estates.length > 0)
                 ? Column(
                     children: <Widget>[
@@ -191,7 +190,11 @@ class ListViewForResultsState extends State<ListViewForResults>
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                CircularProgressIndicator(),
+                                CircularProgressIndicator(
+                                  backgroundColor: light.backgroundColor,
+                                  valueColor: new AlwaysStoppedAnimation<Color>(
+                                      light.primaryColor),
+                                ),
                               ],
                             )
                           : Container(
