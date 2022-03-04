@@ -213,7 +213,7 @@ class NormalTextFieldState extends State<NormalTextField> {
                 controller: myController,
                 textInputAction: TextInputAction.go,
                 //keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[WhitelistingTextInputFormatter.digitsOnly],
+                //inputFormatters: <TextInputFormatter>[WhitelistingTextInputFormatter.digitsOnly],
                 decoration: new InputDecoration(
                   border: OutlineInputBorder(
                     borderSide: BorderSide(

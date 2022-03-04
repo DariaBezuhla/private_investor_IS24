@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:privateinvestorsmobile/icons/system_icons_i_s_icons.dart';
@@ -59,8 +58,7 @@ class _BottomBarState extends State<BottomBar> {
           onTap: _onItemTapped,
           items: [
             BottomNavigationBarItem(
-              title:
-                  Padding(padding: EdgeInsets.all(0)), //Container(height: 0.0),
+              label: "Test 3",
               icon: Icon(
                 SystemIconsIS.is24_system_48px_search,
                 size: ScreenUtil()
@@ -71,8 +69,7 @@ class _BottomBarState extends State<BottomBar> {
                   new Image.asset("assets/images/search@3x_2.png", height: 26),
             ),
             BottomNavigationBarItem(
-              title:
-                  Padding(padding: EdgeInsets.all(0)), //Container(height: 0.0),
+              label: "Test2",
               icon: Icon(
                 SystemIconsIS.is24_system_48px_heart_favorite,
                 size: ScreenUtil()
@@ -83,8 +80,7 @@ class _BottomBarState extends State<BottomBar> {
                   new Image.asset("assets/images/heart@3x_2.png", height: 26),
             ),
             BottomNavigationBarItem(
-              title:
-                  Padding(padding: EdgeInsets.all(0)), //Container(height: 0.0),
+              label: "test",
               icon: Icon(
                 SystemIconsIS.is24_system_48px_settings,
                 size: ScreenUtil()

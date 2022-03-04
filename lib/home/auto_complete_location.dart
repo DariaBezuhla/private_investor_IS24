@@ -26,7 +26,7 @@ class AutoCompleteLocationService {
   Future<List<Location>> fetchAutocompleteLocation(
       {String location = 'berlin'}) async {
     final response = await http.get(
-        'https://pib-prod.is24-baufi.eu-west-1.infinity.s24cloud.net/pib/endpoint/geo-auto-complete?t=country%2Cregion%2Ccity%2Cdistrict%2Cpostcode%2CquarterOrTown%2CpostcodeWithQuarter&i=$location');
+        'https://api.call=$location');
 
     List<Location> locations = [];
     if (response.statusCode == 200) {

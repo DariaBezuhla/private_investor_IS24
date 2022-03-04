@@ -8,7 +8,7 @@ class PageRouteGenerator<T> extends PageRoute<T> {
     this.maintainState = true,
   })  : assert(builder != null),
         assert(maintainState != null),
-        assert(opaque),
+      //  assert(opaque),
         super(settings: settings);
 
   /// Builds the primary contents of the route.
