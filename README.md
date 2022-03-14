@@ -1,20 +1,12 @@
-# Private Investors Flutter App
+# Private Investors - makes it easy to start investing in the real estate. 
 
-This is the mobile client for private investors portal.
+Private investor is a convenient mobile application for private real estate investors. The product helps investors of all disciplines and levels of professionalism to make the right investment decision through an intuitive and self-explanatory interface and integrated risk management.
 
-## Getting Started
+The application was built as a part project-collaboaration between HTW Berlin and ImmoScout24 by me and other 6 students. 
 
-For setting up the project you need to
-- [Install Flutter](https://flutter.dev/docs/get-started/install)
-- clone this repo into IntelliJ (or Visual Studio Code)
-- install Flutter and Dart Plugins for IntelliJ
-- run `flutter packages get` (or use flutter plugin)
+# Features
 
-For further help see the [flutter docs](https://flutter.dev/docs).
+## 1.Search on the main page 
 
-## Responsibilities
 
-- Page Transitions/ Animations - Nataliia 
-- Design compliance/ XD - Leonie
-- Storybook - Egor
-- API/ Service Layer - Minh, Cong
+
